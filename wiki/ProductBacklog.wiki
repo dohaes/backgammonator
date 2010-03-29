@@ -9,7 +9,7 @@ Actors: program, contest, contestant manager
 || 3 || As a contestant<br />I want the system to validate/verify my program<br />so that I can be aware if there are any errors || || 10h ||
 || 4 || As a contestant<br />I want the system to support Java for implementations of the AI player<br />so that I can implement my program in Java || || 8h ||
 || 5 || As a contestant<br />I want the system to support C/C++ for implementations of the AI player<br />so that I can implement my program in C/C++ || || 8h ||
-|| 6 || As a contestant<br />I want to be use the Backgamminator Library<br />so that I can test my AI players locally || || 4h ||
+|| 6 || As a contestant<br />I want to be use the Backgamminator Library<br />so that I can test my AI players locally || || 20h ||
 || 7 || As a contestant <br />I want the system to provide sample AI players<br />so that I can explore their source code ot run them against my AI players || || 20h ||
 || 8 || As contestant<br />I want to log in to the system<br />so that I am authenticated || || 4h ||
 || 9 || As contestant<br />I want to register into the system<br />so that I can log in || || 4h ||
