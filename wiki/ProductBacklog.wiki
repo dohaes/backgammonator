@@ -4,61 +4,20 @@
 Actors: program, contest, contestant manager
 
 || # || *User story* || *Priority* || *Estimation* ||
-|| 1 || As a contestant<br />I want to upload my program via web interface<br />so that I can take part in the tournament. || || ||
-|| 2 || As a contestant<br />I want to validate/verify my program<br />so that it will be executed without errors. || || ||
-|| 3 || As a program<br />I want to use an interface<br />so that I can interact with the system. || || ||
-|| 4 || As a contest manager<br />I want to configure the system via configuration file<br />so that the system acts as wanted. || || ||
-|| 5 || As a contest manager<br />I want to deploy programs in a specified directory<br />so that the system can recognize them. || || ||
-|| 6 || As a contest manager<br />I want to run the tournament<br />so that I can see the result. || || ||
-
-|| # || *User story* || *Priority* || *Estimation* ||
-|| 1 || As a program<br />I want to use an inteface<br />
-so that I can interact with the system ||  ||  ||
-|| 2 || As a contestant<br />
-I want to upload the source code of my program via web interface<br />
-so that I can take part in the tournament || ||  ||
-|| 3 || As a contestant<br />
-I want to upload the source code of my program via web interface<br />
-so that I can take part in the tournament || ||  ||
-|| 4 || As a contestant<br />
-I want the system to validate/verify my program<br />
-so that I can be aware if there are any errors || ||  ||
-|| 5 || As a contestant<br />
-I want the system to validate/verify my program<br />
-so that I can be aware if there are any errors || ||  ||
-|| 6 || As a contestant<br />
-I want the system to support Java for implementations of the AI player<br />
-so that I can implement my program in Java || ||  ||
-|| 7 || As a contestant<br />
-I want the system to support C/C++ for implementations of the AI player<br />
-so that I can implement my program in C/C++ || ||  ||
-|| 8 || As a contestant<br />
-I want to be use the Backgamminator Library<br />
-so that I can test my AI players locally || ||  ||
-|| 9 || As a contestant <br />
-I want the system to provide sample AI players<br />
-so that I can explore their source code ot run them against my AI players || ||  ||
-|| 10 || As contestant<br />
-I want to log in to the system<br />
-so that I am authenticated || ||  ||
-|| 11 || As contestant<br />
-I want to register into the system<br />
-so that I can log in || ||  ||
-|| 12 || As a contest manager<br />
-I want to adjust the tournament settings<br />
-so that I can define tournament type, number of battles and participating players || ||  ||
-|| 13 || As a contest manager<br />
-I want to adjust the uploading settings<br />
-so that I can define period for uploading and limit for the size ot the file to be uploaded || ||  ||
-|| 14 || As a contest manager<br />
-I want to run the tournament<br />
-so that I can see the result || ||  ||
-|| 15 || As a contest manager<br />
-I want the contestants' programs to be granted a limited set of permissions<br />
-so that no malicious code can be executed and  the system stays secured || ||  ||
-|| 16 || As contestant manager<br />
-I want to log in the system<br />
-so that I am authenticated || ||  ||
-|| 17 || As contestant manager<br />
-I want to delete registrations<br />
-so that I can remove contestants' accounts || ||  ||
+|| 1 || As a program<br />I want to use an inteface<br />so that I can interact with the system ||  ||  ||
+|| 2 || As a contestant<br />I want to upload the source code of my program via web interface<br />so that I can take part in the tournament || ||  ||
+|| 3 || As a contestant<br />I want to upload the source code of my program via web interface<br />so that I can take part in the tournament || ||  ||
+|| 4 || As a contestant<br />I want the system to validate/verify my program<br />so that I can be aware if there are any errors || ||  ||
+|| 5 || As a contestant<br />I want the system to validate/verify my program<br />so that I can be aware if there are any errors || ||  ||
+|| 6 || As a contestant<br />I want the system to support Java for implementations of the AI player<br />so that I can implement my program in Java || ||  ||
+|| 7 || As a contestant<br />I want the system to support C/C++ for implementations of the AI player<br />so that I can implement my program in C/C++ || ||  ||
+|| 8 || As a contestant<br />I want to be use the Backgamminator Library<br />so that I can test my AI players locally || ||  ||
+|| 9 || As a contestant <br />I want the system to provide sample AI players<br />so that I can explore their source code ot run them against my AI players || ||  ||
+|| 10 || As contestant<br />I want to log in to the system<br />so that I am authenticated || ||  ||
+|| 11 || As contestant<br />I want to register into the system<br />so that I can log in || ||  ||
+|| 12 || As a contest manager<br />I want to adjust the tournament settings<br />so that I can define tournament type, number of battles and participating players || ||  ||
+|| 13 || As a contest manager<br />I want to adjust the uploading settings<br />so that I can define period for uploading and limit for the size ot the file to be uploaded || ||  ||
+|| 14 || As a contest manager<br />I want to run the tournament<br />so that I can see the result || ||  ||
+|| 15 || As a contest manager<br />I want the contestants' programs to be granted a limited set of permissions<br />so that no malicious code can be executed and  the system stays secured || ||  ||
+|| 16 || As contestant manager<br />I want to log in the system<br />so that I am authenticated || ||  ||
+|| 17 || As contestant manager<br />I want to delete registrations<br />so that I can remove contestants' accounts || ||  ||
