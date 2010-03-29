@@ -4,9 +4,8 @@
 Actors: program, contest, contestant manager
 
 || # || *User story* || *Priority* || *Estimation* ||
-|| 1 || As a program<br />I want to use an inteface<br />so that I can interact with the system ||  ||  ||
-|| 2 || As a contestant<br />I want to upload the source code of my program via web interface<br />so that I can take part in the tournament || ||  ||
-|| 3 || As a contestant<br />I want to upload the source code of my program via web interface<br />so that I can take part in the tournament || ||  ||
+|| 1 || As a program<br />I want to use an inteface<br />so that I can interact with the system ||  || 4 ||
+|| 2 || As a contestant<br />I want to upload the source code of my program via web interface<br />so that I can take part in the tournament || || 10 ||
 || 4 || As a contestant<br />I want the system to validate/verify my program<br />so that I can be aware if there are any errors || ||  ||
 || 5 || As a contestant<br />I want the system to validate/verify my program<br />so that I can be aware if there are any errors || ||  ||
 || 6 || As a contestant<br />I want the system to support Java for implementations of the AI player<br />so that I can implement my program in Java || ||  ||
