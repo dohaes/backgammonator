@@ -1,50 +1,15 @@
 #summary Product backlog document of the project
 
+= Actors =
+ * contestant
+ * contest manager
+ * program
+
 = User stories =
-
-as a `<actor>`
-wants to do `<action>`
-so that `<value>`
-
-INVEST
-testable
-small
-estimatable
-valuable
-independent
-negotiable
-
-Card (трябва да се побира на картичка)
-Conversation (записва се допълнителна информация)
-Confirmation (дали работи - acceptance test)
-
-User story / Priority / Estimation
-
-
-
-actors  - contestant, contest manager, program
-
-
-As a contestant
-I want to upload my program via web interface
-so that I can take part in the tournament
-
-As a contestant
-I want to validate/verify my program
-so that it will be executed without errors
-
-As a program
-I want to use an interface
-so that I can interact with the system.
-
-As a contest manager
-I want to configure the system via configuration file
-so that the system acts as wanted
-
-As a contest manager
-I want to deploy programs in a specified directory
-so that the system can recognize them
-
-As a contest manager
-I want to run the tournament
-so that I can see the result
+|| *User story* || *Priority* || *Estimation* ||
+|| As a contestant<br />I want to upload my program via web interface<br />so that I can take part in the tournament. || || ||
+|| As a contestant<br />I want to validate/verify my program<br />so that it will be executed without errors. || || ||
+|| As a program<br />I want to use an interface<br />so that I can interact with the system. || || ||
+|| As a contest manager<br />I want to configure the system via configuration file<br />so that the system acts as wanted. || || ||
+|| As a contest manager<br />I want to deploy programs in a specified directory<br />so that the system can recognize them. || || ||
+|| As a contest manager<br />I want to run the tournament<br />so that I can see the result. || || ||
