@@ -1,11 +1,5 @@
 #summary Product backlog document of the project
 
-= Actors =
- * contestant
- * contest manager
- * program
-
-= User stories =
 || *User story* || *Priority* || *Estimation* ||
 || As a contestant<br />I want to upload my program via web interface<br />so that I can take part in the tournament. || || ||
 || As a contestant<br />I want to validate/verify my program<br />so that it will be executed without errors. || || ||
