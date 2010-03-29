@@ -16,6 +16,6 @@ Actors: program, contest, contestant manager
 || 10 || As a contest manager<br />I want to adjust the tournament settings<br />so that I can define tournament type, number of battles and participating players || || 8h ||
 || 11 || As a contest manager<br />I want to adjust the uploading settings<br />so that I can define period for uploading and limit for the size ot the file to be uploaded || || 4h ||
 || 12 || As a contest manager<br />I want to run the tournament<br />so that I can see the result || || 40h ||
-|| 13 || As a contest manager<br />I want the contestants' programs to be granted a limited set of permissions<br />so that no malicious code can be executed and  the system stays secured || || 12h ||
+|| 13 || As a contest manager<br />I want the contestants' programs to be granted a limited set of permissions<br />so that no malicious code can be executed and  the system stays secured || || 20h ||
 || 14 || As contestant manager<br />I want to log in the system<br />so that I am authenticated || || 4h ||
 || 15 || As contestant manager<br />I want to delete registrations<br />so that I can remove contestants' accounts || || 4h ||
