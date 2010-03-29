@@ -1,4 +1,5 @@
 #summary Product backlog document of the project
+#labels Featured
 
 || *User story* || *Priority* || *Estimation* ||
 || As a contestant<br />I want to upload my program via web interface<br />so that I can take part in the tournament. || || ||
