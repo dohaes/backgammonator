@@ -12,8 +12,7 @@ Actors: program, contest, contestant manager
 || 6 || As a contest manager<br />I want to run the tournament<br />so that I can see the result. || || ||
 
 || # || *User story* || *Priority* || *Estimation* ||
-|| 1 || As a program<br />
-I want to use an inteface<br />
+|| 1 || As a program<br />I want to use an inteface<br />
 so that I can interact with the system ||  ||  ||
 || 2 || As a contestant<br />
 I want to upload the source code of my program via web interface<br />
