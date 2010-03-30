@@ -1,10 +1,10 @@
 <wiki:toc max_depth="1" />
 
-= Project summary =
+=== Project summary ===
 
 Backgammonator is a programming contest, where the goal is to develop an AI player to play backgammon against other AI players.
 
-= Roles =
+=== Roles ===
 
  * Owner
   * Miloslav Sredkov
@@ -16,6 +16,6 @@ Backgammonator is a programming contest, where the goal is to develop an AI play
   * Andrei Penchev
   * Georgi Andreev
 
-= Artifacts =
+=== Artifacts ===
 
  * [https://spreadsheets.google.com/ccc?key=0AkTz2I4OVcj8dHhRRmVHQUY2REprZXJQYTl4NUFJRUE&hl=en Product Backlog]
