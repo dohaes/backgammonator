@@ -1,4 +1,4 @@
-#summary The main wiki page for Backgammonator.
+<wiki:toc max_depth="1" />
 
 = Project summary =
 
