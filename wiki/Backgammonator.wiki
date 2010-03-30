@@ -1,0 +1,21 @@
+#summary The main wiki page for Backgammonator.
+
+= Project summary =
+
+Backgammonator is a programming contest, where the goal is to develop an AI player to play backgammon against other AI players.
+
+= Roles =
+
+ * Owner
+  * Miloslav Sredkov
+ * Scrum master
+  * Iliyana Angelova
+ * Team
+  * Stefan Tsvyatkov
+  * Elena Gramatova
+  * Andrei Penchev
+  * Georgi Andreev
+
+= Artifacts =
+
+ * [https://spreadsheets.google.com/ccc?key=0AkTz2I4OVcj8dHhRRmVHQUY2REprZXJQYTl4NUFJRUE&hl=en Product Backlog]
