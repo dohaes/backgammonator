@@ -2,7 +2,7 @@
 
 === Roles ===
 
- * Owner
+ * Product owner
   * Miloslav Sredkov
  * Scrum master
   * Iliyana Angelova
