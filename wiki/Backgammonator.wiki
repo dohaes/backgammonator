@@ -1,4 +1,5 @@
 #summary Backgammonator is a programming contest, where the goal is to develop an AI player to play backgammon against other AI players.
+#labels Featured,Phase-Requirements,Phase-Design,Phase-Implementation
 
 === Roles ===
 
