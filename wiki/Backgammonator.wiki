@@ -22,4 +22,4 @@
  * [http://docs.google.com/Doc?docid=0AUTz2I4OVcj8ZGoyeGI2el8yOWZkbmpqZ2Rz&hl=en Done Definition]
 
  * Sprint 1
-  * [http://docs.google.com/Doc?docid=0AUTz2I4OVcj8ZGoyeGI2el8yOWZkbmpqZ2Rz&hl=en Impediments List] 
+  * [http://spreadsheets.google.com/ccc?key=0AkTz2I4OVcj8dEVjT3lETlhyUWRFd05ZdjlaT09KaXc&hl=en Impediments List] 
