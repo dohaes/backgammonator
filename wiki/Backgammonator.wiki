@@ -15,10 +15,11 @@
 
 === Artifacts ===
 
-
- * [https://spreadsheets.google.com/ccc?key=0AkTz2I4OVcj8dHhRRmVHQUY2REprZXJQYTl4NUFJRUE&hl=en Product Backlog]
+ * [https://spreadsheets.google.com/ccc?key=0AkTz2I4OVcj8dHhRRmVHQUY2REprZXJQYTl4NUFJRUE&hl=en Product backlog]
 
  * [https://docs.google.com/Doc?docid=0AUTz2I4OVcj8ZGoyeGI2el8yNmR3eHIzemZx&hl=en Design]
+
+ * [http://docs.google.com/Doc?docid=0AUTz2I4OVcj8ZGoyeGI2el8yOWZkbmpqZ2Rz&hl=en Done definition]
 
  * Sprint 1
   * [http://docs.google.com/Doc?docid=0AUTz2I4OVcj8ZGoyeGI2el8yOWZkbmpqZ2Rz&hl=en Impediments list] 
