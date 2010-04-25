@@ -8,8 +8,7 @@ package backgammonator.core;
 public class MoveValidator {
 
 	public boolean validateMove(BackgammonBoard board, Move move, Dice dice) {
-		validatePlain(move, dice);
-		return true;
+		return validatePlain(move, dice);
 	}
 
 	private boolean validatePlain(Move move, Dice dice) {
