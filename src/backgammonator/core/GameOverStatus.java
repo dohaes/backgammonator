@@ -5,6 +5,6 @@ package backgammonator.core;
  */
 public enum GameOverStatus {
 
-	OK, INVALID_MOVE, EXCEPTION, IMEDOUT;
+	OK, INVALID_MOVE, EXCEPTION, TIMEDOUT;
 
 }
