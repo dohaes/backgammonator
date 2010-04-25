@@ -6,9 +6,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Logger;
 import backgammonator.core.Player;
+import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
 
 /**
@@ -22,6 +24,7 @@ public class HTMLLogger implements Logger {
 	private Player blackPlayer;
 	private StringBuffer logStringBuffer;
 	private String timestamp;
+	private int moveId;
 
 	@Override
 	public void endGame(GameOverStatus status) {
@@ -40,9 +43,31 @@ public class HTMLLogger implements Logger {
 	}
 
 	@Override
-	public void logMove(PlayerMove move) {
-		// TODO Auto-generated method stub
-
+	public void logMove(PlayerMove move, Dice dice, int hit, int bornOff) {
+		this.logStringBuffer.append("<tr><td>"
+				+ this.moveId
+				+ "</td><td>"
+				+ ((move.getPlayerColor() == PlayerColor.WHITE) ? "white"
+						: "black") + "</td><td>" + dice.getDie1() + "</td><td>"
+				+ dice.getDie2() + "</td><td>"
+				+ move.getCheckerMove(0).getStartPoint() + "</td><td>"
+				+ move.getCheckerMove(0).getMoveLength() + "</td><td>"
+				+ move.getCheckerMove(1).getStartPoint() + "</td><td>"
+				+ move.getCheckerMove(1).getMoveLength() + "</td><td>" + hit
+				+ "</td><td>" + bornOff + "</td></tr>");
+		if (move.isDouble()) {
+			this.logStringBuffer.append("<tr><td>"
+					+ this.moveId
+					+ "</td><td>"
+					+ ((move.getPlayerColor() == PlayerColor.WHITE) ? "white"
+							: "black") + "</td><td>" + dice.getDie1() + "</td><td>"
+					+ dice.getDie2() + "</td><td>"
+					+ move.getCheckerMove(2).getStartPoint() + "</td><td>"
+					+ move.getCheckerMove(2).getMoveLength() + "</td><td>"
+					+ move.getCheckerMove(3).getStartPoint() + "</td><td>"
+					+ move.getCheckerMove(3).getMoveLength() + "</td><td>" + hit
+					+ "</td><td>" + bornOff + "</td></tr>");
+		}
 	}
 
 	@Override
@@ -50,6 +75,7 @@ public class HTMLLogger implements Logger {
 
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
+		this.moveId = 1;
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
 		Date date = new Date();
@@ -62,6 +88,6 @@ public class HTMLLogger implements Logger {
 						+ blackPlayer.getName()
 						+ "(black)</h1>\n<h3>"
 						+ this.timestamp
-						+ "</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>");
+						+ "</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n");
 	}
 }
