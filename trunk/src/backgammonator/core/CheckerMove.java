@@ -5,37 +5,37 @@ package backgammonator.core;
  */
 public final class CheckerMove {
 	
-	private int from;
-	private int to;
+	private int startPosistion;
+	private int moveLength;
+	
 
 	/**
 	 * Getter for the position from which the checker is moved
 	 */
-	public int getFrom() {
-		return from;
+	public int getStartPosistion() {
+		return startPosistion;
 	}
 
 	/**
 	 * Setter for the position from which the checker is moved
 	 */
-	public void setFrom(int from) {
-		this.from = from;
+	public void setStartPosistion(int startPosistion) {
+		this.startPosistion = startPosistion;
 	}
 
 	/**
-	 * Getter for the position to which the checker is moved
+	 * Getter for the length that the checker is moved
 	 */
-	public int getTo() {
-		return to;
+	public int getMoveLength() {
+		return moveLength;
 	}
 
 	/**
-	 * Setter for the position to which the checker is moved
+	 * Setter for  the length that the checker is moved
 	 */
-	public void setTo(int to) {
-		this.to = to;
+	public void setMoveLength(int moveLength) {
+		this.moveLength = moveLength;
 	}
-	
 	
 
 
