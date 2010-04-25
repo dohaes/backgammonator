@@ -64,7 +64,7 @@ public final class GameManager {
 		dice.generateNext();
 		try {
 			currentMove = currentPlayer.getMove(board, dice);
-			if (!MoveValidator.validateMove(board, currentMove, dice)) {
+			if (currentMove == null || !MoveValidator.validateMove(board, currentMove, dice)) {
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				return GameOverStatus.INVALID_MOVE;
