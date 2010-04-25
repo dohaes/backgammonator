@@ -12,7 +12,7 @@ public final class CheckerMove {
 	/**
 	 * Getter for the position from which the checker is moved
 	 */
-	public int getStartPosistion() {
+	public int getStartPoint() {
 		return startPosistion;
 	}
 
