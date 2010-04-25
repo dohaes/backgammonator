@@ -7,7 +7,7 @@ package backgammonator.core;
  * index) method). Object pooling will be used for the Move objects.
  */
 
-public class Move {
+public class PlayerMove {
 
 	@Override
 	public String toString() {
