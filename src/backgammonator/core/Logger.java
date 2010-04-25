@@ -7,15 +7,11 @@ package backgammonator.core;
  */
 
 public interface Logger {
-	
-	static final int NORMAL = 1;
-	static final int EXCEPTION = 2;
-	static final int TIMEDOUT = 3;
 
 	void startGame(Player whitePlayer, Player blackPlayer);
 
 	void logMove(PlayerMove move);
 
-	void endGame(int exitCode);
+	void endGame(GameOverStatus status);
 
 }
