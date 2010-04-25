@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Logger;
@@ -22,21 +24,40 @@ public class HTMLLogger implements Logger {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
+	private Player lastPlayer;
 	private StringBuffer logStringBuffer;
 	private String timestamp;
 	private int moveId;
 
 	@Override
 	public void endGame(GameOverStatus status) {
+
+		String statusString;
+		switch (status) {
+		case OK:
+			statusString = "he born off all checkers.";
+			break;
+		case EXCEPTION:
+			statusString = "exeption on other player's move.";
+			break;
+		case INVALID_MOVE:
+			statusString = "invalid move on other player.";
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+		this.logStringBuffer.append("<tr><td colspan=10>"
+				+ this.lastPlayer.getName() + " wins the game - "
+				+ statusString + "</td></tr></table></body></html>\n");
+
 		try {
 			FileWriter fstream = new FileWriter(this.timestamp + "_"
 					+ this.whitePlayer.getName() + "_"
 					+ this.blackPlayer.getName() + ".html");
 			BufferedWriter out = new BufferedWriter(fstream);
-			out.write("Hello Java");
-			// Close the output stream
+			out.write(this.logStringBuffer.toString());
 			out.close();
-		} catch (Exception e) {// Catch exception if any
+		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
 
@@ -44,6 +65,14 @@ public class HTMLLogger implements Logger {
 
 	@Override
 	public void logMove(PlayerMove move, Dice dice, int hit, int bornOff) {
+
+		String rowspan;
+		if (move.isDouble()) {
+			rowspan = "2";
+		} else {
+			rowspan = "1";
+		}
+
 		this.logStringBuffer.append("<tr><td>"
 				+ this.moveId
 				+ "</td><td>"
@@ -53,28 +82,31 @@ public class HTMLLogger implements Logger {
 				+ move.getCheckerMove(0).getStartPoint() + "</td><td>"
 				+ move.getCheckerMove(0).getMoveLength() + "</td><td>"
 				+ move.getCheckerMove(1).getStartPoint() + "</td><td>"
-				+ move.getCheckerMove(1).getMoveLength() + "</td><td>" + hit
-				+ "</td><td>" + bornOff + "</td></tr>");
+				+ move.getCheckerMove(1).getMoveLength() + "</td><td rowspan="
+				+ rowspan + ">" + hit + "</td><td rowspan=" + rowspan + ">"
+				+ bornOff + "</td></tr>\n");
 		if (move.isDouble()) {
 			this.logStringBuffer.append("<tr><td>"
 					+ this.moveId
 					+ "</td><td>"
 					+ ((move.getPlayerColor() == PlayerColor.WHITE) ? "white"
-							: "black") + "</td><td>" + dice.getDie1() + "</td><td>"
-					+ dice.getDie2() + "</td><td>"
+							: "black") + "</td><td>" + dice.getDie1()
+					+ "</td><td>" + dice.getDie2() + "</td><td>"
 					+ move.getCheckerMove(2).getStartPoint() + "</td><td>"
 					+ move.getCheckerMove(2).getMoveLength() + "</td><td>"
 					+ move.getCheckerMove(3).getStartPoint() + "</td><td>"
-					+ move.getCheckerMove(3).getMoveLength() + "</td><td>" + hit
-					+ "</td><td>" + bornOff + "</td></tr>");
+					+ move.getCheckerMove(3).getMoveLength() + "</td></tr>\n");
 		}
+		this.moveId++;
+		this.lastPlayer = (move.getPlayerColor() == PlayerColor.WHITE) ? this.whitePlayer
+				: this.blackPlayer;
 	}
 
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
 
 		this.whitePlayer = whitePlayer;
-		this.blackPlayer = blackPlayer;
+		this.blackPlayer = this.lastPlayer = blackPlayer;
 		this.moveId = 1;
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
