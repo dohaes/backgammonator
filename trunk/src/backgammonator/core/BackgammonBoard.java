@@ -7,6 +7,8 @@ package backgammonator.core;
  * generator of numbers which will represent the dices.
  */
 public final class BackgammonBoard {
+	private static final int MAX_POINTS = 24;
+	private static final int MAX_CHECKERS = 15;
 	private static final int HIT_WHITE = 24;
 	private static final int HIT_BLACK = 25;
 	private static final int BORN_WHITE = 26;
@@ -24,11 +26,11 @@ public final class BackgammonBoard {
 	}
 
 	public Point getPoint(int point, PlayerColor color) {
-		if (point <= 0 || point > 24) {
+		if (point <= 0 || point > MAX_POINTS) {
 			throw new IllegalArgumentException("Illegal position: " + point);
 		}
 		return color.equals(PlayerColor.WHITE) ? board[point - 1]
-				: board[24 - point];
+				: board[MAX_POINTS - point];
 	}
 
 	public int getHits(PlayerColor color) {
@@ -42,21 +44,21 @@ public final class BackgammonBoard {
 	}
 
 	public void setPoint(int point, PlayerColor color, int count) {
-		if (point <= 0 || point > 24) {
+		if (point <= 0 || point > MAX_POINTS) {
 			throw new IllegalArgumentException("Illegal position: " + point);
 		}
-		if (count < 0 || count > 15) {
+		if (count < 0 || count > MAX_CHECKERS) {
 			throw new IllegalArgumentException("Illegal count: " + count);
 		}
 		if (color.equals(PlayerColor.WHITE)) {
 			board[point - 1] = new Point(count, color);
 		} else {
-			board[24 - point] = new Point(count, color);
+			board[MAX_POINTS - point] = new Point(count, color);
 		}
 	}
 
 	public void setHits(PlayerColor color, int count) {
-		if (count < 0 || count > 15) {
+		if (count < 0 || count > MAX_CHECKERS) {
 			throw new IllegalArgumentException("Illegal count: " + count);
 		}
 		if (color.equals(PlayerColor.WHITE)) {
@@ -67,7 +69,7 @@ public final class BackgammonBoard {
 	}
 
 	public void setBornOff(PlayerColor color, int count) {
-		if (count < 0 || count > 15) {
+		if (count < 0 || count > MAX_CHECKERS) {
 			throw new IllegalArgumentException("Illegal count: " + count);
 		}
 		if (color.equals(PlayerColor.WHITE)) {
@@ -98,7 +100,7 @@ public final class BackgammonBoard {
 
 	private void makeMove(PlayerColor color, int from, int to) {
 		Point source = getPoint(from, color);
-		if (to > 24) {
+		if (to > MAX_POINTS) {
 			to = color.equals(PlayerColor.WHITE) ? BORN_WHITE : BORN_BLACK;
 		}
 		Point dest = getPoint(to, color);
