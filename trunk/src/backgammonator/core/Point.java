@@ -1,27 +1,37 @@
 package backgammonator.core;
 
 /**
- * Represents the pieces on a position of the board;
+ * Represents the checkers on a point of the board;
  */
-public class Position {
+public class Point {
 	private int count;
 	private PlayerColor color;
 
 	/**
-	 * Creates empty position.
+	 * Creates empty point.
 	 */
-	public Position() {
+	public Point() {
 		this.setCount(0);
 		this.setColor(PlayerColor.WHITE);
 	}
 
 	/**
-	 * Creates position with pieces on it.
+	 * Creates point with checkers on it and the color is not in important.
+	 * 
+	 * @param count
+	 */
+	public Point(int count) {
+		this.setCount(count);
+		this.setColor(PlayerColor.WHITE);
+	}
+
+	/**
+	 * Creates point with checkers on it.
 	 * 
 	 * @param count
 	 * @param color
 	 */
-	public Position(int count, PlayerColor color) {
+	public Point(int count, PlayerColor color) {
 		this.setCount(count);
 		this.setColor(color);
 	}
@@ -30,6 +40,9 @@ public class Position {
 	 * @param count
 	 */
 	public void setCount(int count) {
+		if (count < 0 || count > 15) {
+			throw new IllegalArgumentException("Illegal count number: " + count);
+		}
 		this.count = count;
 	}
 
