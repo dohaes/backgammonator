@@ -2,9 +2,11 @@ package backgammonator.game;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.Dice;
+import backgammonator.core.GameOverStatus;
+import backgammonator.core.Logger;
 import backgammonator.core.Player;
 import backgammonator.core.MoveValidator;
-import backgammonator.core.PlayerColor;
+import backgammonator.core.PlayerMove;
 
 /**
  * An instance of this class is created for each game between two players.
@@ -15,47 +17,74 @@ import backgammonator.core.PlayerColor;
 
 public final class GameManager {
 	
-	private Player player1;
-	private Player player2;
+	private Player whitePlayer;
+	private Player blackPlayer;
 	
 	private static final long MOVE_TIMEOUT = 1000;
 	
 	private BackgammonBoard board;
 	private Dice dice;
-	
+	private Logger logger;
 	
 	/**
 	 * Constructs a game between two AI players.
 	 */
-	public GameManager(Player player1, Player player2) {
-		this.player1 = player1;
-		this.player2 = player2;
+	public GameManager(Player whitePlayer, Player blackPlayer) {
+		this.whitePlayer = whitePlayer;
+		this.blackPlayer = blackPlayer;
 		board = new BackgammonBoard();
 		dice = new Dice();
+		logger = new HTMLLogger();
 	}
 	
 	/**
-	 * This method starts and navigates the game between the two players. 
+	 * This method starts and navigates the game between the two players.
+	 * Always the white player is first.
 	 */
 	public void start() {
-		boolean flag = true;
-		Player current;
 		
-		while (flag) {
-			
+		GameOverStatus status = null;
+		logger.startGame(whitePlayer, blackPlayer);
+		
+		while (true) {
+			status = makeMove(whitePlayer, blackPlayer);
+			if (status != null) break;
+			status = makeMove(blackPlayer, whitePlayer);
+			if (status != null) break;
 		}
 		
+		logger.endGame(status);
 	}
 	
-	class WatchDog extends Thread {
-		
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			super.run();
+	/**
+	 * Return the end game status if the game is over, on null otherwise
+	 */
+	private GameOverStatus makeMove(Player currentPlayer, Player other) {
+		PlayerMove currentMove;
+		dice.generateNext();
+		try {
+			currentMove = currentPlayer.getMove(board, dice);
+			if (!MoveValidator.validateMove(board, currentMove, dice)) {
+				currentPlayer.gameOver(false);
+				other.gameOver(true);
+				return GameOverStatus.INVALID_MOVE;
+			}
+			logger.logMove(currentMove, dice, board.getHits(currentPlayer.getColor()),
+					                          board.getBornOff(currentPlayer.getColor()));
+			board.makeMove(currentMove);
+			if (board.getBornOff(currentPlayer.getColor()) == 15) {
+				currentPlayer.gameOver(true);
+				other.gameOver(false);
+				return GameOverStatus.OK;
+			}
+		} catch (Exception e) {
+			currentPlayer.gameOver(false);
+			other.gameOver(true);
+			return GameOverStatus.EXCEPTION;
 		}
+		
+		return null;
 	}
 	
-	
-
 }
+
