@@ -18,6 +18,12 @@ public interface Player {
 	PlayerColor getColor();
 	
 	/**
+	 * Sets the color to the player.
+	 * @param color the color to be set.
+	 */
+	void setColor(PlayerColor color);
+	
+	/**
 	 * This method returns the players move according to the current
      * configuration of the backgammon board and the given dice.
 	 * @param board the current configuration of the board
