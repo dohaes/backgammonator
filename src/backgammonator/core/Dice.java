@@ -18,23 +18,14 @@ public class Dice {
 		die2 = generator.nextInt(6) + 1;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getDie1() {
 		return die1;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getDie2() {
 		return die2;
 	}
 
-	/**
-	 * @return
-	 */
 	public boolean isDouble() {
 		return getDie1() == getDie2();
 	}
