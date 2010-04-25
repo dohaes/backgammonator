@@ -77,7 +77,7 @@ public final class BackgammonBoard {
 		}
 	}
 
-	public void makeMove(Move move) {
+	public void makeMove(PlayerMove move) {
 		CheckerMove m = null;
 		PlayerColor color = move.getPlayerColor();
 		m = move.getMove(1);

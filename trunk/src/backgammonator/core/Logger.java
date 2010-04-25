@@ -7,6 +7,6 @@ package backgammonator.core;
 
 public interface Logger {
 	
-	void log(Move move);
+	void log(PlayerMove move);
 
 }
