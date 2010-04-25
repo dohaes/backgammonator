@@ -2,12 +2,25 @@ package backgammonator.core;
 
 /**
  * This class is used for the representation of a single move of a player. Every
- * move is represented by two dies(they will be accessed with getters ) and
- * two(or four for double) pieces(they will be accessed by int getPiece(int
- * index) method). Object pooling will be used for the Move objects.
+ * move is represented by player color(it will be accessed with getters
+ * ) and two(or four for double) checker moves (they will be accessed by int
+ * getCheckerMove(int index) method).
  */
 
 public class PlayerMove {
+
+	private PlayerColor playerColor;
+	private CheckerMove[] checkerMoves;
+
+	public PlayerMove(CheckerMove[] checkerMoves, PlayerColor playerColor) {
+		if(checkerMoves.length != 2 && checkerMoves.length != 4) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.playerColor = playerColor;
+			this.checkerMoves = checkerMoves;
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -15,19 +28,16 @@ public class PlayerMove {
 		return super.toString();
 	}
 
-	public CheckerMove getMove(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public CheckerMove getCheckerMove(int index) {
+		return this.checkerMoves[index];
 	}
 
 	public PlayerColor getPlayerColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return playerColor;
 	}
 
 	public boolean isDouble() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.checkerMoves.length == 4;
 	}
 
 }
