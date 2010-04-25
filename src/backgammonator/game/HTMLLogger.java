@@ -23,7 +23,7 @@ public class HTMLLogger implements Logger {
 	private String timestamp;
 
 	@Override
-	public void endGame(String message) {
+	public void endGame(int exitCode) {
 		try {
 			FileWriter fstream = new FileWriter(this.timestamp + "_"
 					+ this.whitePlayer.getName() + "_"
