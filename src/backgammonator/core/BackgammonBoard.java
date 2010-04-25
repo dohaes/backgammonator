@@ -10,19 +10,30 @@ import java.util.List;
  * generator of int numbers which will represent the dices.
  */
 public final class BackgammonBoard {
-
-	private List<Move> movesHistory;
-
 	/**
-	 * Position 0..23 are the positions of the board starting from the farthest
-	 * position of the whites. 24 and 25 are the positions of the killed whites
-	 * and blacks and 26 and 27 are the positions of the rescued whites and
-	 * blacks.
+	 * Positions 0..23 are the points of the board from the view of the white
+	 * player. 24 and 25 are the points of the hit white and black checkers and
+	 * 26 and 27 are the points of the born off white and black checkers.
 	 */
-	private Position[] board;
+	private Point[] board;
 
 	public BackgammonBoard() {
-		movesHistory = new ArrayList<Move>();
-		board = new Position[28];
+		board = new Point[28];
+	}
+
+	public Point getPoint(int point, PlayerColor color) {
+		if (point <= 0 || point > 24) {
+			throw new IllegalArgumentException("Illegal position: " + point);
+		}
+		return color == PlayerColor.WHITE ? board[point - 1]
+				: board[24 - point];
+	}
+
+	public int getHits(PlayerColor color) {
+		return (color == PlayerColor.WHITE ? board[24] : board[25]).getCount();
+	}
+
+	public int getBornOff(PlayerColor color) {
+		return (color == PlayerColor.WHITE ? board[24] : board[25]).getCount();
 	}
 }
