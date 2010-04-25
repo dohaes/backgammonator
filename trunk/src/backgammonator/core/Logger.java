@@ -12,6 +12,6 @@ public interface Logger {
 
 	void logMove(PlayerMove move);
 
-	void endGame(String message);
+	void endGame(int exitCode);
 
 }
