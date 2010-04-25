@@ -19,7 +19,7 @@ public final class CheckerMove {
 	/**
 	 * Setter for the position from which the checker is moved
 	 */
-	public void setStartPosistion(int startPosistion) {
+	public void setStartPoint(int startPosistion) {
 		this.startPosistion = startPosistion;
 	}
 
