@@ -1,16 +1,30 @@
 package backgammonator.core;
 
 /**
- * Represents abstraction of the AI player. This interface has a method
- * getMove(BackgammonBoard, int, int):Move which should return the players move
- * according to the current configuration of the backgammon borad and the given dices.
- * The interface will have method endGame(boolen) which will be called by the GameManager
- * to indicate the end of the game. The boolean argument will show if this player wins or loses.
- * If a contestant wants to use the Backgamminator Librarty to test his AI, he has to implement this
- * interface and construct a GameManager object with instances of his implementation of this
- * interface given as agruments to the constructor.
+ * Represents abstraction of the AI player.
+ * If a contestant wants to use the Backgamminator Librarty to test his AI, he has to implement this inreface.
  */
 
 public interface Player {
+	
+	/**
+	 * Returns the name of the player.
+	 */
+	String getName();
+	
+	/**
+	 * This method returns the players move according to the current
+     * configuration of the backgammon board and the given dice.
+	 * @param board the current configuration of the board
+	 * @param dice the dice
+	 * @return the move of the player
+	 */
+	Move getMove(BackgammonBoard board, Dice dice);
+	
+	/**
+	 * Called from the backgammonator engine to identify the end of the game.
+	 * @param wins true if this player wins, or false otherwise.
+	 */
+	void gameOver(boolean wins);
 
 }
