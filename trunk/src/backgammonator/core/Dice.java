@@ -28,7 +28,7 @@ public class Dice {
 		return die1 == die2;
 	}
 
-	public void generateDice() {
+	public void generateNext() {
 		die1 = generator.nextInt(6) + 1;
 		die2 = generator.nextInt(6) + 1;
 	}
