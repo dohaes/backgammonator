@@ -10,7 +10,7 @@ public interface Logger {
 
 	void startGame(Player whitePlayer, Player blackPlayer);
 
-	void logMove(PlayerMove move);
+	void logMove(PlayerMove move, Dice dice, int hit, int bornOff);
 
 	void endGame(GameOverStatus status);
 
