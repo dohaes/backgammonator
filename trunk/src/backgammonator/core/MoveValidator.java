@@ -16,9 +16,18 @@ public class MoveValidator {
 		if (move.isDouble() != dice.isDouble()) {
 			return false;
 		}
-		CheckerMove m = move.getMove(1);
-		if (move.isDouble()) {
-			
+		CheckerMove m1 = move.getMove(1);
+		CheckerMove m2 = move.getMove(2);
+		if (!((m1.getMoveLength() == dice.getDie1() && m2.getMoveLength() == dice
+				.getDie2()) || (m1.getMoveLength() == dice.getDie2() && m2
+				.getMoveLength() == dice.getDie1()))) {
+			return false;
+		}
+
+		if (move.isDouble()
+				&& (move.getMove(3).getMoveLength() != dice.getDie1() || move
+						.getMove(4).getMoveLength() != dice.getDie1())) {
+			return false;
 		}
 		return true;
 	}
