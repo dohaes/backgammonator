@@ -31,8 +31,8 @@ public class Debug {
 	 */
 	public static void warning(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
-			System.out.println("[Debug - warning] " + "[" + //
-					getModule(moduleId) + "]: " + message + "\n" + t.getMessage());
+			System.out.println("[Debug - warning] " + "[" + getModule(moduleId)
+					+ "]: " + message + "\n" + t.getMessage());
 		}
 	}
 
@@ -42,8 +42,8 @@ public class Debug {
 	 */
 	public static void error(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
-			System.out.println("[Debug - error] " + "[" + //
-					getModule(moduleId) + "]: " + message + "\n" + t.getMessage());
+			System.out.println("[Debug - error] " + "[" + getModule(moduleId) + //
+					"]: " + message + "\n" + t.getMessage());
 		}
 	}
 
