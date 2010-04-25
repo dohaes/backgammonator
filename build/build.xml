@@ -23,10 +23,10 @@
   <target name="dist" depends="compile"
         description="generate the distribution" >
     <!-- Create the distribution directory -->
-    <mkdir dir="${project.home}/jars"/>
+    <mkdir dir="${project.home}/lib"/>
 
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${project.home}/jars/Backgammonator.jar" basedir="${build}"/>
+    <jar jarfile="${project.home}/lib/BackgammonatorLib.jar" basedir="${build}"/>
   </target>
 
   <target name="clean"
