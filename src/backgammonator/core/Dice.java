@@ -14,8 +14,6 @@ public class Dice {
 	 * Creates new randomly generated pair of dice.
 	 */
 	public Dice() {
-		die1 = generator.nextInt(6) + 1;
-		die2 = generator.nextInt(6) + 1;
 	}
 
 	public int getDie1() {
@@ -28,5 +26,10 @@ public class Dice {
 
 	public boolean isDouble() {
 		return getDie1() == getDie2();
+	}
+
+	public void generateDice() {
+		die1 = generator.nextInt(6) + 1;
+		die2 = generator.nextInt(6) + 1;
 	}
 }
