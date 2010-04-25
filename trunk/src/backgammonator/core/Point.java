@@ -11,18 +11,8 @@ public class Point {
 	 * Creates empty point.
 	 */
 	public Point() {
-		this.setCount(0);
-		this.setColor(PlayerColor.WHITE);
-	}
-
-	/**
-	 * Creates point with checkers on it and the color is not in important.
-	 * 
-	 * @param count
-	 */
-	public Point(int count) {
-		this.setCount(count);
-		this.setColor(PlayerColor.WHITE);
+		this.count = 0;
+		this.color = PlayerColor.WHITE;
 	}
 
 	/**
@@ -32,38 +22,38 @@ public class Point {
 	 * @param color
 	 */
 	public Point(int count, PlayerColor color) {
-		this.setCount(count);
-		this.setColor(color);
-	}
-
-	/**
-	 * @param count
-	 */
-	public void setCount(int count) {
 		if (count < 0 || count > 15) {
 			throw new IllegalArgumentException("Illegal count number: " + count);
 		}
 		this.count = count;
+		this.color = color;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getCount() {
 		return count;
 	}
 
-	/**
-	 * @param color
-	 */
-	public void setColor(PlayerColor color) {
-		this.color = color;
-	}
-
-	/**
-	 * @return
-	 */
 	public PlayerColor getColor() {
 		return color;
+	}
+
+	public void decrease() {
+		count--;
+		if (count < 0) {
+			throw new IllegalArgumentException("Illegal count number: " + count);
+		}
+	}
+
+	public boolean increase(PlayerColor color) {
+		if (this.count > 0 && !color.equals(this.color)) {
+			this.count = 1;
+			this.color = color;
+			return true;
+		}
+		count++;
+		if (count > 15) {
+			throw new IllegalArgumentException("Illegal count number: " + count);
+		}
+		return false;
 	}
 }
