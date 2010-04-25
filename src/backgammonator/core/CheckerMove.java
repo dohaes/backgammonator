@@ -5,7 +5,8 @@ package backgammonator.core;
  */
 public final class CheckerMove {
 	
-	private int from, to;
+	private int from;
+	private int to;
 
 	/**
 	 * Getter for the position from which the checker is moved
