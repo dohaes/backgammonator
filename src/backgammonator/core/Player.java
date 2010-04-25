@@ -22,9 +22,10 @@ public interface Player {
      * configuration of the backgammon board and the given dice.
 	 * @param board the current configuration of the board
 	 * @param dice the dice
+	 * @throws Exception if any error occurs.
 	 * @return the move of the player
 	 */
-	PlayerMove getMove(BackgammonBoard board, Dice dice);
+	PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception;
 	
 	/**
 	 * Called from the backgammonator engine to identify the end of the game.
