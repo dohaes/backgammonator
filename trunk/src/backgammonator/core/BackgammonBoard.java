@@ -100,11 +100,11 @@ public final class BackgammonBoard {
 
 	private void makeMove(PlayerColor color, int from, int to) {
 		Point source = getPoint(from, color);
+		source.decrease();
 		if (to > MAX_POINTS) {
 			to = color.equals(PlayerColor.WHITE) ? BORN_WHITE : BORN_BLACK;
 		}
 		Point dest = getPoint(to, color);
-		source.decrease();
 		if (dest.increase(color)) {
 			setHits(color.oposite(), getHits(color));
 		}
