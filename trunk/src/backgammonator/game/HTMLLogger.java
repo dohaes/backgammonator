@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import backgammonator.core.GameOverStatus;
 import backgammonator.core.Logger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
@@ -23,7 +24,7 @@ public class HTMLLogger implements Logger {
 	private String timestamp;
 
 	@Override
-	public void endGame(int exitCode) {
+	public void endGame(GameOverStatus status) {
 		try {
 			FileWriter fstream = new FileWriter(this.timestamp + "_"
 					+ this.whitePlayer.getName() + "_"
