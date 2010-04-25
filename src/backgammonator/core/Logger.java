@@ -8,7 +8,7 @@ package backgammonator.core;
 
 public interface Logger {
 
-	void startGame(Player firstPlayer, Player secondPlayer);
+	void startGame(Player whitePlayer, Player blackPlayer);
 
 	void logMove(PlayerMove move);
 
