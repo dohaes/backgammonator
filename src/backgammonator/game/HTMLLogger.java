@@ -6,8 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.naming.directory.InvalidAttributesException;
-
 import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Logger;
