@@ -25,7 +25,7 @@ public class Dice {
 	}
 
 	public boolean isDouble() {
-		return getDie1() == getDie2();
+		return die1 == die2;
 	}
 
 	public void generateDice() {
