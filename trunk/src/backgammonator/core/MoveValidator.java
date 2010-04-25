@@ -7,11 +7,11 @@ package backgammonator.core;
  */
 public class MoveValidator {
 
-	public boolean validateMove(BackgammonBoard board, PlayerMove move, Dice dice) {
+	public static boolean validateMove(BackgammonBoard board, PlayerMove move, Dice dice) {
 		return validatePlain(move, dice);
 	}
 
-	private boolean validatePlain(PlayerMove move, Dice dice) {
+	private static boolean validatePlain(PlayerMove move, Dice dice) {
 		if (move.isDouble() != dice.isDouble()) {
 			return false;
 		}
