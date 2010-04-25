@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Represents implementation of object pool.
  */
+@SuppressWarnings("unchecked")
 public final class ObjectPool {
 	
 	private int size;
