@@ -81,14 +81,18 @@ public final class BackgammonBoard {
 		CheckerMove m = null;
 		PlayerColor color = move.getPlayerColor();
 		m = move.getMove(1);
-		makeMove(color, m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
+		makeMove(color, m.getStartPoint(), m.getStartPoint()
+				+ m.getMoveLength());
 		m = move.getMove(2);
-		makeMove(color, m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
+		makeMove(color, m.getStartPoint(), m.getStartPoint()
+				+ m.getMoveLength());
 		if (move.isDouble()) {
 			m = move.getMove(3);
-			makeMove(color, m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
+			makeMove(color, m.getStartPoint(), m.getStartPoint()
+					+ m.getMoveLength());
 			m = move.getMove(4);
-			makeMove(color, m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
+			makeMove(color, m.getStartPoint(), m.getStartPoint()
+					+ m.getMoveLength());
 		}
 	}
 
