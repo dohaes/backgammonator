@@ -97,7 +97,7 @@ public final class GameManager {
 				other.gameOver(true);
 				return GameOverStatus.INVALID_MOVE;
 			}
-			logger.logMove(currentMove, dice, board.getHits(board.getCurrentPlayerColor()),
+			logger.logMove(currentMove, board.getCurrentPlayerColor(), dice, board.getHits(board.getCurrentPlayerColor()),
 					                          board.getBornOff(board.getCurrentPlayerColor()));
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
 				currentPlayer.gameOver(true);
@@ -149,7 +149,7 @@ public final class GameManager {
 				return GameOverStatus.INVALID_MOVE;
 			}
 
-			logger.logMove(currentMove, dice, board.getHits(board.getCurrentPlayerColor()),
+			logger.logMove(currentMove, board.getCurrentPlayerColor(), dice, board.getHits(board.getCurrentPlayerColor()),
 					                          board.getBornOff(board.getCurrentPlayerColor()));
 
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {

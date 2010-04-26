@@ -9,4 +9,9 @@ public enum PlayerColor {
 	public PlayerColor oposite() {
 		return this == WHITE ? BLACK : WHITE;
 	}
+	
+	@Override
+	public String toString() {
+		return this == WHITE ? "white" : "black";
+	}
 }
