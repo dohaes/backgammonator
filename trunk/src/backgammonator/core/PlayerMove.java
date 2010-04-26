@@ -10,7 +10,6 @@ package backgammonator.core;
 public class PlayerMove {
 
 	private CheckerMove[] checkerMoves;
-	PlayerColor playerColor;
 
 	/**
 	 * Creates new PlayerMove object with the given arguments
