@@ -64,30 +64,9 @@ public final class GameManager {
 	}
 
 	/**
-	 * This method starts and navigates the game between the two players. Always
-	 * the white player is first.
-	 */
-	public void start0() {
-
-		GameOverStatus status = null;
-		logger.startGame(whitePlayer, blackPlayer);
-
-		while (true) {
-			status = makeMove0(whitePlayer, blackPlayer);
-			if (status != null)
-				break;
-			status = makeMove0(blackPlayer, whitePlayer);
-			if (status != null)
-				break;
-		}
-
-		logger.endGame(status);
-	}
-
-	/**
 	 * Return the end game status if the game is over, on null otherwise
 	 */
-	private GameOverStatus makeMove(Player currentPlayer, Player other) {
+	private GameOverStatus _makeMove(Player currentPlayer, Player other) {
 		PlayerMove currentMove;
 		dice.generateNext();
 		try {
@@ -116,7 +95,7 @@ public final class GameManager {
 	/**
 	 * Return the end game status if the game is over, on null otherwise
 	 */
-	private GameOverStatus makeMove0(Player currentPlayer, Player other) {
+	private GameOverStatus makeMove(Player currentPlayer, Player other) {
 
 		dice.generateNext();
 		mover = new MoveThread(currentPlayer);
