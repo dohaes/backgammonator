@@ -5,22 +5,31 @@ package backgammonator.util;
  * The debug entry must contain level, message, Throwable object and module ID.
  */
 
-public class Debug {
+public final class Debug {
 
-	private static boolean isDebugOn = false;
+	private static boolean isDebugOn = true; //TODO use system prop to configure debug
 
-	public static int CORE_MODULE = 1;
-	public static int GAME_MODULE = 2;
-	public static int PROTOCOL_MODULE = 3;
-	public static int TOURNAMENT_MODULE = 4;
-	public static int UTIL_MODULE = 5;
+	public static final int CORE_MODULE = 1;
+	public static final int GAME_MODULE = 2;
+	public static final int PROTOCOL_MODULE = 3;
+	public static final int TOURNAMENT_MODULE = 4;
+	public static final int UTIL_MODULE = 5;
+	public static final int LOGGER_MODULE = 6;
+	
+	private static Debug instance = null;
+	private Debug() { }
+	
+	public static Debug getInstance() {
+	  if (instance == null) instance = new Debug();
+	  return instance;
+	}
 
 	/**
 	 * @param message
 	 */
-	public static void info(String message, int moduleId) {
+	public synchronized void info(String message, int moduleId) {
 		if (isDebugOn) {
-			System.out.println("[Debug - info] " + "[" + //
+			System.out.println("[INFO] " + "[" + //
 					getModule(moduleId) + "]: " + message);
 		}
 	}
@@ -29,10 +38,10 @@ public class Debug {
 	 * @param message
 	 * @param t
 	 */
-	public static void warning(String message, int moduleId, Throwable t) {
+	public synchronized void warning(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
-			System.out.println("[Debug - warning] " + "[" + getModule(moduleId)
-					+ "]: " + message + "\n" + t.getMessage());
+			System.out.println("[WARNING] " + "[" + getModule(moduleId) + "]: " + message);
+			if (t != null) t.printStackTrace();
 		}
 	}
 
@@ -40,10 +49,10 @@ public class Debug {
 	 * @param message
 	 * @param t
 	 */
-	public static void error(String message, int moduleId, Throwable t) {
+	public synchronized void error(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
-			System.out.println("[Debug - error] " + "[" + getModule(moduleId) + //
-					"]: " + message + "\n" + t.getMessage());
+			System.out.println("[ERROR] " + "[" + getModule(moduleId) +  "]: " + message);
+			if (t != null) t.printStackTrace();
 		}
 	}
 
@@ -65,6 +74,9 @@ public class Debug {
 		case 5:
 			res = "Util Module";
 			break;
+		case 6:
+		  res = "Logger Module";
+		  break;
 		default:
 			res = "Module not specified";
 		}

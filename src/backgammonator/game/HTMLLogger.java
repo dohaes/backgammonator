@@ -12,6 +12,7 @@ import backgammonator.core.Logger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
+import backgammonator.util.Debug;
 
 /**
  * This class implements the Logger interface. Represents the log as an html
@@ -27,6 +28,27 @@ public class HTMLLogger implements Logger {
 	private String timestamp;
 	private int moveId;
 
+	@Override
+  public void startGame(Player whitePlayer, Player blackPlayer) {
+
+    this.whitePlayer = whitePlayer;
+    this.blackPlayer = this.lastPlayer = blackPlayer;
+    this.moveId = 1;
+
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
+    Date date = new Date();
+    this.timestamp = dateFormat.format(date);
+
+    this.logStringBuffer = new StringBuffer(
+        "<html>\n<body>\n<h1>"
+            + whitePlayer.getName()
+            + "(white) vs. "
+            + blackPlayer.getName()
+            + "(black)</h1>\n<h3>"
+            + this.timestamp
+            + "</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n");
+  }
+	
 	@Override
 	public void endGame(GameOverStatus status) {
 
@@ -56,7 +78,7 @@ public class HTMLLogger implements Logger {
 			out.write(this.logStringBuffer.toString());
 			out.close();
 		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
+			Debug.getInstance().error("Error writing to file", Debug.LOGGER_MODULE, e);
 		}
 
 	}
@@ -100,24 +122,4 @@ public class HTMLLogger implements Logger {
 				: this.blackPlayer;
 	}
 
-	@Override
-	public void startGame(Player whitePlayer, Player blackPlayer) {
-
-		this.whitePlayer = whitePlayer;
-		this.blackPlayer = this.lastPlayer = blackPlayer;
-		this.moveId = 1;
-
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
-		Date date = new Date();
-		this.timestamp = dateFormat.format(date);
-
-		this.logStringBuffer = new StringBuffer(
-				"<html>\n<body>\n<h1>"
-						+ whitePlayer.getName()
-						+ "(white) vs. "
-						+ blackPlayer.getName()
-						+ "(black)</h1>\n<h3>"
-						+ this.timestamp
-						+ "</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n");
-	}
 }
