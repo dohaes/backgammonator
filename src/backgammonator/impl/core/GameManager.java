@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.impl.core;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.GameOverStatus;
