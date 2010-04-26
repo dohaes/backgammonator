@@ -9,16 +9,23 @@ package backgammonator.core;
 
 public class PlayerMove {
 
-	private PlayerColor playerColor;
 	private CheckerMove[] checkerMoves;
+	PlayerColor playerColor;
 
+	/**
+	 * Creates new PlayerMove object with the given arguments
+	 * @param checkerMoves array of CheckerMove objects
+	 * @param playerColor 
+	 */
 	public PlayerMove(CheckerMove[] checkerMoves, PlayerColor playerColor) {
-		if (checkerMoves.length != 2 && checkerMoves.length != 4) {
-			throw new IllegalArgumentException();
-		} else {
-			this.playerColor = playerColor;
-			this.checkerMoves = checkerMoves;
+		if (checkerMoves == null) {
+			throw new NullPointerException("checkerMoves is null");
 		}
+		if (checkerMoves.length != 2 && checkerMoves.length != 4) {
+			throw new IllegalArgumentException("Invalid length for checkerMoves : " + checkerMoves.length);
+		}
+		this.checkerMoves = new CheckerMove[checkerMoves.length];
+		System.arraycopy(checkerMoves, 0, this.checkerMoves, 0, checkerMoves.length);
 	}
 
 	@Override

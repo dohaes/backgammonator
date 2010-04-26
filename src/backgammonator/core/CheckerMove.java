@@ -29,7 +29,7 @@ public final class CheckerMove {
 	 * Setter for the position from which the checker is moved
 	 * @throws IllegalArgumentException if startPoint is smaller than 1 or greater than 24
 	 */
-	public void setStartPoint(int startPoint) {
+	private void setStartPoint(int startPoint) {
 		if (startPoint > 24 || startPoint < 1) {
 			throw new IllegalArgumentException("Invalid start point : " + startPoint);
 		}
@@ -47,7 +47,7 @@ public final class CheckerMove {
 	 * Setter for the length that the checker is moved
 	 * @throws IllegalArgumentException if moveLength is negative or greater than 6
 	 */
-	public void setMoveLength(int moveLength) {
+	private void setMoveLength(int moveLength) {
 		if (moveLength < 1 || moveLength > 6) {
 			throw new IllegalArgumentException("Invalid move length : " + moveLength);
 		}
