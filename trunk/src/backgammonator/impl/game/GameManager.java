@@ -212,14 +212,12 @@ public final class GameManager {
 	 * interrupt the thread. It it is still alive, it stops it. And if stop
 	 * doesn't help, it calls destroy.
 	 * 
-	 * @param thread
-	 *            the thread to stop
-	 * @param callStop
-	 *            <code>true</code> to call stop and destroy.
-	 * @param joinTime
-	 *            the time to wait for the thread to die.
+	 * @param thread the thread to stop
+	 * @param callStop <code>true</code> to call stop and destroy.
+	 * @param joinTime the time to wait for the thread to die.
 	 * @return <code>true</code> if the thread is stopped
 	 */
+	@SuppressWarnings("deprecation" )
 	private static final boolean stop(Thread thread, boolean callStop,
 			int joinTime) {
 		boolean alive = thread.isAlive();
