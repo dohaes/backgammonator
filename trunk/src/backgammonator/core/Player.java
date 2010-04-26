@@ -13,11 +13,6 @@ public interface Player {
 	String getName();
 
 	/**
-	 * Returns the color of the player.
-	 */
-	PlayerColor getColor();
-
-	/**
 	 * This method returns the players move according to the current
 	 * configuration of the backgammon board and the given dice.
 	 * 
