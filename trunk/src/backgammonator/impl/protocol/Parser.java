@@ -1,4 +1,4 @@
-package backgammonator.protocol;
+package backgammonator.impl.protocol;
 
 import backgammonator.core.PlayerMove;
 
