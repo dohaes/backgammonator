@@ -5,7 +5,6 @@ import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Logger;
 import backgammonator.core.Player;
-import backgammonator.core.MoveValidator;
 import backgammonator.core.PlayerMove;
 import backgammonator.util.Debug;
 
@@ -24,7 +23,7 @@ public final class GameManager {
 	private static final long MOVE_TIMEOUT = 1000;
 	
 	private BackgammonBoardImpl board;
-	private Dice dice;
+	private DiceImpl dice;
 	private Logger logger;
 	
 	private PlayerMove currentMove = null;
@@ -38,7 +37,7 @@ public final class GameManager {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
 		board = new BackgammonBoardImpl();
-		dice = new Dice();
+		dice = new DiceImpl();
 		logger = new HTMLLogger();
 	}
 	
