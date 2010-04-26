@@ -17,7 +17,7 @@ public class PlayerMove {
 	 * @param checkerMoves array of CheckerMove objects
 	 * @param playerColor 
 	 */
-	public PlayerMove(CheckerMove[] checkerMoves, PlayerColor playerColor) {
+	public PlayerMove(CheckerMove[] checkerMoves) {
 		if (checkerMoves == null) {
 			throw new NullPointerException("checkerMoves is null");
 		}
@@ -30,16 +30,12 @@ public class PlayerMove {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
+		// TODO implement for the protocol
 		return super.toString();
 	}
 
 	public CheckerMove getCheckerMove(int index) {
 		return this.checkerMoves[index];
-	}
-
-	public PlayerColor getPlayerColor() {
-		return playerColor;
 	}
 
 	public boolean isDouble() {

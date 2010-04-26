@@ -85,7 +85,7 @@ class HTMLLogger implements GameLogger {
 	}
 
 	@Override
-	public void logMove(PlayerMove move, Dice dice, int hit, int bornOff) {
+	public void logMove(PlayerMove move, PlayerColor color, Dice dice, int hit, int bornOff) {
 
 		String rowspan;
 		if (move.isDouble()) {
@@ -97,8 +97,7 @@ class HTMLLogger implements GameLogger {
 		this.logStringBuffer.append("<tr><td>"
 				+ this.moveId
 				+ "</td><td>"
-				+ ((move.getPlayerColor() == PlayerColor.WHITE) ? "white"
-						: "black") + "</td><td>" + dice.getDie1() + "</td><td>"
+				+ color + "</td><td>" + dice.getDie1() + "</td><td>"
 				+ dice.getDie2() + "</td><td>"
 				+ move.getCheckerMove(0).getStartPoint() + "</td><td>"
 				+ move.getCheckerMove(0).getMoveLength() + "</td><td>"
@@ -110,8 +109,7 @@ class HTMLLogger implements GameLogger {
 			this.logStringBuffer.append("<tr><td>"
 					+ this.moveId
 					+ "</td><td>"
-					+ ((move.getPlayerColor() == PlayerColor.WHITE) ? "white"
-							: "black") + "</td><td>" + dice.getDie1()
+					+ color + "</td><td>" + dice.getDie1()
 					+ "</td><td>" + dice.getDie2() + "</td><td>"
 					+ move.getCheckerMove(2).getStartPoint() + "</td><td>"
 					+ move.getCheckerMove(2).getMoveLength() + "</td><td>"
@@ -119,7 +117,7 @@ class HTMLLogger implements GameLogger {
 					+ move.getCheckerMove(3).getMoveLength() + "</td></tr>\n");
 		}
 		this.moveId++;
-		this.lastPlayer = (move.getPlayerColor() == PlayerColor.WHITE) ? this.whitePlayer
+		this.lastPlayer = (color == PlayerColor.WHITE) ? this.whitePlayer
 				: this.blackPlayer;
 	}
 
