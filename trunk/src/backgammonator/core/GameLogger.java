@@ -6,7 +6,7 @@ package backgammonator.core;
  * print on the console, etc.
  */
 
-public interface Logger {
+public interface GameLogger {
 
 	void startGame(Player whitePlayer, Player blackPlayer);
 

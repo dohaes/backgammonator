@@ -8,7 +8,7 @@ import java.util.Date;
 
 import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
-import backgammonator.core.Logger;
+import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
@@ -19,7 +19,7 @@ import backgammonator.util.Debug;
  * document.
  */
 
-public class HTMLLogger implements Logger {
+public class HTMLLogger implements GameLogger {
 
 	private Player whitePlayer;
 	private Player blackPlayer;

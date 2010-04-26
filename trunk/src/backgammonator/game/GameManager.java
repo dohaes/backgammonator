@@ -1,9 +1,8 @@
 package backgammonator.game;
 
 import backgammonator.core.BackgammonBoard;
-import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
-import backgammonator.core.Logger;
+import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
 import backgammonator.util.Debug;
@@ -24,7 +23,7 @@ public final class GameManager {
 	
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
-	private Logger logger;
+	private GameLogger logger;
 	
 	private PlayerMove currentMove = null;
 	private Object synch = new Object();
@@ -38,7 +37,7 @@ public final class GameManager {
 		this.blackPlayer = blackPlayer;
 		board = new BackgammonBoardImpl();
 		dice = new DiceImpl();
-		logger = new HTMLLogger();
+		logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
 	}
 	
 	/**
