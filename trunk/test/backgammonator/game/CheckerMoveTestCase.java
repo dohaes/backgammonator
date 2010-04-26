@@ -3,8 +3,11 @@ package backgammonator.game;
 import junit.framework.TestCase;
 import backgammonator.core.CheckerMove;
 
+/**
+ * Tests class {@link CheckerMove}
+ */
 public class CheckerMoveTestCase extends TestCase {
-	
+
 	public void testCreateValidMove() {
 		CheckerMove move = null;
 		try {
@@ -15,73 +18,72 @@ public class CheckerMoveTestCase extends TestCase {
 		assertEquals(2, move.getStartPoint());
 		assertEquals(3, move.getMoveLength());
 		try {
-			move.setMoveLength(1);
+			move = new CheckerMove(1, 3);
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 		assertEquals(1, move.getMoveLength());
 		try {
-			move.setMoveLength(6);
+			move = new CheckerMove(6, 2);
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 		assertEquals(6, move.getMoveLength());
 		try {
-			move.setStartPoint(1);
+			move = new CheckerMove(1, 3);
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 		assertEquals(1, move.getStartPoint());
 		try {
-			move.setStartPoint(24);
+			move = new CheckerMove(24, 3);
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 		assertEquals(24, move.getStartPoint());
-		
+
 	}
-	
+
 	public void testInvalidLength() {
 		try {
-			CheckerMove move = new CheckerMove(25, 5);
+			new CheckerMove(25, 5);
 			fail("Expected IIllegalArgumentException");
 		} catch (IllegalArgumentException iae) {
-			//ok
+			// ok
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		
+
 		try {
-			CheckerMove move = new CheckerMove(0, 5);
+			new CheckerMove(0, 5);
 			fail("Expected IIllegalArgumentException");
 		} catch (IllegalArgumentException iae) {
-			//ok
+			// ok
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 
 	}
-	
+
 	public void testInvalidPoint() {
-		
+
 		try {
-			CheckerMove move = new CheckerMove(3, 8);
+			new CheckerMove(3, 8);
 			fail("Expected IIllegalArgumentException");
 		} catch (IllegalArgumentException iae) {
-			//ok
+			// ok
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		
+
 		try {
-			CheckerMove move = new CheckerMove(3, 0);
+			new CheckerMove(3, 0);
 			fail("Expected IIllegalArgumentException");
 		} catch (IllegalArgumentException iae) {
-			//ok
+			// ok
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 	}
-
 
 }
