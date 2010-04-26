@@ -70,13 +70,13 @@ public class MoveValidator {
 	public static boolean validatePoint(BackgammonBoard board,
 			PlayerColor color, CheckerMove move) {
 		int from = move.getStartPoint();
-		Point fromPoint = board.getPoint(from, color);
+		Point fromPoint = board.getPoint(from);
 		if (fromPoint.getColor() != color || fromPoint.getCount() <= 0) {
 			return false;
 		}
 		int to = from + move.getMoveLength();
 		if (to <= MAX_POINTS) {
-			Point toPoint = board.getPoint(to, color);
+			Point toPoint = board.getPoint(to);
 			if (toPoint.getCount() > 0 && toPoint.getColor() != color) {
 				return false;
 			}
