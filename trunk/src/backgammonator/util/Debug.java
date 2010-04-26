@@ -7,7 +7,8 @@ package backgammonator.util;
 
 public final class Debug {
 
-	private static boolean isDebugOn = true; //TODO use system prop to configure debug
+	private static boolean isDebugOn = true; // TODO use system prop to
+												// configure debug
 
 	public static final int CORE_MODULE = 1;
 	public static final int GAME_MODULE = 2;
@@ -15,13 +16,16 @@ public final class Debug {
 	public static final int TOURNAMENT_MODULE = 4;
 	public static final int UTIL_MODULE = 5;
 	public static final int LOGGER_MODULE = 6;
-	
+
 	private static Debug instance = null;
-	private Debug() { }
-	
+
+	private Debug() {
+	}
+
 	public static Debug getInstance() {
-	  if (instance == null) instance = new Debug();
-	  return instance;
+		if (instance == null)
+			instance = new Debug();
+		return instance;
 	}
 
 	/**
@@ -40,8 +44,10 @@ public final class Debug {
 	 */
 	public synchronized void warning(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
-			System.out.println("[WARNING] " + "[" + getModule(moduleId) + "]: " + message);
-			if (t != null) t.printStackTrace();
+			System.out.println("[WARNING] " + "[" + getModule(moduleId) + "]: "
+					+ message);
+			if (t != null)
+				t.printStackTrace();
 		}
 	}
 
@@ -51,8 +57,10 @@ public final class Debug {
 	 */
 	public synchronized void error(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
-			System.out.println("[ERROR] " + "[" + getModule(moduleId) +  "]: " + message);
-			if (t != null) t.printStackTrace();
+			System.out.println("[ERROR] " + "[" + getModule(moduleId) + "]: "
+					+ message);
+			if (t != null)
+				t.printStackTrace();
 		}
 	}
 
@@ -75,8 +83,8 @@ public final class Debug {
 			res = "Util Module";
 			break;
 		case 6:
-		  res = "Logger Module";
-		  break;
+			res = "Logger Module";
+			break;
 		default:
 			res = "Module not specified";
 		}

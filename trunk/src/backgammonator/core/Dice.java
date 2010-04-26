@@ -5,9 +5,9 @@ package backgammonator.core;
  */
 public interface Dice {
 
-  /**
-   * Returns the number on the first die.
-   */
+	/**
+	 * Returns the number on the first die.
+	 */
 	public int getDie1();
 
 	/**

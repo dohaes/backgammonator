@@ -2,8 +2,8 @@ package backgammonator.core;
 
 /**
  * This class is used for the representation of a single move of a player. Every
- * move is represented by player color(it will be accessed with getters
- * ) and two(or four for double) checker moves (they will be accessed by int
+ * move is represented by player color(it will be accessed with getters ) and
+ * two(or four for double) checker moves (they will be accessed by int
  * getCheckerMove(int index) method).
  */
 
@@ -13,10 +13,9 @@ public class PlayerMove {
 	private CheckerMove[] checkerMoves;
 
 	public PlayerMove(CheckerMove[] checkerMoves, PlayerColor playerColor) {
-		if(checkerMoves.length != 2 && checkerMoves.length != 4) {
+		if (checkerMoves.length != 2 && checkerMoves.length != 4) {
 			throw new IllegalArgumentException();
-		}
-		else {
+		} else {
 			this.playerColor = playerColor;
 			this.checkerMoves = checkerMoves;
 		}
