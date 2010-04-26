@@ -15,38 +15,10 @@ import backgammonator.core.Point;
 public class MoveValidator {
 	private static final int HIT_POINT = 25;
 	private static final int MAX_POINTS = 24;
+	private static final int HOME_POINT = 6;
 
 	public static boolean validateMove(BackgammonBoard board, PlayerMove move,
 			Dice dice) {
-		PlayerColor color = move.getPlayerColor();
-		if (!validatePlain(move, dice) || !validateHit(board, color, move)) {
-			return false;
-		}
-
-		CheckerMove m = move.getCheckerMove(1);
-		if (!validatePoint(board, color, m)) {
-			return false;
-		}
-		m = move.getCheckerMove(2);
-		if (!validatePoint(board, color, m)) {
-			return false;
-		}
-		if (move.isDouble()) {
-			m = move.getCheckerMove(3);
-			if (!validatePoint(board, color, m)) {
-				return false;
-			}
-			m = move.getCheckerMove(4);
-			if (!validatePoint(board, color, m)) {
-				return false;
-			}
-		}
-
-		return validateEmptyMoves(board, move)
-				&& validateBearOffs(board, color, move);
-	}
-
-	private static boolean validatePlain(PlayerMove move, Dice dice) {
 		if (move.isDouble() != dice.isDouble()) {
 			return false;
 		}
@@ -67,8 +39,26 @@ public class MoveValidator {
 		return true;
 	}
 
-	public static boolean validatePoint(BackgammonBoard board,
-			PlayerColor color, CheckerMove move) {
+	public static boolean validateMove(BackgammonBoardImpl board,
+			CheckerMove move) {
+		PlayerColor color = board.getCurrentPlayerColor();
+		if (!validatePoint(board, move, color)) {
+			return false;
+		}
+		if (!validateHits(board, move, color)) {
+			return false;
+		}
+		if (!validateBearOffs(board, move, color)) {
+			return false;
+		}
+		if (!validateEmptyMoves(board, move, color)) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean validatePoint(BackgammonBoardImpl board,
+			CheckerMove move, PlayerColor color) {
 		int from = move.getStartPoint();
 		Point fromPoint = board.getPoint(from);
 		if (fromPoint.getColor() != color || fromPoint.getCount() <= 0) {
@@ -84,25 +74,31 @@ public class MoveValidator {
 		return true;
 	}
 
-	public static boolean validateHit(BackgammonBoard board, PlayerColor color,
-			PlayerMove move) {
-		for (int i = 1; i <= board.getHits(color); i++) {
-			CheckerMove m = move.getCheckerMove(i);
-			if (m.getStartPoint() != HIT_POINT) {
-				return false;
+	private static boolean validateHits(BackgammonBoard board,
+			CheckerMove move, PlayerColor color) {
+		if (board.getHits(color) > 0 && move.getStartPoint() != HIT_POINT) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean validateBearOffs(BackgammonBoard board,
+			CheckerMove move, PlayerColor color) {
+		int from = move.getStartPoint();
+		int to = from + move.getMoveLength();
+		if (to <= 0) {
+			for (int i = HIT_POINT; i > HOME_POINT; i--) {
+				if (board.getPoint(i).getCount() > 0
+						&& board.getPoint(i).getColor().equals(color)) {
+					return false;
+				}
 			}
 		}
 		return true;
 	}
 
-	public static boolean validateBearOffs(BackgammonBoard board,
-			PlayerColor color, PlayerMove move) {
-		// TODO
-		return true;
-	}
-
-	public static boolean validateEmptyMoves(BackgammonBoard board,
-			PlayerMove move) {
+	private static boolean validateEmptyMoves(BackgammonBoard board,
+			CheckerMove move, PlayerColor color) {
 		// TODO
 		return true;
 	}
