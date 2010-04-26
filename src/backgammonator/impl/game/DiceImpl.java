@@ -1,4 +1,4 @@
-package backgammonator.impl.core;
+package backgammonator.impl.game;
 
 import java.util.Random;
 

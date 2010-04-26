@@ -1,10 +1,11 @@
-package backgammonator.impl.core;
+package backgammonator.impl.game;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
+import backgammonator.impl.logger.GameLoggerFactory;
 import backgammonator.util.Debug;
 
 /**

@@ -1,11 +1,11 @@
-package backgammonator.impl.core;
+package backgammonator.impl.logger;
 
 import backgammonator.core.GameLogger;
 
 /**
  * Represents factory for selecting a desired type of {@link GameLogger} implementation.
  */
-public class GameLoggerFactory {
+public final class GameLoggerFactory {
 	
 	/**
 	 * If given as argument to {@link #getLogger(int)} specifies that the results
