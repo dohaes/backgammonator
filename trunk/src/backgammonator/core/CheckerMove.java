@@ -7,6 +7,7 @@ public final class CheckerMove {
 
 	private int startPoint;
 	private int moveLength;
+	private boolean hasHit = false;
 
 	/**
 	 * Create CheckerMove object with given start point and move lenght
@@ -53,4 +54,11 @@ public final class CheckerMove {
 		this.moveLength = moveLength;
 	}
 
+	public void setHit() {
+		this.hasHit = true;
+	}
+
+	public boolean hasHit() {
+		return this.hasHit ;
+	}
 }

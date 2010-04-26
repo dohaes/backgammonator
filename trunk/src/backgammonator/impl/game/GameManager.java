@@ -92,15 +92,13 @@ public final class GameManager {
 		dice.generateNext();
 		try {
 			currentMove = currentPlayer.getMove(board, dice);
-			if (currentMove == null
-					|| !MoveValidator.validateMove(board, currentMove, dice)) {
+			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				return GameOverStatus.INVALID_MOVE;
 			}
 			logger.logMove(currentMove, dice, board.getHits(currentPlayer
 					.getColor()), board.getBornOff(currentPlayer.getColor()));
-			board.makeMove(currentMove);
 			if (board.getBornOff(currentPlayer.getColor()) == 15) {
 				currentPlayer.gameOver(true);
 				other.gameOver(false);
@@ -145,7 +143,7 @@ public final class GameManager {
 			}
 
 			if (currentMove == null
-					|| !MoveValidator.validateMove(board, currentMove, dice)) {
+					|| !board.makeMove(currentMove, dice)) {
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				return GameOverStatus.INVALID_MOVE;
@@ -153,7 +151,6 @@ public final class GameManager {
 
 			logger.logMove(currentMove, dice, board.getHits(currentPlayer
 					.getColor()), board.getBornOff(currentPlayer.getColor()));
-			board.makeMove(currentMove);
 
 			if (board.getBornOff(currentPlayer.getColor()) == 15) {
 				currentPlayer.gameOver(true);

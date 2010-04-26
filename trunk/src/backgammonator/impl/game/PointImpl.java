@@ -53,7 +53,8 @@ public final class PointImpl implements Point {
 			this.color = color;
 			return true;
 		}
-		count++;
+		this.count++;
+		this.color = color;
 		if (count > 15) {
 			throw new IllegalArgumentException("Illegal count number: " + count);
 		}

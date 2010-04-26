@@ -2,6 +2,7 @@ package backgammonator.impl.game;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
+import backgammonator.core.Dice;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
@@ -94,23 +95,58 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 				: board[MAX_POINTS - point];
 	}
 
-	void makeMove(PlayerMove move) {
-		CheckerMove m = null;
-		m = move.getCheckerMove(1);
-		makeMove(m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
-		m = move.getCheckerMove(2);
-		makeMove(m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
+	boolean makeMove(PlayerMove move, Dice dice) {
+		if (!MoveValidator.validateMove(this, move, dice)) {
+			return false;
+		}
+		if (!makeMove(move.getCheckerMove(1))) {
+			return false;
+		}
+		if (!makeMove(move.getCheckerMove(2))) {
+			revertMove(move.getCheckerMove(1));
+			return false;
+		}
 		if (move.isDouble()) {
-			m = move.getCheckerMove(3);
-			makeMove(m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
-			m = move.getCheckerMove(4);
-			makeMove(m.getStartPoint(), m.getStartPoint() + m.getMoveLength());
+			if (!makeMove(move.getCheckerMove(3))) {
+				revertMove(move.getCheckerMove(2));
+				revertMove(move.getCheckerMove(1));
+				return false;
+			}
+			if (!makeMove(move.getCheckerMove(4))) {
+				revertMove(move.getCheckerMove(3));
+				revertMove(move.getCheckerMove(2));
+				revertMove(move.getCheckerMove(1));
+				return false;
+			}
 		}
 		// switch players
 		currentColor = currentColor.oposite();
+		return true;
 	}
 
-	private void makeMove(int from, int to) {
+	private void revertMove(CheckerMove checkerMove) {
+		int from = checkerMove.getStartPoint();
+		int to = checkerMove.getStartPoint() + checkerMove.getMoveLength();
+		PointImpl source = getPoint0(from);
+		source.increase(currentColor);
+		if (to > MAX_POINTS) {
+			to = currentColor.equals(PlayerColor.WHITE) ? BORN_WHITE
+					: BORN_BLACK;
+		}
+		PointImpl dest = getPoint0(to);
+		dest.decrease();
+		if (checkerMove.hasHit()) {
+			dest.increase(currentColor.oposite());
+			setHits(currentColor.oposite(), getHits(currentColor) - 1);
+		}
+	}
+
+	private boolean makeMove(CheckerMove checkerMove) {
+		if (!MoveValidator.validateMove(this, checkerMove)) {
+			return false;
+		}
+		int from = checkerMove.getStartPoint();
+		int to = checkerMove.getStartPoint() + checkerMove.getMoveLength();
 		PointImpl source = getPoint0(from);
 		source.decrease();
 		if (to > MAX_POINTS) {
@@ -119,7 +155,9 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		}
 		PointImpl dest = getPoint0(to);
 		if (dest.increase(currentColor)) {
-			setHits(currentColor.oposite(), getHits(currentColor));
+			setHits(currentColor.oposite(), getHits(currentColor) + 1);
+			checkerMove.setHit();
 		}
+		return true;
 	}
 }
