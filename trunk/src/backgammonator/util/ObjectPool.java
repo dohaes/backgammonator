@@ -31,18 +31,19 @@ public final class ObjectPool {
 	 * @return the borrowed object
 	 */
 	public Object borrowObject() {
-		int currentSize = instances.size();
-		if (currentSize == size)  {
-			try {
-				return clazz.newInstance();
-			} catch (InstantiationException e) {
-				return null;
-			} catch (IllegalAccessException e) {
-				return null;
-			}
-		} 
-		else return instances.remove(currentSize - 1);
-	}
+    int currentSize = instances.size();
+    if (currentSize == size) {
+      try {
+        return clazz.newInstance();
+      } catch (Exception e) {
+        Debug.getInstance().error(
+            "Exception while creating object from class : " + clazz,
+            Debug.UTIL_MODULE, e);
+        return null;
+      }
+    } else
+      return instances.remove(currentSize - 1);
+  }
 	
 	/**
 	 * Returns an object to the pool.
@@ -50,12 +51,21 @@ public final class ObjectPool {
 	 * @param object the object to return
 	 */
 	public void returnObject(Object object) {
-		int currentSize = instances.size();
-		if (currentSize == size) return; //pool is full
-		if (object.getClass() != clazz) return; //invalid type for the object
-		instances.add(object);
-		
-	}
+    int currentSize = instances.size();
+    if (currentSize == size) {
+      Debug.getInstance().warning("Object pool is full", Debug.UTIL_MODULE,
+          null);
+      return;
+    }
+    if (object.getClass() != clazz) {
+      Debug.getInstance().warning(
+          "Invalid type for the given argument : " + object.getClass(),
+          Debug.UTIL_MODULE, null);
+      return;
+    }
+    instances.add(object);
+
+  }
 	
 
 }
