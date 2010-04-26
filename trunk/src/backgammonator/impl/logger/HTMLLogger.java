@@ -1,4 +1,4 @@
-package backgammonator.impl.core;
+package backgammonator.impl.logger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -19,7 +19,7 @@ import backgammonator.util.Debug;
  * document.
  */
 
-public class HTMLLogger implements GameLogger {
+class HTMLLogger implements GameLogger {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
