@@ -30,7 +30,7 @@ public final class ObjectPool {
 	 * If the pool is empty a new instance of the object is created.
 	 * @return the borrowed object
 	 */
-	public Object borrowObject() {
+	public synchronized Object borrowObject() {
     int currentSize = instances.size();
     if (currentSize == size) {
       try {
@@ -50,7 +50,7 @@ public final class ObjectPool {
 	 * If the pool is full or the object is not instance of the provided class nothing is done.
 	 * @param object the object to return
 	 */
-	public void returnObject(Object object) {
+	public synchronized void returnObject(Object object) {
     int currentSize = instances.size();
     if (currentSize == size) {
       Debug.getInstance().warning("Object pool is full", Debug.UTIL_MODULE,
