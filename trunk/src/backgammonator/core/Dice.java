@@ -1,35 +1,23 @@
 package backgammonator.core;
 
-import java.util.Random;
-
 /**
  * Creates new randomly generated pair of dice.
  */
-public class Dice {
-	private static final Random generator = new Random();
-	private int die1;
-	private int die2;
+public interface Dice {
+
+  /**
+   * Returns the number on the first die.
+   */
+	public int getDie1();
 
 	/**
-	 * Creates new randomly generated pair of dice.
+	 * Returns the number on the second die.
 	 */
-	public Dice() {
-	}
+	public int getDie2();
 
-	public int getDie1() {
-		return die1;
-	}
+	/**
+	 * Checks if the dice form double.
+	 */
+	public boolean isDouble();
 
-	public int getDie2() {
-		return die2;
-	}
-
-	public boolean isDouble() {
-		return die1 == die2;
-	}
-
-	public void generateNext() {
-		die1 = generator.nextInt(6) + 1;
-		die2 = generator.nextInt(6) + 1;
-	}
 }
