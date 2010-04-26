@@ -13,8 +13,8 @@ public final class CheckerMove {
 	 */
 
 	public CheckerMove(int startPoint, int moveLength) {
-		this.startPoint = startPoint;
-		this.moveLength = moveLength;
+		setStartPoint(startPoint);
+		setMoveLength(moveLength);
 	}
 
 	/**
@@ -26,9 +26,13 @@ public final class CheckerMove {
 
 	/**
 	 * Setter for the position from which the checker is moved
+	 * @throws IllegalArgumentException if startPoint is smaller than 1 or greater than 24
 	 */
-	public void setStartPoint(int startPosistion) {
-		this.startPoint = startPosistion;
+	public void setStartPoint(int startPoint) {
+		if (startPoint > 24 || startPoint < 1) {
+			throw new IllegalArgumentException("Invalid start point : " + startPoint);
+		}
+		this.startPoint = startPoint;
 	}
 
 	/**
@@ -40,8 +44,12 @@ public final class CheckerMove {
 
 	/**
 	 * Setter for the length that the checker is moved
+	 * @throws IllegalArgumentException if moveLength is negative or greater than 6
 	 */
 	public void setMoveLength(int moveLength) {
+		if (moveLength < 1 || moveLength > 6) {
+			throw new IllegalArgumentException("Invalid move length : " + moveLength);
+		}
 		this.moveLength = moveLength;
 	}
 
