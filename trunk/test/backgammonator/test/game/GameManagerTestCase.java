@@ -14,68 +14,68 @@ import junit.framework.TestCase;
  */
 public class GameManagerTestCase extends TestCase {
 	
-	public void testTimedoutMove() {
-		AbstractTestPlayer timedout = new TimedoutMovePlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
-		
-		GameManager game = new GameManager(timedout, normal, false);
-		GameOverStatus status = null;
-		
-		try {
-			status = game.start();
-		} catch (Throwable t) {
-			fail("Unexpected exception was thrown : " + t);
-		}
-		
-		assertNotNull(status);
-		assertEquals(GameOverStatus.TIMEDOUT, status);
-		assertFalse(timedout.wins());
-		assertTrue(normal.wins());
-	}
-	
-	public void testExceptionInMove() {
-		AbstractTestPlayer exception = new ExceptionPlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
-		
-		GameManager game = new GameManager(exception, normal, false);
-		GameOverStatus status = null;
-		
-		try {
-			status = game.start();
-		} catch (Throwable t) {
-			fail("Unexpected exception was thrown : " + t);
-		}
-		
-		assertNotNull(status);
-		assertEquals(GameOverStatus.EXCEPTION, status);
-		assertFalse(exception.wins());
-		assertTrue(normal.wins());
-	}
-
-	public void testMoveReturnedNull() {
-		AbstractTestPlayer nullmove = new NullMovePlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
-		
-		GameManager game = new GameManager(nullmove, normal, false);
-		GameOverStatus status = null;
-		
-		try {
-			status = game.start();
-		} catch (Throwable t) {
-			fail("Unexpected exception was thrown : " + t);
-		}
-		
-		assertNotNull(status);
-		assertEquals(GameOverStatus.INVALID_MOVE, status);
-		assertFalse(nullmove.wins());
-		assertTrue(normal.wins());
-	}
+//	public void testTimedoutMove() {
+//		AbstractTestPlayer timedout = new TimedoutMovePlayer();
+//		AbstractTestPlayer normal = new DummyPlayer();
+//		
+//		GameManager game = new GameManager(timedout, normal, false);
+//		GameOverStatus status = null;
+//		
+//		try {
+//			status = game.start();
+//		} catch (Throwable t) {
+//			fail("Unexpected exception was thrown : " + t);
+//		}
+//		
+//		assertNotNull(status);
+//		assertEquals(GameOverStatus.TIMEDOUT, status);
+//		assertFalse(timedout.wins());
+//		assertTrue(normal.wins());
+//	}
+//	
+//	public void testExceptionInMove() {
+//		AbstractTestPlayer exception = new ExceptionPlayer();
+//		AbstractTestPlayer normal = new DummyPlayer();
+//		
+//		GameManager game = new GameManager(exception, normal, false);
+//		GameOverStatus status = null;
+//		
+//		try {
+//			status = game.start();
+//		} catch (Throwable t) {
+//			fail("Unexpected exception was thrown : " + t);
+//		}
+//		
+//		assertNotNull(status);
+//		assertEquals(GameOverStatus.EXCEPTION, status);
+//		assertFalse(exception.wins());
+//		assertTrue(normal.wins());
+//	}
+//
+//	public void testMoveReturnedNull() {
+//		AbstractTestPlayer nullmove = new NullMovePlayer();
+//		AbstractTestPlayer normal = new DummyPlayer();
+//		
+//		GameManager game = new GameManager(nullmove, normal, false);
+//		GameOverStatus status = null;
+//		
+//		try {
+//			status = game.start();
+//		} catch (Throwable t) {
+//			fail("Unexpected exception was thrown : " + t);
+//		}
+//		
+//		assertNotNull(status);
+//		assertEquals(GameOverStatus.INVALID_MOVE, status);
+//		assertFalse(nullmove.wins());
+//		assertTrue(normal.wins());
+//	}
 	
 	public void testNormal() {
 		AbstractTestPlayer normal1 = new DummyPlayer();
 		AbstractTestPlayer normal2 = new DummyPlayer();
 		
-		GameManager game = new GameManager(normal1, normal2, false);
+		GameManager game = new GameManager(normal1, normal2, true);
 		GameOverStatus status = null;
 		
 		try {
