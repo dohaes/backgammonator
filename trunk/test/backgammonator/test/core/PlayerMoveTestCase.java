@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.test.core;
 
 import junit.framework.TestCase;
 import backgammonator.core.CheckerMove;

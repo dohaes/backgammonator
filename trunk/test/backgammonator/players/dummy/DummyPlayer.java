@@ -7,6 +7,7 @@ import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
 
 public class DummyPlayer implements Player {
+	
 	public void gameOver(boolean wins) {
 		// ignore
 	}
