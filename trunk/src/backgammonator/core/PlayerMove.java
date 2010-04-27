@@ -62,11 +62,11 @@ public class PlayerMove {
 	 *             if the index is out of bounds.
 	 */
 	public CheckerMove getCheckerMove(int index) {
-		if (index < 1 || index > checkerMoves.length) {
+		if (index < 0 || index >= checkerMoves.length) {
 			throw new IllegalArgumentException("Invalid index : " + index
 					+ " : " + checkerMoves.length);
 		}
-		return this.checkerMoves[index - 1];
+		return this.checkerMoves[index];
 	}
 
 	/**

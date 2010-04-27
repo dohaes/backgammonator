@@ -15,10 +15,10 @@ public class MoveValidatorTestCase extends TestCase {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		DummyPlayer player = new DummyPlayer();
 		DiceImpl dice = new DiceImpl();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10; i++) {
 			dice.generateNext();
 			PlayerMove move = player.getMove(board, dice);
-			assertTrue(MoveValidator.validateMove(board, move, dice));
+			assertTrue("Invalid move " + i, board.makeMove(move, dice));
 		}
 	}
 
@@ -26,10 +26,11 @@ public class MoveValidatorTestCase extends TestCase {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		DummyPlayer player = new DummyPlayer();
 		DiceImpl dice = new DiceImpl();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10; i++) {
 			dice.generateNext();
 			PlayerMove move = player.getMove(board, dice);
-			assertTrue(MoveValidator.validateMove(board, move, dice));
+			dice.generateNext();
+			assertFalse("Invalid move accepted " + i, board.makeMove(move, dice));
 		}
 	}
 
