@@ -22,8 +22,8 @@ public class MoveValidator {
 		if (move.isDouble() != dice.isDouble()) {
 			return false;
 		}
-		CheckerMove m1 = move.getCheckerMove(1);
-		CheckerMove m2 = move.getCheckerMove(2);
+		CheckerMove m1 = move.getCheckerMove(0);
+		CheckerMove m2 = move.getCheckerMove(1);
 		if (!((m1.getMoveLength() == dice.getDie1() && m2.getMoveLength() == dice
 				.getDie2()) || (m1.getMoveLength() == dice.getDie2() && m2
 				.getMoveLength() == dice.getDie1()))) {
@@ -31,8 +31,8 @@ public class MoveValidator {
 		}
 
 		if (move.isDouble()
-				&& (move.getCheckerMove(3).getMoveLength() != dice.getDie1() || move
-						.getCheckerMove(4).getMoveLength() != dice.getDie1())) {
+				&& (move.getCheckerMove(2).getMoveLength() != dice.getDie1() || move
+						.getCheckerMove(3).getMoveLength() != dice.getDie1())) {
 			return false;
 		}
 

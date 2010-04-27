@@ -110,23 +110,23 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		if (!MoveValidator.validateMove(this, move, dice)) {
 			return false;
 		}
-		if (!makeMove(move.getCheckerMove(1))) {
+		if (!makeMove(move.getCheckerMove(0))) {
 			return false;
 		}
-		if (!makeMove(move.getCheckerMove(2))) {
-			revertMove(move.getCheckerMove(1));
+		if (!makeMove(move.getCheckerMove(1))) {
+			revertMove(move.getCheckerMove(0));
 			return false;
 		}
 		if (move.isDouble()) {
+			if (!makeMove(move.getCheckerMove(2))) {
+				revertMove(move.getCheckerMove(1));
+				revertMove(move.getCheckerMove(0));
+				return false;
+			}
 			if (!makeMove(move.getCheckerMove(3))) {
 				revertMove(move.getCheckerMove(2));
 				revertMove(move.getCheckerMove(1));
-				return false;
-			}
-			if (!makeMove(move.getCheckerMove(4))) {
-				revertMove(move.getCheckerMove(3));
-				revertMove(move.getCheckerMove(2));
-				revertMove(move.getCheckerMove(1));
+				revertMove(move.getCheckerMove(0));
 				return false;
 			}
 		}
