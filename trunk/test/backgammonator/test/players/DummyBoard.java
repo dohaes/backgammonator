@@ -1,4 +1,4 @@
-package backgammonator.players.dummy;
+package backgammonator.test.players;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.Point;
@@ -23,5 +23,18 @@ public class DummyBoard {
 			i = 0;
 		}
 		return pos[i];
+	}
+
+	public void move(int point, int die) {
+		pos[point]--;
+		int end = point - die;
+		if (end < 1) {
+			end = 0;
+		}
+		if (pos[end] == -1) {
+			pos[end] = 1;
+		} else {
+			pos[end]++;
+		}
 	}
 }
