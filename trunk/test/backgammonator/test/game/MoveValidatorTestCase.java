@@ -1,5 +1,7 @@
 package backgammonator.test.game;
 
+import java.lang.reflect.Method;
+
 import junit.framework.TestCase;
 import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
@@ -16,7 +18,7 @@ public class MoveValidatorTestCase extends TestCase {
 		DummyPlayer player = new DummyPlayer();
 		DiceImpl dice = new DiceImpl();
 		for (int i = 0; i < 10; i++) {
-			dice.generateNext();
+			generateNext(dice);
 			PlayerMove move = player.getMove(board, dice);
 			assertTrue("Invalid move " + i, board.makeMove(move, dice));
 		}
@@ -27,9 +29,9 @@ public class MoveValidatorTestCase extends TestCase {
 		DummyPlayer player = new DummyPlayer();
 		DiceImpl dice = new DiceImpl();
 		for (int i = 0; i < 10; i++) {
-			dice.generateNext();
+			generateNext(dice);
 			PlayerMove move = player.getMove(board, dice);
-			dice.generateNext();
+			generateNext(dice);
 			assertFalse("Invalid move accepted " + i, board.makeMove(move, dice));
 		}
 	}
@@ -44,5 +46,22 @@ public class MoveValidatorTestCase extends TestCase {
 	}
 
 	public void testInvalidMovesNoValidMoves() throws Exception {
+	}
+	
+	
+	private static Method generateNext = null;
+	static {
+		try {
+			generateNext = DiceImpl.class.getDeclaredMethod("generateNext", (Class[])null);
+			generateNext.setAccessible(true);
+		} catch (Exception e) { } 
+	}
+	private static void generateNext(DiceImpl dice) {
+		if (generateNext == null) fail("Method DiceImpl.generateNext not found!");
+		try {
+			generateNext.invoke(dice, (Object[])null);
+		} catch (Exception e) {
+			fail("Unexpected exception was thrown");
+		} 
 	}
 }
