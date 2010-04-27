@@ -9,14 +9,7 @@ import backgammonator.core.PlayerMove;
  * Sample implementation of the {@link Player} interface.
  * This player returns null for a move.
  */
-public class NullMovePlayer implements Player {
-
-	public boolean wins;
-	
-	@Override
-	public void gameOver(boolean wins) {
-		this.wins = wins;
-	}
+public class NullMovePlayer extends AbstractTestPlayer {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
