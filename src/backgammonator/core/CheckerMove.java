@@ -30,7 +30,7 @@ public final class CheckerMove {
 	 * @throws IllegalArgumentException if startPoint is smaller than 1 or greater than 24
 	 */
 	private void setStartPoint(int startPoint) {
-		if (startPoint > 24 || startPoint < 1) {
+		if (startPoint > 25 || startPoint < 0) {
 			throw new IllegalArgumentException("Invalid start point : " + startPoint);
 		}
 		this.startPoint = startPoint;
