@@ -111,14 +111,14 @@ public final class GameManager {
 			if (t != null) {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
-						Debug.CORE_MODULE, t);
+						Debug.GAME_MODULE, t);
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				return GameOverStatus.EXCEPTION;
 			}
 
 			if (!notified) {
-				Debug.getInstance().error("Move timeout", Debug.CORE_MODULE,
+				Debug.getInstance().error("Move timeout", Debug.GAME_MODULE,
 						null);
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
@@ -147,7 +147,7 @@ public final class GameManager {
 		} catch (Exception e) {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
-					Debug.CORE_MODULE, t);
+					Debug.GAME_MODULE, t);
 			currentPlayer.gameOver(false);
 			other.gameOver(true);
 			return GameOverStatus.EXCEPTION;
@@ -165,7 +165,7 @@ public final class GameManager {
 				synch.wait(MOVE_TIMEOUT);
 			} catch (InterruptedException e) {
 				Debug.getInstance().error("Error waitin for move",
-						Debug.CORE_MODULE, e);
+						Debug.GAME_MODULE, e);
 			}
 		}
 	}
