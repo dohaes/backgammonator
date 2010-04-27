@@ -8,8 +8,8 @@ import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
 
 /**
- * Represents implementation of the {@link BackgammonBoard} interface
- * TODO maybe use pooling ?
+ * Represents implementation of the {@link BackgammonBoard} interface TODO maybe
+ * use pooling ?
  */
 public class BackgammonBoardImpl implements BackgammonBoard {
 
@@ -105,7 +105,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		return currentColor.equals(PlayerColor.WHITE) ? board[point - 1]
 				: board[MAX_POINTS - point];
 	}
-	
+
 	void switchPlayer() {
 		currentColor = currentColor.oposite();
 	}
@@ -134,12 +134,15 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
 	private void revertMove(CheckerMove checkerMove) {
 		int from = checkerMove.getStartPoint();
+		if (from == 25) {
+			return;
+		}
 		int to = checkerMove.getStartPoint() + checkerMove.getMoveLength();
 		PointImpl source = getPoint0(from);
 		source.increase(currentColor);
@@ -156,13 +159,20 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	}
 
 	private boolean makeMove(CheckerMove checkerMove) {
+		int from = checkerMove.getStartPoint();
+		if (from == 25) {
+			return true;
+		}
 		if (!MoveValidator.validateMove(this, checkerMove)) {
 			return false;
 		}
-		int from = checkerMove.getStartPoint();
 		int to = checkerMove.getStartPoint() + checkerMove.getMoveLength();
-		PointImpl source = getPoint0(from);
-		source.decrease();
+		if (from == 0) {
+			setHits(currentColor, getHits(currentColor) - 1);
+		} else {
+			PointImpl source = getPoint0(from);
+			source.decrease();
+		}
 		if (to > MAX_POINTS) {
 			setBornOff(currentColor, getBornOff(currentColor) + 1);
 		} else {

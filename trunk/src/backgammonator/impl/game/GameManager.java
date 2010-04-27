@@ -21,7 +21,7 @@ public final class GameManager {
 	private Player whitePlayer;
 	private Player blackPlayer;
 
-	private static final long MOVE_TIMEOUT = 1000000;
+	private static final long MOVE_TIMEOUT = 1000;
 
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
@@ -38,11 +38,8 @@ public final class GameManager {
 	public GameManager(Player whitePlayer, Player blackPlayer, boolean logMoves) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
-		board = new BackgammonBoardImpl();
 		dice = new DiceImpl();
-		if (this.logMoves = logMoves) {
-			logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
-		}
+		this.logMoves = logMoves;
 	}
 
 	/**
@@ -51,10 +48,13 @@ public final class GameManager {
 	 * @return the status of the game.
 	 */
 	public GameOverStatus start() {
+		board = new BackgammonBoardImpl();
+		if (logMoves) {
+			logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
+			logger.startGame(whitePlayer, blackPlayer);
+		}
 
 		GameOverStatus status = null;
-		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
-
 		while (true) {
 			board.switchPlayer();
 			status = makeMove(whitePlayer, blackPlayer);
