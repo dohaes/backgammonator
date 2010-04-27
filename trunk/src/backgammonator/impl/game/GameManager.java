@@ -145,6 +145,9 @@ public final class GameManager {
 				return GameOverStatus.OK;
 			}
 		} catch (Exception e) {
+			Debug.getInstance().error(
+					"Exception thrown while performing move",
+					Debug.CORE_MODULE, t);
 			currentPlayer.gameOver(false);
 			other.gameOver(true);
 			return GameOverStatus.EXCEPTION;
