@@ -138,7 +138,7 @@ public final class GameManager {
 				invalid = true;
 			}
 
-			if (logMoves) {
+			if (logMoves && currentMove != null) {
 				logger.logMove(currentMove, board.getCurrentPlayerColor(),
 						dice, board.getHits(board.getCurrentPlayerColor().oposite()),
 						board.getBornOff(board.getCurrentPlayerColor()), invalid);
