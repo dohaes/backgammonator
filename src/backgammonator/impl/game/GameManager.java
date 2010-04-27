@@ -26,6 +26,7 @@ public final class GameManager {
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
 	private GameLogger logger;
+	private boolean logMoves;
 
 	private PlayerMove currentMove = null;
 	private Object synch = new Object();
@@ -34,22 +35,25 @@ public final class GameManager {
 	/**
 	 * Constructs a game between two AI players.
 	 */
-	public GameManager(Player whitePlayer, Player blackPlayer) {
+	public GameManager(Player whitePlayer, Player blackPlayer, boolean logMoves) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
 		board = new BackgammonBoardImpl();
 		dice = new DiceImpl();
-		logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
+		if (this.logMoves = logMoves) {
+			logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
+		}
 	}
 
 	/**
 	 * This method starts and navigates the game between the two players. Always
 	 * the white player is first.
+	 * @return the status of the game.
 	 */
-	public void start() {
+	public GameOverStatus start() {
 
 		GameOverStatus status = null;
-		logger.startGame(whitePlayer, blackPlayer);
+		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 
 		while (true) {
 			status = makeMove(whitePlayer, blackPlayer);
@@ -60,37 +64,38 @@ public final class GameManager {
 				break;
 		}
 
-		logger.endGame(status);
+		if (logMoves) logger.endGame(status);
+		return status;
 	}
 
-	/**
-	 * Return the end game status if the game is over, on null otherwise
-	 */
-	private GameOverStatus _makeMove(Player currentPlayer, Player other) {
-		PlayerMove currentMove;
-		dice.generateNext();
-		try {
-			currentMove = currentPlayer.getMove(board, dice);
-			if (currentMove == null || !board.makeMove(currentMove, dice)) {
-				currentPlayer.gameOver(false);
-				other.gameOver(true);
-				return GameOverStatus.INVALID_MOVE;
-			}
-			logger.logMove(currentMove, board.getCurrentPlayerColor(), dice, board.getHits(board.getCurrentPlayerColor()),
-					                          board.getBornOff(board.getCurrentPlayerColor()));
-			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				currentPlayer.gameOver(true);
-				other.gameOver(false);
-				return GameOverStatus.OK;
-			}
-		} catch (Exception e) {
-			currentPlayer.gameOver(false);
-			other.gameOver(true);
-			return GameOverStatus.EXCEPTION;
-		}
-
-		return null;
-	}
+//	/**
+//	 * Return the end game status if the game is over, on null otherwise
+//	 */
+//	private GameOverStatus _makeMove(Player currentPlayer, Player other) {
+//		PlayerMove currentMove;
+//		dice.generateNext();
+//		try {
+//			currentMove = currentPlayer.getMove(board, dice);
+//			if (currentMove == null || !board.makeMove(currentMove, dice)) {
+//				currentPlayer.gameOver(false);
+//				other.gameOver(true);
+//				return GameOverStatus.INVALID_MOVE;
+//			}
+//			logger.logMove(currentMove, board.getCurrentPlayerColor(), dice, board.getHits(board.getCurrentPlayerColor()),
+//					                          board.getBornOff(board.getCurrentPlayerColor()));
+//			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
+//				currentPlayer.gameOver(true);
+//				other.gameOver(false);
+//				return GameOverStatus.OK;
+//			}
+//		} catch (Exception e) {
+//			currentPlayer.gameOver(false);
+//			other.gameOver(true);
+//			return GameOverStatus.EXCEPTION;
+//		}
+//
+//		return null;
+//	}
 
 	/**
 	 * Return the end game status if the game is over, on null otherwise
@@ -128,8 +133,11 @@ public final class GameManager {
 				return GameOverStatus.INVALID_MOVE;
 			}
 
-			logger.logMove(currentMove, board.getCurrentPlayerColor(), dice, board.getHits(board.getCurrentPlayerColor()),
-					                          board.getBornOff(board.getCurrentPlayerColor()));
+			if (logMoves) {
+				logger.logMove(currentMove, board.getCurrentPlayerColor(),
+						dice, board.getHits(board.getCurrentPlayerColor()),
+						board.getBornOff(board.getCurrentPlayerColor()));
+			}
 
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
 				currentPlayer.gameOver(true);
