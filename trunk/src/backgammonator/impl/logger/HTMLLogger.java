@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import backgammonator.core.Dice;
-import backgammonator.core.GameOverStatus;
 import backgammonator.core.GameLogger;
+import backgammonator.core.GameOverStatus;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
@@ -28,8 +28,8 @@ class HTMLLogger implements GameLogger {
 	private StringBuffer logStringBuffer;
 	private String timestamp;
 	private int moveId;
-	
-	private static String outputdir = "reports"; //TODO should be configured
+
+	private static String outputdir = "reports"; // TODO should be configured
 
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
@@ -38,7 +38,7 @@ class HTMLLogger implements GameLogger {
 		this.blackPlayer = this.lastPlayer = blackPlayer;
 		this.moveId = 1;
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		this.timestamp = dateFormat.format(date);
 
@@ -74,9 +74,14 @@ class HTMLLogger implements GameLogger {
 				+ statusString + "</td></tr></table></body></html>\n");
 
 		try {
-			FileWriter fstream = new FileWriter(outputdir + File.separatorChar + this.timestamp + "_"
+			File outputDir = new File(outputdir);
+			if (!outputDir.exists()) {
+				outputDir.mkdir();
+			}
+			File file = new File(outputDir, this.timestamp + "_"
 					+ this.whitePlayer.getName() + "_"
 					+ this.blackPlayer.getName() + ".html");
+			FileWriter fstream = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write(this.logStringBuffer.toString());
 			out.close();
@@ -88,8 +93,8 @@ class HTMLLogger implements GameLogger {
 	}
 
 	@Override
-	public void logMove(PlayerMove move, PlayerColor color, Dice dice, int hit, int bornOff, boolean invalid) {
-
+	public void logMove(PlayerMove move, PlayerColor color, Dice dice, int hit,
+			int bornOff, boolean invalid) {
 		String rowspan;
 		if (move.isDouble()) {
 			rowspan = "2";
@@ -97,9 +102,7 @@ class HTMLLogger implements GameLogger {
 			rowspan = "1";
 		}
 
-		this.logStringBuffer.append("<tr><td>"
-				+ this.moveId
-				+ "</td><td>"
+		this.logStringBuffer.append("<tr><td>" + this.moveId + "</td><td>"
 				+ color + "</td><td>" + dice.getDie1() + "</td><td>"
 				+ dice.getDie2() + "</td><td>"
 				+ move.getCheckerMove(0).getStartPoint() + "</td><td>"
@@ -109,11 +112,9 @@ class HTMLLogger implements GameLogger {
 				+ rowspan + ">" + hit + "</td><td rowspan=" + rowspan + ">"
 				+ bornOff + "</td></tr>\n");
 		if (move.isDouble()) {
-			this.logStringBuffer.append("<tr><td>"
-					+ this.moveId
-					+ "</td><td>"
-					+ color + "</td><td>" + dice.getDie1()
-					+ "</td><td>" + dice.getDie2() + "</td><td>"
+			this.logStringBuffer.append("<tr><td>" + this.moveId + "</td><td>"
+					+ color + "</td><td>" + dice.getDie1() + "</td><td>"
+					+ dice.getDie2() + "</td><td>"
 					+ move.getCheckerMove(2).getStartPoint() + "</td><td>"
 					+ move.getCheckerMove(2).getMoveLength() + "</td><td>"
 					+ move.getCheckerMove(3).getStartPoint() + "</td><td>"
