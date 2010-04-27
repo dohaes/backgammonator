@@ -1,7 +1,6 @@
 package backgammonator.test.game;
 
 import junit.framework.TestCase;
-import backgammonator.core.Dice;
 import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
@@ -15,15 +14,23 @@ public class MoveValidatorTestCase extends TestCase {
 	public void testValidMoves() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		DummyPlayer player = new DummyPlayer();
-		for (int i = 0; i < 10; i++) {
-			Dice dice = new DiceImpl();
+		DiceImpl dice = new DiceImpl();
+		for (int i = 0; i < 1000; i++) {
+			dice.generateNext();
 			PlayerMove move = player.getMove(board, dice);
-			assert (MoveValidator.validateMove(board, move, dice));
-			board.makeMove(move, dice);
+			assertTrue(MoveValidator.validateMove(board, move, dice));
 		}
 	}
 
 	public void testInvalidMovesDices() throws Exception {
+		BackgammonBoardImpl board = new BackgammonBoardImpl();
+		DummyPlayer player = new DummyPlayer();
+		DiceImpl dice = new DiceImpl();
+		for (int i = 0; i < 1000; i++) {
+			dice.generateNext();
+			PlayerMove move = player.getMove(board, dice);
+			assertTrue(MoveValidator.validateMove(board, move, dice));
+		}
 	}
 
 	public void testInvalidMovesPoints() throws Exception {
