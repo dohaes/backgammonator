@@ -26,7 +26,7 @@ public final class DiceImpl implements Dice {
 	 * Creates randomly generated new pair of dice.
 	 */
 	public DiceImpl() {
-		this(nextDie(), nextDie());
+		generateNext();
 	}
 
 	@Override
@@ -48,8 +48,8 @@ public final class DiceImpl implements Dice {
 	 * Generates the next pair of dice.
 	 */
 	void generateNext() {
-		die1 = generator.nextInt(6) + 1;
-		die2 = generator.nextInt(6) + 1;
+		die1 = nextDie();
+		die2 = nextDie();
 	}
 	
 	private void setDie1(int die1) {

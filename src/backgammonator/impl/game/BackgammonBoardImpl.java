@@ -110,7 +110,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		currentColor = currentColor.oposite();
 	}
 
-	public boolean makeMove(PlayerMove move, Dice dice) throws Exception {
+	boolean makeMove(PlayerMove move, Dice dice) throws Exception {
 		if (!MoveValidator.validateMove(this, move, dice)) {
 			return false;
 		}

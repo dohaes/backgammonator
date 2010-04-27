@@ -46,7 +46,7 @@ public class CheckerMoveTestCase extends TestCase {
 
 	public void testInvalidLength() {
 		try {
-			new CheckerMove(25, 5);
+			new CheckerMove(26, 5);
 			fail("Expected IIllegalArgumentException");
 		} catch (IllegalArgumentException iae) {
 			// ok
@@ -55,7 +55,7 @@ public class CheckerMoveTestCase extends TestCase {
 		}
 
 		try {
-			new CheckerMove(0, 5);
+			new CheckerMove(-1, 5);
 			fail("Expected IIllegalArgumentException");
 		} catch (IllegalArgumentException iae) {
 			// ok
