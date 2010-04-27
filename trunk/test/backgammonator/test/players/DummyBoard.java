@@ -29,8 +29,8 @@ public class DummyBoard {
 	}
 
 	public void move(int point, int die) {
-		//System.out.println(color + " (" + point + ", " + die + ")");
-		//System.out.println("Before: " + this);
+		System.out.println(color + " (" + point + ", " + die + ")");
+		System.out.println("Before: " + this);
 		pos[point]--;
 		int end = point + die;
 		if (end > 25) {
@@ -41,7 +41,7 @@ public class DummyBoard {
 		} else {
 			pos[end]++;
 		}
-		//System.out.println("After:  " + this + "\n");
+		System.out.println("After:  " + this + "\n");
 	}
 
 	public String toString() {

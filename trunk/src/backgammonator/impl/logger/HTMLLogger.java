@@ -24,7 +24,6 @@ class HTMLLogger implements GameLogger {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
-	private Player lastPlayer;
 	private StringBuffer logStringBuffer;
 	private String timestamp;
 	private int moveId;
@@ -35,7 +34,7 @@ class HTMLLogger implements GameLogger {
 	public void startGame(Player whitePlayer, Player blackPlayer) {
 
 		this.whitePlayer = whitePlayer;
-		this.blackPlayer = this.lastPlayer = blackPlayer;
+		this.blackPlayer = blackPlayer;
 		this.moveId = 1;
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -43,7 +42,7 @@ class HTMLLogger implements GameLogger {
 		this.timestamp = dateFormat.format(date);
 
 		this.logStringBuffer = new StringBuffer(
-				"<html>\n<body>\n<h1>"
+				"<html>\n<body>\n<h1 style=\"color:#0000FF\">"
 						+ whitePlayer.getName()
 						+ "(white) vs. "
 						+ blackPlayer.getName()
@@ -56,22 +55,29 @@ class HTMLLogger implements GameLogger {
 	public void endGame(GameOverStatus status, PlayerColor winner) {
 
 		String statusString;
+		String textColor;
+
 		switch (status) {
 		case OK:
 			statusString = "he born off all checkers.";
+			textColor = "#0B3B0B";
 			break;
 		case EXCEPTION:
 			statusString = "exeption on other player's move.";
+			textColor = "#FF0000";
 			break;
 		case INVALID_MOVE:
 			statusString = "invalid move on other player.";
+			textColor = "#FF0000";
 			break;
 		default:
 			throw new IllegalArgumentException();
 		}
-		this.logStringBuffer.append("<tr><td colspan=10>"
-				+ this.lastPlayer.getName() + " wins the game - "
-				+ statusString + "</td></tr></table></body></html>\n");
+
+		this.logStringBuffer.append("<tr style=\"color:" + textColor
+				+ "\"><td colspan=10>" + winner.toString()
+				+ " player wins the game - " + statusString
+				+ "</td></tr></table></body></html>\n");
 
 		try {
 			File outputDir = new File(outputdir);
@@ -101,10 +107,10 @@ class HTMLLogger implements GameLogger {
 		} else {
 			rowspan = "1";
 		}
-
-		this.logStringBuffer.append("<tr><td>" + this.moveId + "</td><td>"
-				+ color + "</td><td>" + dice.getDie1() + "</td><td>"
-				+ dice.getDie2() + "</td><td>"
+		String textColor = invalid ? "#FF0000" : "#000000";
+		this.logStringBuffer.append("<tr style=\"color:" + textColor
+				+ "\"><td>" + this.moveId + "</td><td>" + color + "</td><td>"
+				+ dice.getDie1() + "</td><td>" + dice.getDie2() + "</td><td>"
 				+ move.getCheckerMove(0).getStartPoint() + "</td><td>"
 				+ move.getCheckerMove(0).getMoveLength() + "</td><td>"
 				+ move.getCheckerMove(1).getStartPoint() + "</td><td>"
@@ -121,8 +127,6 @@ class HTMLLogger implements GameLogger {
 					+ move.getCheckerMove(3).getMoveLength() + "</td></tr>\n");
 		}
 		this.moveId++;
-		this.lastPlayer = (color == PlayerColor.WHITE) ? this.whitePlayer
-				: this.blackPlayer;
 	}
 
 }
