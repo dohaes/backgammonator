@@ -34,7 +34,7 @@ public class DummyPlayer extends AbstractTestPlayer {
 			}
 		} else {
 			for (int i = 1; i < 25; i++) {
-				if (board.get(i) > 0 && board.get(i - die) >= -1) {
+				if (board.get(i) > 0 && board.get(i + die) >= -1) {
 					point = i;
 					break;
 				}
