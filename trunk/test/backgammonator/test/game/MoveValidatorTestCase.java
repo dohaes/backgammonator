@@ -1,4 +1,4 @@
-package backgammonator.test.core;
+package backgammonator.test.game;
 
 import junit.framework.TestCase;
 
