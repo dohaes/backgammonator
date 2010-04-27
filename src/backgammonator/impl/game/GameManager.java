@@ -66,7 +66,8 @@ public final class GameManager {
 				break;
 		}
 
-		if (logMoves) logger.endGame(status, board.getCurrentPlayerColor());
+		if (logMoves) logger.endGame(status, status == GameOverStatus.OK ?
+				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().oposite());
 		return status;
 	}
 
@@ -139,7 +140,7 @@ public final class GameManager {
 
 			if (logMoves) {
 				logger.logMove(currentMove, board.getCurrentPlayerColor(),
-						dice, board.getHits(board.getCurrentPlayerColor()),
+						dice, board.getHits(board.getCurrentPlayerColor().oposite()),
 						board.getBornOff(board.getCurrentPlayerColor()), invalid);
 			}
 
