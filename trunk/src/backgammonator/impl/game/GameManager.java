@@ -21,7 +21,7 @@ public final class GameManager {
 	private Player whitePlayer;
 	private Player blackPlayer;
 
-	private static final long MOVE_TIMEOUT = 1000;
+	private static final long MOVE_TIMEOUT = 1000000;
 
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
@@ -56,9 +56,11 @@ public final class GameManager {
 		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 
 		while (true) {
+			board.switchPlayer();
 			status = makeMove(whitePlayer, blackPlayer);
 			if (status != null)
 				break;
+			board.switchPlayer();
 			status = makeMove(blackPlayer, whitePlayer);
 			if (status != null)
 				break;

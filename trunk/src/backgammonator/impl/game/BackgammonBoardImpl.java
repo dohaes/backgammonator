@@ -105,11 +105,12 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		return currentColor.equals(PlayerColor.WHITE) ? board[point - 1]
 				: board[MAX_POINTS - point];
 	}
+	
+	void switchPlayer() {
+		currentColor = currentColor.oposite();
+	}
 
 	public boolean makeMove(PlayerMove move, Dice dice) throws Exception {
-		// switch players
-		currentColor = currentColor.oposite();
-		
 		if (!MoveValidator.validateMove(this, move, dice)) {
 			return false;
 		}
