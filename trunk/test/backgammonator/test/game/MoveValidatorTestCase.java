@@ -15,7 +15,7 @@ public class MoveValidatorTestCase extends TestCase {
 	public void testValidMoves() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		DummyPlayer player = new DummyPlayer();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10; i++) {
 			Dice dice = new DiceImpl();
 			PlayerMove move = player.getMove(board, dice);
 			assert (MoveValidator.validateMove(board, move, dice));
