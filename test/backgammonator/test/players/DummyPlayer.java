@@ -6,7 +6,10 @@ import backgammonator.core.Dice;
 import backgammonator.core.PlayerMove;
 
 public class DummyPlayer extends AbstractTestPlayer {
-	
+
+	private static int ID = 0;
+	private int id = ID++;
+
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
 		CheckerMove m1, m2, m3, m4;
@@ -47,6 +50,6 @@ public class DummyPlayer extends AbstractTestPlayer {
 	}
 
 	public String getName() {
-		return "Dummy G";
+		return "Dummy G " + id;
 	}
 }
