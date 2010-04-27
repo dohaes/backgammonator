@@ -27,6 +27,17 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 
 	public BackgammonBoardImpl() {
 		board = new PointImpl[28];
+		for (int i = 0; i < 28; i++) {
+			board[i] = new PointImpl();
+		}
+		board[0] = new PointImpl(2, PlayerColor.WHITE);
+		board[5] = new PointImpl(5, PlayerColor.BLACK);
+		board[7] = new PointImpl(3, PlayerColor.BLACK);
+		board[11] = new PointImpl(5, PlayerColor.WHITE);
+		board[12] = new PointImpl(5, PlayerColor.BLACK);
+		board[16] = new PointImpl(3, PlayerColor.WHITE);
+		board[18] = new PointImpl(5, PlayerColor.WHITE);
+		board[23] = new PointImpl(2, PlayerColor.BLACK);
 	}
 
 	@Override
@@ -95,7 +106,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 				: board[MAX_POINTS - point];
 	}
 
-	boolean makeMove(PlayerMove move, Dice dice) {
+	boolean makeMove(PlayerMove move, Dice dice) throws Exception {
 		if (!MoveValidator.validateMove(this, move, dice)) {
 			return false;
 		}

@@ -3,15 +3,10 @@ package backgammonator.test.players;
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
 import backgammonator.core.Dice;
-import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
 
-public class DummyPlayer implements Player {
+public class DummyPlayer extends AbstractTestPlayer {
 	
-	public void gameOver(boolean wins) {
-		// ignore
-	}
-
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
 		CheckerMove m1, m2, m3, m4;
