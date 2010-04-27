@@ -141,14 +141,14 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		PointImpl source = getPoint0(from);
 		source.increase(currentColor);
 		if (to > MAX_POINTS) {
-			to = currentColor.equals(PlayerColor.WHITE) ? BORN_WHITE
-					: BORN_BLACK;
-		}
-		PointImpl dest = getPoint0(to);
-		dest.decrease();
-		if (checkerMove.hasHit()) {
-			dest.increase(currentColor.oposite());
-			setHits(currentColor.oposite(), getHits(currentColor) - 1);
+			setBornOff(currentColor, getBornOff(currentColor) - 1);
+		} else {
+			PointImpl dest = getPoint0(to);
+			dest.decrease();
+			if (checkerMove.hasHit()) {
+				dest.increase(currentColor.oposite());
+				setHits(currentColor.oposite(), getHits(currentColor) - 1);
+			}
 		}
 	}
 
@@ -161,13 +161,13 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		PointImpl source = getPoint0(from);
 		source.decrease();
 		if (to > MAX_POINTS) {
-			to = currentColor.equals(PlayerColor.WHITE) ? BORN_WHITE
-					: BORN_BLACK;
-		}
-		PointImpl dest = getPoint0(to);
-		if (dest.increase(currentColor)) {
-			setHits(currentColor.oposite(), getHits(currentColor) + 1);
-			checkerMove.setHit();
+			setBornOff(currentColor, getBornOff(currentColor) + 1);
+		} else {
+			PointImpl dest = getPoint0(to);
+			if (dest.increase(currentColor)) {
+				setHits(currentColor.oposite(), getHits(currentColor) + 1);
+				checkerMove.setHit();
+			}
 		}
 		return true;
 	}
