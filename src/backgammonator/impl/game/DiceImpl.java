@@ -14,9 +14,19 @@ public final class DiceImpl implements Dice {
 	private int die2;
 
 	/**
-	 * Creates new randomly generated pair of dice.
+	 * Creates new pair of dice.
+	 * Needed for testing.
+	 */
+	public DiceImpl(int die1, int die2) {
+		setDie1(die1);
+		setDie2(die2);
+	}
+	
+	/**
+	 * Creates randomly generated new pair of dice.
 	 */
 	public DiceImpl() {
+		this(nextDie(), nextDie());
 	}
 
 	@Override
@@ -37,8 +47,26 @@ public final class DiceImpl implements Dice {
 	/**
 	 * Generates the next pair of dice.
 	 */
-	public void generateNext() {
+	void generateNext() {
 		die1 = generator.nextInt(6) + 1;
 		die2 = generator.nextInt(6) + 1;
+	}
+	
+	private void setDie1(int die1) {
+		if (die1 < 1 || die1 > 6) {
+			throw new IllegalArgumentException("Invalid die1 : " + die1);
+		}
+		this.die1 = die1;
+	}
+	
+	private void setDie2(int die2) {
+		if (die2 < 1 || die2 > 6) {
+			throw new IllegalArgumentException("Invalid die2 : " + die2);
+		}
+		this.die2 = die2;
+	}
+	
+	private static int nextDie() {
+		return generator.nextInt(6) + 1;
 	}
 }
