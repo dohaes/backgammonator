@@ -11,7 +11,7 @@ import backgammonator.core.Point;
  * Represents implementation of the {@link BackgammonBoard} interface TODO maybe
  * use pooling ?
  */
-public final class BackgammonBoardImpl implements BackgammonBoard {
+public class BackgammonBoardImpl implements BackgammonBoard {
 
 	/**
 	 * Positions 0..23 are the points of the board from the view of the white
@@ -106,7 +106,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 				: board[MAX_POINTS - point];
 	}
 
-	boolean makeMove(PlayerMove move, Dice dice) throws Exception {
+	public boolean makeMove(PlayerMove move, Dice dice) throws Exception {
 		if (!MoveValidator.validateMove(this, move, dice)) {
 			return false;
 		}

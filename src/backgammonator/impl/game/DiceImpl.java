@@ -17,6 +17,7 @@ public final class DiceImpl implements Dice {
 	 * Creates new randomly generated pair of dice.
 	 */
 	public DiceImpl() {
+		generateNext();
 	}
 
 	@Override
