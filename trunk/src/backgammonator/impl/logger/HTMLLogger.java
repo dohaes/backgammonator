@@ -29,7 +29,7 @@ class HTMLLogger implements GameLogger {
 	private String timestamp;
 	private int moveId;
 	
-	private static String outputdir = "D:\\output"; //TODO should be configured
+	private static String outputdir = "reports"; //TODO should be configured
 
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
