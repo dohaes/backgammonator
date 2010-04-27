@@ -5,6 +5,7 @@ import backgammonator.impl.game.GameManager;
 import backgammonator.test.players.AbstractTestPlayer;
 import backgammonator.test.players.DummyPlayer;
 import backgammonator.test.players.ExceptionPlayer;
+import backgammonator.test.players.InvalidMovePlayer;
 import backgammonator.test.players.NullMovePlayer;
 import backgammonator.test.players.TimedoutMovePlayer;
 import junit.framework.TestCase;
@@ -52,7 +53,7 @@ public class GameManagerTestCase extends TestCase {
 		assertTrue(normal.wins());
 	}
 
-	public void testMoveReturnedNull() {
+	public void testNullReturned() {
 		AbstractTestPlayer nullmove = new NullMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
@@ -69,6 +70,25 @@ public class GameManagerTestCase extends TestCase {
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
 		assertFalse(nullmove.wins());
 		assertTrue(normal.wins());
+	}
+	
+	public void testInvalidMoveReturned() {
+		AbstractTestPlayer invalid = new InvalidMovePlayer();
+		AbstractTestPlayer normal = new DummyPlayer();
+		
+		GameManager game = new GameManager(normal, invalid, false);
+		GameOverStatus status = null;
+		
+		try {
+			status = game.start();
+		} catch (Throwable t) {
+			fail("Unexpected exception was thrown : " + t);
+		}
+		
+		assertNotNull(status);
+		assertEquals(GameOverStatus.INVALID_MOVE, status);
+		assertTrue(normal.wins());
+		assertFalse(invalid.wins());
 	}
 	
 	public void testNormal() {
