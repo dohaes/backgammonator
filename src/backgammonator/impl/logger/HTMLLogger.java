@@ -1,6 +1,7 @@
 package backgammonator.impl.logger;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,8 @@ class HTMLLogger implements GameLogger {
 	private StringBuffer logStringBuffer;
 	private String timestamp;
 	private int moveId;
+	
+	private static String outputdir = "D:\\output"; //TODO should be configured
 
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
@@ -35,7 +38,7 @@ class HTMLLogger implements GameLogger {
 		this.blackPlayer = this.lastPlayer = blackPlayer;
 		this.moveId = 1;
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		Date date = new Date();
 		this.timestamp = dateFormat.format(date);
 
@@ -71,7 +74,7 @@ class HTMLLogger implements GameLogger {
 				+ statusString + "</td></tr></table></body></html>\n");
 
 		try {
-			FileWriter fstream = new FileWriter(this.timestamp + "_"
+			FileWriter fstream = new FileWriter(outputdir + File.separatorChar + this.timestamp + "_"
 					+ this.whitePlayer.getName() + "_"
 					+ this.blackPlayer.getName() + ".html");
 			BufferedWriter out = new BufferedWriter(fstream);
