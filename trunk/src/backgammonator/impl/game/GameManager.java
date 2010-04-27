@@ -126,8 +126,8 @@ public final class GameManager {
 				return GameOverStatus.TIMEDOUT;
 			}
 
-			if (currentMove == null
-					|| !board.makeMove(currentMove, dice)) {
+			if (currentMove == null || !board.makeMove(currentMove, dice)) {
+				Debug.getInstance().error("Invalid move", Debug.GAME_MODULE, null);
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				return GameOverStatus.INVALID_MOVE;
@@ -204,7 +204,7 @@ public final class GameManager {
 	 * @param joinTime the time to wait for the thread to die.
 	 * @return <code>true</code> if the thread is stopped
 	 */
-	@SuppressWarnings("deprecation" )
+	@SuppressWarnings("deprecation")
 	private static final boolean stop(Thread thread, boolean callStop,
 			int joinTime) {
 		boolean alive = thread.isAlive();
