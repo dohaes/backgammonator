@@ -4,11 +4,9 @@ package backgammonator.util;
  * Used for logging program behavior (warnings, errors, info) during execution.
  * The debug entry must contain level, message, Throwable object and module ID.
  */
-
 public final class Debug {
 
-	private static boolean isDebugOn = true; // TODO use system prop to
-												// configure debug
+	private static boolean isDebugOn = true; // TODO use system prop to configure debug
 
 	public static final int CORE_MODULE = 1;
 	public static final int GAME_MODULE = 2;
@@ -22,6 +20,9 @@ public final class Debug {
 	private Debug() {
 	}
 
+	/**
+	 * Returns reference to the instance of the Debug class
+	 */
 	public static Debug getInstance() {
 		if (instance == null)
 			instance = new Debug();
@@ -29,7 +30,10 @@ public final class Debug {
 	}
 
 	/**
-	 * @param message
+	 * Logs the given info message for the specified module.
+	 * 
+	 * @param message the message to log
+	 * @param moduleId the id of the module
 	 */
 	public synchronized void info(String message, int moduleId) {
 		if (isDebugOn) {
@@ -39,8 +43,11 @@ public final class Debug {
 	}
 
 	/**
-	 * @param message
-	 * @param t
+	 * Logs the given warning message for the specified module.
+	 * 
+	 * @param message the message to log
+	 * @param moduleId the id of the module
+	 * @param t Throwable object to log, can be null.
 	 */
 	public synchronized void warning(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
@@ -52,8 +59,11 @@ public final class Debug {
 	}
 
 	/**
-	 * @param message
-	 * @param t
+	 * Logs the given error message for the specified module.
+	 * 
+	 * @param message the message to log
+	 * @param moduleId the id of the module
+	 * @param t Throwable object to log, can be null.
 	 */
 	public synchronized void error(String message, int moduleId, Throwable t) {
 		if (isDebugOn) {
