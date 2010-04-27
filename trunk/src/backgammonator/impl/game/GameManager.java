@@ -64,7 +64,7 @@ public final class GameManager {
 				break;
 		}
 
-		if (logMoves) logger.endGame(status);
+		if (logMoves) logger.endGame(status, board.getCurrentPlayerColor());
 		return status;
 	}
 
@@ -126,24 +126,23 @@ public final class GameManager {
 				return GameOverStatus.TIMEDOUT;
 			}
 
+			boolean invalid = false;
+			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_MODULE, null);
-				if (logMoves) {
-					logger.logMove(currentMove, board.getCurrentPlayerColor(),
-							dice, board.getHits(board.getCurrentPlayerColor()),
-							board.getBornOff(board.getCurrentPlayerColor()));
-				}
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
-				return GameOverStatus.INVALID_MOVE;
+				invalid = true;
 			}
 
 			if (logMoves) {
 				logger.logMove(currentMove, board.getCurrentPlayerColor(),
 						dice, board.getHits(board.getCurrentPlayerColor()),
-						board.getBornOff(board.getCurrentPlayerColor()));
+						board.getBornOff(board.getCurrentPlayerColor()), invalid);
 			}
 
+			if (invalid)  return GameOverStatus.INVALID_MOVE;
+			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
 				currentPlayer.gameOver(true);
 				other.gameOver(false);

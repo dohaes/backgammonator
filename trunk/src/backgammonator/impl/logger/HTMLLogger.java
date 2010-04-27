@@ -53,7 +53,7 @@ class HTMLLogger implements GameLogger {
 	}
 
 	@Override
-	public void endGame(GameOverStatus status) {
+	public void endGame(GameOverStatus status, PlayerColor winner) {
 
 		String statusString;
 		switch (status) {
@@ -88,7 +88,7 @@ class HTMLLogger implements GameLogger {
 	}
 
 	@Override
-	public void logMove(PlayerMove move, PlayerColor color, Dice dice, int hit, int bornOff) {
+	public void logMove(PlayerMove move, PlayerColor color, Dice dice, int hit, int bornOff, boolean invalid) {
 
 		String rowspan;
 		if (move.isDouble()) {
