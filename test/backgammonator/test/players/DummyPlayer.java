@@ -28,12 +28,12 @@ public class DummyPlayer extends AbstractTestPlayer {
 
 	private CheckerMove findMove(DummyBoard board, int die) {
 		int point = -1;
-		if (board.get(25) > 0) {
-			if (board.get(25 - die) >= -1) {
-				point = 25;
+		if (board.get(0) > 0) {
+			if (board.get(die) >= -1) {
+				point = 0;
 			}
 		} else {
-			for (int i = 24; i > 0; i--) {
+			for (int i = 1; i < 25; i++) {
 				if (board.get(i) > 0 && board.get(i - die) >= -1) {
 					point = i;
 					break;
