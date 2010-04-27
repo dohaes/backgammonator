@@ -1,4 +1,4 @@
-package backgammonator.players.dummy;
+package backgammonator.test.players;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
@@ -32,19 +32,23 @@ public class DummyPlayer implements Player {
 	}
 
 	private CheckerMove findMove(DummyBoard board, int die) {
+		int point = -1;
 		if (board.get(25) > 0) {
-			if (board.get(25 - die) < -1) {
-				return null;
+			if (board.get(25 - die) >= -1) {
+				point = 25;
 			}
-			return new CheckerMove(25, die);
-		}
-
-		for (int i = 24; i > 0; i--) {
-			if (board.get(i) > 0 && board.get(i - die) >= -1) {
-				return new CheckerMove(i, die);
+		} else {
+			for (int i = 24; i > 0; i--) {
+				if (board.get(i) > 0 && board.get(i - die) >= -1) {
+					point = i;
+					break;
+				}
 			}
 		}
-		return null;
+		if (point != -1) {
+			board.move(point, die);
+		}
+		return point == -1 ? null : new CheckerMove(point, die);
 	}
 
 	public String getName() {
