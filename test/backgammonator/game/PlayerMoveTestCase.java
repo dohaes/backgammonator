@@ -4,6 +4,9 @@ import junit.framework.TestCase;
 import backgammonator.core.CheckerMove;
 import backgammonator.core.PlayerMove;
 
+/**
+ * Tests class {@link PlayerMove} 
+ */
 public class PlayerMoveTestCase extends TestCase {
 	
 	private CheckerMove move1 = new CheckerMove(11, 1);
