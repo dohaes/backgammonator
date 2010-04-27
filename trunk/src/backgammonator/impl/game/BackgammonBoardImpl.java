@@ -23,7 +23,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	/**
 	 * Shows the color of the player that has to move on the board.
 	 */
-	private PlayerColor currentColor = PlayerColor.WHITE;
+	private PlayerColor currentColor = PlayerColor.BLACK;
 
 	public BackgammonBoardImpl() {
 		board = new PointImpl[28];
@@ -107,6 +107,9 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	}
 
 	public boolean makeMove(PlayerMove move, Dice dice) throws Exception {
+		// switch players
+		currentColor = currentColor.oposite();
+		
 		if (!MoveValidator.validateMove(this, move, dice)) {
 			return false;
 		}
@@ -130,8 +133,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 				return false;
 			}
 		}
-		// switch players
-		currentColor = currentColor.oposite();
+		
 		return true;
 	}
 
