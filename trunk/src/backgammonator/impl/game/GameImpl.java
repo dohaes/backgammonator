@@ -38,7 +38,7 @@ final class GameImpl implements Game {
 	/**
 	 * Constructs a game between two AI players.
 	 */
-	public GameImpl(Player whitePlayer, Player blackPlayer, boolean logMoves) {
+	GameImpl(Player whitePlayer, Player blackPlayer, boolean logMoves) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
 		dice = new DiceImpl();
