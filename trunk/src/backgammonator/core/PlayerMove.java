@@ -6,17 +6,17 @@ package backgammonator.core;
  * two(or four for double) checker moves (they will be accessed by int
  * getCheckerMove(int index) method).
  */
-public class PlayerMove {
+public final class PlayerMove {
 
 	private CheckerMove[] checkerMoves;
 
 	/**
-	 * Creates new PlayerMove object with the given arguments
+	 * Creates new PlayerMove object with the given arguments.
 	 * 
 	 * @param checkerMoves
-	 *            array of CheckerMove objects
+	 *            array of CheckerMove objects.
 	 * @throws IllegalArgumentException
-	 *             if the given array represents invalid moves
+	 *             if the given array represents invalid moves.
 	 */
 	public PlayerMove(CheckerMove[] checkerMoves) {
 		if (checkerMoves == null) {
@@ -25,20 +25,6 @@ public class PlayerMove {
 		if (checkerMoves.length != 2 && checkerMoves.length != 4) {
 			throw new IllegalArgumentException(
 					"Invalid length for checkerMoves : " + checkerMoves.length);
-		}
-		if (checkerMoves.length == 4
-				&& (checkerMoves[0].getMoveLength() != checkerMoves[1]
-						.getMoveLength()
-						|| checkerMoves[0].getMoveLength() != checkerMoves[2]
-								.getMoveLength() || checkerMoves[0]
-						.getMoveLength() != checkerMoves[3].getMoveLength())) {
-			throw new IllegalArgumentException("Invalid length for double : "
-					+ //
-					checkerMoves[0].getMoveLength() + ", "
-					+ checkerMoves[1].getMoveLength() + ", "
-					+ //
-					checkerMoves[2].getMoveLength() + ", "
-					+ checkerMoves[3].getMoveLength());
 		}
 		this.checkerMoves = new CheckerMove[checkerMoves.length];
 		System.arraycopy(checkerMoves, 0, this.checkerMoves, 0,

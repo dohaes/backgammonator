@@ -6,10 +6,15 @@ package backgammonator.core;
 public enum PlayerColor {
 	WHITE, BLACK;
 
-	public PlayerColor oposite() {
+	/**
+	 * Returns the opposite color.
+	 * 
+	 * @return the opposite color.
+	 */
+	public PlayerColor opposite() {
 		return this == WHITE ? BLACK : WHITE;
 	}
-	
+
 	public String toString() {
 		return this == WHITE ? "white" : "black";
 	}
