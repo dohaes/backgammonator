@@ -14,8 +14,8 @@ import backgammonator.util.Debug;
  * Represents implementation of the {@link Game} interface.
  * An instance of this class is created for each game between two players. It is
  * used for realization of the rules of backgammon and manages the game. With
- * each instance of the Game class a {@link BackgammonBoard} object is associated.
- * Class Game uses class {@link MoveValidator} to validate the players' moves.
+ * each instance of the GameImpl class a {@link BackgammonBoard} object is associated.
+ * Class GameImpl uses class {@link MoveValidator} to validate the players' moves.
  * Each {@link GameImpl} object is associated with a {@link Dice} implementation that represent the dice.
  */
 
