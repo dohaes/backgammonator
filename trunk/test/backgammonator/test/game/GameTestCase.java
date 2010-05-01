@@ -1,7 +1,8 @@
 package backgammonator.test.game;
 
+import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
-import backgammonator.impl.game.Game;
+import backgammonator.impl.game.GameManager;
 import backgammonator.test.players.AbstractTestPlayer;
 import backgammonator.test.players.DummyPlayer;
 import backgammonator.test.players.ExceptionPlayer;
@@ -11,7 +12,7 @@ import backgammonator.test.players.TimedoutMovePlayer;
 import junit.framework.TestCase;
 
 /**
- * Tests class {@link Game}.
+ * Tests class {@link GameImpl}.
  */
 public class GameTestCase extends TestCase {
 	
@@ -19,7 +20,7 @@ public class GameTestCase extends TestCase {
 		AbstractTestPlayer timedout = new TimedoutMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		Game game = new Game(timedout, normal, false);
+		Game game = GameManager.newGame(timedout, normal, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -38,7 +39,7 @@ public class GameTestCase extends TestCase {
 		AbstractTestPlayer exception = new ExceptionPlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		Game game = new Game(exception, normal, false);
+		Game game = GameManager.newGame(exception, normal, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -57,7 +58,7 @@ public class GameTestCase extends TestCase {
 		AbstractTestPlayer nullmove = new NullMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		Game game = new Game(nullmove, normal, false);
+		Game game = GameManager.newGame(nullmove, normal, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -76,7 +77,7 @@ public class GameTestCase extends TestCase {
 		AbstractTestPlayer invalid = new InvalidMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		Game game = new Game(normal, invalid, false);
+		Game game = GameManager.newGame(normal, invalid, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -95,7 +96,7 @@ public class GameTestCase extends TestCase {
 		AbstractTestPlayer normal1 = new DummyPlayer();
 		AbstractTestPlayer normal2 = new DummyPlayer();
 		
-		Game game = new Game(normal1, normal2, false);
+		Game game = GameManager.newGame(normal1, normal2, false);
 		GameOverStatus status = null;
 		
 		try {
