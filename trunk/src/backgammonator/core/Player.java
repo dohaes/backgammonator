@@ -2,7 +2,7 @@ package backgammonator.core;
 
 /**
  * Represents abstraction of the AI player. If a contestant wants to use the
- * Backgamminator Librarty to test his AI, he has to implement this inreface.
+ * Backgammonator Library to test his AI, he has to implement this interface.
  */
 
 public interface Player {
