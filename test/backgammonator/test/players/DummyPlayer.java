@@ -10,6 +10,9 @@ public class DummyPlayer extends AbstractTestPlayer {
 	private static int ID = 0;
 	private int id = ID++;
 
+	public DummyPlayer() {
+	}
+
 	public DummyPlayer(int id) {
 		this.id = id;
 	}
