@@ -41,7 +41,7 @@ public final class ObjectPool {
 				Debug.getInstance()
 						.error(
 								"Exception while creating object from class : "
-										+ clazz, Debug.UTIL_MODULE, e);
+										+ clazz, Debug.UTILS, e);
 				return null;
 			}
 		} else
@@ -58,13 +58,13 @@ public final class ObjectPool {
 		int currentSize = instances.size();
 		if (currentSize == size) {
 			Debug.getInstance().warning("Object pool is full",
-					Debug.UTIL_MODULE, null);
+					Debug.UTILS, null);
 			return;
 		}
 		if (object.getClass() != clazz) {
 			Debug.getInstance().warning(
 					"Invalid type for the given argument : "
-							+ object.getClass(), Debug.UTIL_MODULE, null);
+							+ object.getClass(), Debug.UTILS, null);
 			return;
 		}
 		instances.add(object);

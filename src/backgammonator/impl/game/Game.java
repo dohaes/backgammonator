@@ -115,14 +115,14 @@ public final class Game {
 			if (t != null) {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
-						Debug.GAME_MODULE, t);
+						Debug.GAME_LOGIC, t);
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				return GameOverStatus.EXCEPTION;
 			}
 
 			if (!notified) {
-				Debug.getInstance().error("Move timeout", Debug.GAME_MODULE,
+				Debug.getInstance().error("Move timeout", Debug.GAME_LOGIC,
 						null);
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
@@ -133,7 +133,7 @@ public final class Game {
 			boolean invalid = false;
 			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
-				Debug.getInstance().error("Invalid move", Debug.GAME_MODULE, null);
+				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
 				currentPlayer.gameOver(false);
 				other.gameOver(true);
 				invalid = true;
@@ -155,7 +155,7 @@ public final class Game {
 		} catch (Exception e) {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
-					Debug.GAME_MODULE, e);
+					Debug.GAME_LOGIC, e);
 			currentPlayer.gameOver(false);
 			other.gameOver(true);
 			return GameOverStatus.EXCEPTION;
@@ -173,7 +173,7 @@ public final class Game {
 				synch.wait(MOVE_TIMEOUT);
 			} catch (InterruptedException e) {
 				Debug.getInstance().error("Error waitin for move",
-						Debug.GAME_MODULE, e);
+						Debug.GAME_LOGIC, e);
 			}
 		}
 	}

@@ -6,15 +6,14 @@ package backgammonator.util;
  */
 public final class Debug {
 
+	public static final int PROTOCOL = 1;
+	public static final int GAME_LOGIC = 2;
+	public static final int GAME_LOGGER = 4;
+	public static final int TOURNAMENT_LOGIC = 5;
+	public static final int TOURNAMENT_LOGGER = 6;
+	public static final int UTILS = 7;
+
 	private static boolean isDebugOn = true; // TODO use system prop to configure debug
-
-	public static final int CORE_MODULE = 1;
-	public static final int GAME_MODULE = 2;
-	public static final int PROTOCOL_MODULE = 3;
-	public static final int TOURNAMENT_MODULE = 4;
-	public static final int UTIL_MODULE = 5;
-	public static final int LOGGER_MODULE = 6;
-
 	private static Debug instance = null;
 
 	private Debug() {
@@ -77,26 +76,27 @@ public final class Debug {
 	private static String getModule(int i) {
 		String res;
 		switch (i) {
-		case 1:
-			res = "Core Module";
+		
+		case PROTOCOL:
+			res = "Protocol";
 			break;
-		case 2:
-			res = "Game Module";
+		case GAME_LOGIC:
+			res = "Game Logic";
 			break;
-		case 3:
-			res = "Protocol Module";
+		case GAME_LOGGER:
+			res = "Game Logger";
 			break;
-		case 4:
-			res = "Turnament Module";
+		case TOURNAMENT_LOGIC:
+			res = "Turnament Logic";
 			break;
-		case 5:
-			res = "Util Module";
+		case TOURNAMENT_LOGGER:
+			res = "Tournament Logger";
 			break;
-		case 6:
-			res = "Logger Module";
+		case UTILS:
+			res = "Utils";
 			break;
 		default:
-			res = "Module not specified";
+			res = "Not Specified";
 		}
 		return res;
 	}
