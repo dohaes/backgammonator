@@ -2,6 +2,7 @@ package backgammonator.impl.game;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
+import backgammonator.core.Constants;
 import backgammonator.core.Dice;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
@@ -11,6 +12,11 @@ import backgammonator.core.Point;
  * Represents implementation of the {@link BackgammonBoard} interface.
  */
 public class BackgammonBoardImpl implements BackgammonBoard {
+	
+	private static final int HIT_WHITE = 24;
+	private static final int HIT_BLACK = 25;
+	private static final int BORN_WHITE = 26;
+	private static final int BORN_BLACK = 27;
 
 	/**
 	 * Positions 0..23 are the points of the board from the view of the white
@@ -39,44 +45,40 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		board[23] = new PointImpl(2, PlayerColor.BLACK);
 	}
 
-	@Override
 	public Point getPoint(int point) {
 		return getPoint0(point);
 	}
 
-	@Override
 	public int getHits(PlayerColor color) {
 		return (color.equals(PlayerColor.WHITE) ? board[HIT_WHITE]
 				: board[HIT_BLACK]).getCount();
 	}
 
-	@Override
 	public int getBornOff(PlayerColor color) {
 		return (color.equals(PlayerColor.WHITE) ? board[BORN_WHITE]
 				: board[BORN_BLACK]).getCount();
 	}
 
-	@Override
 	public PlayerColor getCurrentPlayerColor() {
 		return currentColor;
 	}
 
 	void setPoint(int point, PlayerColor color, int count) {
-		if (point <= 0 || point > MAX_POINTS) {
+		if (point <= 0 || point > Constants.POINTS_COUNT) {
 			throw new IllegalArgumentException("Illegal position: " + point);
 		}
-		if (count < 0 || count > MAX_CHECKERS) {
+		if (count < 0 || count > Constants.CHECKERS_COUNT) {
 			throw new IllegalArgumentException("Illegal count: " + count);
 		}
 		if (color.equals(PlayerColor.WHITE)) {
 			board[point - 1] = new PointImpl(count, color);
 		} else {
-			board[MAX_POINTS - point] = new PointImpl(count, color);
+			board[Constants.POINTS_COUNT - point] = new PointImpl(count, color);
 		}
 	}
 
 	void setHits(PlayerColor color, int count) {
-		if (count < 0 || count > MAX_CHECKERS) {
+		if (count < 0 || count > Constants.CHECKERS_COUNT) {
 			throw new IllegalArgumentException("Illegal count: " + count);
 		}
 		if (color.equals(PlayerColor.WHITE)) {
@@ -87,7 +89,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	}
 
 	void setBornOff(PlayerColor color, int count) {
-		if (count < 0 || count > MAX_CHECKERS) {
+		if (count < 0 || count > Constants.CHECKERS_COUNT) {
 			throw new IllegalArgumentException("Illegal count: " + count);
 		}
 		if (color.equals(PlayerColor.WHITE)) {
@@ -98,11 +100,11 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	}
 
 	private PointImpl getPoint0(int point) {
-		if (point <= 0 || point > MAX_POINTS) {
+		if (point <= 0 || point > Constants.POINTS_COUNT) {
 			throw new IllegalArgumentException("Illegal position: " + point);
 		}
 		return currentColor.equals(PlayerColor.WHITE) ? board[point - 1]
-				: board[MAX_POINTS - point];
+				: board[Constants.POINTS_COUNT - point];
 	}
 
 	void switchPlayer() {
@@ -145,7 +147,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		int to = checkerMove.getStartPoint() + checkerMove.getMoveLength();
 		PointImpl source = getPoint0(from);
 		source.increase(currentColor);
-		if (to > MAX_POINTS) {
+		if (to > Constants.POINTS_COUNT) {
 			setBornOff(currentColor, getBornOff(currentColor) - 1);
 		} else {
 			PointImpl dest = getPoint0(to);
@@ -172,7 +174,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 			PointImpl source = getPoint0(from);
 			source.decrease();
 		}
-		if (to > MAX_POINTS) {
+		if (to > Constants.POINTS_COUNT) {
 			setBornOff(currentColor, getBornOff(currentColor) + 1);
 		} else {
 			PointImpl dest = getPoint0(to);

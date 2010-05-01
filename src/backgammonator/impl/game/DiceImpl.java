@@ -10,18 +10,8 @@ import backgammonator.core.Dice;
 public final class DiceImpl implements Dice {
 
 	private static final Random generator = new Random();
-	private int die1;
-	private int die2;
+	private int[] die = new int[2];
 
-	/**
-	 * Creates new pair of dice.
-	 * Needed for testing.
-	 */
-	public DiceImpl(int die1, int die2) {
-		setDie1(die1);
-		setDie2(die2);
-	}
-	
 	/**
 	 * Creates randomly generated new pair of dice.
 	 */
@@ -29,44 +19,30 @@ public final class DiceImpl implements Dice {
 		generateNext();
 	}
 
-	@Override
 	public int getDie1() {
-		return die1;
+		return die[0];
 	}
 
-	@Override
 	public int getDie2() {
-		return die2;
+		return die[1];
 	}
 
-	@Override
 	public boolean isDouble() {
-		return die1 == die2;
+		return die[0] == die[1];
 	}
 
 	/**
 	 * Generates the next pair of dice.
 	 */
 	void generateNext() {
-		die1 = nextDie();
-		die2 = nextDie();
+		setDie(0, generator.nextInt(6) + 1);
+		setDie(1, generator.nextInt(6) + 1);
 	}
-	
-	private void setDie1(int die1) {
-		if (die1 < 1 || die1 > 6) {
-			throw new IllegalArgumentException("Invalid die1 : " + die1);
+
+	private void setDie(int id, int die) {
+		if (die < 1 || die > 6) {
+			throw new IllegalArgumentException("Invalid die : " + die);
 		}
-		this.die1 = die1;
-	}
-	
-	private void setDie2(int die2) {
-		if (die2 < 1 || die2 > 6) {
-			throw new IllegalArgumentException("Invalid die2 : " + die2);
-		}
-		this.die2 = die2;
-	}
-	
-	private static int nextDie() {
-		return generator.nextInt(6) + 1;
+		this.die[id] = die;
 	}
 }

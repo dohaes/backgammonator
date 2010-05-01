@@ -22,7 +22,8 @@ public final class PlayerMove {
 		if (checkerMoves == null) {
 			throw new NullPointerException("checkerMoves is null");
 		}
-		if (checkerMoves.length != 2 && checkerMoves.length != 4) {
+		if (checkerMoves.length != Constants.DICE_COUNT
+				&& checkerMoves.length != Constants.DOUBLE_DICE_COUNT) {
 			throw new IllegalArgumentException(
 					"Invalid length for checkerMoves : " + checkerMoves.length);
 		}
@@ -55,6 +56,6 @@ public final class PlayerMove {
 	 * @return true if the move is double, or false otherwise.
 	 */
 	public boolean isDouble() {
-		return this.checkerMoves.length == 4;
+		return this.checkerMoves.length == Constants.DOUBLE_DICE_COUNT;
 	}
 }
