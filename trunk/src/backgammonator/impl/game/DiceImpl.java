@@ -19,6 +19,19 @@ public final class DiceImpl implements Dice {
 		generateNext();
 	}
 
+	/**
+	 * Creates dice with predefined values.
+	 * 
+	 * @param die1
+	 *            the first die.
+	 * @param die2
+	 *            the second die.
+	 */
+	public DiceImpl(int die1, int die2) {
+		setDie(0, die1);
+		setDie(1, die2);
+	}
+
 	public int getDie1() {
 		return die[0];
 	}

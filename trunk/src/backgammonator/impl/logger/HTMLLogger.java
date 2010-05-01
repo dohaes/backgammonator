@@ -30,6 +30,10 @@ class HTMLLogger implements GameLogger {
 
 	private static String outputdir = "reports"; // TODO should be configured
 
+	static {
+		System.setProperty("game.logger.outputdir", outputdir);
+	}
+
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
 
@@ -37,18 +41,19 @@ class HTMLLogger implements GameLogger {
 		this.blackPlayer = blackPlayer;
 		this.moveId = 1;
 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date date = new Date();
 		this.timestamp = dateFormat.format(date);
 
 		this.logStringBuffer = new StringBuffer(
-				"<html>\n<body>\n<h1 style=\"color:#0000FF\">"
-						+ whitePlayer.getName()
-						+ "(white) vs. "
-						+ blackPlayer.getName()
-						+ "(black)</h1>\n<h3>"
-						+ this.timestamp
-						+ "</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n");
+				"<html>\n<body>\n<h1 style=\"color:#0000FF\">");
+		this.logStringBuffer.append(whitePlayer.getName());
+		this.logStringBuffer.append("(white) vs. ");
+		this.logStringBuffer.append(blackPlayer.getName());
+		this.logStringBuffer.append("(black)</h1>\n<h3>");
+		this.logStringBuffer.append(this.timestamp);
+		this.logStringBuffer
+				.append("</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n");
 	}
 
 	@Override
@@ -74,19 +79,20 @@ class HTMLLogger implements GameLogger {
 			throw new IllegalArgumentException();
 		}
 
-		this.logStringBuffer.append("<tr style=\"color:" + textColor
-				+ "\"><td colspan=10>" + winner.toString()
-				+ " player wins the game - " + statusString
-				+ "</td></tr></table></body></html>\n");
+		this.logStringBuffer.append("<tr style=\"color:");
+		this.logStringBuffer.append(textColor);
+		this.logStringBuffer.append("\"><td colspan=10>");
+		this.logStringBuffer.append(winner.toString());
+		this.logStringBuffer.append(" player wins the game - ");
+		this.logStringBuffer.append(statusString);
+		this.logStringBuffer.append("</td></tr></table></body></html>\n");
 
 		try {
 			File outputDir = new File(outputdir);
 			if (!outputDir.exists()) {
 				outputDir.mkdir();
 			}
-			File file = new File(outputDir, this.timestamp + "_"
-					+ this.whitePlayer.getName() + "_"
-					+ this.blackPlayer.getName() + ".html");
+			File file = new File(outputDir, this.getFilename());
 			FileWriter fstream = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write(this.logStringBuffer.toString());
@@ -108,25 +114,65 @@ class HTMLLogger implements GameLogger {
 			rowspan = "1";
 		}
 		String textColor = invalid ? "#FF0000" : "#000000";
-		this.logStringBuffer.append("<tr style=\"color:" + textColor
-				+ "\"><td>" + this.moveId + "</td><td>" + color + "</td><td>"
-				+ dice.getDie1() + "</td><td>" + dice.getDie2() + "</td><td>"
-				+ move.getCheckerMove(0).getStartPoint() + "</td><td>"
-				+ move.getCheckerMove(0).getMoveLength() + "</td><td>"
-				+ move.getCheckerMove(1).getStartPoint() + "</td><td>"
-				+ move.getCheckerMove(1).getMoveLength() + "</td><td rowspan="
-				+ rowspan + ">" + hit + "</td><td rowspan=" + rowspan + ">"
-				+ bornOff + "</td></tr>\n");
+		this.logStringBuffer.append("<tr style=\"color:");
+		this.logStringBuffer.append(textColor);
+		this.logStringBuffer.append("\"><td>");
+		this.logStringBuffer.append(this.moveId);
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(color);
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(dice.getDie1());
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(dice.getDie2());
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(move.getCheckerMove(0).getStartPoint());
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(move.getCheckerMove(0).getMoveLength());
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(move.getCheckerMove(1).getStartPoint());
+		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(move.getCheckerMove(1).getMoveLength());
+		this.logStringBuffer.append("</td><td rowspan=");
+		this.logStringBuffer.append(rowspan);
+		this.logStringBuffer.append(">");
+		this.logStringBuffer.append(hit);
+		this.logStringBuffer.append("</td><td rowspan=");
+		this.logStringBuffer.append(rowspan);
+		this.logStringBuffer.append(">");
+		this.logStringBuffer.append(bornOff);
+		this.logStringBuffer.append("</td></tr>\n");
 		if (move.isDouble()) {
-			this.logStringBuffer.append("<tr><td>" + this.moveId + "</td><td>"
-					+ color + "</td><td>" + dice.getDie1() + "</td><td>"
-					+ dice.getDie2() + "</td><td>"
-					+ move.getCheckerMove(2).getStartPoint() + "</td><td>"
-					+ move.getCheckerMove(2).getMoveLength() + "</td><td>"
-					+ move.getCheckerMove(3).getStartPoint() + "</td><td>"
-					+ move.getCheckerMove(3).getMoveLength() + "</td></tr>\n");
+			this.logStringBuffer.append("<tr><td>");
+			this.logStringBuffer.append(this.moveId);
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(color);
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(dice.getDie1());
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(dice.getDie2());
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(move.getCheckerMove(2).getStartPoint());
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(move.getCheckerMove(2).getMoveLength());
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(move.getCheckerMove(3).getStartPoint());
+			this.logStringBuffer.append("</td><td>");
+			this.logStringBuffer.append(move.getCheckerMove(3).getMoveLength());
+			this.logStringBuffer.append("</td></tr>\n");
 		}
 		this.moveId++;
+	}
+
+	@Override
+	public String getFilename() {
+		return this.timestamp.replace(':', '.').replace(' ', '_') + "_"
+				+ this.whitePlayer.getName() + "_" + this.blackPlayer.getName()
+				+ ".html";
+	}
+
+	@Override
+	public String getGameTimestamp() {
+		return this.timestamp;
 	}
 
 }

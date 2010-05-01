@@ -45,8 +45,24 @@ public interface GameLogger {
 	 * {@link GameOverStatus#EXCEPTION}.
 	 * 
 	 * @param status
+	 *            is the exit code of the game
 	 * @param winner
+	 *            is the winner of the game
 	 */
 	void endGame(GameOverStatus status, PlayerColor winner);
+
+	/**
+	 * Returns the name of the output file or null when not available.
+	 * 
+	 * @return the name of the output file or null when not available.
+	 */
+	String getFilename();
+
+	/**
+	 * Returns the timestamp of the logged game or null when not available.
+	 * 
+	 * @return the timestamp of the logged game or null when not available.
+	 */
+	public String getGameTimestamp();
 
 }
