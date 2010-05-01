@@ -19,5 +19,4 @@ public interface Dice {
 	 * Checks if the dice form double.
 	 */
 	public boolean isDouble();
-
 }

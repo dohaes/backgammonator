@@ -10,9 +10,8 @@ public final class CheckerMove {
 	private boolean hasHit = false;
 
 	/**
-	 * Create CheckerMove object with given start point and move lenght
+	 * Create CheckerMove object with given start point and move length
 	 */
-
 	public CheckerMove(int startPoint, int moveLength) {
 		setStartPoint(startPoint);
 		setMoveLength(moveLength);
