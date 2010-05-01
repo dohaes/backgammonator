@@ -8,8 +8,7 @@ import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
 
 /**
- * Represents implementation of the {@link BackgammonBoard} interface TODO maybe
- * use pooling ?
+ * Represents implementation of the {@link BackgammonBoard} interface.
  */
 public class BackgammonBoardImpl implements BackgammonBoard {
 
