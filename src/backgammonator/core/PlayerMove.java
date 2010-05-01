@@ -6,7 +6,6 @@ package backgammonator.core;
  * two(or four for double) checker moves (they will be accessed by int
  * getCheckerMove(int index) method).
  */
-
 public class PlayerMove {
 
 	private CheckerMove[] checkerMoves;
@@ -46,12 +45,6 @@ public class PlayerMove {
 				checkerMoves.length);
 	}
 
-	@Override
-	public String toString() {
-		// TODO implement for the protocol
-		return super.toString();
-	}
-
 	/**
 	 * Gets the corresponding {@link CheckerMove} object from the array.
 	 * 
@@ -76,5 +69,4 @@ public class PlayerMove {
 	public boolean isDouble() {
 		return this.checkerMoves.length == 4;
 	}
-
 }

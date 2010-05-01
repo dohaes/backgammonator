@@ -10,7 +10,6 @@ public enum PlayerColor {
 		return this == WHITE ? BLACK : WHITE;
 	}
 	
-	@Override
 	public String toString() {
 		return this == WHITE ? "white" : "black";
 	}

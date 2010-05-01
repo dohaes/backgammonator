@@ -4,7 +4,6 @@ package backgammonator.core;
  * Represents abstraction of the AI player. If a contestant wants to use the
  * Backgammonator Library to test his AI, he has to implement this interface.
  */
-
 public interface Player {
 
 	/**
@@ -29,5 +28,4 @@ public interface Player {
 	 * @param wins true if this player wins, or false otherwise.
 	 */
 	void gameOver(boolean wins);
-
 }

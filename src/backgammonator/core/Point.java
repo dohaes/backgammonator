@@ -15,5 +15,4 @@ public interface Point {
 	 * Returns the color of the checkers on that point.
 	 */
 	public PlayerColor getColor();
-
 }

@@ -7,7 +7,6 @@ package backgammonator.core;
  * generator of numbers which will represent the dices.
  */
 public interface BackgammonBoard {
-
 	public static final int MAX_POINTS = 24;
 	public static final int MAX_CHECKERS = 15;
 	public static final int HIT_WHITE = 24;
@@ -35,5 +34,4 @@ public interface BackgammonBoard {
 	 * Returns the color of the current player to move.
 	 */
 	public PlayerColor getCurrentPlayerColor();
-
 }
