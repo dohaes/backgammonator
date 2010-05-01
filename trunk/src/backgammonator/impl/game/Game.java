@@ -11,12 +11,11 @@ import backgammonator.util.Debug;
 /**
  * An instance of this class is created for each game between two players. It is
  * used for realization of the rules of backgammon and manages the game. With
- * each instance of the GameManager class a {@link BackgammonBoard} object is
- * associated. Class GameManager uses class {@link MoveValidator} to validate
- * the palyers' moves.
+ * each instance of the Game class a {@link BackgammonBoard} object is associated.
+ * Class Game uses class {@link MoveValidator} to validate the players' moves.
  */
 
-public final class GameManager {
+public final class Game {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
@@ -35,7 +34,7 @@ public final class GameManager {
 	/**
 	 * Constructs a game between two AI players.
 	 */
-	public GameManager(Player whitePlayer, Player blackPlayer, boolean logMoves) {
+	public Game(Player whitePlayer, Player blackPlayer, boolean logMoves) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
 		dice = new DiceImpl();

@@ -1,7 +1,7 @@
 package backgammonator.test.game;
 
 import backgammonator.core.GameOverStatus;
-import backgammonator.impl.game.GameManager;
+import backgammonator.impl.game.Game;
 import backgammonator.test.players.AbstractTestPlayer;
 import backgammonator.test.players.DummyPlayer;
 import backgammonator.test.players.ExceptionPlayer;
@@ -11,15 +11,15 @@ import backgammonator.test.players.TimedoutMovePlayer;
 import junit.framework.TestCase;
 
 /**
- * Tests class {@link GameManager}.
+ * Tests class {@link Game}.
  */
-public class GameManagerTestCase extends TestCase {
+public class GameTestCase extends TestCase {
 	
 	public void testTimedoutMove() {
 		AbstractTestPlayer timedout = new TimedoutMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		GameManager game = new GameManager(timedout, normal, false);
+		Game game = new Game(timedout, normal, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -38,7 +38,7 @@ public class GameManagerTestCase extends TestCase {
 		AbstractTestPlayer exception = new ExceptionPlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		GameManager game = new GameManager(exception, normal, false);
+		Game game = new Game(exception, normal, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -57,7 +57,7 @@ public class GameManagerTestCase extends TestCase {
 		AbstractTestPlayer nullmove = new NullMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		GameManager game = new GameManager(nullmove, normal, false);
+		Game game = new Game(nullmove, normal, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -76,7 +76,7 @@ public class GameManagerTestCase extends TestCase {
 		AbstractTestPlayer invalid = new InvalidMovePlayer();
 		AbstractTestPlayer normal = new DummyPlayer();
 		
-		GameManager game = new GameManager(normal, invalid, false);
+		Game game = new Game(normal, invalid, false);
 		GameOverStatus status = null;
 		
 		try {
@@ -95,7 +95,7 @@ public class GameManagerTestCase extends TestCase {
 		AbstractTestPlayer normal1 = new DummyPlayer();
 		AbstractTestPlayer normal2 = new DummyPlayer();
 		
-		GameManager game = new GameManager(normal1, normal2, false);
+		Game game = new Game(normal1, normal2, false);
 		GameOverStatus status = null;
 		
 		try {
