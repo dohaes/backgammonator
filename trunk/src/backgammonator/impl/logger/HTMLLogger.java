@@ -93,7 +93,7 @@ class HTMLLogger implements GameLogger {
 			out.close();
 		} catch (Exception e) {
 			Debug.getInstance().error("Error writing to file",
-					Debug.LOGGER_MODULE, e);
+					Debug.GAME_LOGGER, e);
 		}
 
 	}
