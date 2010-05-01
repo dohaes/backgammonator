@@ -1,5 +1,7 @@
 package backgammonator.impl.protocol;
 
+import backgammonator.core.BackgammonBoard;
+import backgammonator.core.Dice;
 import backgammonator.core.PlayerMove;
 
 /**
@@ -8,6 +10,12 @@ import backgammonator.core.PlayerMove;
  */
 
 public final class Parser {
-	public void log(PlayerMove move) {
+	
+	public static PlayerMove getMove(String playerMove) {
+		return null;
+	}
+	
+	public static String getBoardConfiguration(BackgammonBoard board, Dice dice) {
+		return null;
 	}
 }
