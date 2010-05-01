@@ -106,7 +106,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	}
 
 	void switchPlayer() {
-		currentColor = currentColor.oposite();
+		currentColor = currentColor.opposite();
 	}
 
 	boolean makeMove(PlayerMove move, Dice dice) throws Exception {
@@ -151,8 +151,8 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 			PointImpl dest = getPoint0(to);
 			dest.decrease();
 			if (checkerMove.hasHit()) {
-				dest.increase(currentColor.oposite());
-				setHits(currentColor.oposite(), getHits(currentColor) - 1);
+				dest.increase(currentColor.opposite());
+				setHits(currentColor.opposite(), getHits(currentColor) - 1);
 			}
 		}
 	}
@@ -177,7 +177,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		} else {
 			PointImpl dest = getPoint0(to);
 			if (dest.increase(currentColor)) {
-				setHits(currentColor.oposite(), getHits(currentColor) + 1);
+				setHits(currentColor.opposite(), getHits(currentColor) + 1);
 				checkerMove.setHit();
 			}
 		}

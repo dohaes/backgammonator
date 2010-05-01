@@ -68,7 +68,7 @@ public final class Game {
 		}
 
 		if (logMoves) logger.endGame(status, status == GameOverStatus.OK ?
-				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().oposite());
+				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().opposite());
 		return status;
 	}
 
@@ -141,7 +141,7 @@ public final class Game {
 
 			if (logMoves && currentMove != null) {
 				logger.logMove(currentMove, board.getCurrentPlayerColor(),
-						dice, board.getHits(board.getCurrentPlayerColor().oposite()),
+						dice, board.getHits(board.getCurrentPlayerColor().opposite()),
 						board.getBornOff(board.getCurrentPlayerColor()), invalid);
 			}
 
