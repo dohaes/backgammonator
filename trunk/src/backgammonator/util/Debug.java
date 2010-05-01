@@ -12,6 +12,8 @@ public final class Debug {
 	public static final int TOURNAMENT_LOGIC = 5;
 	public static final int TOURNAMENT_LOGGER = 6;
 	public static final int UTILS = 7;
+	public static final int DATABASE = 8;
+	public static final int WEB_INTERFACE = 9;
 
 	private static boolean isDebugOn = true; // TODO use system prop to configure debug
 	private static Debug instance = null;
@@ -94,6 +96,12 @@ public final class Debug {
 			break;
 		case UTILS:
 			res = "Utils";
+			break;
+		case DATABASE:
+			res = "Database";
+			break;
+		case WEB_INTERFACE:
+			res = "Web Interface";
 			break;
 		default:
 			res = "Not Specified";
