@@ -11,7 +11,7 @@ import backgammonator.core.Point;
 /**
  * Represents implementation of the {@link BackgammonBoard} interface.
  */
-public class BackgammonBoardImpl implements BackgammonBoard {
+public final class BackgammonBoardImpl implements BackgammonBoard {
 	
 	private static final int HIT_WHITE = 24;
 	private static final int HIT_BLACK = 25;

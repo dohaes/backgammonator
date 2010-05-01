@@ -2,6 +2,7 @@ package backgammonator.impl.game;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.Dice;
+import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
@@ -10,14 +11,15 @@ import backgammonator.impl.logger.GameLoggerFactory;
 import backgammonator.util.Debug;
 
 /**
+ * Represents implementation of the {@link Game} interface.
  * An instance of this class is created for each game between two players. It is
  * used for realization of the rules of backgammon and manages the game. With
  * each instance of the Game class a {@link BackgammonBoard} object is associated.
  * Class Game uses class {@link MoveValidator} to validate the players' moves.
- * Each {@link Game} object is associated with a {@link Dice} implementation that represent the dice.
+ * Each {@link GameImpl} object is associated with a {@link Dice} implementation that represent the dice.
  */
 
-public final class Game {
+final class GameImpl implements Game {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
@@ -36,18 +38,14 @@ public final class Game {
 	/**
 	 * Constructs a game between two AI players.
 	 */
-	public Game(Player whitePlayer, Player blackPlayer, boolean logMoves) {
+	public GameImpl(Player whitePlayer, Player blackPlayer, boolean logMoves) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
 		dice = new DiceImpl();
 		this.logMoves = logMoves;
 	}
 
-	/**
-	 * This method starts and navigates the game between the two players. Always
-	 * the white player is first.
-	 * @return the status of the game.
-	 */
+	@Override
 	public GameOverStatus start() {
 		board = new BackgammonBoardImpl();
 		if (logMoves) {
@@ -71,35 +69,6 @@ public final class Game {
 				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().opposite());
 		return status;
 	}
-
-//	/**
-//	 * Return the end game status if the game is over, on null otherwise
-//	 */
-//	private GameOverStatus _makeMove(Player currentPlayer, Player other) {
-//		PlayerMove currentMove;
-//		dice.generateNext();
-//		try {
-//			currentMove = currentPlayer.getMove(board, dice);
-//			if (currentMove == null || !board.makeMove(currentMove, dice)) {
-//				currentPlayer.gameOver(false);
-//				other.gameOver(true);
-//				return GameOverStatus.INVALID_MOVE;
-//			}
-//			logger.logMove(currentMove, board.getCurrentPlayerColor(), dice, board.getHits(board.getCurrentPlayerColor()),
-//					                          board.getBornOff(board.getCurrentPlayerColor()));
-//			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-//				currentPlayer.gameOver(true);
-//				other.gameOver(false);
-//				return GameOverStatus.OK;
-//			}
-//		} catch (Exception e) {
-//			currentPlayer.gameOver(false);
-//			other.gameOver(true);
-//			return GameOverStatus.EXCEPTION;
-//		}
-//
-//		return null;
-//	}
 
 	/**
 	 * Return the end game status if the game is over, on null otherwise

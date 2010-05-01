@@ -12,7 +12,7 @@ import backgammonator.core.Point;
  * validateMove(Backgammon currB, Move move), which will validate the move of
  * the player according to the current backgammon.
  */
-public class MoveValidator {
+public final class MoveValidator {
 	private static final int MAX_POINTS = 24;
 
 	public static boolean validateMove(BackgammonBoard board, PlayerMove move,
