@@ -23,3 +23,6 @@
 
  * Sprint 1
   * [http://spreadsheets.google.com/ccc?key=0AkTz2I4OVcj8dEVjT3lETlhyUWRFd05ZdjlaT09KaXc&hl=en Sprint Backlog] 
+
+ * Sprint 2
+  * [http://spreadsheets.google.com/ccc?key=tf2bVAD5aEVtKOD7qlF0gEg Sprint Backlog] 
