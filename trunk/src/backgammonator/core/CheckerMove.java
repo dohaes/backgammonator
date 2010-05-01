@@ -11,6 +11,11 @@ public final class CheckerMove {
 
 	/**
 	 * Create CheckerMove object with given start point and move length.
+	 * 
+	 * @param startPoint
+	 *            the start point.
+	 * @param moveLength
+	 *            the move length.
 	 */
 	public CheckerMove(int startPoint, int moveLength) {
 		setStartPoint(startPoint);
@@ -32,7 +37,7 @@ public final class CheckerMove {
 	}
 
 	private void setStartPoint(int startPoint) {
-		if (startPoint < 0 || startPoint > 25) {
+		if (startPoint < 1 || startPoint > Constants.POINTS_COUNT) {
 			throw new IllegalArgumentException("Invalid start point : "
 					+ startPoint);
 		}
@@ -40,7 +45,7 @@ public final class CheckerMove {
 	}
 
 	private void setMoveLength(int moveLength) {
-		if (moveLength < 1 || moveLength > 6) {
+		if (moveLength < 1 || moveLength > Constants.MAX_DIE) {
 			throw new IllegalArgumentException("Invalid move length : "
 					+ moveLength);
 		}

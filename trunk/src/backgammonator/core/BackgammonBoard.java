@@ -4,13 +4,6 @@ package backgammonator.core;
  * Represents the structure of the backgammon board.
  */
 public interface BackgammonBoard {
-	
-	public static final int MAX_POINTS = 24;
-	public static final int MAX_CHECKERS = 15;
-	public static final int HIT_WHITE = 24;
-	public static final int HIT_BLACK = 25;
-	public static final int BORN_WHITE = 26;
-	public static final int BORN_BLACK = 27;
 
 	/**
 	 * Returns the specified point on the board according to the given point

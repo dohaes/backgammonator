@@ -1,5 +1,6 @@
 package backgammonator.impl.game;
 
+import backgammonator.core.Constants;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.Point;
 
@@ -7,6 +8,7 @@ import backgammonator.core.Point;
  * Represents implementation of the {@link Point} interface.
  */
 public final class PointImpl implements Point {
+
 	private int count;
 	private PlayerColor color;
 
@@ -22,10 +24,12 @@ public final class PointImpl implements Point {
 	 * Creates point with checkers on it.
 	 * 
 	 * @param count
+	 *            the count on the point.
 	 * @param color
+	 *            the color of the checkers.
 	 */
 	public PointImpl(int count, PlayerColor color) {
-		if (count < 0 || count > 15) {
+		if (count < 0 || count > Constants.CHECKERS_COUNT) {
 			throw new IllegalArgumentException("Illegal count number: " + count);
 		}
 		this.count = count;
@@ -40,14 +44,27 @@ public final class PointImpl implements Point {
 		return color;
 	}
 
+	/**
+	 * Decreases the number of checkers on the point.
+	 */
 	void decrease() {
-		count--;
-		if (count < 0) {
-			throw new IllegalArgumentException("Illegal count number: " + count);
+		if (count <= 0) {
+			throw new IllegalArgumentException("Illegal decrease operation.");
 		}
+		count--;
 	}
 
+	/**
+	 * Increases the number of checkers on the point.
+	 * 
+	 * @param color
+	 *            the color of the placed checker.
+	 * @return if there has been hit checker of the opposite color on the point.
+	 */
 	boolean increase(PlayerColor color) {
+		if (count >= Constants.CHECKERS_COUNT) {
+			throw new IllegalArgumentException("Illegal increase operation.");
+		}
 		if (this.count > 0 && !color.equals(this.color)) {
 			this.count = 1;
 			this.color = color;
@@ -55,9 +72,6 @@ public final class PointImpl implements Point {
 		}
 		this.count++;
 		this.color = color;
-		if (count > 15) {
-			throw new IllegalArgumentException("Illegal count number: " + count);
-		}
 		return false;
 	}
 }
