@@ -48,10 +48,12 @@ public class PlayerMove {
 	/**
 	 * Gets the corresponding {@link CheckerMove} object from the array.
 	 * 
-	 * @param index the index of the {@link CheckerMove} object in the array.
-	 * 		        its value should be between 0 and 1 or 3.
+	 * @param index
+	 *            the index of the {@link CheckerMove} object in the array. its
+	 *            value should be between 0 and 1 or 3.
 	 * @return the corresponding {@link CheckerMove}
-	 * @throws IllegalArgumentException if the index is out of bounds.
+	 * @throws IllegalArgumentException
+	 *             if the index is out of bounds.
 	 */
 	public CheckerMove getCheckerMove(int index) {
 		if (index < 0 || index >= checkerMoves.length) {

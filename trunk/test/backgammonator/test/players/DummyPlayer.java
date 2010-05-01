@@ -10,9 +10,14 @@ public class DummyPlayer extends AbstractTestPlayer {
 	private static int ID = 0;
 	private int id = ID++;
 
+	public DummyPlayer(int id) {
+		this.id = id;
+	}
+
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
-		//System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2() + ")");
+		System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2()
+				+ ")");
 		CheckerMove m1, m2, m3, m4;
 		DummyBoard b = new DummyBoard(board);
 		m1 = findMove(b, dice.getDie1());
