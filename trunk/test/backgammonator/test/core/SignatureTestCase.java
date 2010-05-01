@@ -13,7 +13,7 @@ import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.game.PointImpl;
 
 /**
- * Tests if th eobjects accessible to the test user have any visible methods
+ * Tests if the objects accessible to the test user have any visible methods
  * except those in the interface defined.
  */
 @SuppressWarnings("unchecked")
@@ -40,6 +40,9 @@ public class SignatureTestCase extends TestCase {
 		assertSignatures();
 	}
 
+	
+	
+	
 	private void initAll(Class clazz, Class interfacce) {
 		methodsFromInterface = interfacce.getMethods();
 		methodsFromImpl = clazz.getMethods();
