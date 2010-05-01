@@ -96,6 +96,7 @@ class HTMLLogger implements GameLogger {
 			FileWriter fstream = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(fstream);
 			out.write(this.logStringBuffer.toString());
+			out.flush();
 			out.close();
 		} catch (Exception e) {
 			Debug.getInstance().error("Error writing to file",
