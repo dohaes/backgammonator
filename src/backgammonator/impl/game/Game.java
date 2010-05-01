@@ -1,6 +1,7 @@
 package backgammonator.impl.game;
 
 import backgammonator.core.BackgammonBoard;
+import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
@@ -13,6 +14,7 @@ import backgammonator.util.Debug;
  * used for realization of the rules of backgammon and manages the game. With
  * each instance of the Game class a {@link BackgammonBoard} object is associated.
  * Class Game uses class {@link MoveValidator} to validate the players' moves.
+ * Each {@link Game} object is associated with a {@link Dice} implementation that represent the dice.
  */
 
 public final class Game {
