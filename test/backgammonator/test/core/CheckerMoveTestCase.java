@@ -16,19 +16,19 @@ public class CheckerMoveTestCase extends TestCase {
 			fail("Unexpected exception : " + t.getMessage());
 		}
 		assertEquals(2, move.getStartPoint());
-		assertEquals(3, move.getMoveLength());
+		assertEquals(3, move.getDie());
 		try {
 			move = new CheckerMove(3, 1);
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(1, move.getMoveLength());
+		assertEquals(1, move.getDie());
 		try {
 			move = new CheckerMove(2, 6);
 		} catch (Throwable t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(6, move.getMoveLength());
+		assertEquals(6, move.getDie());
 		try {
 			move = new CheckerMove(1, 3);
 		} catch (Throwable t) {

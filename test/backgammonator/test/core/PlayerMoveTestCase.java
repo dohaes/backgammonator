@@ -99,7 +99,7 @@ public class PlayerMoveTestCase extends TestCase {
 		}
 		
 		assertNotNull(chmove);
-		assertEquals(1, chmove.getMoveLength());
+		assertEquals(1, chmove.getDie());
 		assertEquals(11, chmove.getStartPoint());
 		
 		try {
@@ -109,7 +109,7 @@ public class PlayerMoveTestCase extends TestCase {
 		}
 		
 		assertNotNull(chmove);
-		assertEquals(2, chmove.getMoveLength());
+		assertEquals(2, chmove.getDie());
 		assertEquals(22, chmove.getStartPoint());
 	}
 	

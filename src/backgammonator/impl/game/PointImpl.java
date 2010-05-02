@@ -59,13 +59,14 @@ public final class PointImpl implements Point {
 	 * 
 	 * @param color
 	 *            the color of the placed checker.
-	 * @return if there has been hit checker of the opposite color on the point.
+	 * @return true if there has been hit checker of the opposite color on the
+	 *         point.
 	 */
 	boolean increase(PlayerColor color) {
 		if (count >= Constants.CHECKERS_COUNT) {
 			throw new IllegalArgumentException("Illegal increase operation.");
 		}
-		if (this.count > 0 && !color.equals(this.color)) {
+		if (this.count > 0 && color != this.color) {
 			this.count = 1;
 			this.color = color;
 			return true;
