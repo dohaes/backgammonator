@@ -18,7 +18,6 @@ import backgammonator.util.Debug;
  * Class GameImpl uses class {@link MoveValidator} to validate the players' moves.
  * Each {@link GameImpl} object is associated with a {@link Dice} implementation that represent the dice.
  */
-
 final class GameImpl implements Game {
 
 	private Player whitePlayer;

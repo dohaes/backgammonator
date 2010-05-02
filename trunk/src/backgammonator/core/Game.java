@@ -3,7 +3,6 @@ package backgammonator.core;
 /**
  * Represents a game between two players.
  */
-
 public interface Game {
 
 	/**
