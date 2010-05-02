@@ -128,11 +128,11 @@ class HTMLLogger implements GameLogger {
 		this.logStringBuffer.append("</td><td>");
 		this.logStringBuffer.append(move.getCheckerMove(0).getStartPoint());
 		this.logStringBuffer.append("</td><td>");
-		this.logStringBuffer.append(move.getCheckerMove(0).getMoveLength());
+		this.logStringBuffer.append(move.getCheckerMove(0).getDie());
 		this.logStringBuffer.append("</td><td>");
 		this.logStringBuffer.append(move.getCheckerMove(1).getStartPoint());
 		this.logStringBuffer.append("</td><td>");
-		this.logStringBuffer.append(move.getCheckerMove(1).getMoveLength());
+		this.logStringBuffer.append(move.getCheckerMove(1).getDie());
 		this.logStringBuffer.append("</td><td rowspan=");
 		this.logStringBuffer.append(rowspan);
 		this.logStringBuffer.append(">");
@@ -154,11 +154,11 @@ class HTMLLogger implements GameLogger {
 			this.logStringBuffer.append("</td><td>");
 			this.logStringBuffer.append(move.getCheckerMove(2).getStartPoint());
 			this.logStringBuffer.append("</td><td>");
-			this.logStringBuffer.append(move.getCheckerMove(2).getMoveLength());
+			this.logStringBuffer.append(move.getCheckerMove(2).getDie());
 			this.logStringBuffer.append("</td><td>");
 			this.logStringBuffer.append(move.getCheckerMove(3).getStartPoint());
 			this.logStringBuffer.append("</td><td>");
-			this.logStringBuffer.append(move.getCheckerMove(3).getMoveLength());
+			this.logStringBuffer.append(move.getCheckerMove(3).getDie());
 			this.logStringBuffer.append("</td></tr>\n");
 		}
 		this.moveId++;

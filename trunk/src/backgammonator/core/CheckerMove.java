@@ -6,20 +6,35 @@ package backgammonator.core;
 public final class CheckerMove {
 
 	private int startPoint;
-	private int moveLength;
-	private boolean hasHit = false;
+	private int die;
+	private CheckerMoveType type;
 
 	/**
 	 * Create CheckerMove object with given start point and move length.
 	 * 
 	 * @param startPoint
 	 *            the start point.
-	 * @param moveLength
-	 *            the move length.
+	 * @param die
+	 *            the die.
 	 */
-	public CheckerMove(int startPoint, int moveLength) {
+	public CheckerMove(CheckerMoveType type, int die) {
+		this.type = type;
+		setStartPoint(1);
+		setDie(die);
+	}
+
+	/**
+	 * Create CheckerMove object with given start point and move length.
+	 * 
+	 * @param startPoint
+	 *            the start point.
+	 * @param die
+	 *            the die.
+	 */
+	public CheckerMove(int startPoint, int die) {
+		this.type = CheckerMoveType.STANDARD_MOVE;
 		setStartPoint(startPoint);
-		setMoveLength(moveLength);
+		setDie(die);
 	}
 
 	/**
@@ -30,10 +45,44 @@ public final class CheckerMove {
 	}
 
 	/**
-	 * Getter for the length that the checker is moved.
+	 * Getter for the die that the checker is moved.
 	 */
-	public int getMoveLength() {
-		return moveLength;
+	public int getDie() {
+		return die;
+	}
+
+	/**
+	 * Getter for the end position of the checker.
+	 */
+	public int getEndPoint() {
+		return startPoint + die;
+	}
+
+	/**
+	 * Returns true if the move bears off the checker.
+	 * 
+	 * @return true if the move bears off the checker.
+	 */
+	public boolean isBearingOff() {
+		return startPoint + die > Constants.POINTS_COUNT;
+	}
+
+	/**
+	 * Returns true if there is no available move.
+	 * 
+	 * @return true if there is no available move.
+	 */
+	public boolean isUnavailableMove() {
+		return type == CheckerMoveType.NO_AVAILABLE_MOVE;
+	}
+
+	/**
+	 * Returns true if the move reenters a hit checker.
+	 * 
+	 * @return true if the move reenters a hit checker.
+	 */
+	public boolean isReenterHitChecker() {
+		return type == CheckerMoveType.REENTER_HIT_CHECKER;
 	}
 
 	private void setStartPoint(int startPoint) {
@@ -44,19 +93,10 @@ public final class CheckerMove {
 		this.startPoint = startPoint;
 	}
 
-	private void setMoveLength(int moveLength) {
-		if (moveLength < 1 || moveLength > Constants.MAX_DIE) {
-			throw new IllegalArgumentException("Invalid move length : "
-					+ moveLength);
+	private void setDie(int die) {
+		if (die < 1 || die > Constants.MAX_DIE) {
+			throw new IllegalArgumentException("Invalid die : " + die);
 		}
-		this.moveLength = moveLength;
-	}
-
-	public void setHit() {
-		this.hasHit = true;
-	}
-
-	public boolean hasHit() {
-		return this.hasHit;
+		this.die = die;
 	}
 }
