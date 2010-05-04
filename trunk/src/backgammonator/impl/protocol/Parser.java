@@ -43,6 +43,11 @@ public final class Parser {
 	public static PlayerMove getMove(String playerMoveString, PlayerColor color)
 			throws IllegalArgumentException {
 
+		if (playerMoveString == null || color == null) {
+			throw new NullPointerException(
+					"Some of the arguments of getMove method is null.");
+		}
+
 		String[] stringArray = playerMoveString.split(" ");
 
 		if (stringArray.length != 4 && stringArray.length != 8) {
