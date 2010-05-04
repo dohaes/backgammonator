@@ -8,8 +8,6 @@ public enum PlayerColor {
 
 	/**
 	 * Returns the opposite color.
-	 * 
-	 * @return the opposite color.
 	 */
 	public PlayerColor opposite() {
 		return this == WHITE ? BLACK : WHITE;

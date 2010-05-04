@@ -5,21 +5,19 @@ package backgammonator.core;
  */
 public final class CheckerMove {
 
+	private CheckerMoveType type;
 	private int startPoint;
 	private int die;
-	private CheckerMoveType type;
 
 	/**
-	 * Create CheckerMove object with given start point and move length.
+	 * Create CheckerMove object of a given type for the specified die.
 	 * 
-	 * @param startPoint
-	 *            the start point.
 	 * @param die
-	 *            the die.
+	 *            must be between 1 and 6.
 	 */
 	public CheckerMove(CheckerMoveType type, int die) {
 		this.type = type;
-		setStartPoint(1);
+		setStartPoint(Constants.POINTS_COUNT);
 		setDie(die);
 	}
 
@@ -27,9 +25,9 @@ public final class CheckerMove {
 	 * Create CheckerMove object with given start point and move length.
 	 * 
 	 * @param startPoint
-	 *            the start point.
+	 *            must be between 1 and 24.
 	 * @param die
-	 *            the die.
+	 *            must be between 1 and 6.
 	 */
 	public CheckerMove(int startPoint, int die) {
 		this.type = CheckerMoveType.STANDARD_MOVE;
@@ -55,22 +53,18 @@ public final class CheckerMove {
 	 * Getter for the end position of the checker.
 	 */
 	public int getEndPoint() {
-		return startPoint + die;
+		return startPoint - die;
 	}
 
 	/**
 	 * Returns true if the move bears off the checker.
-	 * 
-	 * @return true if the move bears off the checker.
 	 */
 	public boolean isBearingOff() {
-		return startPoint + die > Constants.POINTS_COUNT;
+		return startPoint - die < 0;
 	}
 
 	/**
 	 * Returns true if there is no available move.
-	 * 
-	 * @return true if there is no available move.
 	 */
 	public boolean isUnavailableMove() {
 		return type == CheckerMoveType.NO_AVAILABLE_MOVE;
@@ -78,8 +72,6 @@ public final class CheckerMove {
 
 	/**
 	 * Returns true if the move reenters a hit checker.
-	 * 
-	 * @return true if the move reenters a hit checker.
 	 */
 	public boolean isReenterHitChecker() {
 		return type == CheckerMoveType.REENTER_HIT_CHECKER;

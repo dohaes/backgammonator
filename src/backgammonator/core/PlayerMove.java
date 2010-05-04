@@ -37,7 +37,8 @@ public final class PlayerMove {
 	 * 
 	 * @param index
 	 *            the index of the {@link CheckerMove} object in the array. its
-	 *            value should be between 0 and 1 or 3.
+	 *            value should be between 0 and 1 or between 0 and 3 depending
+	 *            if the die is double.
 	 * @return the corresponding {@link CheckerMove}
 	 * @throws IllegalArgumentException
 	 *             if the index is out of bounds.
