@@ -28,8 +28,8 @@ public interface Player {
 	/**
 	 * Called from the backgammonator engine to identify the end of the game.
 	 * 
-	 * @param wins
-	 *            true if this player wins, or false otherwise.
+	 * @param wins true if this player wins, or false otherwise.
+	 * @param status the status of the game
 	 */
-	void gameOver(boolean wins);
+	void gameOver(boolean wins, GameOverStatus status);
 }
