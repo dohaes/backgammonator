@@ -40,7 +40,7 @@ public final class GameLoggerFactory {
 		case CONSOLE:
 			throw new IllegalArgumentException("Not supported");
 		case HTML:
-			return new HTMLLogger();
+			return new HTMLGameLogger();
 		default:
 			throw new IllegalArgumentException("Not supported");
 		}
