@@ -41,7 +41,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		}
 	}
 
-	void resetBoard() {
+	void reset() {
 		currentColor = PlayerColor.BLACK;
 		movesThatHit.clear();
 		board[0].updatePoint(2, PlayerColor.WHITE);
