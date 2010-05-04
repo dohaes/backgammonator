@@ -18,7 +18,7 @@ import junit.framework.TestCase;
 /**
  * Tests classes which implement the {@link GameLogger} interface.
  */
-public class LoggerTestCase extends TestCase {
+public class GameLoggerTestCase extends TestCase {
 
 	private GameLogger gameLogger;
 
