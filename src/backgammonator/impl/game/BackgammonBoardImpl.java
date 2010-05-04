@@ -6,6 +6,7 @@ import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
 import backgammonator.core.Constants;
 import backgammonator.core.Dice;
+import backgammonator.core.GameOverStatus;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
@@ -44,19 +45,19 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	void reset() {
 		currentColor = PlayerColor.BLACK;
 		movesThatHit.clear();
-		board[0].updatePoint(2, PlayerColor.WHITE);
-		board[5].updatePoint(5, PlayerColor.BLACK);
-		board[7].updatePoint(3, PlayerColor.BLACK);
-		board[11].updatePoint(5, PlayerColor.WHITE);
-		board[12].updatePoint(5, PlayerColor.BLACK);
-		board[16].updatePoint(3, PlayerColor.WHITE);
-		board[18].updatePoint(5, PlayerColor.WHITE);
-		board[23].updatePoint(2, PlayerColor.BLACK);
+		board[23].updatePoint(2, PlayerColor.WHITE);
+		board[18].updatePoint(5, PlayerColor.BLACK);
+		board[16].updatePoint(3, PlayerColor.BLACK);
+		board[12].updatePoint(5, PlayerColor.WHITE);
+		board[11].updatePoint(5, PlayerColor.BLACK);
+		board[7].updatePoint(3, PlayerColor.WHITE);
+		board[5].updatePoint(5, PlayerColor.WHITE);
+		board[0].updatePoint(2, PlayerColor.BLACK);
 
 	}
 
 	public Point getPoint(int point) {
-		if (point <= 0 || point > Constants.POINTS_COUNT) {
+		if (point < 1 || point > Constants.POINTS_COUNT) {
 			throw new IllegalArgumentException("Illegal position: " + point);
 		}
 		return getPoint0(point);
@@ -83,8 +84,24 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		currentColor = currentColor.opposite();
 	}
 
-	void getWinStatus() {
-		// TODO
+	/**
+	 * If the player wins the type of victory that the player has earned (OK,
+	 * DOUBLE or TRIPLE). Otherwise the method returns EXCEPTION.
+	 */
+	GameOverStatus getWinStatus() {
+		if (getBornOff(currentColor) != Constants.CHECKERS_COUNT) {
+			return GameOverStatus.EXCEPTION;
+		}
+		if (getBornOff(currentColor.opposite()) == 0) {
+			for (int i = 1; i <= Constants.MAX_DIE; i++) {
+				if (getPoint0(i).getColor() == currentColor.opposite()
+						&& getPoint0(i).getCount() > 0) {
+					return GameOverStatus.TRIPLE;
+				}
+			}
+			return GameOverStatus.DOUBLE;
+		}
+		return GameOverStatus.OK;
 	}
 
 	private PointImpl getPoint0(int point) {

@@ -107,7 +107,7 @@ public final class MoveValidator {
 	private static boolean validateBearOffs(BackgammonBoard board,
 			CheckerMove move) { // TODO
 		if (move.isBearingOff()) {
-			for (int i = 0; i <= Constants.POINTS_COUNT - Constants.MAX_DIE; i++) {
+			for (int i = Constants.MAX_DIE + 1; i <= Constants.POINTS_COUNT; i++) {
 				if (board.getPoint(i).getCount() > 0
 						&& board.getPoint(i).getColor() == board
 								.getCurrentPlayerColor()) {
@@ -131,7 +131,7 @@ public final class MoveValidator {
 		}
 
 		boolean isBearingOff = true;
-		for (int i = 0; i <= Constants.POINTS_COUNT - Constants.MAX_DIE; i++) {
+		for (int i = Constants.MAX_DIE + 1; i <= Constants.POINTS_COUNT; i++) {
 			if (board.getPoint(i).getCount() > 0
 					&& board.getPoint(i).getColor() == board
 							.getCurrentPlayerColor()) {
@@ -144,8 +144,7 @@ public final class MoveValidator {
 			}
 		}
 
-		for (int i = Constants.POINTS_COUNT - Constants.MAX_DIE + 1; i <= Constants.POINTS_COUNT
-				- die; i++) {
+		for (int i = die + 1; i <= Constants.MAX_DIE; i++) {
 			if (board.getPoint(i).getCount() > 0
 					&& board.getPoint(i).getColor() == color) {// TODO
 				return false;
@@ -153,7 +152,7 @@ public final class MoveValidator {
 		}
 
 		if (isBearingOff) {
-			for (int i = Constants.POINTS_COUNT - die + 1; i <= Constants.POINTS_COUNT; i++) {
+			for (int i = die + 1; i <= Constants.MAX_DIE; i++) {
 				if (board.getPoint(i).getCount() > 0
 						&& board.getPoint(i).getColor() == color) {
 					return false;

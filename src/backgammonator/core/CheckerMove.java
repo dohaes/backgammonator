@@ -17,7 +17,7 @@ public final class CheckerMove {
 	 */
 	public CheckerMove(CheckerMoveType type, int die) {
 		this.type = type;
-		setStartPoint(Constants.POINTS_COUNT);
+		this.startPoint = Constants.POINTS_COUNT + 1;
 		setDie(die);
 	}
 
@@ -60,7 +60,7 @@ public final class CheckerMove {
 	 * Returns true if the move bears off the checker.
 	 */
 	public boolean isBearingOff() {
-		return startPoint - die < 0;
+		return startPoint - die <= 0;
 	}
 
 	/**
@@ -90,5 +90,9 @@ public final class CheckerMove {
 			throw new IllegalArgumentException("Invalid die : " + die);
 		}
 		this.die = die;
+	}
+
+	public String toString() {
+		return type + "(" + this.startPoint + ", " + this.die + ")";
 	}
 }

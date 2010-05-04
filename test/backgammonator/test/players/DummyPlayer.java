@@ -2,6 +2,7 @@ package backgammonator.test.players;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
+import backgammonator.core.CheckerMoveType;
 import backgammonator.core.Dice;
 import backgammonator.core.PlayerMove;
 
@@ -39,23 +40,20 @@ public class DummyPlayer extends AbstractTestPlayer {
 	}
 
 	private CheckerMove findMove(DummyBoard board, int die) {
-		int point = 25;
-		if (board.get(0) > 0) {
-			if (board.get(die) >= -1) {
-				point = 0;
+		if (board.get(25) > 0) {
+			if (board.get(25 - die) >= -1) {
+				board.move(25, die);
+				return new CheckerMove(CheckerMoveType.REENTER_HIT_CHECKER, die);
 			}
 		} else {
-			for (int i = 1; i < 25; i++) {
-				if (board.get(i) > 0 && board.get(i + die) >= -1) {
-					point = i;
-					break;
+			for (int i = 24; i >= die; i--) {
+				if (board.get(i) > 0 && board.get(i - die) >= -1) {
+					board.move(i, die);
+					return new CheckerMove(i, die);
 				}
 			}
 		}
-		if (point != -1) {
-			board.move(point, die);
-		}
-		return new CheckerMove(point, die);
+		return new CheckerMove(CheckerMoveType.NO_AVAILABLE_MOVE, die);
 	}
 
 	public String getName() {

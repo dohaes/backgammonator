@@ -58,4 +58,8 @@ public final class DiceImpl implements Dice {
 		}
 		this.die[id] = die;
 	}
+	
+	public String toString() {
+		return "(" + die[0] + ", " + die[1] + ")";
+	}
 }
