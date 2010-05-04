@@ -34,18 +34,15 @@ public final class Parser {
 	 *            move - integer number between 1 and 6.<br />
 	 *            The number of checker moves might be 4 when the dice are
 	 *            double.
-	 * @param color
-	 *            is the color of the player whose output is being parsed.
 	 * @return the parsed PlayerMove object.
 	 * @throws IllegalArgumentException
 	 *             when the given string is not in the requested format.
 	 */
-	public static PlayerMove getMove(String playerMoveString, PlayerColor color)
+	public static PlayerMove getMove(String playerMoveString)
 			throws IllegalArgumentException {
 
-		if (playerMoveString == null || color == null) {
-			throw new NullPointerException(
-					"Some of the arguments of getMove method is null.");
+		if (playerMoveString == null) {
+			throw new NullPointerException("playerMoveString is null.");
 		}
 
 		String[] stringArray = playerMoveString.split(" ");
