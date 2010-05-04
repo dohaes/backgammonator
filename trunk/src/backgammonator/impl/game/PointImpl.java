@@ -75,4 +75,20 @@ public final class PointImpl implements Point {
 		this.color = color;
 		return false;
 	}
+
+	/**
+	 * Updates the point's data.
+	 * 
+	 * @param count
+	 *            the count on the point.
+	 * @param color
+	 *            the color of the checkers.
+	 */
+	void updatePoint(int count, PlayerColor color) {
+		if (count < 0 || count > Constants.CHECKERS_COUNT) {
+			throw new IllegalArgumentException("Illegal count number: " + count);
+		}
+		this.count = count;
+		this.color = color;
+	}
 }

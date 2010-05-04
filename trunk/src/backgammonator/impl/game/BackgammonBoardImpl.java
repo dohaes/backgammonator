@@ -27,25 +27,32 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	 * 26 and 27 are the points of the born off white and black checkers.
 	 */
 	private PointImpl[] board;
-	private PlayerColor currentColor = PlayerColor.BLACK;
-	private ArrayList<CheckerMove> movesThatHit = new ArrayList<CheckerMove>(4);
+	private PlayerColor currentColor;
+	private ArrayList<CheckerMove> movesThatHit;
 
 	/**
 	 * Creates default board initiated with the default playing positions.
 	 */
 	public BackgammonBoardImpl() {
+		movesThatHit = new ArrayList<CheckerMove>(4);
 		board = new PointImpl[BOARD_SIZE];
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			board[i] = new PointImpl();
 		}
-		board[0] = new PointImpl(2, PlayerColor.WHITE);
-		board[5] = new PointImpl(5, PlayerColor.BLACK);
-		board[7] = new PointImpl(3, PlayerColor.BLACK);
-		board[11] = new PointImpl(5, PlayerColor.WHITE);
-		board[12] = new PointImpl(5, PlayerColor.BLACK);
-		board[16] = new PointImpl(3, PlayerColor.WHITE);
-		board[18] = new PointImpl(5, PlayerColor.WHITE);
-		board[23] = new PointImpl(2, PlayerColor.BLACK);
+	}
+
+	void resetBoard() {
+		currentColor = PlayerColor.BLACK;
+		movesThatHit.clear();
+		board[0].updatePoint(2, PlayerColor.WHITE);
+		board[5].updatePoint(5, PlayerColor.BLACK);
+		board[7].updatePoint(3, PlayerColor.BLACK);
+		board[11].updatePoint(5, PlayerColor.WHITE);
+		board[12].updatePoint(5, PlayerColor.BLACK);
+		board[16].updatePoint(3, PlayerColor.WHITE);
+		board[18].updatePoint(5, PlayerColor.WHITE);
+		board[23].updatePoint(2, PlayerColor.BLACK);
+
 	}
 
 	public Point getPoint(int point) {
@@ -75,9 +82,9 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	void switchPlayer() {
 		currentColor = currentColor.opposite();
 	}
-	
+
 	void getWinStatus() {
-		
+		// TODO
 	}
 
 	private PointImpl getPoint0(int point) {
