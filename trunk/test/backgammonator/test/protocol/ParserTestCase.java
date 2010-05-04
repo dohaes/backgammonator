@@ -6,38 +6,115 @@ import junit.framework.TestCase;
 
 public class ParserTestCase extends TestCase {
 
-	public void testGetMoveStandardMove() {
-		PlayerMove resultPlayerMove = Parser.getMove("1 3 7 6");
-		
+	public void testGetMoveStandardMoves() {
+		PlayerMove resultPlayerMove = Parser.getMove("11 3 7 6");
+
 		assertFalse(resultPlayerMove.isDouble());
-		
+
 		assertFalse(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
 		assertFalse(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
-		assertEquals(resultPlayerMove.getCheckerMove(0).getStartPoint(), 1);
+		assertEquals(resultPlayerMove.getCheckerMove(0).getStartPoint(), 11);
 		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 3);
-		
+
 		assertFalse(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
 		assertFalse(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
 		assertEquals(resultPlayerMove.getCheckerMove(1).getStartPoint(), 7);
 		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 6);
 	}
-	
-	public void testGetMoveBearOffAndStandardMove() {
-		PlayerMove resultPlayerMove = Parser.getMove("0 5 5 6");
-		
+
+	public void testGetMoveReenterCheckerAndStandardMove() {
+		PlayerMove resultPlayerMove = Parser.getMove("25 5 20 6");
+
 		assertFalse(resultPlayerMove.isDouble());
-		
-		assertTrue(resultPlayerMove.getCheckerMove(0).isBearingOff());
-		assertFalse(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
+
+		assertTrue(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
 		assertFalse(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
-		assertEquals(resultPlayerMove.getCheckerMove(0).getStartPoint(), 1);
-		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 3);
-		
-		assertFalse(resultPlayerMove.getCheckerMove(1).isBearingOff());
+		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 5);
+
 		assertFalse(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
 		assertFalse(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
-		assertEquals(resultPlayerMove.getCheckerMove(1).getStartPoint(), 7);
+		assertEquals(resultPlayerMove.getCheckerMove(1).getStartPoint(), 20);
 		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 6);
+	}
+
+	public void testGetMoveReenterCheckers() {
+		PlayerMove resultPlayerMove = Parser.getMove("25 5 25 2");
+
+		assertFalse(resultPlayerMove.isDouble());
+
+		assertTrue(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 5);
+
+		assertTrue(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 2);
+	}
+
+	public void testGetMoveUnavailableMoves() {
+		PlayerMove resultPlayerMove = Parser.getMove("0 5 0 6");
+
+		assertFalse(resultPlayerMove.isDouble());
+
+		assertFalse(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
+		assertTrue(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 5);
+
+		assertFalse(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
+		assertTrue(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 6);
+	}
+
+	public void testGetMoveStandartMoveAndUnavailableMove() {
+		PlayerMove resultPlayerMove = Parser.getMove("20 5 0 6");
+
+		assertFalse(resultPlayerMove.isDouble());
+
+		assertFalse(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(0).getStartPoint(), 20);
+		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 5);
+
+		assertFalse(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
+		assertTrue(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 6);
+	}
+
+	public void testGetMoveReenterCheckerAndUnavailableMove() {
+		PlayerMove resultPlayerMove = Parser.getMove("25 5 0 1");
+
+		assertFalse(resultPlayerMove.isDouble());
+
+		assertTrue(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 5);
+
+		assertFalse(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
+		assertTrue(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 1);
+	}
+
+	public void testGetMoveDoubleAssortie() {
+		PlayerMove resultPlayerMove = Parser.getMove("25 6 25 6 7 6 0 6");
+
+		assertTrue(resultPlayerMove.isDouble());
+
+		assertTrue(resultPlayerMove.getCheckerMove(0).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(0).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(0).getDie(), 6);
+
+		assertTrue(resultPlayerMove.getCheckerMove(1).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(1).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(1).getDie(), 6);
+
+		assertFalse(resultPlayerMove.getCheckerMove(2).isReenterHitChecker());
+		assertFalse(resultPlayerMove.getCheckerMove(2).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(2).getStartPoint(), 7);
+		assertEquals(resultPlayerMove.getCheckerMove(2).getDie(), 6);
+
+		assertFalse(resultPlayerMove.getCheckerMove(3).isReenterHitChecker());
+		assertTrue(resultPlayerMove.getCheckerMove(3).isUnavailableMove());
+		assertEquals(resultPlayerMove.getCheckerMove(3).getDie(), 6);
 	}
 
 }
