@@ -20,7 +20,7 @@ import backgammonator.util.Debug;
  * document.
  */
 
-class HTMLLogger implements GameLogger {
+class HTMLGameLogger implements GameLogger {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
