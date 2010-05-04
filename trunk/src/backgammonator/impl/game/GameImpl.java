@@ -42,15 +42,16 @@ final class GameImpl implements Game {
 		this.blackPlayer = blackPlayer;
 		dice = new DiceImpl();
 		this.logMoves = logMoves;
+		board = new BackgammonBoardImpl();
+		if (logMoves) {
+			logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
+		}
 	}
 
 	@Override
 	public GameOverStatus start() {
-		board = new BackgammonBoardImpl();
-		if (logMoves) {
-			logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
-			logger.startGame(whitePlayer, blackPlayer);
-		}
+		board.resetBoard();
+		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 
 		GameOverStatus status = null;
 		while (true) {
@@ -84,16 +85,16 @@ final class GameImpl implements Game {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
 						Debug.GAME_LOGIC, t);
-				currentPlayer.gameOver(false);
-				other.gameOver(true);
+				currentPlayer.gameOver(false, GameOverStatus.EXCEPTION);
+				other.gameOver(true, GameOverStatus.EXCEPTION);
 				return GameOverStatus.EXCEPTION;
 			}
 
 			if (!notified) {
 				Debug.getInstance().error("Move timeout", Debug.GAME_LOGIC,
 						null);
-				currentPlayer.gameOver(false);
-				other.gameOver(true);
+				currentPlayer.gameOver(false, GameOverStatus.TIMEDOUT);
+				other.gameOver(true, GameOverStatus.TIMEDOUT);
 				stop(mover, true, 100);
 				return GameOverStatus.TIMEDOUT;
 			}
@@ -102,8 +103,8 @@ final class GameImpl implements Game {
 			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
-				currentPlayer.gameOver(false);
-				other.gameOver(true);
+				currentPlayer.gameOver(false, GameOverStatus.INVALID_MOVE);
+				other.gameOver(true, GameOverStatus.INVALID_MOVE);
 				invalid = true;
 			}
 
@@ -116,16 +117,16 @@ final class GameImpl implements Game {
 			if (invalid)  return GameOverStatus.INVALID_MOVE;
 			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				currentPlayer.gameOver(true);
-				other.gameOver(false);
+				currentPlayer.gameOver(true, GameOverStatus.OK);
+				other.gameOver(false, GameOverStatus.OK);
 				return GameOverStatus.OK;
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
 					Debug.GAME_LOGIC, e);
-			currentPlayer.gameOver(false);
-			other.gameOver(true);
+			currentPlayer.gameOver(false, GameOverStatus.EXCEPTION);
+			other.gameOver(true, GameOverStatus.EXCEPTION);
 			return GameOverStatus.EXCEPTION;
 		}
 
