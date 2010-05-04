@@ -40,11 +40,13 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			board[i] = new PointImpl();
 		}
+		reset();
 	}
 
 	void reset() {
-		currentColor = PlayerColor.BLACK;
-		movesThatHit.clear();
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			board[i].updatePoint(0, PlayerColor.WHITE);
+		}
 		board[23].updatePoint(2, PlayerColor.WHITE);
 		board[18].updatePoint(5, PlayerColor.BLACK);
 		board[16].updatePoint(3, PlayerColor.BLACK);
@@ -53,6 +55,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		board[7].updatePoint(3, PlayerColor.WHITE);
 		board[5].updatePoint(5, PlayerColor.WHITE);
 		board[0].updatePoint(2, PlayerColor.BLACK);
+		currentColor = PlayerColor.BLACK;
 
 	}
 

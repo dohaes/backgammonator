@@ -13,7 +13,7 @@ public class TimedoutMovePlayer extends AbstractTestPlayer {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		Thread.sleep(1000);
+		Thread.sleep(1100);
 		return null;
 	}
 

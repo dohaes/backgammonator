@@ -17,7 +17,6 @@ public class PlayerMoveTestCase extends TestCase {
 	private CheckerMove[] moves1 = {move1, move2d};
 	private CheckerMove[] moves3w = {move2d, move1, move5d};
 	private CheckerMove[] moves2 = {move2d, move3d, move4d, move5d};
-	private CheckerMove[] moves2w = {move2d, move3d, move1, move5d};
 	
 	public void testCreateValidMove() {
 		try {
@@ -50,16 +49,6 @@ public class PlayerMoveTestCase extends TestCase {
 			//ok
 		} catch (Throwable t) {
 			fail("Expected IIllegalArgumentException");
-		}
-		
-		try {
-			new PlayerMove(moves2w);
-			fail("Expected IIllegalArgumentException");
-		} catch (IllegalArgumentException iae) {
-			//ok
-		} catch (Throwable t) {
-			t.printStackTrace();
-			fail("Expected IIllegalArgumentException ");
 		}
 	}
 	

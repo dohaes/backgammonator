@@ -20,8 +20,8 @@ public class DummyBoard {
 	}
 
 	public int get(int i) {
-		if (i > 25) {
-			i = 25;
+		if (i < 0) {
+			i = 0;
 		}
 		return pos[i];
 	}
