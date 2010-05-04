@@ -26,7 +26,7 @@ public class DummyPlayer extends AbstractTestPlayer {
 		DummyBoard b = new DummyBoard(board);
 		m1 = findMove(b, dice.getDie1());
 		m2 = findMove(b, dice.getDie2());
-		if (m1 == null) {
+		if (m1.isUnavailableMove()) {
 			m1 = m2;
 			m2 = findMove(b, dice.getDie1());
 		}
@@ -46,7 +46,7 @@ public class DummyPlayer extends AbstractTestPlayer {
 				return new CheckerMove(CheckerMoveType.REENTER_HIT_CHECKER, die);
 			}
 		} else {
-			for (int i = 24; i >= die; i--) {
+			for (int i = 24; i >= 1; i--) {
 				if (board.get(i) > 0 && board.get(i - die) >= -1) {
 					board.move(i, die);
 					return new CheckerMove(i, die);
