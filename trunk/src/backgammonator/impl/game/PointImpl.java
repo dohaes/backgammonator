@@ -91,4 +91,8 @@ public final class PointImpl implements Point {
 		this.count = count;
 		this.color = color;
 	}
+	
+	public String toString() {
+		return color + " " + count;
+	}
 }
