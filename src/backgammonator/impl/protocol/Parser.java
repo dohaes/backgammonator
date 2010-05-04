@@ -139,6 +139,18 @@ public final class Parser {
 	 *         integer number between 0 and 15.<br/>
 	 *         <b>&lt;die_1&gt;</b> and <b>&lt;die_2&gt;</b> are the dices'
 	 *         values - integer numbers between 1 and 6.
+	 *         <b>&lt;is_game_over&gt;</b> indicates if the game is over - 0 for
+	 *         true and 1 for false.<br/>
+	 *         <b>&lt;is_current_player_won&gt;</b> indicates if the current
+	 *         player is winner - 0 for true and 1 for false.<br/>
+	 *         <b>&lt;game_over_status&gt;</b> gives information for the reason
+	 *         for game end:<br />
+	 *         1: Standard win<br />
+	 *         2: Double win<br />
+	 *         3: Triple win<br />
+	 *         4: Exception game end<br />
+	 *         5: Invalid move<br />
+	 *         6: Game end due timeout<br />
 	 */
 	public static String getBoardConfiguration(BackgammonBoard board,
 			Dice dice, boolean isGameOver, boolean isCurrentPlayerWon,
@@ -156,13 +168,15 @@ public final class Parser {
 							: 1);
 			stringBuffer.append(" ");
 		}
-		stringBuffer.append(board.getHits(PlayerColor.WHITE));
+		stringBuffer.append(board.getHits(board.getCurrentPlayerColor()));
 		stringBuffer.append(" ");
-		stringBuffer.append(board.getHits(PlayerColor.BLACK));
+		stringBuffer.append(board.getHits(board.getCurrentPlayerColor()
+				.opposite()));
 		stringBuffer.append(" ");
-		stringBuffer.append(board.getBornOff(PlayerColor.WHITE));
+		stringBuffer.append(board.getBornOff(board.getCurrentPlayerColor()));
 		stringBuffer.append(" ");
-		stringBuffer.append(board.getBornOff(PlayerColor.BLACK));
+		stringBuffer.append(board.getBornOff(board.getCurrentPlayerColor()
+				.opposite()));
 		stringBuffer.append(" ");
 		stringBuffer.append(dice.getDie1());
 		stringBuffer.append(" ");
@@ -172,7 +186,32 @@ public final class Parser {
 		stringBuffer.append(" ");
 		stringBuffer.append(isCurrentPlayerWon ? 1 : 0);
 		stringBuffer.append(" ");
-		stringBuffer.append("0"); // TODO:
+
+		int gameOverStatusCode;
+		switch (gameOverStatus) {
+		case OK:
+			gameOverStatusCode = 1;
+			break;
+		case DOUBLE:
+			gameOverStatusCode = 2;
+			break;
+		case TRIPLE:
+			gameOverStatusCode = 3;
+			break;
+		case EXCEPTION:
+			gameOverStatusCode = 4;
+			break;
+		case INVALID_MOVE:
+			gameOverStatusCode = 5;
+			break;
+		case TIMEDOUT:
+			gameOverStatusCode = 6;
+			break;
+		default:
+			gameOverStatusCode = 0;
+			break;
+		}
+		stringBuffer.append(gameOverStatusCode);
 
 		return stringBuffer.toString();
 	}
