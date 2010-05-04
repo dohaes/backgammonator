@@ -50,7 +50,7 @@ final class GameImpl implements Game {
 
 	@Override
 	public GameOverStatus start() {
-		board.resetBoard();
+		board.reset();
 		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 
 		GameOverStatus status = null;
