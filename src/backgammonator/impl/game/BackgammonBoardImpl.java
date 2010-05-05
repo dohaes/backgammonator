@@ -30,6 +30,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	private PointImpl[] board;
 	private PlayerColor currentColor;
 	private ArrayList<CheckerMove> movesThatHit;
+	private MoveValidator validator;
 
 	/**
 	 * Creates default board initiated with the default playing positions.
@@ -41,6 +42,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 			board[i] = new PointImpl();
 		}
 		reset();
+		validator = new MoveValidator(this);
 	}
 
 	void reset() {
@@ -141,7 +143,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	 */
 	boolean makeMove(PlayerMove move, Dice dice) {
 		try {
-			if (!MoveValidator.validateMove(this, move, dice)) {
+			if (!validator.validateMove(move, dice)) {
 				return false;
 			}
 			CheckerMove m1 = move.getCheckerMove(0);
@@ -175,7 +177,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	}
 
 	private boolean makeMove(CheckerMove move) {
-		if (!MoveValidator.validateMove(this, move)) {
+		if (!validator.validateMove(move)) {
 			return false;
 		}
 		if (move.isUnavailableMove()) {
