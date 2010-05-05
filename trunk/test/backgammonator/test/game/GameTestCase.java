@@ -4,7 +4,9 @@ import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.impl.game.GameManager;
 import backgammonator.test.players.AbstractTestPlayer;
+import backgammonator.test.players.DeadlockInMovePlayer;
 import backgammonator.test.players.DummyPlayer;
+import backgammonator.test.players.EndlessLoopInMovePlayer;
 import backgammonator.test.players.ExceptionPlayer;
 import backgammonator.test.players.InvalidMovePlayer;
 import backgammonator.test.players.NullMovePlayer;
@@ -91,6 +93,44 @@ public class GameTestCase extends TestCase {
 		assertTrue(normal.wins());
 		assertFalse(invalid.wins());
 	}
+	
+	public void testEndlessLoopInMoveReturned() {
+    AbstractTestPlayer endlessloop = new EndlessLoopInMovePlayer();
+    AbstractTestPlayer normal = new DummyPlayer();
+    
+    Game game = GameManager.newGame(endlessloop, normal, false);
+    GameOverStatus status = null;
+    
+    try {
+      status = game.start();
+    } catch (Throwable t) {
+      fail("Unexpected exception was thrown : " + t);
+    }
+    
+    assertNotNull(status);
+    assertEquals(GameOverStatus.TIMEDOUT, status);
+    assertTrue(normal.wins());
+    assertFalse(endlessloop.wins());
+  }
+	
+	public void testDeadlockInMoveReturned() {
+    AbstractTestPlayer deadlock = new DeadlockInMovePlayer();
+    AbstractTestPlayer normal = new DummyPlayer();
+    
+    Game game = GameManager.newGame(deadlock, normal, false);
+    GameOverStatus status = null;
+    
+    try {
+      status = game.start();
+    } catch (Throwable t) {
+      fail("Unexpected exception was thrown : " + t);
+    }
+    
+    assertNotNull(status);
+    assertEquals(GameOverStatus.TIMEDOUT, status);
+    assertTrue(normal.wins());
+    assertFalse(deadlock.wins());
+  }
 	
 	public void testNormal() {
 		AbstractTestPlayer normal1 = new DummyPlayer();
