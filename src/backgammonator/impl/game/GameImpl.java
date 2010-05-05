@@ -57,7 +57,7 @@ final class GameImpl implements Game {
 		GameOverStatus status;
 		
 		mover = new MoverRunnable();
-		moverThread = new Thread(mover);
+		moverThread = new Thread(mover, "[Game "+ whitePlayer.getName() + " vs "+ blackPlayer.getName() + "] Mover Thread");
 		moverThread.start();
 		
 		while (true) {
@@ -158,8 +158,7 @@ final class GameImpl implements Game {
 		if (alive) {
 			try {
 				thread.interrupt();
-			} catch (Throwable t) {
-			}
+			} catch (Throwable t) { }
 			if (callStop && thread.isAlive())
 				try {
 					thread.join(joinTime);
@@ -169,8 +168,7 @@ final class GameImpl implements Game {
 						thread.join(joinTime);
 					if (thread.isAlive())
 						thread.destroy();
-				} catch (Throwable t) {
-				}
+				} catch (Throwable t) { }
 			alive = thread.isAlive();
 		}
 		return !alive;
