@@ -23,7 +23,7 @@ final class GameImpl implements Game {
 	private Player whitePlayer;
 	private Player blackPlayer;
 
-	private static final long MOVE_TIMEOUT = 1000;
+	private static final long MOVE_TIMEOUT = 2000;
 
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
@@ -31,8 +31,10 @@ final class GameImpl implements Game {
 	private boolean logMoves;
 
 	private PlayerMove currentMove = null;
-	private Object synch = new Object();
-	private Throwable t = null;
+	private Throwable throwable = null;
+	
+	private MoverRunnable mover;
+	private Thread moverThread;
 
 	/**
 	 * Constructs a game between two AI players.
@@ -52,8 +54,12 @@ final class GameImpl implements Game {
 	public GameOverStatus start() {
 		board.reset();
 		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
-
-		GameOverStatus status = null;
+		GameOverStatus status;
+		
+		mover = new MoverRunnable();
+		moverThread = new Thread(mover);
+		moverThread.start();
+		
 		while (true) {
 			board.switchPlayer();
 			status = makeMove(whitePlayer, blackPlayer);
@@ -69,33 +75,33 @@ final class GameImpl implements Game {
 				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().opposite());
 		return status;
 	}
-
+	
 	/**
 	 * Return the end game status if the game is over, on null otherwise
 	 */
 	private GameOverStatus makeMove(Player currentPlayer, Player other) {
-
+	
 		dice.generateNext();
-		mover = new MoveThread(currentPlayer);
 		try {
-			mover.start();
-			waitForMoveDone();
-
-			if (t != null) {
+			mover.makeMove(currentPlayer);
+			if (throwable != null) {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
-						Debug.GAME_LOGIC, t);
-				currentPlayer.gameOver(false, GameOverStatus.EXCEPTION);
-				other.gameOver(true, GameOverStatus.EXCEPTION);
+						Debug.GAME_LOGIC, throwable);
+				mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
+				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
+				mover.stop();
 				return GameOverStatus.EXCEPTION;
 			}
 
-			if (!notified) {
+			if (!mover.notified()) {
 				Debug.getInstance().error("Move timeout", Debug.GAME_LOGIC,
 						null);
-				currentPlayer.gameOver(false, GameOverStatus.TIMEDOUT);
-				other.gameOver(true, GameOverStatus.TIMEDOUT);
-				stop(mover, true, 100);
+				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);  //maybe not needed -> this player maybe hangs
+				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
+				mover.stop();
+				kill(moverThread, true, 100);
+				//TODO destroy the process
 				return GameOverStatus.TIMEDOUT;
 			}
 
@@ -103,8 +109,9 @@ final class GameImpl implements Game {
 			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
-				currentPlayer.gameOver(false, GameOverStatus.INVALID_MOVE);
-				other.gameOver(true, GameOverStatus.INVALID_MOVE);
+				mover.gameOver(currentPlayer, false, GameOverStatus.INVALID_MOVE);
+				mover.gameOver(other, true, GameOverStatus.INVALID_MOVE);
+				mover.stop();
 				invalid = true;
 			}
 
@@ -117,58 +124,22 @@ final class GameImpl implements Game {
 			if (invalid)  return GameOverStatus.INVALID_MOVE;
 			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				currentPlayer.gameOver(true, GameOverStatus.OK);
-				other.gameOver(false, GameOverStatus.OK);
+				mover.gameOver(currentPlayer, true, GameOverStatus.OK);
+				mover.gameOver(other, false, GameOverStatus.OK);
+				mover.stop();
 				return GameOverStatus.OK;
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
 					Debug.GAME_LOGIC, e);
-			currentPlayer.gameOver(false, GameOverStatus.EXCEPTION);
-			other.gameOver(true, GameOverStatus.EXCEPTION);
+			mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
+			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
+			mover.stop();
 			return GameOverStatus.EXCEPTION;
 		}
 
 		return null;
-	}
-
-	private boolean notified = false;
-	private Thread mover = null;
-
-	private void waitForMoveDone() {
-		synchronized (synch) {
-			try {
-				synch.wait(MOVE_TIMEOUT);
-			} catch (InterruptedException e) {
-				Debug.getInstance().error("Error waitin for move",
-						Debug.GAME_LOGIC, e);
-			}
-		}
-	}
-
-	final class MoveThread extends Thread {
-
-		private Player currentPlayer;
-
-		MoveThread(Player player) {
-			currentPlayer = player;
-			notified = false;
-			t = null;
-		}
-
-		@Override
-		public void run() {
-			try {
-				currentMove = currentPlayer.getMove(board, dice);
-			} catch (Exception e) {
-				t = e;
-			}
-			synchronized (synch) {
-				notified = true;
-				synch.notify();
-			}
-		}
 	}
 
 	/**
@@ -182,8 +153,7 @@ final class GameImpl implements Game {
 	 * @return <code>true</code> if the thread is stopped
 	 */
 	@SuppressWarnings("deprecation")
-	private static final boolean stop(Thread thread, boolean callStop,
-			int joinTime) {
+	private static final boolean kill(Thread thread, boolean callStop, int joinTime) {
 		boolean alive = thread.isAlive();
 		if (alive) {
 			try {
@@ -205,5 +175,140 @@ final class GameImpl implements Game {
 		}
 		return !alive;
 	}
+	
+	/**
+	 * For each game an instance of this class is created and it is used to initialize a Thread object.
+	 * Every player's move is executed in this thread in order to prevent hanging of the main thread.
+	 */
+	class MoverRunnable implements Runnable {
 
+		private Player player;
+		
+		private int  operation = 0;
+		private boolean wins = false;
+		private GameOverStatus status = null;
+		
+		private boolean suspended = true;
+		private boolean notified = false;
+		private boolean stopped = false;
+		
+		private Object synch = new Object();
+		private int waiting = 0;
+
+		@Override
+		public void run() {
+			while (true) {
+				synchronized (synch) {
+					if (suspended && !stopped) {
+						try {
+							waiting++;
+							synch.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						waiting--;
+					}
+					if (stopped) return;
+				}
+				try {
+					switch (operation) {
+					case 1: //make move
+						currentMove = player.getMove(board, dice);
+						break;
+					case 2: //game over
+						player.gameOver(wins, status);
+					default:
+						break;
+					}
+					
+				} catch (Exception e) {
+					throwable = e;
+				}
+				notify0();
+			}
+
+		}
+
+		/**
+		 * Makes the move for the specified player on the board.
+		 * @param player the player to move
+		 */
+		public void makeMove(Player player) {
+			resume(player, false, 1, null);
+			waitForMoveDone(MOVE_TIMEOUT);
+		}
+
+		/**
+		 * Ends the game for the specified player.
+		 * @param player the player which game is to be ended
+		 */
+		public void gameOver(Player player, boolean wins, GameOverStatus status) {
+			resume(player, wins, 2, status);
+			waitForMoveDone(MOVE_TIMEOUT);
+		}
+		
+		/**
+		 * Causes the Runnable object to exit its run method.
+		 */
+		public void stop() {
+			synchronized (synch) {
+				if (!stopped) {
+					stopped = true;
+					if (waiting > 0) synch.notify();
+				}
+			}
+		}
+		
+		/**
+		 * Returns <code>true</code> if the thread has been notified.
+		 */
+		public boolean notified() {
+			return notified;
+		}
+		
+		private boolean waitForMoveDone(long timeout) {
+			synchronized (synch) {
+				if (!notified) {
+					try {
+						waiting++;
+						synch.wait(timeout);
+					} catch (InterruptedException e) {
+						//TODO handle
+						e.printStackTrace();
+					}
+					waiting--;
+				}
+			}
+			if (!notified) return false;
+			return true;
+		}
+
+		private void resume(Player player, boolean wins, int operation, GameOverStatus status) {
+			synchronized (synch) {
+				
+				this.player = player;
+				this.wins = wins;
+				this.operation = operation;
+				this.status = status;
+				
+				notified = false;
+				suspended = false;
+				throwable = null;
+				if (waiting > 0) synch.notify();
+			}
+		}
+
+		private void notify0() {
+			synchronized (synch) {
+				player = null;
+				status = null;
+				wins = false;
+				
+				notified = true;
+				suspended = true;
+				if (waiting > 0) synch.notify();
+			}
+		}
+	}
 }
+
