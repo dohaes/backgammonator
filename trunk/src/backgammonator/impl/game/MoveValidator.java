@@ -1,6 +1,5 @@
 package backgammonator.impl.game;
 
-import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
 import backgammonator.core.Constants;
 import backgammonator.core.Dice;
@@ -15,19 +14,21 @@ import backgammonator.core.Point;
  */
 public final class MoveValidator {
 
+	private BackgammonBoardImpl board;
+
+	/**
+	 * Creates a move validator associated to the specified board.
+	 */
+	public MoveValidator(BackgammonBoardImpl board) {
+		this.board = board;
+	}
+
 	/**
 	 * Validates if the move is valid according the board and the dice.
 	 * 
-	 * @param board
-	 *            the board.
-	 * @param move
-	 *            the move.
-	 * @param dice
-	 *            the dice.
 	 * @return true if the move is valid.
 	 */
-	public static boolean validateMove(BackgammonBoard board, PlayerMove move,
-			Dice dice) {
+	public boolean validateMove(PlayerMove move, Dice dice) {
 		// TODO
 		if (move.isDouble() != dice.isDouble()) {
 			return false;
@@ -51,34 +52,28 @@ public final class MoveValidator {
 	/**
 	 * Checks if the move is valid according to the board.
 	 * 
-	 * @param board
-	 *            the board.
-	 * @param move
-	 *            the move.
 	 * @return true if the move is valid according to the board.
 	 */
-	public static boolean validateMove(BackgammonBoardImpl board,
-			CheckerMove move) {
+	public boolean validateMove(CheckerMove move) {
 		if (move.isUnavailableMove()) {
-			if (!validateEmptyMoves(board, move)) {
+			if (!validateEmptyMoves(move)) {
 				return false;
 			}
 			return true;
 		}
-		if (!validatePoint(board, move)) {
+		if (!validateStartAndEndPoints(move)) {
 			return false;
 		}
-		if (!validateHits(board, move)) {
+		if (!isReenteringValid(move)) {
 			return false;
 		}
-		if (!validateBearOffs(board, move)) {
+		if (!isBearingOffValid(move)) {
 			return false;
 		}
 		return true;
 	}
 
-	private static boolean validatePoint(BackgammonBoardImpl board,
-			CheckerMove move) {
+	private boolean validateStartAndEndPoints(CheckerMove move) {
 		PlayerColor color = board.getCurrentPlayerColor();
 		if (move.isReenterHitChecker()) {
 			if (board.getHits(color) <= 0) {
@@ -99,13 +94,12 @@ public final class MoveValidator {
 		return true;
 	}
 
-	private static boolean validateHits(BackgammonBoard board, CheckerMove move) {
+	private boolean isReenteringValid(CheckerMove move) {
 		return !((board.getHits(board.getCurrentPlayerColor()) > 0 && !move
 				.isReenterHitChecker()));
 	}
 
-	private static boolean validateBearOffs(BackgammonBoard board,
-			CheckerMove move) { // TODO
+	private boolean isBearingOffValid(CheckerMove move) { // TODO
 		if (move.isBearingOff()) {
 			for (int i = Constants.MAX_DIE + 1; i <= Constants.POINTS_COUNT; i++) {
 				if (board.getPoint(i).getCount() > 0
@@ -118,8 +112,7 @@ public final class MoveValidator {
 		return true;
 	}
 
-	private static boolean validateEmptyMoves(BackgammonBoard board,
-			CheckerMove move) {
+	private boolean validateEmptyMoves(CheckerMove move) {
 		if (!move.isUnavailableMove())
 			return true;
 		int die = move.getDie();
