@@ -34,8 +34,8 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.TIMEDOUT, status);
-		assertEquals(PlayerStatus.LOSE_TIMEDOUT, timedout.getStatus());
-		assertEquals(PlayerStatus.WIN_TIMEDOUT, normal.getStatus());
+		assertEquals(PlayerStatus.LOSES_TIMEDOUT, timedout.getStatus());
+		assertEquals(PlayerStatus.WINS_TIMEDOUT, normal.getStatus());
 	}
 	
 	public void testExceptionInMove() {
@@ -53,8 +53,8 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.EXCEPTION, status);
-		assertEquals(PlayerStatus.LOSE_EXCEPTION, exception.getStatus());
-		assertEquals(PlayerStatus.WIN_EXCEPTION, normal.getStatus());
+		assertEquals(PlayerStatus.LOSES_EXCEPTION, exception.getStatus());
+		assertEquals(PlayerStatus.WINS_EXCEPTION, normal.getStatus());
 	}
 
 	public void testNullReturned() {
@@ -72,8 +72,8 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
-		assertEquals(PlayerStatus.LOSE_INVALID_MOVE, nullmove.getStatus());
-		assertEquals(PlayerStatus.WIN_INVALID_MOVE, normal.getStatus());
+		assertEquals(PlayerStatus.LOSES_INVALID_MOVE, nullmove.getStatus());
+		assertEquals(PlayerStatus.WINS_INVALID_MOVE, normal.getStatus());
 	}
 	
 	public void testInvalidMoveReturned() {
@@ -91,8 +91,8 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
-		assertEquals(PlayerStatus.WIN_INVALID_MOVE, normal.getStatus());
-		assertEquals(PlayerStatus.LOSE_INVALID_MOVE, invalid.getStatus());
+		assertEquals(PlayerStatus.WINS_INVALID_MOVE, normal.getStatus());
+		assertEquals(PlayerStatus.LOSES_INVALID_MOVE, invalid.getStatus());
 	}
 	
 	public void testEndlessLoopInMoveReturned() {
@@ -110,8 +110,8 @@ public class GameTestCase extends TestCase {
     
     assertNotNull(status);
     assertEquals(GameOverStatus.TIMEDOUT, status);
-    assertEquals(PlayerStatus.WIN_TIMEDOUT, normal.getStatus());
-    assertEquals(PlayerStatus.LOSE_TIMEDOUT, endlessloop.getStatus());
+    assertEquals(PlayerStatus.WINS_TIMEDOUT, normal.getStatus());
+    assertEquals(PlayerStatus.LOSES_TIMEDOUT, endlessloop.getStatus());
   }
 	
 	public void testDeadlockInMoveReturned() {
@@ -129,8 +129,8 @@ public class GameTestCase extends TestCase {
     
     assertNotNull(status);
     assertEquals(GameOverStatus.TIMEDOUT, status);
-    assertEquals(PlayerStatus.WIN_TIMEDOUT, normal.getStatus());
-    assertEquals(PlayerStatus.LOSE_TIMEDOUT, deadlock.getStatus());
+    assertEquals(PlayerStatus.WINS_TIMEDOUT, normal.getStatus());
+    assertEquals(PlayerStatus.LOSES_TIMEDOUT, deadlock.getStatus());
   }
 	
 	public void testNormal() {
@@ -149,8 +149,8 @@ public class GameTestCase extends TestCase {
 		assertNotNull(status);
 		assertEquals(GameOverStatus.NORMAL, status);
 		PlayerStatus status1 = normal1.getStatus();
-		assertTrue(status1 == PlayerStatus.WINS_NORMAL || status1 == PlayerStatus.LOSE_NORMAL);
-		if (status1 == PlayerStatus.WINS_NORMAL) assertEquals(PlayerStatus.LOSE_NORMAL, normal2.getStatus());
+		assertTrue(status1 == PlayerStatus.WINS_NORMAL || status1 == PlayerStatus.LOSEE_NORMAL);
+		if (status1 == PlayerStatus.WINS_NORMAL) assertEquals(PlayerStatus.LOSEE_NORMAL, normal2.getStatus());
 		else assertEquals(PlayerStatus.WINS_NORMAL, normal2.getStatus());
 	}
 

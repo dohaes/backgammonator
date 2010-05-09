@@ -95,8 +95,8 @@ final class GameImpl implements Game {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
 						Debug.GAME_LOGIC, throwable);
-				mover.gameOver(currentPlayer, PlayerStatus.LOSE_EXCEPTION);
-				mover.gameOver(other, PlayerStatus.WIN_EXCEPTION);
+				mover.gameOver(currentPlayer, PlayerStatus.LOSES_EXCEPTION);
+				mover.gameOver(other, PlayerStatus.WINS_EXCEPTION);
 				mover.stop();
 				return GameOverStatus.EXCEPTION;
 			}
@@ -106,8 +106,8 @@ final class GameImpl implements Game {
 						null);
 				
 				startNewMoverThread(true);
-				mover.gameOver(currentPlayer, PlayerStatus.LOSE_TIMEDOUT);
-				mover.gameOver(other, PlayerStatus.WIN_TIMEDOUT);
+				mover.gameOver(currentPlayer, PlayerStatus.LOSES_TIMEDOUT);
+				mover.gameOver(other, PlayerStatus.WINS_TIMEDOUT);
 				mover.stop();
 				return GameOverStatus.TIMEDOUT;
 			}
@@ -116,8 +116,8 @@ final class GameImpl implements Game {
 			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
-				mover.gameOver(currentPlayer, PlayerStatus.LOSE_INVALID_MOVE);
-				mover.gameOver(other, PlayerStatus.WIN_INVALID_MOVE);
+				mover.gameOver(currentPlayer, PlayerStatus.LOSES_INVALID_MOVE);
+				mover.gameOver(other, PlayerStatus.WINS_INVALID_MOVE);
 				mover.stop();
 				invalid = true;
 			}
@@ -132,7 +132,7 @@ final class GameImpl implements Game {
 			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
 				mover.gameOver(currentPlayer, PlayerStatus.WINS_NORMAL);
-				mover.gameOver(other, PlayerStatus.LOSE_NORMAL);
+				mover.gameOver(other, PlayerStatus.LOSEE_NORMAL);
 				mover.stop();
 				return GameOverStatus.NORMAL;
 			}
@@ -140,8 +140,8 @@ final class GameImpl implements Game {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
 					Debug.GAME_LOGIC, e);
-			mover.gameOver(currentPlayer, PlayerStatus.LOSE_EXCEPTION);
-			mover.gameOver(other, PlayerStatus.WIN_EXCEPTION);
+			mover.gameOver(currentPlayer, PlayerStatus.LOSES_EXCEPTION);
+			mover.gameOver(other, PlayerStatus.WINS_EXCEPTION);
 			mover.stop();
 			return GameOverStatus.EXCEPTION;
 		}
