@@ -7,6 +7,7 @@ import backgammonator.core.GameOverStatus;
 import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
+import backgammonator.core.PlayerStatus;
 import backgammonator.impl.logger.GameLoggerFactory;
 import backgammonator.util.Debug;
 
@@ -22,8 +23,6 @@ final class GameImpl implements Game {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
-
-	private static final long MOVE_TIMEOUT = 1000;
 
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
@@ -56,7 +55,7 @@ final class GameImpl implements Game {
 		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 		GameOverStatus status;
 		
-		startNewMoverThread();
+		startNewMoverThread(false);
 		
 		while (true) {
 			board.switchPlayer();
@@ -69,12 +68,16 @@ final class GameImpl implements Game {
 				break;
 		}
 
-		if (logMoves) logger.endGame(status, status == GameOverStatus.OK ?
+		if (logMoves) logger.endGame(status, status == GameOverStatus.NORMAL ?
 				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().opposite());
 		return status;
 	}
 	
-	private void startNewMoverThread() {
+	private void startNewMoverThread(boolean kill) {
+		if (kill) {
+			mover.stop();
+			kill(moverThread, true, 500);
+		}
 		mover = new MoverRunnable();
 		moverThread = new Thread(mover, "[Game "+ whitePlayer.getName() + " vs "+ blackPlayer.getName() + "] Mover Thread");
 		moverThread.start();
@@ -92,8 +95,8 @@ final class GameImpl implements Game {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
 						Debug.GAME_LOGIC, throwable);
-				mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
-				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
+				mover.gameOver(currentPlayer, PlayerStatus.LOSE_EXCEPTION);
+				mover.gameOver(other, PlayerStatus.WIN_EXCEPTION);
 				mover.stop();
 				return GameOverStatus.EXCEPTION;
 			}
@@ -102,13 +105,10 @@ final class GameImpl implements Game {
 				Debug.getInstance().error("Move timeout", Debug.GAME_LOGIC,
 						null);
 				
+				startNewMoverThread(true);
+				mover.gameOver(currentPlayer, PlayerStatus.LOSE_TIMEDOUT);
+				mover.gameOver(other, PlayerStatus.WIN_TIMEDOUT);
 				mover.stop();
-				System.out.println("=== killed : " +  kill(moverThread, true, 500));
-				startNewMoverThread();
-				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);  //maybe not needed -> this player maybe hangs
-				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
-				mover.stop();
-				//TODO destroy the process
 				return GameOverStatus.TIMEDOUT;
 			}
 
@@ -116,8 +116,8 @@ final class GameImpl implements Game {
 			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
-				mover.gameOver(currentPlayer, false, GameOverStatus.INVALID_MOVE);
-				mover.gameOver(other, true, GameOverStatus.INVALID_MOVE);
+				mover.gameOver(currentPlayer, PlayerStatus.LOSE_INVALID_MOVE);
+				mover.gameOver(other, PlayerStatus.WIN_INVALID_MOVE);
 				mover.stop();
 				invalid = true;
 			}
@@ -131,17 +131,17 @@ final class GameImpl implements Game {
 			if (invalid)  return GameOverStatus.INVALID_MOVE;
 			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				mover.gameOver(currentPlayer, true, GameOverStatus.OK);
-				mover.gameOver(other, false, GameOverStatus.OK);
+				mover.gameOver(currentPlayer, PlayerStatus.WINS_NORMAL);
+				mover.gameOver(other, PlayerStatus.LOSE_NORMAL);
 				mover.stop();
-				return GameOverStatus.OK;
+				return GameOverStatus.NORMAL;
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
 					Debug.GAME_LOGIC, e);
-			mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
-			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
+			mover.gameOver(currentPlayer, PlayerStatus.LOSE_EXCEPTION);
+			mover.gameOver(other, PlayerStatus.WIN_EXCEPTION);
 			mover.stop();
 			return GameOverStatus.EXCEPTION;
 		}
@@ -193,8 +193,7 @@ final class GameImpl implements Game {
 		private Player player;
 		
 		private int  operation = 0;
-		private boolean wins = false;
-		private GameOverStatus status = null;
+		private PlayerStatus status = null;
 		
 		private boolean suspended = true;
 		private boolean notified = false;
@@ -224,7 +223,7 @@ final class GameImpl implements Game {
 						currentMove = player.getMove(board, dice);
 						break;
 					case 2: //game over
-						player.gameOver(wins, status);
+						player.gameOver(board, status);
 					default:
 						break;
 					}
@@ -242,7 +241,7 @@ final class GameImpl implements Game {
 		 * @param player the player to move
 		 */
 		public void makeMove(Player player) {
-			resume(player, false, 1, null);
+			resume(player, 1, null);
 			waitForMoveDone(MOVE_TIMEOUT);
 		}
 
@@ -250,9 +249,9 @@ final class GameImpl implements Game {
 		 * Ends the game for the specified player.
 		 * @param player the player which game is to be ended
 		 */
-		public void gameOver(Player player, boolean wins, GameOverStatus status) {
-			resume(player, wins, 2, status);
-			waitForMoveDone(MOVE_TIMEOUT);
+		public void gameOver(Player player, PlayerStatus status) {
+			resume(player, 2, status);
+			waitForMoveDone(MOVE_TIMEOUT * 2);
 		}
 		
 		/**
@@ -291,11 +290,10 @@ final class GameImpl implements Game {
 			return true;
 		}
 
-		private void resume(Player player, boolean wins, int operation, GameOverStatus status) {
+		private void resume(Player player, int operation, PlayerStatus status) {
 			synchronized (synch) {
 				
 				this.player = player;
-				this.wins = wins;
 				this.operation = operation;
 				this.status = status;
 				
@@ -310,7 +308,6 @@ final class GameImpl implements Game {
 			synchronized (synch) {
 				player = null;
 				status = null;
-				wins = false;
 				
 				notified = true;
 				suspended = true;

@@ -63,7 +63,7 @@ class HTMLGameLogger implements GameLogger {
 		String textColor;
 
 		switch (status) {
-		case OK:
+		case NORMAL:
 			statusString = "he born off all checkers.";
 			textColor = "#0B3B0B";
 			break;

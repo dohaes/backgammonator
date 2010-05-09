@@ -106,7 +106,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 			}
 			return GameOverStatus.DOUBLE;
 		}
-		return GameOverStatus.OK;
+		return GameOverStatus.NORMAL;
 	}
 
 	private PointImpl getPoint0(int point) {
