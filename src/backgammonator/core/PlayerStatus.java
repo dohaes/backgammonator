@@ -5,17 +5,24 @@ package backgammonator.core;
  */
 public enum PlayerStatus {
 	
+	/**
+	 * The player is still playing because the game is not over yet.
+	 */
 	NOT_FINISHED,
+	
+	/**
+	 * 
+	 */
 	WINS_NORMAL,
-	LOSE_NORMAL,
-	WIN_INVALID_MOVE,
-	LOSE_INVALID_MOVE,
-	WIN_EXCEPTION,
-	LOSE_EXCEPTION, 
-	WIN_TIMEDOUT,
-	LOSE_TIMEDOUT,
-	WIN_DOUBLE,
-	LOSE_DOUBLE,
-	WIN_TRIPLE,
-	LOSE_TRIPLE;
+	LOSEE_NORMAL,
+	WINS_INVALID_MOVE,
+	LOSES_INVALID_MOVE,
+	WINS_EXCEPTION,
+	LOSES_EXCEPTION, 
+	WINS_TIMEDOUT,
+	LOSES_TIMEDOUT,
+	WINS_DOUBLE,
+	LOSES_DOUBLE,
+	WINS_TRIPLE,
+	LOSES_TRIPLE;
 }
