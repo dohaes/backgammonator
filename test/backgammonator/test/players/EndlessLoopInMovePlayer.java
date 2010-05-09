@@ -14,7 +14,8 @@ public class EndlessLoopInMovePlayer extends AbstractTestPlayer {
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
 		while (true) {
-		  System.out.println("=== endlessloop");
+			Thread.sleep(200);
+		    System.out.println("endless loop");
 		}
 	}
 
