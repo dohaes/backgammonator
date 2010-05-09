@@ -40,7 +40,7 @@ public class GameLoggerTestCase extends TestCase {
 				new CheckerMove(4, 2), new CheckerMove(15, 2),
 				new CheckerMove(15, 2), new CheckerMove(15, 2) }),
 				PlayerColor.BLACK, new DiceImpl(2, 2), 1, 15, false);
-		this.gameLogger.endGame(GameOverStatus.OK, PlayerColor.BLACK);
+		this.gameLogger.endGame(GameOverStatus.NORMAL, PlayerColor.BLACK);
 
 		String filename = System.getProperty("game.logger.outputdir") + "\\"
 				+ this.gameLogger.getFilename();

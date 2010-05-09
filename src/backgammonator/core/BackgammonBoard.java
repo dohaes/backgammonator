@@ -24,6 +24,7 @@ public interface BackgammonBoard {
 
 	/**
 	 * Returns the color of the current player to move.
+	 * If the game is over the last player who made move will be returned.
 	 */
 	public PlayerColor getCurrentPlayerColor();
 }

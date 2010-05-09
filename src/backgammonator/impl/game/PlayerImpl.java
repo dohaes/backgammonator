@@ -8,9 +8,11 @@ import java.io.OutputStream;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.Dice;
+import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
+import backgammonator.core.PlayerStatus;
 import backgammonator.impl.protocol.Parser;
 import backgammonator.util.Debug;
 
@@ -29,8 +31,6 @@ public class PlayerImpl implements Player {
 	
 	private BufferedReader reader;
 	
-	private BackgammonBoard board;
-	
 	PlayerImpl(Process process) {
 		this.process = process;
 		stdin = process.getInputStream();
@@ -41,28 +41,27 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void gameOver(boolean wins, GameOverStatus status) {
+	public void gameOver(BackgammonBoard board, PlayerStatus status) {
 		try {
-			//TODO consider the protocol!!!!! what happens on game over?
-			//TODO is it needed to send strings with the same format every time? 
-			stdout.write(Parser.getBoardConfiguration(board, null, true, wins, status).getBytes());
+			stdout.write(Parser.getBoardConfiguration(board, null, status).getBytes());
 		
 			int exitcode = -1;
 			exitcode = process.waitFor();
-			if (exitcode != 0) throw new RuntimeException("Process returned " + exitcode);
-		
+			if (exitcode != 0) {
+				Debug.getInstance().error("Process returned " + exitcode,  Debug.GAME_LOGIC,  null);
+			}
 		} catch (Exception e) {
 			Debug.getInstance().error("Error occured", Debug.GAME_LOGIC, e);
-			throw new RuntimeException(e);
 		} finally {
 			cleanStreams();
+			process.destroy();
 		}
 		
 	}
-
+	
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		stdout.write(Parser.getBoardConfiguration(board, dice, false, false, GameOverStatus.OK).getBytes());
+		stdout.write(Parser.getBoardConfiguration(board, dice, PlayerStatus.NOT_FINISHED).getBytes());
 		return Parser.getMove(reader.readLine());
 	}
 
