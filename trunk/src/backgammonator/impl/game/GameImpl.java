@@ -23,7 +23,7 @@ final class GameImpl implements Game {
 	private Player whitePlayer;
 	private Player blackPlayer;
 
-	private static final long MOVE_TIMEOUT = 2000;
+	private static final long MOVE_TIMEOUT = 1000;
 
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
@@ -56,9 +56,7 @@ final class GameImpl implements Game {
 		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 		GameOverStatus status;
 		
-		mover = new MoverRunnable();
-		moverThread = new Thread(mover, "[Game "+ whitePlayer.getName() + " vs "+ blackPlayer.getName() + "] Mover Thread");
-		moverThread.start();
+		startNewMoverThread();
 		
 		while (true) {
 			board.switchPlayer();
@@ -74,6 +72,12 @@ final class GameImpl implements Game {
 		if (logMoves) logger.endGame(status, status == GameOverStatus.OK ?
 				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().opposite());
 		return status;
+	}
+	
+	private void startNewMoverThread() {
+		mover = new MoverRunnable();
+		moverThread = new Thread(mover, "[Game "+ whitePlayer.getName() + " vs "+ blackPlayer.getName() + "] Mover Thread");
+		moverThread.start();
 	}
 	
 	/**
@@ -97,10 +101,13 @@ final class GameImpl implements Game {
 			if (!mover.notified()) {
 				Debug.getInstance().error("Move timeout", Debug.GAME_LOGIC,
 						null);
+				
+				mover.stop();
+				System.out.println("=== killed : " +  kill(moverThread, true, 500));
+				startNewMoverThread();
 				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);  //maybe not needed -> this player maybe hangs
 				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
 				mover.stop();
-				kill(moverThread, true, 100);
 				//TODO destroy the process
 				return GameOverStatus.TIMEDOUT;
 			}
@@ -162,12 +169,15 @@ final class GameImpl implements Game {
 			if (callStop && thread.isAlive())
 				try {
 					thread.join(joinTime);
-					if (thread.isAlive())
+					if (thread.isAlive()) {
 						thread.stop();
-					if (thread.isAlive())
+					}
+					if (thread.isAlive()) {
 						thread.join(joinTime);
-					if (thread.isAlive())
+					}
+					if (thread.isAlive()) {
 						thread.destroy();
+					}
 				} catch (Throwable t) { }
 			alive = thread.isAlive();
 		}
