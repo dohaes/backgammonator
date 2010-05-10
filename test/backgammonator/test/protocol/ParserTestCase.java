@@ -137,4 +137,29 @@ public class ParserTestCase extends TestCase {
 				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 11");
 	}
 
+	public void testGetBoardConfigurationException() {
+		String resultString = Parser
+				.getBoardConfiguration(new BackgammonBoardImpl(), null, true,
+						GameOverStatus.EXCEPTION);
+		assertEquals(
+				resultString,
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 4");
+	}
+
+	public void testGetBoardConfigurationTimedOut() {
+		String resultString = Parser.getBoardConfiguration(
+				new BackgammonBoardImpl(), null, true, GameOverStatus.TIMEDOUT);
+		assertEquals(
+				resultString,
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 6");
+	}
+
+	public void testGetBoardConfigurationDoubleWin() {
+		String resultString = Parser.getBoardConfiguration(
+				new BackgammonBoardImpl(), null, true, GameOverStatus.DOUBLE);
+		assertEquals(
+				resultString,
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 2");
+	}
+
 }
