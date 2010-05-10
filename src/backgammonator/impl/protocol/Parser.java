@@ -5,7 +5,6 @@ import backgammonator.core.CheckerMove;
 import backgammonator.core.CheckerMoveType;
 import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
-import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
 
 /**
@@ -169,8 +168,8 @@ public final class Parser {
 			stringBuffer.append(board.getPoint(pointNumber).getCount());
 			stringBuffer.append(" ");
 			stringBuffer
-					.append((board.getPoint(pointNumber).getColor() == PlayerColor.WHITE) ? 0
-							: 1);
+					.append((board.getPoint(pointNumber).getColor() == board
+							.getCurrentPlayerColor()) ? 0 : 1);
 			stringBuffer.append(" ");
 		}
 		stringBuffer.append(board.getHits(board.getCurrentPlayerColor()));

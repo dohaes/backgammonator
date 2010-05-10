@@ -1,5 +1,7 @@
 package backgammonator.core;
 
+import java.util.List;
+
 /**
  * Interface to provide format for the output of a single tournament. May be
  * implemented as writing plane text in a txt file, table in html document,
@@ -17,7 +19,7 @@ public interface TournamentLogger {
 	 * @param type
 	 *            is the type of the tournament.
 	 */
-	void startTournament(Player[] players, TournamentType type);
+	void startTournament(List<Player> players, TournamentType type);
 
 	/**
 	 * Logs a single game of the tournament.
@@ -50,6 +52,6 @@ public interface TournamentLogger {
 	 * @return the timestamp of the logged tournament or null when not
 	 *         available.
 	 */
-	public String getGameTimestamp();
+	public String getTournamentTimestamp();
 
 }
