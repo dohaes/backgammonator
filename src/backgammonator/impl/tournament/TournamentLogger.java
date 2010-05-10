@@ -1,6 +1,9 @@
-package backgammonator.core;
+package backgammonator.impl.tournament;
 
 import java.util.List;
+
+import backgammonator.core.GameOverStatus;
+import backgammonator.core.Player;
 
 /**
  * Interface to provide format for the output of a single tournament. May be

@@ -1,4 +1,5 @@
-package backgammonator.core;
+package backgammonator.impl.tournament;
+
 
 public class TournamentConfiguration {
 	private TournamentType type;
@@ -13,7 +14,7 @@ public class TournamentConfiguration {
 		this.setLogMoves(false);
 		this.setPlainRate(true);
 		this.setGroupsCount(2);
-		this.setGamesCount(3);
+		this.setGamesCount(5);
 		this.setInvalidGamePoints(1);
 	}
 

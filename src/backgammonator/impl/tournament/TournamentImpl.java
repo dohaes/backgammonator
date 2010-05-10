@@ -1,6 +1,5 @@
-package backgammonator.impl.game;
+package backgammonator.impl.tournament;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -9,44 +8,49 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Player;
-import backgammonator.core.Tournament;
-import backgammonator.core.TournamentConfiguration;
+import backgammonator.impl.game.GameManager;
 
 public class TournamentImpl implements Tournament {
 
-	private Player players[];
+	private List<Player> players;
 	private Random randomGenerator = new Random();
 
 	TournamentImpl(List<Player> players) {
 		if (players == null || players.size() < 2) {
 			throw new IllegalArgumentException("Players must be more than 2.");
 		}
-		this.players = new Player[players.size()];
-		players.toArray(this.players);
+		this.players = new LinkedList<Player>(players);
 	}
 
 	public Player start(TournamentConfiguration config) {
 		if (config == null) {
 			throw new IllegalArgumentException("Config must not be null.");
 		}
+		List<Player> players = new LinkedList<Player>(this.players);
 		switch (config.getTournamentType()) {
 		case ELIMINATIONS:
-			return executeElimintaions(config);
+			return executeElimintaions(players, config);
 		case GROUPS:
-			return executeGroups(config);
+			return executeGroups(players, config);
 		case BATTLE:
-			return executeBattle(config);
+			return executeBattle(players, config);
 		}
 		throw new NotImplementedException();
 	}
 
-	private Player executeBattle(TournamentConfiguration config) {
+	private Player executeBattle(List<Player> players,
+			TournamentConfiguration config) {
 		return runGroup(players, config);
 	}
 
-	private Player executeGroups(TournamentConfiguration config) {
+	private Player executeElimintaions(List<Player> players,
+			TournamentConfiguration config) {
+		return runEliminations(players, config);
+	}
+
+	private Player executeGroups(List<Player> players,
+			TournamentConfiguration config) {
 		int groups = config.getGroupsCount();
-		List<Player> players = Arrays.asList(this.players);
 		List<Player> winners = new LinkedList<Player>();
 		int size = players.size();
 		for (int i = 0; i < groups; i++) {
@@ -55,14 +59,10 @@ public class TournamentImpl implements Tournament {
 				p++;
 			}
 			List<Player> group = remove(players, p);
-			Player winner = runGroup((Player[]) group.toArray(), config);
+			Player winner = runGroup(group, config);
 			winners.add(winner);
 		}
 		return runEliminations(winners, config);
-	}
-
-	private Player executeElimintaions(TournamentConfiguration config) {
-		return runEliminations(Arrays.asList(players), config);
 	}
 
 	private Player runEliminations(List<Player> players,
@@ -92,22 +92,22 @@ public class TournamentImpl implements Tournament {
 		return players.get(0);
 	}
 
-	private Player runGroup(Player[] players, TournamentConfiguration config) {
-		int points[] = new int[players.length];
-		for (int i = 0; i < players.length - 1; i++) {
-			for (int j = i + 1; j < players.length; j++) {
-				int p[] = runBattle(players[i], players[j], config);
+	private Player runGroup(List<Player> players, TournamentConfiguration config) {
+		int points[] = new int[players.size()];
+		for (int i = 0; i < players.size() - 1; i++) {
+			for (int j = i + 1; j < players.size(); j++) {
+				int p[] = runBattle(players.get(i), players.get(j), config);
 				points[i] += p[0];
 				points[j] += p[1];
 			}
 		}
 
 		int max = points[0];
-		Player winner = players[0];
-		for (int j = 1; j < players.length; j++) {
-			if (points[j] > max) {
-				max = points[j];
-				winner = players[j];
+		Player winner = players.get(0);
+		for (int i = 1; i < players.size(); i++) {
+			if (points[i] > max) {
+				max = points[i];
+				winner = players.get(i);
 			}
 		}
 		return winner;

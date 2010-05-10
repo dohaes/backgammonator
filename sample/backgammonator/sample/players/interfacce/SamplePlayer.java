@@ -25,8 +25,8 @@ public class SamplePlayer extends AbstractSamplePlayer {
 
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
-		System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2()
-				+ ")");
+		//System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2()
+		//		+ ")");
 		CheckerMove m1, m2, m3, m4;
 		InternalBoard b = new InternalBoard(board);
 		m1 = findMove(b, dice.getDie1());
@@ -68,10 +68,10 @@ public class SamplePlayer extends AbstractSamplePlayer {
 
 final class InternalBoard {
 	private int[] pos;
-	private String color;
+	//private String color;
 
 	public InternalBoard(BackgammonBoard board) {
-		color = board.getCurrentPlayerColor().toString();
+		//color = board.getCurrentPlayerColor().toString();
 		pos = new int[26];
 		pos[25] = board.getHits(board.getCurrentPlayerColor());
 		pos[0] = board.getBornOff(board.getCurrentPlayerColor());
@@ -90,8 +90,8 @@ final class InternalBoard {
 	}
 
 	public void move(int point, int die) {
-		System.out.println(color + " (" + point + ", " + die + ")");
-		System.out.println("Before: " + this);
+		//System.out.println(color + " (" + point + ", " + die + ")");
+		//System.out.println("Before: " + this);
 		pos[point]--;
 		int end = point - die;
 		if (end < 0) {
@@ -102,7 +102,7 @@ final class InternalBoard {
 		} else {
 			pos[end]++;
 		}
-		System.out.println("After:  " + this + "\n");
+		//System.out.println("After:  " + this + "\n");
 	}
 
 	public String toString() {
