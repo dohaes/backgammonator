@@ -1,4 +1,4 @@
-package backgammonator.impl.tournament;
+package backgammonator.core;
 
 
 public class TournamentConfiguration {

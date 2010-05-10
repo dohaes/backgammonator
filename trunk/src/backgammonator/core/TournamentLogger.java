@@ -2,7 +2,6 @@ package backgammonator.core;
 
 import java.util.List;
 
-import backgammonator.impl.tournament.TournamentType;
 
 /**
  * Interface to provide format for the output of a single tournament. May be

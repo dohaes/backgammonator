@@ -1,4 +1,4 @@
-package backgammonator.impl.tournament;
+package backgammonator.core;
 
 public enum TournamentType {
 	ELIMINATIONS, GROUPS, BATTLE;
