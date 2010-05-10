@@ -7,7 +7,7 @@ import backgammonator.core.PlayerMove;
 
 /**
  * Sample implementation of the {@link Player} interface.
- * This player returns null for a move.
+ * This player throws exception in its getMove method.
  */
 public class ExceptionPlayer extends AbstractSamplePlayer {
 

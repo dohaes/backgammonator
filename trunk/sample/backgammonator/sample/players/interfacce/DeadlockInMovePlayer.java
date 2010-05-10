@@ -7,7 +7,7 @@ import backgammonator.core.PlayerMove;
 
 /**
  * Sample implementation of the {@link Player} interface.
- * This player returns null for a move.
+ * This player causes a deadlock.
  */
 public class DeadlockInMovePlayer extends AbstractSamplePlayer {
   

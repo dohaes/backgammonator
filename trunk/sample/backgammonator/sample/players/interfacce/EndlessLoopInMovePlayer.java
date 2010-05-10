@@ -7,7 +7,7 @@ import backgammonator.core.PlayerMove;
 
 /**
  * Sample implementation of the {@link Player} interface.
- * This player is timed out.
+ * This player is timed out due to endless loop.
  */
 public class EndlessLoopInMovePlayer extends AbstractSamplePlayer {
 
