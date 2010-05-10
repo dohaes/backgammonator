@@ -29,8 +29,14 @@ public class PlayerImpl implements Player {
 	
 	private BufferedReader reader;
 	
-	PlayerImpl(Process process) {
-		this.process = process;
+	/**
+	 * Constructs a new player instance.
+	 * 
+	 * @param command the command to be executed to init the process with.
+	 * @throws IOException if the execution of the command throws exception.
+	 */
+	PlayerImpl(String command) throws IOException {
+		process = Runtime.getRuntime().exec(command);
 		stdin = process.getInputStream();
 		stdout = process.getOutputStream();
 		
