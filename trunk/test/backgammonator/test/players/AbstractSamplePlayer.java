@@ -8,7 +8,7 @@ import backgammonator.core.Player;
  * Base implementation of the {@link Player} interface. Provides way to verify
  * the game over status sent to the player.
  */
-public abstract class AbstractTestPlayer implements Player {
+public abstract class AbstractSamplePlayer implements Player {
 
 	private boolean wins;
 	private GameOverStatus status;

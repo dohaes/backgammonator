@@ -9,7 +9,7 @@ import backgammonator.core.PlayerMove;
  * Sample implementation of the {@link Player} interface.
  * This player is timed out.
  */
-public class TimedoutMovePlayer extends AbstractTestPlayer {
+public class TimedoutMovePlayer extends AbstractSamplePlayer {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {

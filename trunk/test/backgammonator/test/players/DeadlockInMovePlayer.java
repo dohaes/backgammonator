@@ -9,7 +9,7 @@ import backgammonator.core.PlayerMove;
  * Sample implementation of the {@link Player} interface.
  * This player returns null for a move.
  */
-public class DeadlockInMovePlayer extends AbstractTestPlayer {
+public class DeadlockInMovePlayer extends AbstractSamplePlayer {
   
   private Object monitor1 = new Object();
   private Object monitor2 = new Object();
