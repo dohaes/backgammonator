@@ -1,7 +1,7 @@
 package backgammonator.impl.game;
 
-import backgammonator.core.Game;
-import backgammonator.core.Player;
+import backgammonator.game.Game;
+import backgammonator.game.Player;
 
 /**
  * This class is used to create a new game between two AI players.

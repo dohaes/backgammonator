@@ -1,4 +1,4 @@
-package backgammonator.core;
+package backgammonator.game;
 
 /**
  * Represents the move of a single checker.

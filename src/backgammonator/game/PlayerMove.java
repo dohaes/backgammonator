@@ -1,4 +1,4 @@
-package backgammonator.core;
+package backgammonator.game;
 
 /**
  * This class is used for the representation of a single move of a player. Every

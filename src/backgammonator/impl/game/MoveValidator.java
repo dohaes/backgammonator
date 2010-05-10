@@ -1,11 +1,11 @@
 package backgammonator.impl.game;
 
-import backgammonator.core.CheckerMove;
-import backgammonator.core.Constants;
-import backgammonator.core.Dice;
-import backgammonator.core.PlayerColor;
-import backgammonator.core.PlayerMove;
-import backgammonator.core.Point;
+import backgammonator.game.CheckerMove;
+import backgammonator.game.Constants;
+import backgammonator.game.Dice;
+import backgammonator.game.PlayerColor;
+import backgammonator.game.PlayerMove;
+import backgammonator.game.Point;
 
 /**
  * Validates the game play. There will be a method - boolean

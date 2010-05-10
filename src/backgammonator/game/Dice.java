@@ -1,4 +1,4 @@
-package backgammonator.core;
+package backgammonator.game;
 
 /**
  * Creates new randomly generated pair of dice.

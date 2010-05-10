@@ -1,4 +1,10 @@
-package backgammonator.core;
+package backgammonator.logger;
+
+import backgammonator.game.Dice;
+import backgammonator.game.GameOverStatus;
+import backgammonator.game.Player;
+import backgammonator.game.PlayerColor;
+import backgammonator.game.PlayerMove;
 
 /**
  * Interface to provide format for the output of a single game. May be

@@ -1,13 +1,13 @@
 package backgammonator.impl.game;
 
-import backgammonator.core.BackgammonBoard;
-import backgammonator.core.Dice;
-import backgammonator.core.Game;
-import backgammonator.core.GameOverStatus;
-import backgammonator.core.GameLogger;
-import backgammonator.core.Player;
-import backgammonator.core.PlayerMove;
+import backgammonator.game.BackgammonBoard;
+import backgammonator.game.Dice;
+import backgammonator.game.Game;
+import backgammonator.game.GameOverStatus;
+import backgammonator.game.Player;
+import backgammonator.game.PlayerMove;
 import backgammonator.impl.logger.GameLoggerFactory;
+import backgammonator.logger.GameLogger;
 import backgammonator.util.Debug;
 
 /**
