@@ -2,7 +2,6 @@ package backgammonator.test.game;
 
 import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
-import backgammonator.core.PlayerStatus;
 import backgammonator.impl.game.GameManager;
 import backgammonator.test.players.AbstractTestPlayer;
 import backgammonator.test.players.DeadlockInMovePlayer;
@@ -34,8 +33,10 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.TIMEDOUT, status);
-		assertEquals(PlayerStatus.LOSES_TIMEDOUT, timedout.getStatus());
-		assertEquals(PlayerStatus.WINS_TIMEDOUT, normal.getStatus());
+		assertEquals(GameOverStatus.TIMEDOUT, timedout.getStatus());
+		assertEquals(GameOverStatus.TIMEDOUT, normal.getStatus());
+		assertTrue(normal.wins());
+		assertFalse(timedout.wins());
 	}
 	
 	public void testExceptionInMove() {
@@ -53,8 +54,10 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.EXCEPTION, status);
-		assertEquals(PlayerStatus.LOSES_EXCEPTION, exception.getStatus());
-		assertEquals(PlayerStatus.WINS_EXCEPTION, normal.getStatus());
+		assertEquals(GameOverStatus.EXCEPTION, exception.getStatus());
+		assertEquals(GameOverStatus.EXCEPTION, normal.getStatus());
+	  assertTrue(normal.wins());
+    assertFalse(exception.wins());
 	}
 
 	public void testNullReturned() {
@@ -72,8 +75,10 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
-		assertEquals(PlayerStatus.LOSES_INVALID_MOVE, nullmove.getStatus());
-		assertEquals(PlayerStatus.WINS_INVALID_MOVE, normal.getStatus());
+		assertEquals(GameOverStatus.INVALID_MOVE, nullmove.getStatus());
+		assertEquals(GameOverStatus.INVALID_MOVE, normal.getStatus());
+	  assertTrue(normal.wins());
+    assertFalse(nullmove.wins());
 	}
 	
 	public void testInvalidMoveReturned() {
@@ -91,8 +96,10 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
-		assertEquals(PlayerStatus.WINS_INVALID_MOVE, normal.getStatus());
-		assertEquals(PlayerStatus.LOSES_INVALID_MOVE, invalid.getStatus());
+		assertEquals(GameOverStatus.INVALID_MOVE, normal.getStatus());
+		assertEquals(GameOverStatus.INVALID_MOVE, invalid.getStatus());
+	  assertTrue(normal.wins());
+    assertFalse(invalid.wins());
 	}
 	
 	public void testEndlessLoopInMoveReturned() {
@@ -110,8 +117,10 @@ public class GameTestCase extends TestCase {
     
     assertNotNull(status);
     assertEquals(GameOverStatus.TIMEDOUT, status);
-    assertEquals(PlayerStatus.WINS_TIMEDOUT, normal.getStatus());
-    assertEquals(PlayerStatus.LOSES_TIMEDOUT, endlessloop.getStatus());
+    assertEquals(GameOverStatus.TIMEDOUT, normal.getStatus());
+    assertEquals(GameOverStatus.TIMEDOUT, endlessloop.getStatus());
+    assertTrue(normal.wins());
+    assertFalse(endlessloop.wins());
   }
 	
 	public void testDeadlockInMoveReturned() {
@@ -129,8 +138,10 @@ public class GameTestCase extends TestCase {
     
     assertNotNull(status);
     assertEquals(GameOverStatus.TIMEDOUT, status);
-    assertEquals(PlayerStatus.WINS_TIMEDOUT, normal.getStatus());
-    assertEquals(PlayerStatus.LOSES_TIMEDOUT, deadlock.getStatus());
+    assertEquals(GameOverStatus.TIMEDOUT, normal.getStatus());
+    assertEquals(GameOverStatus.TIMEDOUT, deadlock.getStatus());
+    assertTrue(normal.wins());
+    assertFalse(deadlock.wins());
   }
 	
 	public void testNormal() {
@@ -148,10 +159,11 @@ public class GameTestCase extends TestCase {
 		
 		assertNotNull(status);
 		assertEquals(GameOverStatus.NORMAL, status);
-		PlayerStatus status1 = normal1.getStatus();
-		assertTrue(status1 == PlayerStatus.WINS_NORMAL || status1 == PlayerStatus.LOSEE_NORMAL);
-		if (status1 == PlayerStatus.WINS_NORMAL) assertEquals(PlayerStatus.LOSEE_NORMAL, normal2.getStatus());
-		else assertEquals(PlayerStatus.WINS_NORMAL, normal2.getStatus());
+		GameOverStatus status1 = normal1.getStatus(), status2 = normal2.getStatus();
+		assertEquals(GameOverStatus.NORMAL, status1);
+		assertEquals(GameOverStatus.NORMAL, status2);
+		if (normal1.wins()) assertFalse(normal2.wins());
+		else assertTrue(normal2.wins());
 	}
 
 }

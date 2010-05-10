@@ -29,7 +29,8 @@ public interface Player {
 	 * Called from the backgammonator engine to identify the end of the game.
 	 * 
 	 * @param board the current configuration of the board
+	 * @param wins shows if the palyer wins or loses the game
 	 * @param status the status of the player when the game is over
 	 */
-	void gameOver(BackgammonBoard board, PlayerStatus status);
+	void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status);
 }

@@ -7,7 +7,6 @@ import backgammonator.core.GameOverStatus;
 import backgammonator.core.GameLogger;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
-import backgammonator.core.PlayerStatus;
 import backgammonator.impl.logger.GameLoggerFactory;
 import backgammonator.util.Debug;
 
@@ -95,8 +94,8 @@ final class GameImpl implements Game {
 				Debug.getInstance().error(
 						"Exception thrown while performing move",
 						Debug.GAME_LOGIC, throwable);
-				mover.gameOver(currentPlayer, PlayerStatus.LOSES_EXCEPTION);
-				mover.gameOver(other, PlayerStatus.WINS_EXCEPTION);
+				mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
+				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 				mover.stop();
 				return GameOverStatus.EXCEPTION;
 			}
@@ -106,8 +105,8 @@ final class GameImpl implements Game {
 						null);
 				
 				startNewMoverThread(true);
-				mover.gameOver(currentPlayer, PlayerStatus.LOSES_TIMEDOUT);
-				mover.gameOver(other, PlayerStatus.WINS_TIMEDOUT);
+				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);
+				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
 				mover.stop();
 				return GameOverStatus.TIMEDOUT;
 			}
@@ -116,8 +115,8 @@ final class GameImpl implements Game {
 			
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
-				mover.gameOver(currentPlayer, PlayerStatus.LOSES_INVALID_MOVE);
-				mover.gameOver(other, PlayerStatus.WINS_INVALID_MOVE);
+				mover.gameOver(currentPlayer, false, GameOverStatus.INVALID_MOVE);
+				mover.gameOver(other, true, GameOverStatus.INVALID_MOVE);
 				mover.stop();
 				invalid = true;
 			}
@@ -131,8 +130,8 @@ final class GameImpl implements Game {
 			if (invalid)  return GameOverStatus.INVALID_MOVE;
 			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				mover.gameOver(currentPlayer, PlayerStatus.WINS_NORMAL);
-				mover.gameOver(other, PlayerStatus.LOSEE_NORMAL);
+				mover.gameOver(currentPlayer, true, GameOverStatus.NORMAL);
+				mover.gameOver(other, false, GameOverStatus.NORMAL);
 				mover.stop();
 				return GameOverStatus.NORMAL;
 			}
@@ -140,8 +139,8 @@ final class GameImpl implements Game {
 			Debug.getInstance().error(
 					"Exception thrown while performing move",
 					Debug.GAME_LOGIC, e);
-			mover.gameOver(currentPlayer, PlayerStatus.LOSES_EXCEPTION);
-			mover.gameOver(other, PlayerStatus.WINS_EXCEPTION);
+			mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
+			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 			mover.stop();
 			return GameOverStatus.EXCEPTION;
 		}
@@ -193,7 +192,8 @@ final class GameImpl implements Game {
 		private Player player;
 		
 		private int  operation = 0;
-		private PlayerStatus status = null;
+		private GameOverStatus status = null;
+		private boolean wins;
 		
 		private boolean suspended = true;
 		private boolean notified = false;
@@ -223,7 +223,7 @@ final class GameImpl implements Game {
 						currentMove = player.getMove(board, dice);
 						break;
 					case 2: //game over
-						player.gameOver(board, status);
+						player.gameOver(board, wins, status);
 					default:
 						break;
 					}
@@ -241,7 +241,7 @@ final class GameImpl implements Game {
 		 * @param player the player to move
 		 */
 		public void makeMove(Player player) {
-			resume(player, 1, null);
+			resume(player, 1, false, null);
 			waitForMoveDone(MOVE_TIMEOUT);
 		}
 
@@ -249,8 +249,8 @@ final class GameImpl implements Game {
 		 * Ends the game for the specified player.
 		 * @param player the player which game is to be ended
 		 */
-		public void gameOver(Player player, PlayerStatus status) {
-			resume(player, 2, status);
+		public void gameOver(Player player, boolean wins, GameOverStatus status) {
+			resume(player, 2, wins, status);
 			waitForMoveDone(MOVE_TIMEOUT * 2);
 		}
 		
@@ -290,12 +290,13 @@ final class GameImpl implements Game {
 			return true;
 		}
 
-		private void resume(Player player, int operation, PlayerStatus status) {
+		private void resume(Player player, int operation, boolean wins, GameOverStatus status) {
 			synchronized (synch) {
 				
 				this.player = player;
 				this.operation = operation;
 				this.status = status;
+				this.wins = wins;
 				
 				notified = false;
 				suspended = false;

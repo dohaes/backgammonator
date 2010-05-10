@@ -8,11 +8,9 @@ import java.io.OutputStream;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.Dice;
-import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
-import backgammonator.core.PlayerStatus;
 import backgammonator.impl.protocol.Parser;
 import backgammonator.util.Debug;
 
@@ -41,7 +39,7 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void gameOver(BackgammonBoard board, PlayerStatus status) {
+	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
 		try {
 			stdout.write(Parser.getBoardConfiguration(board, null, status).getBytes());
 		
@@ -61,7 +59,7 @@ public class PlayerImpl implements Player {
 	
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		stdout.write(Parser.getBoardConfiguration(board, dice, PlayerStatus.NOT_FINISHED).getBytes());
+		stdout.write(Parser.getBoardConfiguration(board, dice, null).getBytes());
 		return Parser.getMove(reader.readLine());
 	}
 
