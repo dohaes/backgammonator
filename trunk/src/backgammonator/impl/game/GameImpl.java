@@ -22,6 +22,8 @@ final class GameImpl implements Game {
 
 	private Player whitePlayer;
 	private Player blackPlayer;
+	
+	private Player winner = null;
 
 	private BackgammonBoardImpl board;
 	private DiceImpl dice;
@@ -50,6 +52,7 @@ final class GameImpl implements Game {
 
 	@Override
 	public GameOverStatus start() {
+	  winner = null;
 		board.reset();
 		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
 		GameOverStatus status;
@@ -70,6 +73,16 @@ final class GameImpl implements Game {
 		if (logMoves) logger.endGame(status, status == GameOverStatus.NORMAL ?
 				board.getCurrentPlayerColor() : board.getCurrentPlayerColor().opposite());
 		return status;
+	}
+	
+	@Override
+	public String getFilename() {
+	  return logger.getFilename();
+	}
+	
+	@Override
+	public Player getWinner() {
+	  return winner;
 	}
 	
 	private void startNewMoverThread(boolean kill) {
@@ -95,8 +108,10 @@ final class GameImpl implements Game {
 						"Exception thrown while performing move",
 						Debug.GAME_LOGIC, throwable);
 				mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
+				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 				mover.stop();
+				winner = other;
 				return GameOverStatus.EXCEPTION;
 			}
 
@@ -106,8 +121,10 @@ final class GameImpl implements Game {
 				
 				startNewMoverThread(true);
 				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);
+				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
 				mover.stop();
+				winner = other;
 				return GameOverStatus.TIMEDOUT;
 			}
 
@@ -116,8 +133,10 @@ final class GameImpl implements Game {
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
 				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC, null);
 				mover.gameOver(currentPlayer, false, GameOverStatus.INVALID_MOVE);
+				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.INVALID_MOVE);
 				mover.stop();
+			  winner = other;
 				invalid = true;
 			}
 
@@ -131,8 +150,10 @@ final class GameImpl implements Game {
 			
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
 				mover.gameOver(currentPlayer, true, GameOverStatus.NORMAL);
+				board.switchPlayer();
 				mover.gameOver(other, false, GameOverStatus.NORMAL);
 				mover.stop();
+				winner = currentPlayer;
 				return GameOverStatus.NORMAL;
 			}
 		} catch (Exception e) {
@@ -140,8 +161,10 @@ final class GameImpl implements Game {
 					"Exception thrown while performing move",
 					Debug.GAME_LOGIC, e);
 			mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
+			board.switchPlayer();
 			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 			mover.stop();
+			winner = other;
 			return GameOverStatus.EXCEPTION;
 		}
 
