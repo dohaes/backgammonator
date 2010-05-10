@@ -29,34 +29,36 @@ public class SourceProcessor {
 		PlayerImpl result = null;
 		Process compileProcess = null;
 		try {
-			compileProcess = Runtime.getRuntime().exec(
+			compileProcess = Runtime
+					.getRuntime()
+					.exec(
 							"cmd.exe /C javac "
-							+ file.getAbsolutePath()
-							+ " -classpath ../../../../lib/backgammonlibrary.jar");
-            // any error message?
-            StreamGobbler errorGobbler = new 
-                StreamGobbler(compileProcess.getErrorStream(), "ERROR");            
+									+ file.getAbsolutePath()
+									+ " -classpath ../../../../lib/backgammonlibrary.jar");
+			// any error message?
+			StreamGobbler errorGobbler = new StreamGobbler(compileProcess
+					.getErrorStream(), "ERROR");
 
-            // any output?
-            StreamGobbler outputGobbler = new 
-                StreamGobbler(compileProcess.getInputStream(), "OUTPUT");
+			// any output?
+			StreamGobbler outputGobbler = new StreamGobbler(compileProcess
+					.getInputStream(), "OUTPUT");
 
-            // kick them off
-            errorGobbler.start();
-            outputGobbler.start();
-            
-            //TODO fix file path!
-//			result = new PlayerImpl(
-//					Runtime.getRuntime().exec(
-//							"cmd.exe /C java "
-//							+ file.getAbsolutePath()
-//							+ " -classpath ../../../../lib/backgammonlibrary.jar"));
+			// kick them off
+			errorGobbler.start();
+			outputGobbler.start();
+
+			// TODO fix file path!
+			// result = new PlayerImpl(
+			// Runtime.getRuntime().exec(
+			// "cmd.exe /C java "
+			// + file.getAbsolutePath()
+			// + " -classpath ../../../../lib/backgammonlibrary.jar"));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	public static void main(String[] args) {
 		try {
 			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\test\\backgammonator\\test\\players\\AbstractTestPlayer.java");
@@ -66,35 +68,30 @@ public class SourceProcessor {
 	}
 }
 
-class StreamGobbler extends Thread
-{
-    InputStream is;
-    String type;
-    StringBuffer output = new StringBuffer();
+class StreamGobbler extends Thread {
+	InputStream is;
+	String type;
+	StringBuffer output = new StringBuffer();
 
-    StreamGobbler(InputStream is, String type)
-    {
-        this.is = is;
-        this.type = type;
-    }
+	StreamGobbler(InputStream is, String type) {
+		this.is = is;
+		this.type = type;
+	}
 
-    public void run()
-    {
-        try
-        {
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line=null;
-            while ( (line = br.readLine()) != null)
-                System.out.println(type + ">" + line);
-                output.append(line+"\r\n");
-            } catch (IOException ioe)
-              {
-                ioe.printStackTrace();  
-              }
-    }
-    public String getOutput()
-    {
-        return this.output.toString();
-    }
+	public void run() {
+		try {
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			String line = null;
+			while ((line = br.readLine()) != null)
+				System.out.println(type + ">" + line);
+			output.append(line + "\r\n");
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+
+	public String getOutput() {
+		return this.output.toString();
+	}
 }
