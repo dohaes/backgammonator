@@ -6,9 +6,9 @@ import java.util.List;
 import junit.framework.TestCase;
 import backgammonator.core.Player;
 import backgammonator.core.Tournament;
-import backgammonator.impl.tournament.TournamentConfiguration;
+import backgammonator.core.TournamentConfiguration;
+import backgammonator.core.TournamentType;
 import backgammonator.impl.tournament.TournamentManager;
-import backgammonator.impl.tournament.TournamentType;
 import backgammonator.sample.players.interfacce.SamplePlayer;
 
 public class TournamentTestCase extends TestCase {
