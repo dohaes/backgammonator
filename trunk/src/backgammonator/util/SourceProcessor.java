@@ -1,4 +1,4 @@
-package backgammonator.impl.game;
+package backgammonator.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.io.FileNotFoundException;
+
+import backgammonator.game.Player;
 
 /**
  * Processing the uploaded source files to executables. It should support
@@ -21,12 +23,12 @@ public class SourceProcessor {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public static PlayerImpl processFile(String filePath)
+	public static Player processFile(String filePath)
 			throws FileNotFoundException {
 		File file = new File(filePath);
 		if (!file.exists())
 			throw new FileNotFoundException("The file does not exists!");
-		PlayerImpl result = null;
+		Player result = null;
 		Process compileProcess = null;
 		try {
 			compileProcess = Runtime
