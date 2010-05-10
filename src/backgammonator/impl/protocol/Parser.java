@@ -7,7 +7,6 @@ import backgammonator.core.Dice;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
-import backgammonator.core.PlayerStatus;
 
 /**
  * The instance of this class is used for parsing strings, received from AI
@@ -110,12 +109,14 @@ public final class Parser {
 	 *            state.
 	 * @param dice
 	 *            is the Dice object for the AI player's move.
+	 *            <code>null</code> if the game is over.
 	 * @param isGameOver
 	 *            determines if the game is over.
 	 * @param isCurrentPlayerWon
 	 *            determines if the current player is the winner.
 	 * @param status
 	 *            is the game over status.
+	 *            <code>null</code> if the game is not over yet
 	 * @return a string, representing the current board state and dice. Suitable
 	 *         for passing to AI player's input. It will be in the following
 	 *         format(the values are separated with spaces):<br />
@@ -153,8 +154,7 @@ public final class Parser {
 	 *         5: Invalid move<br />
 	 *         6: Game end due timeout<br />
 	 */
-	public static String getBoardConfiguration(BackgammonBoard board,
-			Dice dice, PlayerStatus status) {
+	public static String getBoardConfiguration(BackgammonBoard board, Dice dice, GameOverStatus status) {
 		
 		//FIXME ..
 		boolean isGameOver = false;
@@ -193,7 +193,7 @@ public final class Parser {
 
 		int gameOverStatusCode;
 		switch (status) {
-		case OK:
+		case NORMAL:
 			gameOverStatusCode = 1;
 			break;
 		case DOUBLE:
