@@ -4,9 +4,13 @@ import backgammonator.core.BackgammonBoard;
 import backgammonator.core.CheckerMove;
 import backgammonator.core.CheckerMoveType;
 import backgammonator.core.Dice;
+import backgammonator.core.Player;
 import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
 
+/**
+ * Sample implementation of the {@link Player} interface.
+ */
 public class SamplePlayer extends AbstractSamplePlayer {
 
 	private static int ID = 0;
