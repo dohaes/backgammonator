@@ -1,4 +1,4 @@
-package backgammonator.impl.game;
+package backgammonator.impl.protocol;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import backgammonator.game.Dice;
 import backgammonator.game.GameOverStatus;
 import backgammonator.game.Player;
 import backgammonator.game.PlayerMove;
-import backgammonator.impl.protocol.Parser;
 import backgammonator.util.Debug;
 
 /**
@@ -40,10 +39,9 @@ public class PlayerImpl implements Player {
 	 * Constructs a new player instance.
 	 * 
 	 * @param command the command to be executed to init the process with.
-	 * @param name the name of the player - same as the username of the user who uploaded the source
-	 * @throws IOException if the execution of the command throws exception.
+	 * @param name the name of the player - same as the username of the user who uploaded the source.
 	 */
-	PlayerImpl(String command, String name) throws IOException {
+	PlayerImpl(String command, String name) {
 		this.command = command;
 		this.name = name;
 	}
