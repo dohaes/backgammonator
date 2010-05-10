@@ -58,7 +58,7 @@ public class SamplePlayer extends AbstractSamplePlayer {
 	}
 
 	public String getName() {
-		return "Dummy G " + id;
+		return "Sample G " + id;
 	}
 }
 
