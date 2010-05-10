@@ -5,7 +5,7 @@ import backgammonator.core.GameOverStatus;
 import backgammonator.impl.game.GameManager;
 import backgammonator.test.players.AbstractTestPlayer;
 import backgammonator.test.players.DeadlockInMovePlayer;
-import backgammonator.test.players.DummyPlayer;
+import backgammonator.test.players.SamplePlayer;
 import backgammonator.test.players.EndlessLoopInMovePlayer;
 import backgammonator.test.players.ExceptionPlayer;
 import backgammonator.test.players.InvalidMovePlayer;
@@ -20,7 +20,7 @@ public class GameTestCase extends TestCase {
 	
 	public void testTimedoutMove() {
 		AbstractTestPlayer timedout = new TimedoutMovePlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
+		AbstractTestPlayer normal = new SamplePlayer();
 		
 		Game game = GameManager.newGame(timedout, normal, false);
 		GameOverStatus status = null;
@@ -42,7 +42,7 @@ public class GameTestCase extends TestCase {
 	
 	public void testExceptionInMove() {
 		AbstractTestPlayer exception = new ExceptionPlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
+		AbstractTestPlayer normal = new SamplePlayer();
 		
 		Game game = GameManager.newGame(exception, normal, false);
 		GameOverStatus status = null;
@@ -64,7 +64,7 @@ public class GameTestCase extends TestCase {
 
 	public void testNullReturned() {
 		AbstractTestPlayer nullmove = new NullMovePlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
+		AbstractTestPlayer normal = new SamplePlayer();
 		
 		Game game = GameManager.newGame(nullmove, normal, false);
 		GameOverStatus status = null;
@@ -86,7 +86,7 @@ public class GameTestCase extends TestCase {
 	
 	public void testInvalidMoveReturned() {
 		AbstractTestPlayer invalid = new InvalidMovePlayer();
-		AbstractTestPlayer normal = new DummyPlayer();
+		AbstractTestPlayer normal = new SamplePlayer();
 		
 		Game game = GameManager.newGame(normal, invalid, false);
 		GameOverStatus status = null;
@@ -108,7 +108,7 @@ public class GameTestCase extends TestCase {
 	
 	public void testEndlessLoopInMoveReturned() {
     AbstractTestPlayer endlessloop = new EndlessLoopInMovePlayer();
-    AbstractTestPlayer normal = new DummyPlayer();
+    AbstractTestPlayer normal = new SamplePlayer();
     
     Game game = GameManager.newGame(endlessloop, normal, false);
     GameOverStatus status = null;
@@ -130,7 +130,7 @@ public class GameTestCase extends TestCase {
 	
 	public void testDeadlockInMoveReturned() {
     AbstractTestPlayer deadlock = new DeadlockInMovePlayer();
-    AbstractTestPlayer normal = new DummyPlayer();
+    AbstractTestPlayer normal = new SamplePlayer();
     
     Game game = GameManager.newGame(deadlock, normal, false);
     GameOverStatus status = null;
@@ -151,8 +151,8 @@ public class GameTestCase extends TestCase {
   }
 	
 	public void testNormal() {
-		AbstractTestPlayer normal1 = new DummyPlayer();
-		AbstractTestPlayer normal2 = new DummyPlayer();
+		AbstractTestPlayer normal1 = new SamplePlayer();
+		AbstractTestPlayer normal2 = new SamplePlayer();
 		
 		Game game = GameManager.newGame(normal1, normal2, false);
 		GameOverStatus status = null;

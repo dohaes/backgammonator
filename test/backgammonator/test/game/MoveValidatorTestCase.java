@@ -5,7 +5,7 @@ import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.game.MoveValidator;
-import backgammonator.test.players.DummyPlayer;
+import backgammonator.test.players.SamplePlayer;
 import backgammonator.test.util.TestUtil;
 
 /**
@@ -15,7 +15,7 @@ public class MoveValidatorTestCase extends TestCase {
 	
 	public void testValidMoves() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
-		DummyPlayer player = new DummyPlayer();
+		SamplePlayer player = new SamplePlayer();
 		DiceImpl dice = new DiceImpl();
 		for (int i = 0; i < 10; i++) {
 			TestUtil.generateNext(dice);
@@ -28,7 +28,7 @@ public class MoveValidatorTestCase extends TestCase {
 
 	public void testInvalidMovesDices() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
-		DummyPlayer player = new DummyPlayer();
+		SamplePlayer player = new SamplePlayer();
 		DiceImpl dice = new DiceImpl();
 		for (int i = 0; i < 1; i++) {
 			TestUtil.generateNext(dice);
