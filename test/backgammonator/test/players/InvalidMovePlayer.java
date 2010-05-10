@@ -10,7 +10,7 @@ import backgammonator.core.PlayerMove;
  * Sample implementation of the {@link Player} interface.
  * This player returns an invalid move.
  */
-public class InvalidMovePlayer extends AbstractTestPlayer {
+public class InvalidMovePlayer extends AbstractSamplePlayer {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {

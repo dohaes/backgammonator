@@ -7,7 +7,7 @@ import backgammonator.core.Dice;
 import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
 
-public class SamplePlayer extends AbstractTestPlayer {
+public class SamplePlayer extends AbstractSamplePlayer {
 
 	private static int ID = 0;
 	private int id = ID++;
