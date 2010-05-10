@@ -1,7 +1,6 @@
 package backgammonator.test.players;
 
 import backgammonator.core.BackgammonBoard;
-import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Player;
 
@@ -15,7 +14,8 @@ public abstract class AbstractTestPlayer implements Player {
 	private GameOverStatus status;
 
 	@Override
-	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
+	public void gameOver(BackgammonBoard board, boolean wins,
+			GameOverStatus status) {
 		this.wins = wins;
 		this.status = status;
 	}
@@ -23,8 +23,8 @@ public abstract class AbstractTestPlayer implements Player {
 	public GameOverStatus getStatus() {
 		return status;
 	}
-	
+
 	public boolean wins() {
-    return wins;
-  }
+		return wins;
+	}
 }
