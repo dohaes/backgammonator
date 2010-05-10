@@ -182,10 +182,14 @@ public final class Parser {
 		stringBuffer.append(board.getBornOff(board.getCurrentPlayerColor()
 				.opposite()));
 		stringBuffer.append(" ");
-		stringBuffer.append(dice.getDie1());
-		stringBuffer.append(" ");
-		stringBuffer.append(dice.getDie2());
-		stringBuffer.append(" ");
+		if (dice != null) {
+			stringBuffer.append(dice.getDie1());
+			stringBuffer.append(" ");
+			stringBuffer.append(dice.getDie2());
+			stringBuffer.append(" ");
+		} else {
+			stringBuffer.append("1 1 ");
+		}
 
 		int gameOverStatusCode;
 

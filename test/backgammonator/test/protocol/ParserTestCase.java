@@ -1,5 +1,6 @@
 package backgammonator.test.protocol;
 
+import backgammonator.core.GameOverStatus;
 import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
@@ -125,6 +126,15 @@ public class ParserTestCase extends TestCase {
 		assertEquals(
 				resultString,
 				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 4 3 0");
+	}
+
+	public void testGetBoardConfigurationInvalidMove() {
+		String resultString = Parser.getBoardConfiguration(
+				new BackgammonBoardImpl(), null, false,
+				GameOverStatus.INVALID_MOVE);
+		assertEquals(
+				resultString,
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 11");
 	}
 
 }
