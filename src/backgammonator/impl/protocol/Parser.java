@@ -108,15 +108,13 @@ public final class Parser {
 	 *            is the BackgammonBoard object, representing the current board
 	 *            state.
 	 * @param dice
-	 *            is the Dice object for the AI player's move.
-	 *            <code>null</code> if the game is over.
-	 * @param isGameOver
-	 *            determines if the game is over.
+	 *            is the Dice object for the AI player's move. <code>null</code>
+	 *            if the game is over.
 	 * @param isCurrentPlayerWon
 	 *            determines if the current player is the winner.
 	 * @param status
-	 *            is the game over status.
-	 *            <code>null</code> if the game is not over yet
+	 *            is the game over status. <code>null</code> if the game is not
+	 *            over yet
 	 * @return a string, representing the current board state and dice. Suitable
 	 *         for passing to AI player's input. It will be in the following
 	 *         format(the values are separated with spaces):<br />
@@ -124,8 +122,7 @@ public final class Parser {
 	 *         &lt;possession_2&gt; ... &lt;count_24&gt; &lt;possession_24&gt;
 	 *         &lt;hits_current&gt; &lt;hits_opponent&gt;
 	 *         &lt;bornoff_current&gt; &lt;bornoff_opponent&gt; &lt;die_1&gt;
-	 *         &lt;die_2&gt; &lt;is_game_over&gt; &lt;is_current_player_won&gt;
-	 *         &lt;game_over_status&gt;<br />
+	 *         &lt;die_2&gt; &lt;game_status&gt;<br />
 	 *         Where<br />
 	 *         <b>&lt;count_n&gt;</b> is the number of checkers in point n -
 	 *         integer number between 0 and 15.<br />
@@ -140,30 +137,34 @@ public final class Parser {
 	 *         checkers for the current and opponent players respectively -
 	 *         integer number between 0 and 15.<br/>
 	 *         <b>&lt;die_1&gt;</b> and <b>&lt;die_2&gt;</b> are the dices'
-	 *         values - integer numbers between 1 and 6.
-	 *         <b>&lt;is_game_over&gt;</b> indicates if the game is over - 0 for
-	 *         true and 1 for false.<br/>
-	 *         <b>&lt;is_current_player_won&gt;</b> indicates if the current
-	 *         player is winner - 0 for true and 1 for false.<br/>
-	 *         <b>&lt;game_over_status&gt;</b> gives information for the reason
-	 *         for game end:<br />
-	 *         1: Standard win<br />
-	 *         2: Double win<br />
-	 *         3: Triple win<br />
-	 *         4: Exception game end<br />
-	 *         5: Invalid move<br />
-	 *         6: Game end due timeout<br />
+	 *         values - integer numbers between 1 and 6.<br />
+	 *         <b>&lt;game_status&gt;</b> gives information for the current game
+	 *         status:<br />
+	 *         0: Game is not over yet<br />
+	 *         1: Standard win for the current player<br />
+	 *         2: Double win for the current player<br />
+	 *         3: Triple win for the current player<br />
+	 *         4: Exception game end and the current player wins<br />
+	 *         5: Invalid move and the current player wins<br />
+	 *         6: Game end due timeout and the current player wins<br />
+	 *         7: Standard win for the opposite player<br />
+	 *         8: Double win for the opposite player<br />
+	 *         9: Triple win for the opposite player<br />
+	 *         10: Exception game end and the opposite player wins<br />
+	 *         11: Invalid move and the opposite player wins<br />
+	 *         12: Game end due timeout and the opposite player wins<br />
 	 */
-	public static String getBoardConfiguration(BackgammonBoard board, Dice dice, GameOverStatus status) {
-		
-		//FIXME ..
-		boolean isGameOver = false;
-		boolean isCurrentPlayerWon = false;
-		if (board == null || dice == null || status == null) {
-			throw new NullPointerException(
-					"Some of the arguments of getBoardConfiguration method is null.");
+	public static String getBoardConfiguration(BackgammonBoard board,
+			Dice dice, boolean isCurrentPlayerWon, GameOverStatus status) {
+
+		if (board == null) {
+			throw new NullPointerException("board is null.");
 		}
-		StringBuffer stringBuffer = new StringBuffer(145);
+		if (dice == null && status == null) {
+			throw new NullPointerException(
+					"dice is null, but status is null(the game is not over).");
+		}
+		StringBuffer stringBuffer = new StringBuffer(150);
 		for (int pointNumber = 1; pointNumber <= 24; pointNumber++) {
 			stringBuffer.append(board.getPoint(pointNumber).getCount());
 			stringBuffer.append(" ");
@@ -186,35 +187,40 @@ public final class Parser {
 		stringBuffer.append(" ");
 		stringBuffer.append(dice.getDie2());
 		stringBuffer.append(" ");
-		stringBuffer.append(isGameOver ? 1 : 0);
-		stringBuffer.append(" ");
-		stringBuffer.append(isCurrentPlayerWon ? 1 : 0);
-		stringBuffer.append(" ");
 
 		int gameOverStatusCode;
-		switch (status) {
-		case NORMAL:
-			gameOverStatusCode = 1;
-			break;
-		case DOUBLE:
-			gameOverStatusCode = 2;
-			break;
-		case TRIPLE:
-			gameOverStatusCode = 3;
-			break;
-		case EXCEPTION:
-			gameOverStatusCode = 4;
-			break;
-		case INVALID_MOVE:
-			gameOverStatusCode = 5;
-			break;
-		case TIMEDOUT:
-			gameOverStatusCode = 6;
-			break;
-		default:
+
+		if (status == null) {
 			gameOverStatusCode = 0;
-			break;
+		} else {
+			switch (status) {
+			case NORMAL:
+				gameOverStatusCode = 1;
+				break;
+			case DOUBLE:
+				gameOverStatusCode = 2;
+				break;
+			case TRIPLE:
+				gameOverStatusCode = 3;
+				break;
+			case EXCEPTION:
+				gameOverStatusCode = 4;
+				break;
+			case INVALID_MOVE:
+				gameOverStatusCode = 5;
+				break;
+			case TIMEDOUT:
+				gameOverStatusCode = 6;
+				break;
+			default:
+				gameOverStatusCode = 0;
+				break;
+			}
+			if (isCurrentPlayerWon == false && gameOverStatusCode != 0) {
+				gameOverStatusCode += 6;
+			}
 		}
+
 		stringBuffer.append(gameOverStatusCode);
 
 		return stringBuffer.toString();

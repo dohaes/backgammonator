@@ -57,6 +57,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		board[7].updatePoint(3, PlayerColor.WHITE);
 		board[5].updatePoint(5, PlayerColor.WHITE);
 		board[0].updatePoint(2, PlayerColor.BLACK);
+		// FIXME: Current color should be white!
 		currentColor = PlayerColor.BLACK;
 
 	}
