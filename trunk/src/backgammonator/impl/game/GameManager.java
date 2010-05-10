@@ -1,7 +1,11 @@
 package backgammonator.impl.game;
 
+import java.io.FileNotFoundException;
+
 import backgammonator.game.Game;
 import backgammonator.game.Player;
+import backgammonator.util.Debug;
+import backgammonator.util.SourceProcessor;
 
 /**
  * This class is used to create a new game between two AI players.
@@ -29,9 +33,16 @@ public class GameManager {
 	 * @param black String the second player
 	 * @param logMoves true if the game logger should be enabled and false otherwise
 	 * @return new instance of the {@link Game} interface implementation
+	 *         or <code>null</code> if any errors occurs.
 	 */
 	public static Game newGame(String white, String black, boolean logMoves) {
-		return null;
+		try {
+			return new GameImpl(SourceProcessor.processFile(white),
+					            SourceProcessor.processFile(black), logMoves);
+		} catch (FileNotFoundException e) {
+			Debug.getInstance().error("Error while creating game", Debug.GAME_LOGIC, e);
+			return null;
+		}
 	}
 
 }
