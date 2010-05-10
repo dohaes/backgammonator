@@ -1,6 +1,8 @@
 package backgammonator.test.protocol;
 
 import backgammonator.core.PlayerMove;
+import backgammonator.impl.game.BackgammonBoardImpl;
+import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.protocol.Parser;
 import junit.framework.TestCase;
 
@@ -115,6 +117,14 @@ public class ParserTestCase extends TestCase {
 		assertFalse(resultPlayerMove.getCheckerMove(3).isReenterHitChecker());
 		assertTrue(resultPlayerMove.getCheckerMove(3).isUnavailableMove());
 		assertEquals(resultPlayerMove.getCheckerMove(3).getDie(), 6);
+	}
+
+	public void testGetBoardConfigurationInGame() {
+		String resultString = Parser.getBoardConfiguration(
+				new BackgammonBoardImpl(), new DiceImpl(4, 3), false, null);
+		assertEquals(
+				resultString,
+				"2 1 0 0 0 0 0 0 0 0 5 0 0 0 3 0 0 0 0 0 0 0 5 1 5 0 0 0 0 0 0 0 3 1 0 0 5 1 0 0 0 0 0 0 0 0 2 0 0 0 0 0 4 3 0");
 	}
 
 }
