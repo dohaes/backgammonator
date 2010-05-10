@@ -31,6 +31,7 @@ public class GameTestCase extends TestCase {
 			fail("Unexpected exception was thrown : " + t);
 		}
 		
+		assertEquals(normal, game.getWinner());
 		assertNotNull(status);
 		assertEquals(GameOverStatus.TIMEDOUT, status);
 		assertEquals(GameOverStatus.TIMEDOUT, timedout.getStatus());
@@ -52,6 +53,7 @@ public class GameTestCase extends TestCase {
 			fail("Unexpected exception was thrown : " + t);
 		}
 		
+		assertEquals(normal, game.getWinner());
 		assertNotNull(status);
 		assertEquals(GameOverStatus.EXCEPTION, status);
 		assertEquals(GameOverStatus.EXCEPTION, exception.getStatus());
@@ -73,6 +75,7 @@ public class GameTestCase extends TestCase {
 			fail("Unexpected exception was thrown : " + t);
 		}
 		
+		assertEquals(normal, game.getWinner());
 		assertNotNull(status);
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
 		assertEquals(GameOverStatus.INVALID_MOVE, nullmove.getStatus());
@@ -94,6 +97,7 @@ public class GameTestCase extends TestCase {
 			fail("Unexpected exception was thrown : " + t);
 		}
 		
+		assertEquals(normal, game.getWinner());
 		assertNotNull(status);
 		assertEquals(GameOverStatus.INVALID_MOVE, status);
 		assertEquals(GameOverStatus.INVALID_MOVE, normal.getStatus());
@@ -115,6 +119,7 @@ public class GameTestCase extends TestCase {
       fail("Unexpected exception was thrown : " + t);
     }
     
+    assertEquals(normal, game.getWinner());
     assertNotNull(status);
     assertEquals(GameOverStatus.TIMEDOUT, status);
     assertEquals(GameOverStatus.TIMEDOUT, normal.getStatus());
@@ -136,6 +141,7 @@ public class GameTestCase extends TestCase {
       fail("Unexpected exception was thrown : " + t);
     }
     
+    assertEquals(normal, game.getWinner());
     assertNotNull(status);
     assertEquals(GameOverStatus.TIMEDOUT, status);
     assertEquals(GameOverStatus.TIMEDOUT, normal.getStatus());
@@ -162,8 +168,13 @@ public class GameTestCase extends TestCase {
 		GameOverStatus status1 = normal1.getStatus(), status2 = normal2.getStatus();
 		assertEquals(GameOverStatus.NORMAL, status1);
 		assertEquals(GameOverStatus.NORMAL, status2);
-		if (normal1.wins()) assertFalse(normal2.wins());
-		else assertTrue(normal2.wins());
+		if (normal1.wins()) {
+		  assertEquals(normal1, game.getWinner());
+		  assertFalse(normal2.wins());
+		} else {
+		  assertEquals(normal2, game.getWinner());
+		  assertTrue(normal2.wins());
+		}
 	}
 
 }

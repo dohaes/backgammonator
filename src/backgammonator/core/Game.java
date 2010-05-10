@@ -20,4 +20,18 @@ public interface Game {
 	 * @see GameOverStatus
 	 */
 	GameOverStatus start();
+	
+	/**
+	 * Returns the winner in this game.
+	 * 
+	 * @return Player the winner in this game or <code>null</code> if the game is not over.
+	 */
+	Player getWinner();
+	
+	/**
+   * Returns the name of the game log file.
+   * 
+   * @return the name of the game log file or <code>null</code> if the game is not over.
+   */
+  String getFilename();
 }
