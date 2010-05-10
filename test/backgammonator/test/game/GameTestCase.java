@@ -3,14 +3,14 @@ package backgammonator.test.game;
 import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.impl.game.GameManager;
-import backgammonator.test.players.AbstractSamplePlayer;
-import backgammonator.test.players.DeadlockInMovePlayer;
-import backgammonator.test.players.SamplePlayer;
-import backgammonator.test.players.EndlessLoopInMovePlayer;
-import backgammonator.test.players.ExceptionPlayer;
-import backgammonator.test.players.InvalidMovePlayer;
-import backgammonator.test.players.NullMovePlayer;
-import backgammonator.test.players.TimedoutMovePlayer;
+import backgammonator.sample.players.interfacce.AbstractSamplePlayer;
+import backgammonator.sample.players.interfacce.DeadlockInMovePlayer;
+import backgammonator.sample.players.interfacce.EndlessLoopInMovePlayer;
+import backgammonator.sample.players.interfacce.ExceptionPlayer;
+import backgammonator.sample.players.interfacce.InvalidMovePlayer;
+import backgammonator.sample.players.interfacce.NullMovePlayer;
+import backgammonator.sample.players.interfacce.SamplePlayer;
+import backgammonator.sample.players.interfacce.TimedoutMovePlayer;
 import junit.framework.TestCase;
 
 /**

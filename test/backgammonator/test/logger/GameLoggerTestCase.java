@@ -12,7 +12,7 @@ import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.logger.GameLoggerFactory;
-import backgammonator.test.players.SamplePlayer;
+import backgammonator.sample.players.interfacce.SamplePlayer;
 import junit.framework.TestCase;
 
 /**
