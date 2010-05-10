@@ -34,7 +34,7 @@ public class DeadlockInMovePlayer extends AbstractSamplePlayer {
 
 	@Override
 	public String getName() {
-		return "Dummy Player NPE";
+		return "Sample Player Deadlock";
 	}
 	
 	/**

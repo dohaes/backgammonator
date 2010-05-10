@@ -18,7 +18,7 @@ public class ExceptionPlayer extends AbstractSamplePlayer {
 
 	@Override
 	public String getName() {
-		return "Dummy Player Exception";
+		return "Sample Player Exception";
 	}
 
 }
