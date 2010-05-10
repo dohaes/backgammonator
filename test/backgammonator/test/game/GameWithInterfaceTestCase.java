@@ -16,7 +16,7 @@ import junit.framework.TestCase;
 /**
  * Tests class {@link GameImpl}.
  */
-public class GameTestCase extends TestCase {
+public class GameWithInterfaceTestCase extends TestCase {
 	
 	public void testTimedoutMove() {
 		AbstractSamplePlayer timedout = new TimedoutMovePlayer();
