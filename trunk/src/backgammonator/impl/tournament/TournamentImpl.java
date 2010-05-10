@@ -8,6 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import backgammonator.core.Game;
 import backgammonator.core.GameOverStatus;
 import backgammonator.core.Player;
+import backgammonator.core.Tournament;
 import backgammonator.impl.game.GameManager;
 
 public class TournamentImpl implements Tournament {

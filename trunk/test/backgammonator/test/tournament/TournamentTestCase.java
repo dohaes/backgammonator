@@ -5,7 +5,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import backgammonator.core.Player;
-import backgammonator.impl.tournament.Tournament;
+import backgammonator.core.Tournament;
 import backgammonator.impl.tournament.TournamentConfiguration;
 import backgammonator.impl.tournament.TournamentManager;
 import backgammonator.impl.tournament.TournamentType;
