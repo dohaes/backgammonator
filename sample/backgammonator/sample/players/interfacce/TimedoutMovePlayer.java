@@ -19,6 +19,6 @@ public class TimedoutMovePlayer extends AbstractSamplePlayer {
 
 	@Override
 	public String getName() {
-		return "Dummy Player Timedout";
+		return "Sample Player Timedout";
 	}
 }

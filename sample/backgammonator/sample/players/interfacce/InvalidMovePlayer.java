@@ -25,7 +25,7 @@ public class InvalidMovePlayer extends AbstractSamplePlayer {
 
 	@Override
 	public String getName() {
-		return "Dummy Player Invalid Move";
+		return "Sample Player Invalid Move";
 	}
 
 }

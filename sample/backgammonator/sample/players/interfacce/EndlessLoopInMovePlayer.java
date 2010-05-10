@@ -21,6 +21,6 @@ public class EndlessLoopInMovePlayer extends AbstractSamplePlayer {
 
 	@Override
 	public String getName() {
-		return "Dummy Player Timedout";
+		return "Sample Player Endless Loop";
 	}
 }
