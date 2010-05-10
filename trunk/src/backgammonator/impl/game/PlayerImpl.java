@@ -25,6 +25,8 @@ import backgammonator.util.Debug;
 public class PlayerImpl implements Player {
 
 	private String command;
+	// TODO should return the name of the registered user that uploaded the source
+	private String name = "test user";
 
 	private Process process;
 	private InputStream stdin;
@@ -47,22 +49,16 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public PlayerMove getMove(BackgammonBoard board, Dice dice)
-			throws Exception {
-		if (!inited)
-			init();
-		stdout.write(Parser.getBoardConfiguration(board, dice, false, null)
-				.getBytes());
+	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
+		if (!inited) init();
+		stdout.write(Parser.getBoardConfiguration(board, dice, false, null).getBytes());
 		return Parser.getMove(reader.readLine());
 	}
 
 	@Override
-	public void gameOver(BackgammonBoard board, boolean wins,
-			GameOverStatus status) {
+	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
 		try {
-			stdout.write(Parser
-					.getBoardConfiguration(board, null, wins, status)
-					.getBytes());
+			stdout.write(Parser.getBoardConfiguration(board, null, wins, status).getBytes());
 
 			int exitcode = -1;
 			exitcode = process.waitFor();
@@ -83,9 +79,7 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public String getName() {
-		// TODO should return the name of the registered user that uploaded the
-		// source
-		return "test user";
+		return name;
 	}
 
 	@Override
