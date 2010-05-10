@@ -7,15 +7,15 @@ import backgammonator.core.Dice;
 import backgammonator.core.PlayerMove;
 import backgammonator.core.Point;
 
-public class DummyPlayer extends AbstractTestPlayer {
+public class SamplePlayer extends AbstractTestPlayer {
 
 	private static int ID = 0;
 	private int id = ID++;
 
-	public DummyPlayer() {
+	public SamplePlayer() {
 	}
 
-	public DummyPlayer(int id) {
+	public SamplePlayer(int id) {
 		this.id = id;
 	}
 
@@ -24,7 +24,7 @@ public class DummyPlayer extends AbstractTestPlayer {
 		System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2()
 				+ ")");
 		CheckerMove m1, m2, m3, m4;
-		DummyBoard b = new DummyBoard(board);
+		InternalBoard b = new InternalBoard(board);
 		m1 = findMove(b, dice.getDie1());
 		m2 = findMove(b, dice.getDie2());
 		if (m1.isUnavailableMove()) {
@@ -40,7 +40,7 @@ public class DummyPlayer extends AbstractTestPlayer {
 		}
 	}
 
-	private CheckerMove findMove(DummyBoard board, int die) {
+	private CheckerMove findMove(InternalBoard board, int die) {
 		if (board.get(25) > 0) {
 			if (board.get(25 - die) >= -1) {
 				board.move(25, die);
@@ -62,11 +62,11 @@ public class DummyPlayer extends AbstractTestPlayer {
 	}
 }
 
-final class DummyBoard {
+final class InternalBoard {
 	private int[] pos;
 	private String color;
 
-	public DummyBoard(BackgammonBoard board) {
+	public InternalBoard(BackgammonBoard board) {
 		color = board.getCurrentPlayerColor().toString();
 		pos = new int[26];
 		pos[25] = board.getHits(board.getCurrentPlayerColor());

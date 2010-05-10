@@ -12,7 +12,7 @@ import backgammonator.core.PlayerColor;
 import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.logger.GameLoggerFactory;
-import backgammonator.test.players.DummyPlayer;
+import backgammonator.test.players.SamplePlayer;
 import junit.framework.TestCase;
 
 /**
@@ -25,8 +25,8 @@ public class GameLoggerTestCase extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		this.gameLogger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
-		DummyPlayer whitePlayer = new DummyPlayer(1);
-		DummyPlayer blackPlayer = new DummyPlayer(2);
+		SamplePlayer whitePlayer = new SamplePlayer(1);
+		SamplePlayer blackPlayer = new SamplePlayer(2);
 		this.gameLogger.startGame(whitePlayer, blackPlayer);
 
 		super.setUp();
