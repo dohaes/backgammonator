@@ -23,9 +23,13 @@ import backgammonator.util.Debug;
  */
 public class PlayerImpl implements Player {
 	
+  private String command;
+
 	private Process process;
 	private InputStream stdin;
 	private OutputStream stdout;
+	
+	private boolean inited = false;
 	
 	private BufferedReader reader;
 	
@@ -36,13 +40,15 @@ public class PlayerImpl implements Player {
 	 * @throws IOException if the execution of the command throws exception.
 	 */
 	PlayerImpl(String command) throws IOException {
-		process = Runtime.getRuntime().exec(command);
-		stdin = process.getInputStream();
-		stdout = process.getOutputStream();
-		
-		reader = new BufferedReader(new InputStreamReader(stdin));
-		
+	  this.command = command;
 	}
+	
+	@Override
+  public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
+	  if (!inited) init();
+    stdout.write(Parser.getBoardConfiguration(board, dice, null).getBytes());
+    return Parser.getMove(reader.readLine());
+  }
 
 	@Override
 	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
@@ -59,16 +65,12 @@ public class PlayerImpl implements Player {
 		} finally {
 			cleanStreams();
 			process.destroy();
+			process = null;
+			inited = false;
 		}
 		
 	}
 	
-	@Override
-	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		stdout.write(Parser.getBoardConfiguration(board, dice, null).getBytes());
-		return Parser.getMove(reader.readLine());
-	}
-
 	@Override
 	public String getName() {
 		// TODO should return the name of the registered user that uploaded the source
@@ -117,6 +119,15 @@ public class PlayerImpl implements Player {
 				Debug.getInstance().error("Exception while closing stream", Debug.GAME_LOGIC, e);
 			}
 		}
+	}
+	
+	private void init() throws IOException {
+	  process = Runtime.getRuntime().exec(command);
+    stdin = process.getInputStream();
+    stdout = process.getOutputStream();
+    reader = new BufferedReader(new InputStreamReader(stdin));
+    
+    inited = true;
 	}
 
 }
