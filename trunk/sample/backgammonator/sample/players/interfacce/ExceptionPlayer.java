@@ -1,4 +1,4 @@
-package backgammonator.test.players;
+package backgammonator.sample.players.interfacce;
 
 import backgammonator.core.BackgammonBoard;
 import backgammonator.core.Dice;
@@ -7,18 +7,18 @@ import backgammonator.core.PlayerMove;
 
 /**
  * Sample implementation of the {@link Player} interface.
- * This player is timed out.
+ * This player returns null for a move.
  */
-public class TimedoutMovePlayer extends AbstractSamplePlayer {
+public class ExceptionPlayer extends AbstractSamplePlayer {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		Thread.sleep(2100);
-		return null;
+		throw new Exception("Test exeption");
 	}
 
 	@Override
 	public String getName() {
-		return "Dummy Player Timedout";
+		return "Dummy Player Exception";
 	}
+
 }

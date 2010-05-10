@@ -5,7 +5,7 @@ import backgammonator.core.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.game.MoveValidator;
-import backgammonator.test.players.SamplePlayer;
+import backgammonator.sample.players.interfacce.SamplePlayer;
 import backgammonator.test.util.TestUtil;
 
 /**
