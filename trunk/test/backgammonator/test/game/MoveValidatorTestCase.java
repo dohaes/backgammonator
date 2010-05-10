@@ -1,7 +1,7 @@
 package backgammonator.test.game;
 
 import junit.framework.TestCase;
-import backgammonator.core.PlayerMove;
+import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.game.MoveValidator;

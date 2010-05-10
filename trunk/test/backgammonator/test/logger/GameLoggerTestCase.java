@@ -5,13 +5,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import backgammonator.core.CheckerMove;
-import backgammonator.core.GameLogger;
-import backgammonator.core.GameOverStatus;
-import backgammonator.core.PlayerColor;
-import backgammonator.core.PlayerMove;
+import backgammonator.game.CheckerMove;
+import backgammonator.game.GameOverStatus;
+import backgammonator.game.PlayerColor;
+import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.logger.GameLoggerFactory;
+import backgammonator.logger.GameLogger;
 import backgammonator.sample.players.interfacce.SamplePlayer;
 import junit.framework.TestCase;
 
@@ -58,7 +58,7 @@ public class GameLoggerTestCase extends TestCase {
 		assertEquals(
 				resultFileContent,
 				"<html>\n<body>\n"
-						+ "<h1 style=\"color:#0000FF\">Dummy G 1(white) vs. Dummy G 2(black)</h1>\n"
+						+ "<h1 style=\"color:#0000FF\">Sample G 1(white) vs. Sample G 2(black)</h1>\n"
 						+ "<h3>"
 						+ this.gameLogger.getGameTimestamp()
 						+ "</h3>\n"
@@ -97,7 +97,7 @@ public class GameLoggerTestCase extends TestCase {
 		assertEquals(
 				resultFileContent,
 				"<html>\n<body>\n"
-						+ "<h1 style=\"color:#0000FF\">Dummy G 1(white) vs. Dummy G 2(black)</h1>\n"
+						+ "<h1 style=\"color:#0000FF\">Sample G 1(white) vs. Sample G 2(black)</h1>\n"
 						+ "<h3>"
 						+ this.gameLogger.getGameTimestamp()
 						+ "</h3>\n"
@@ -136,7 +136,7 @@ public class GameLoggerTestCase extends TestCase {
 		assertEquals(
 				resultFileContent,
 				"<html>\n<body>\n"
-						+ "<h1 style=\"color:#0000FF\">Dummy G 1(white) vs. Dummy G 2(black)</h1>\n"
+						+ "<h1 style=\"color:#0000FF\">Sample G 1(white) vs. Sample G 2(black)</h1>\n"
 						+ "<h3>"
 						+ this.gameLogger.getGameTimestamp()
 						+ "</h3>\n"

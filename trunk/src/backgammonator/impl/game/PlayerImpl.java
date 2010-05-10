@@ -6,11 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import backgammonator.core.BackgammonBoard;
-import backgammonator.core.Dice;
-import backgammonator.core.GameOverStatus;
-import backgammonator.core.Player;
-import backgammonator.core.PlayerMove;
+import backgammonator.game.BackgammonBoard;
+import backgammonator.game.Dice;
+import backgammonator.game.GameOverStatus;
+import backgammonator.game.Player;
+import backgammonator.game.PlayerMove;
 import backgammonator.impl.protocol.Parser;
 import backgammonator.util.Debug;
 

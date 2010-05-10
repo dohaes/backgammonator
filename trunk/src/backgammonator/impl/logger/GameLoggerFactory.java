@@ -1,6 +1,6 @@
 package backgammonator.impl.logger;
 
-import backgammonator.core.GameLogger;
+import backgammonator.logger.GameLogger;
 
 /**
  * Represents factory for selecting a desired type of {@link GameLogger}

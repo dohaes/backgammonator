@@ -5,9 +5,9 @@ import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
 
-import backgammonator.core.BackgammonBoard;
-import backgammonator.core.Dice;
-import backgammonator.core.Point;
+import backgammonator.game.BackgammonBoard;
+import backgammonator.game.Dice;
+import backgammonator.game.Point;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.game.PointImpl;

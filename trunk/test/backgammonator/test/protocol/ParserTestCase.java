@@ -1,7 +1,7 @@
 package backgammonator.test.protocol;
 
-import backgammonator.core.GameOverStatus;
-import backgammonator.core.PlayerMove;
+import backgammonator.game.GameOverStatus;
+import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.protocol.Parser;

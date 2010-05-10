@@ -2,7 +2,7 @@ package backgammonator.impl.game;
 
 import java.util.Random;
 
-import backgammonator.core.Dice;
+import backgammonator.game.Dice;
 
 /**
  * Represents implementation of the {@link Dice} interface.

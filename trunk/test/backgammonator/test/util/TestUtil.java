@@ -2,8 +2,8 @@ package backgammonator.test.util;
 
 import java.lang.reflect.Method;
 
-import backgammonator.core.Dice;
-import backgammonator.core.PlayerMove;
+import backgammonator.game.Dice;
+import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 

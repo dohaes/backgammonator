@@ -1,4 +1,4 @@
-package backgammonator.core;
+package backgammonator.game;
 
 public interface Constants {
 	int POINTS_COUNT = 24;

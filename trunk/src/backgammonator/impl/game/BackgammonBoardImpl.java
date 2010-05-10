@@ -2,14 +2,14 @@ package backgammonator.impl.game;
 
 import java.util.ArrayList;
 
-import backgammonator.core.BackgammonBoard;
-import backgammonator.core.CheckerMove;
-import backgammonator.core.Constants;
-import backgammonator.core.Dice;
-import backgammonator.core.GameOverStatus;
-import backgammonator.core.PlayerColor;
-import backgammonator.core.PlayerMove;
-import backgammonator.core.Point;
+import backgammonator.game.BackgammonBoard;
+import backgammonator.game.CheckerMove;
+import backgammonator.game.Constants;
+import backgammonator.game.Dice;
+import backgammonator.game.GameOverStatus;
+import backgammonator.game.PlayerColor;
+import backgammonator.game.PlayerMove;
+import backgammonator.game.Point;
 
 /**
  * Represents implementation of the {@link BackgammonBoard} interface.

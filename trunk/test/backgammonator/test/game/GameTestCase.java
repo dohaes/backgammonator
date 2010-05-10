@@ -1,7 +1,7 @@
 package backgammonator.test.game;
 
-import backgammonator.core.Game;
-import backgammonator.core.GameOverStatus;
+import backgammonator.game.Game;
+import backgammonator.game.GameOverStatus;
 import backgammonator.impl.game.GameManager;
 import backgammonator.sample.players.interfacce.AbstractSamplePlayer;
 import backgammonator.sample.players.interfacce.DeadlockInMovePlayer;
