@@ -39,13 +39,13 @@ public class PlayerImpl implements Player {
 	/**
 	 * Constructs a new player instance.
 	 * 
-	 * @param command
-	 *            the command to be executed to init the process with.
-	 * @throws IOException
-	 *             if the execution of the command throws exception.
+	 * @param command the command to be executed to init the process with.
+	 * @param name the name of the player - same as the username of the user who uploaded the source
+	 * @throws IOException if the execution of the command throws exception.
 	 */
-	PlayerImpl(String command) throws IOException {
+	PlayerImpl(String command, String name) throws IOException {
 		this.command = command;
+		this.name = name;
 	}
 
 	@Override
