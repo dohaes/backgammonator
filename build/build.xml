@@ -26,10 +26,8 @@
 		<mkdir dir="${project.home}/lib" />
 
 		<jar jarfile="${project.home}/lib/backgammonlibrary.jar" basedir="${build}"
-		includes=
-			"backgammonator/lib/tournament/*
-			 backgammonator/lib/game/*
-			 backgammonator/lib/logger/*
+		excludes=
+			"backgammonator/impl/protocol/*
 			"/>
 	</target>
 
