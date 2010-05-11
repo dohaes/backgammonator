@@ -17,7 +17,7 @@ import backgammonator.lib.game.Player;
  * Processing the uploaded source files to executables. It should support
  * processing of java and C/C++ sources. If any errors or warning occur during
  * the process, the should be shown to the user in an appropriate format.
- * 
+ * TODO: logs, optimizing threads!
  */
 public class SourceProcessor {
 
@@ -36,6 +36,7 @@ public class SourceProcessor {
 		boolean isJava;
 		if(file.getName().endsWith(".java")) isJava = true;
 		else if(file.getName().endsWith(".c")) isJava = false;
+		//TODO debug.error this exception!
 		else throw new IllegalArgumentException("The file must ends with .java or .c");
 		
 		Player result = null;
@@ -46,6 +47,7 @@ public class SourceProcessor {
 								"javac " + file.getAbsolutePath()
 										+ " -classpath lib/backgammonlibrary.jar");
 				
+				// TODO optimizing threads!
 				// manage streams
 				StreamGobbler errorGobbler = new StreamGobbler(compileProcess
 						.getErrorStream(), "ERROR");
@@ -70,13 +72,13 @@ public class SourceProcessor {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		try {
-			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
 
 class StreamGobbler extends Thread {
