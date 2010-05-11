@@ -1,4 +1,4 @@
-<project name="Backgammonator Project" default="lib" basedir=".">
+<project name="Backgammonator Project" default="all" basedir=".">
 	<description>
         simple example build file
     </description>
@@ -7,8 +7,10 @@
 	<property name="src" location="${project.home}/src" />
 	<property name="build" location="${project.home}/.classes" />
 
-	<target name="lib" depends="distLib" />
-	
+	<target name="all"  depends="lib, demo" />
+	<target name="lib"  depends="distLib" />
+	<target name="demo" depends="distDemo" />
+		
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp />
@@ -29,6 +31,15 @@
 		excludes=
 			"backgammonator/impl/protocol/*
 			"/>
+	</target>
+	
+	<target name="distDemo" depends="compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${project.home}/lib" />
+
+		<jar jarfile="${project.home}/lib/backgammonDemo.jar" basedir="${build}"
+			manifest="../src/meta-inf/manifest.mf"
+		/>
 	</target>
 
 	<target name="clean" description="clean up">
