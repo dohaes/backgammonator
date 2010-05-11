@@ -76,7 +76,7 @@ class HTMLGameLogger implements GameLogger {
 			textColor = "#FF0000";
 			break;
 		default:
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid status:" + status);
 		}
 
 		this.logStringBuffer.append("<tr style=\"color:");
