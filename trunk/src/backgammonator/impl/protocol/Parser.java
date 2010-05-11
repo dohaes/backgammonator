@@ -225,6 +225,7 @@ public final class Parser {
 		}
 
 		stringBuffer.append(gameOverStatusCode);
+		stringBuffer.append(" ");
 
 		return stringBuffer.toString();
 	}
