@@ -34,7 +34,6 @@ public class PlayerImpl implements Player {
 
 	private boolean inited = false;
 
-	private BufferedReader reader;
 	private Scanner scanner;
 
 	/**
@@ -44,7 +43,6 @@ public class PlayerImpl implements Player {
 	 * @param name the name of the player - same as the username of the user who uploaded the source.
 	 */
 	PlayerImpl(String command, String name) {
-	  System.out.println("===== command : " + command);
 		this.command = command;
 		this.name = name;
 	}
@@ -52,38 +50,41 @@ public class PlayerImpl implements Player {
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
 		if (!inited) init();
-		stdout.write(Parser.getBoardConfiguration(board, dice, false, null).getBytes());
-		stdout.flush();
-		System.out.println("=== ["+name+"]reading ....");
+		String tosend = Parser.getBoardConfiguration(board, dice, false, null);
+		byte[] bytes = tosend.getBytes();
+	  stdout.write(tosend.getBytes(), 0, bytes.length);
+//    stdout.flush();
+		
 		String line = scanner.nextLine();
-		System.out.println("=== ["+name+"]line : " + line);
 		return Parser.getMove(line);
 	}
 
 	@Override
 	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
-	  System.out.println("PlayerImpl.gameOver("+name+")");
 	  
 		try {
 		  try {
 		    if (!inited) init();
 		    stdout.write(Parser.getBoardConfiguration(board, null, wins, status).getBytes());
+		    stdout.flush();
 		  } catch (Throwable ioe) {
 		    Debug.getInstance().error("Error sending final results to player " + name,
             Debug.GAME_LOGIC, ioe);
 		  }
-
-			int exitcode = -1;
-			exitcode = process.waitFor();
-			if (exitcode != 0) {
-				Debug.getInstance().error("Process returned " + exitcode,
-						Debug.GAME_LOGIC, null);
+		  
+			if (status == GameOverStatus.TIMEDOUT && !wins) { //the player is not responding
+			  Debug.getInstance().warning("Process for player " + name + " will be destroyed ",
+            Debug.GAME_LOGIC, null);
+        process.destroy();
+			} else {
+        int exitcode = process.waitFor();
+        Debug.getInstance().info("Process for player " + name + " returned "  + exitcode,
+              Debug.GAME_LOGIC);
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error("Error occured", Debug.GAME_LOGIC, e);
 		} finally {
 			cleanStreams();
-			process.destroy();
 			process = null;
 			inited = false;
 		}
@@ -153,7 +154,6 @@ public class PlayerImpl implements Player {
 		process = Runtime.getRuntime().exec(command);
 		stdin = process.getInputStream();
 		stdout = process.getOutputStream();
-		reader = new BufferedReader(new InputStreamReader(stdin));
 		scanner = new Scanner(stdin);
 
 		inited = true;
