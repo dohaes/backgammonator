@@ -7,6 +7,10 @@ import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.PlayerMove;
 import junit.framework.TestCase;
 
+/**
+ * Tests class {@link Parser}.
+ */
+
 public class ParserTestCase extends TestCase {
 
 	public void testGetMoveStandardMoves() {
