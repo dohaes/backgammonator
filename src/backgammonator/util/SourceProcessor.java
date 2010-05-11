@@ -60,6 +60,11 @@ public class SourceProcessor {
 				errorGobbler.start();
 				outputGobbler.start();
 				
+				int exitCode = compileProcess.waitFor();
+				//TODO notify user for compile error
+				if (exitCode != 0) {
+				  throw new RuntimeException("Compile returned " + exitCode);
+				}
 				File classFile = new File(file.getAbsolutePath().replace(".java", ".class"));
 				if (!classFile.exists())
 					throw new FileNotFoundException("Incorrect file!");
