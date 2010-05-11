@@ -16,15 +16,21 @@ import backgammonator.lib.game.Player;
  * Processing the uploaded source files to executables. It should support
  * processing of java and C/C++ sources. If any errors or warning occur during
  * the process, the should be shown to the user in an appropriate format.
- * TODO: logs, optimizing threads!
  */
 public class SourceProcessor {
 
 	/**
+	 * Compiles the file and process it to executable.
+	 * 
 	 * @param filePath
-	 * @return
+	 *            The absolute path to the file
+	 * 
+	 * @return PlayerImpl
+	 * 
 	 * @throws FileNotFoundException
-	 * @throws UnsupportedDataTypeException 
+	 *             when the given file does not exists
+	 * @throws UnsupportedDataTypeException
+	 *             when the given file is not java or c++ file
 	 */
 	public static Player processFile(String filePath)
 			throws FileNotFoundException {
@@ -43,8 +49,7 @@ public class SourceProcessor {
 		try {
 			if(isJava) {
 				compileProcess = Runtime.getRuntime().exec(
-								"javac " + file.getAbsolutePath()
-										+ " -classpath lib/backgammonlibrary.jar");
+								"javac " + file.getAbsolutePath());
 				
 				// TODO optimizing threads!
 				// manage streams
@@ -60,8 +65,8 @@ public class SourceProcessor {
 					throw new FileNotFoundException("Incorrect file!");
 				
 				//manage result
-				 result = PlayerFactory.newPlayer("java " + classFile.getAbsolutePath()
-				 + " -classpath lib/backgammonlibrary.jar", classFile.getParentFile().getName());
+				 result = PlayerFactory.newPlayer("java " + classFile.getAbsolutePath(),
+						 classFile.getParentFile().getName());
 			} else {
 				//TODO manage c++ files
 			}
@@ -71,25 +76,37 @@ public class SourceProcessor {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		try {
-			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
 
+/**
+ * Dumps error and out streams of the compile process
+ * 
+ */
 class StreamGobbler extends Thread {
-	InputStream is;
-	String type;
-	StringBuffer output = new StringBuffer();
+	private InputStream is;
+	private String type;
+	private StringBuffer output = new StringBuffer();
 
+	/**
+	 * Constructor with two parameters
+	 * @param is
+	 * @param type
+	 */
 	StreamGobbler(InputStream is, String type) {
 		this.is = is;
 		this.type = type;
 	}
 
+	/**
+	 * @see java.lang.Thread#run()
+	 */
 	public void run() {
 		try {
 			InputStreamReader isr = new InputStreamReader(is);
@@ -101,9 +118,5 @@ class StreamGobbler extends Thread {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-	}
-
-	public String getOutput() {
-		return this.output.toString();
 	}
 }
