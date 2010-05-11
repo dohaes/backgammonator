@@ -68,7 +68,7 @@ public class GameLoggerTestCase extends TestCase {
 						+ "<tr style=\"color:#000000\"><td>1</td><td>white</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td></tr>\n"
 						+ "<tr style=\"color:#000000\"><td>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>1</td><td rowspan=2>15</td></tr>\n"
 						+ "<tr><td>2</td><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n"
-						+ "<tr style=\"color:#0B3B0B\"><td colspan=10>black player wins the game - he born off all checkers.</td></tr></table></body></html>\n");
+						+ "<tr style=\"color:#0B3B0B\"><td colspan=10>black player wins the game - normal victory</td></tr></table></body></html>\n");
 	}
 
 	public void testInvalidMoveEndGame() {
@@ -107,7 +107,7 @@ public class GameLoggerTestCase extends TestCase {
 						+ "<tr style=\"color:#000000\"><td>1</td><td>white</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td></tr>\n"
 						+ "<tr style=\"color:#FF0000\"><td>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>1</td><td rowspan=2>15</td></tr>\n"
 						+ "<tr><td>2</td><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n"
-						+ "<tr style=\"color:#FF0000\"><td colspan=10>white player wins the game - invalid move on other player.</td></tr></table></body></html>\n");
+						+ "<tr style=\"color:#FF0000\"><td colspan=10>white player wins the game - invalid move</td></tr></table></body></html>\n");
 	}
 
 	public void testExceptionEndGame() {
@@ -146,7 +146,7 @@ public class GameLoggerTestCase extends TestCase {
 						+ "<tr style=\"color:#000000\"><td>1</td><td>white</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td></tr>\n"
 						+ "<tr style=\"color:#000000\"><td>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>1</td><td rowspan=2>15</td></tr>\n"
 						+ "<tr><td>2</td><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n"
-						+ "<tr style=\"color:#FF0000\"><td colspan=10>white player wins the game - exeption on other player's move.</td></tr></table></body></html>\n");
+						+ "<tr style=\"color:#FF0000\"><td colspan=10>white player wins the game - exception</td></tr></table></body></html>\n");
 	}
 
 	@Override

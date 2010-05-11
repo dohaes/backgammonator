@@ -2,10 +2,10 @@ package backgammonator.lib.logger;
 
 import java.util.List;
 
+import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.tournament.TournamentType;
-
 
 /**
  * Interface to provide format for the output of a single tournament. May be
@@ -30,18 +30,24 @@ public interface TournamentLogger {
 	 * Logs a single game of the tournament.
 	 * 
 	 * @param whitePlayer
-	 *            is the white player.
+	 *            is the white player in the game.
 	 * @param blackPlayer
-	 *            is the black player.
+	 *            is the black player in the game.
+	 * @param game
+	 *            is the game which will be logged.
 	 * @param status
-	 *            is the game over status towards the white player.
+	 *            is the game over status of the game.
 	 */
-	void logGame(Player whitePlayer, Player blackPlayer, GameOverStatus status);
+	void logGame(Player whitePlayer, Player blackPlayer, Game game,
+			GameOverStatus status);
 
 	/**
 	 * Notifies the logger that the tournament has finished giving the result.
+	 * 
+	 * @param winner
+	 *            is the winner of the tournament.
 	 */
-	void endTournament();
+	void endTournament(Player winner);
 
 	/**
 	 * Returns the name of the output file or null when not available.

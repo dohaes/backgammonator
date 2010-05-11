@@ -59,32 +59,17 @@ class HTMLGameLogger implements GameLogger {
 	@Override
 	public void endGame(GameOverStatus status, PlayerColor winner) {
 
-		String statusString;
 		String textColor;
 
 		switch (status) {
 		case NORMAL:
-			statusString = "he born off all checkers - normal victory.";
-			textColor = "#0B3B0B";
-			break;
 		case DOUBLE:
-			statusString = "he born off all checkers - double victory.";
-			textColor = "#0B3B0B";
-			break;
 		case TRIPLE:
-			statusString = "he born off all checkers - triple victory.";
 			textColor = "#0B3B0B";
 			break;
 		case EXCEPTION:
-			statusString = "exeption on other player's move.";
-			textColor = "#FF0000";
-			break;
 		case INVALID_MOVE:
-			statusString = "invalid move on other player.";
-			textColor = "#FF0000";
-			break;
 		case TIMEDOUT:
-			statusString = "other player timed out.";
 			textColor = "#FF0000";
 			break;
 		default:
@@ -96,7 +81,7 @@ class HTMLGameLogger implements GameLogger {
 		this.logStringBuffer.append("\"><td colspan=10>");
 		this.logStringBuffer.append(winner.toString());
 		this.logStringBuffer.append(" player wins the game - ");
-		this.logStringBuffer.append(statusString);
+		this.logStringBuffer.append(status.toString());
 		this.logStringBuffer.append("</td></tr></table></body></html>\n");
 
 		try {
