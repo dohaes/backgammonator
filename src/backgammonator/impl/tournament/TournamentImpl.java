@@ -1,10 +1,10 @@
 package backgammonator.impl.tournament;
 
 import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Random;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import backgammonator.impl.game.GameManager;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
@@ -37,7 +37,7 @@ public class TournamentImpl implements Tournament {
 		case BATTLE:
 			return executeBattle(players, config);
 		}
-		throw new NotImplementedException();
+		throw new IllegalArgumentException("Not supported tournament type!");
 	}
 
 	private Player executeBattle(List<Player> players,
