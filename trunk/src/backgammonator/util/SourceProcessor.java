@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import java.io.FileNotFoundException;
-
 import backgammonator.impl.protocol.PlayerFactory;
 import backgammonator.lib.game.Player;
 
@@ -32,17 +30,25 @@ public class SourceProcessor {
 	 * @throws UnsupportedDataTypeException
 	 *             when the given file is not java or c++ file
 	 */
-	public static Player processFile(String filePath)
-			throws FileNotFoundException {
+	public static Player processFile(String filePath) {
 		File file = new File(filePath);
-		if (!file.exists())
-			throw new FileNotFoundException("Incorrect file!");
+		if (!file.exists()) {
+			Debug.getInstance().error(
+					"The given file is not found: " + filePath, Debug.UTILS,
+					null);
+			return null;
+		}
 		
 		boolean isJava;
 		if(file.getName().endsWith(".java")) isJava = true;
 		else if(file.getName().endsWith(".c")) isJava = false;
 		//TODO debug.error this exception!
-		else throw new IllegalArgumentException("The file must ends with .java or .c");
+		else {
+			Debug.getInstance().error(
+					"The file must ends with .java or .c: " + filePath,
+					Debug.UTILS, null);
+			return null;
+		}
 		
 		Player result = null;
 		Process compileProcess = null;
@@ -63,12 +69,17 @@ public class SourceProcessor {
 				int exitCode = compileProcess.waitFor();
 				//TODO notify user for compile error
 				if (exitCode != 0) {
-				  throw new RuntimeException("Compile returned " + exitCode);
+					Debug.getInstance().error("Compile returned: " + exitCode,
+							Debug.UTILS, null);
+					return null;
 				}
 				File classFile = new File(file.getAbsolutePath().replace(".java", ".class"));
-				if (!classFile.exists())
-					throw new FileNotFoundException("Incorrect file!");
-				
+				if (!classFile.exists()) {
+					Debug.getInstance().error(
+							"The compiled file is not found: " + filePath,
+							Debug.UTILS, null);
+					return null;
+				}
 				//manage result
 				 result = PlayerFactory.newPlayer("java " + classFile.getAbsolutePath(),
 						 classFile.getParentFile().getName());
@@ -76,7 +87,10 @@ public class SourceProcessor {
 				//TODO manage c++ files
 			}
 		} catch (Throwable e) {
-			e.printStackTrace();
+			Debug.getInstance().error(
+					"Unexpected exception: " + filePath,
+					Debug.UTILS, e);
+			return result;
 		}
 		return result;
 	}
