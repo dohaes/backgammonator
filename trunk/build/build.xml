@@ -33,7 +33,7 @@
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonlibrary.jar" basedir="${build}"
+		<jar jarfile="${project.home}/lib/backgammonLibrary.jar" basedir="${build}"
 		excludes="backgammonator/impl/protocol/*
 							backgammonator/impl/game/Main.class"
 		includes="backgammonator/**
