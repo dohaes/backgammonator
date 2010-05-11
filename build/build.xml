@@ -1,3 +1,8 @@
+<!-- D:\Workspace\ST2\backgammonator\lib>java -jar backgammonDemo.jar D:\Workspace\ST
+2\backgammonator\sample\backgammonator\sample\player\protocol\java\SamplePlayer.
+java D:\Workspace\ST2\backgammonator\sample\backgammonator\sample\player\protoco
+l\java\SamplePlayer.java -->
+
 <project name="Backgammonator Project" default="all" basedir=".">
 	<description>
         simple example build file
@@ -7,19 +12,19 @@
 	<property name="src" location="${project.home}/src" />
 	<property name="build" location="${project.home}/classes" />
 
-	<target name="all"  depends="lib, demo, distSysLib" />
-	<target name="lib"  depends="distLib" />
+	<target name="all" depends="lib, demo, distSysLib" />
+	<target name="lib" depends="distLib" />
 	<target name="demo" depends="distDemo" />
 	<target name="syslib" depends="distSysLib" />
-		
+
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp />
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build}" />
-		
+
 		<copy todir="${build}">
-		  <fileset dir="../" includes="sample/**/*" /> 
+			<fileset dir="../" includes="sample/**/*" />
 		</copy>
 
 	</target>
@@ -33,36 +38,28 @@
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonLibrary.jar" basedir="${build}"
-		excludes="backgammonator/impl/protocol/*
-							backgammonator/impl/game/Main.class"
-		includes="backgammonator/**
-			sample/backgammonator/sample/players/interfacce/**"
-		/>
+		<jar jarfile="${project.home}/lib/backgammonLibrary.jar" basedir="${build}" excludes="backgammonator/impl/protocol/*
+							backgammonator/impl/game/Main.class" includes="backgammonator/**
+			sample/backgammonator/sample/players/interfacce/**" />
 	</target>
-	
+
 	<target name="distDemo" depends="compile" description="generate the distribution">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonDemo.jar" basedir="${build}"
-			manifest="../src/meta-inf/manifest.mf"
-			includes="backgammonator/**
-								sample/backgammonator/sample/player/protocol/**"
-		/>
+		<jar jarfile="${project.home}/lib/backgammonDemo.jar" basedir="${build}" manifest="../src/meta-inf/manifest.mf" includes="backgammonator/**
+								sample/backgammonator/sample/player/protocol/**" />
 	</target>
 
 	<target name="distSysLib" depends="compile" description="generate the distribution">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonSysLib.jar" basedir="${build}"
-			includes="
+		<jar jarfile="${project.home}/lib/backgammonSysLib.jar" basedir="${build}" includes="
 		  backgammonator/lib/tournament/*
       backgammonator/lib/game/*
       backgammonator/lib/logger/*
-			backgammonator/util/*"
-		/>
+			backgammonator/util/*" />
 	</target>
 
 	<target name="clean" description="clean up">
