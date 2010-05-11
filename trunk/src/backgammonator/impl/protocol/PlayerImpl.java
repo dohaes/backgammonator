@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Scanner;
 
 import backgammonator.lib.game.BackgammonBoard;
 import backgammonator.lib.game.Dice;
@@ -34,6 +35,7 @@ public class PlayerImpl implements Player {
 	private boolean inited = false;
 
 	private BufferedReader reader;
+	private Scanner scanner;
 
 	/**
 	 * Constructs a new player instance.
@@ -42,6 +44,7 @@ public class PlayerImpl implements Player {
 	 * @param name the name of the player - same as the username of the user who uploaded the source.
 	 */
 	PlayerImpl(String command, String name) {
+	  System.out.println("===== command : " + command);
 		this.command = command;
 		this.name = name;
 	}
@@ -50,13 +53,25 @@ public class PlayerImpl implements Player {
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
 		if (!inited) init();
 		stdout.write(Parser.getBoardConfiguration(board, dice, false, null).getBytes());
-		return Parser.getMove(reader.readLine());
+		stdout.flush();
+		System.out.println("=== ["+name+"]reading ....");
+		String line = scanner.nextLine();
+		System.out.println("=== ["+name+"]line : " + line);
+		return Parser.getMove(line);
 	}
 
 	@Override
 	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
+	  System.out.println("PlayerImpl.gameOver("+name+")");
+	  
 		try {
-			stdout.write(Parser.getBoardConfiguration(board, null, wins, status).getBytes());
+		  try {
+		    if (!inited) init();
+		    stdout.write(Parser.getBoardConfiguration(board, null, wins, status).getBytes());
+		  } catch (Throwable ioe) {
+		    Debug.getInstance().error("Error sending final results to player " + name,
+            Debug.GAME_LOGIC, ioe);
+		  }
 
 			int exitcode = -1;
 			exitcode = process.waitFor();
@@ -94,12 +109,13 @@ public class PlayerImpl implements Player {
 	}
 
 	private void cleanStreams() {
-
+    String line = null;
 		// clean stderr
 		BufferedReader cleaner = new BufferedReader(new InputStreamReader(
 				process.getErrorStream()));
 		try {
-			while (cleaner.readLine() != null) {
+			while ((line = cleaner.readLine()) != null) {
+			  System.out.println("===[err] : " + line);
 			}
 		} catch (IOException ioe) {
 			Debug.getInstance().error("Exception while cleaning stream",
@@ -116,7 +132,8 @@ public class PlayerImpl implements Player {
 		// clean stdin
 		cleaner = new BufferedReader(new InputStreamReader(stdin));
 		try {
-			while (cleaner.readLine() != null) {
+			while ((line = cleaner.readLine()) != null) {
+			  System.out.println("===[out] : " + line);
 			}
 		} catch (IOException ioe) {
 			Debug.getInstance().error("Exception while cleaning stream",
@@ -137,6 +154,7 @@ public class PlayerImpl implements Player {
 		stdin = process.getInputStream();
 		stdout = process.getOutputStream();
 		reader = new BufferedReader(new InputStreamReader(stdin));
+		scanner = new Scanner(stdin);
 
 		inited = true;
 	}
