@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.lib.game;
 
 /**
  * The color of the player.

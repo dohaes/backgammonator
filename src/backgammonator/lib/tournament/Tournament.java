@@ -1,6 +1,6 @@
-package backgammonator.tournament;
+package backgammonator.lib.tournament;
 
-import backgammonator.game.Player;
+import backgammonator.lib.game.Player;
 
 
 public interface Tournament {

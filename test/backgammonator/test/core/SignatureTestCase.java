@@ -5,12 +5,12 @@ import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
 
-import backgammonator.game.BackgammonBoard;
-import backgammonator.game.Dice;
-import backgammonator.game.Point;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.game.PointImpl;
+import backgammonator.lib.game.BackgammonBoard;
+import backgammonator.lib.game.Dice;
+import backgammonator.lib.game.Point;
 
 /**
  * Tests if the objects accessible to the test user have any visible methods

@@ -2,10 +2,10 @@ package backgammonator.test.util;
 
 import java.lang.reflect.Method;
 
-import backgammonator.game.Dice;
-import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
+import backgammonator.lib.game.Dice;
+import backgammonator.lib.game.PlayerMove;
 
 /**
  * Holds utility methods for test purposes.

@@ -1,12 +1,12 @@
 package backgammonator.sample.players.interfacce;
 
-import backgammonator.game.BackgammonBoard;
-import backgammonator.game.CheckerMove;
-import backgammonator.game.CheckerMoveType;
-import backgammonator.game.Dice;
-import backgammonator.game.Player;
-import backgammonator.game.PlayerMove;
-import backgammonator.game.Point;
+import backgammonator.lib.game.BackgammonBoard;
+import backgammonator.lib.game.CheckerMove;
+import backgammonator.lib.game.CheckerMoveType;
+import backgammonator.lib.game.Dice;
+import backgammonator.lib.game.Player;
+import backgammonator.lib.game.PlayerMove;
+import backgammonator.lib.game.Point;
 
 /**
  * Sample implementation of the {@link Player} interface.

@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 import java.io.FileNotFoundException;
 
-import backgammonator.game.Player;
+import backgammonator.lib.game.Player;
 
 /**
  * Processing the uploaded source files to executables. It should support

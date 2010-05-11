@@ -1,8 +1,8 @@
 package backgammonator.test.core;
 
 import junit.framework.TestCase;
-import backgammonator.game.CheckerMove;
-import backgammonator.game.PlayerMove;
+import backgammonator.lib.game.CheckerMove;
+import backgammonator.lib.game.PlayerMove;
 
 /**
  * Tests class {@link PlayerMove} 

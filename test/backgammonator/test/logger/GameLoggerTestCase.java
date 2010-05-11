@@ -5,13 +5,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import backgammonator.game.CheckerMove;
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.PlayerColor;
-import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.logger.GameLoggerFactory;
-import backgammonator.logger.GameLogger;
+import backgammonator.lib.game.CheckerMove;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.PlayerColor;
+import backgammonator.lib.game.PlayerMove;
+import backgammonator.lib.logger.GameLogger;
 import backgammonator.sample.players.interfacce.SamplePlayer;
 import junit.framework.TestCase;
 

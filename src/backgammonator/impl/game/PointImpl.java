@@ -1,8 +1,8 @@
 package backgammonator.impl.game;
 
-import backgammonator.game.Constants;
-import backgammonator.game.PlayerColor;
-import backgammonator.game.Point;
+import backgammonator.lib.game.Constants;
+import backgammonator.lib.game.PlayerColor;
+import backgammonator.lib.game.Point;
 
 /**
  * Represents implementation of the {@link Point} interface.

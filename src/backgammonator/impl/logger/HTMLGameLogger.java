@@ -7,12 +7,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import backgammonator.game.Dice;
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.Player;
-import backgammonator.game.PlayerColor;
-import backgammonator.game.PlayerMove;
-import backgammonator.logger.GameLogger;
+import backgammonator.lib.game.Dice;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
+import backgammonator.lib.game.PlayerColor;
+import backgammonator.lib.game.PlayerMove;
+import backgammonator.lib.logger.GameLogger;
 import backgammonator.util.Debug;
 
 /**

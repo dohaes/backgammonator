@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import backgammonator.game.Game;
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.Player;
 import backgammonator.impl.game.GameManager;
-import backgammonator.tournament.Tournament;
-import backgammonator.tournament.TournamentConfiguration;
+import backgammonator.lib.game.Game;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
+import backgammonator.lib.tournament.Tournament;
+import backgammonator.lib.tournament.TournamentConfiguration;
 
 public class TournamentImpl implements Tournament {
 

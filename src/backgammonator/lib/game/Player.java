@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.lib.game;
 
 /**
  * Represents abstraction of the AI player. If a contestant wants to use the
