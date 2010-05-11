@@ -36,13 +36,8 @@ public class GameManager {
 	 *         or <code>null</code> if any errors occurs.
 	 */
 	public static Game newGame(String white, String black, boolean logMoves) {
-		try {
 			return new GameImpl(SourceProcessor.processFile(white),
 					            SourceProcessor.processFile(black), logMoves);
-		} catch (FileNotFoundException e) {
-			Debug.getInstance().error("Error while creating game", Debug.GAME_LOGIC, e);
-			return null;
-		}
 	}
 
 }
