@@ -1,8 +1,8 @@
 package backgammonator.sample.players.interfacce;
 
-import backgammonator.game.BackgammonBoard;
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.Player;
+import backgammonator.lib.game.BackgammonBoard;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
 
 /**
  * Base implementation of the {@link Player} interface. Provides way to verify

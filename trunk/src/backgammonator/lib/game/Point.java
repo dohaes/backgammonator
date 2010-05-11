@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.lib.game;
 
 /**
  * Represents a point of the board including number of checkers and color of the

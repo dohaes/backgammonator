@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import backgammonator.game.Player;
 import backgammonator.impl.tournament.TournamentManager;
+import backgammonator.lib.game.Player;
+import backgammonator.lib.tournament.Tournament;
+import backgammonator.lib.tournament.TournamentConfiguration;
+import backgammonator.lib.tournament.TournamentType;
 import backgammonator.sample.players.interfacce.SamplePlayer;
-import backgammonator.tournament.Tournament;
-import backgammonator.tournament.TournamentConfiguration;
-import backgammonator.tournament.TournamentType;
 
 public class TournamentTestCase extends TestCase {
 	public void testBattle() {

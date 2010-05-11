@@ -1,6 +1,6 @@
 package backgammonator.impl.protocol;
 
-import backgammonator.game.Player;
+import backgammonator.lib.game.Player;
 
 /**
  * Represents factory for {@link Player} objects.

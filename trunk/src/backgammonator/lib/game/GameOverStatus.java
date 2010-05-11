@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.lib.game;
 
 /**
  * Enumeration to represent the status of the game when it is over.

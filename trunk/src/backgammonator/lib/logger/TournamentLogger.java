@@ -1,10 +1,10 @@
-package backgammonator.logger;
+package backgammonator.lib.logger;
 
 import java.util.List;
 
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.Player;
-import backgammonator.tournament.TournamentType;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
+import backgammonator.lib.tournament.TournamentType;
 
 
 /**

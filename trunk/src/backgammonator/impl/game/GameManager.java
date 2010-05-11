@@ -2,8 +2,8 @@ package backgammonator.impl.game;
 
 import java.io.FileNotFoundException;
 
-import backgammonator.game.Game;
-import backgammonator.game.Player;
+import backgammonator.lib.game.Game;
+import backgammonator.lib.game.Player;
 import backgammonator.util.Debug;
 import backgammonator.util.SourceProcessor;
 

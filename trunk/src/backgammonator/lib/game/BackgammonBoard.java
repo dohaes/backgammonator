@@ -1,4 +1,4 @@
-package backgammonator.game;
+package backgammonator.lib.game;
 
 /**
  * Represents the structure of the backgammon board.

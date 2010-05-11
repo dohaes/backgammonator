@@ -1,11 +1,11 @@
 package backgammonator.impl.protocol;
 
-import backgammonator.game.BackgammonBoard;
-import backgammonator.game.CheckerMove;
-import backgammonator.game.CheckerMoveType;
-import backgammonator.game.Dice;
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.PlayerMove;
+import backgammonator.lib.game.BackgammonBoard;
+import backgammonator.lib.game.CheckerMove;
+import backgammonator.lib.game.CheckerMoveType;
+import backgammonator.lib.game.Dice;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.PlayerMove;
 
 /**
  * The instance of this class is used for parsing strings, received from AI

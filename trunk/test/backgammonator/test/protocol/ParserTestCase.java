@@ -1,10 +1,10 @@
 package backgammonator.test.protocol;
 
-import backgammonator.game.GameOverStatus;
-import backgammonator.game.PlayerMove;
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.protocol.Parser;
+import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.PlayerMove;
 import junit.framework.TestCase;
 
 public class ParserTestCase extends TestCase {
