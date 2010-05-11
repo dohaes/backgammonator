@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 
 import java.io.FileNotFoundException;
 
+import javax.activation.UnsupportedDataTypeException;
+
+import backgammonator.impl.protocol.PlayerFactory;
 import backgammonator.lib.game.Player;
 
 /**
@@ -22,39 +25,45 @@ public class SourceProcessor {
 	 * @param filePath
 	 * @return
 	 * @throws FileNotFoundException
+	 * @throws UnsupportedDataTypeException 
 	 */
 	public static Player processFile(String filePath)
 			throws FileNotFoundException {
 		File file = new File(filePath);
 		if (!file.exists())
-			throw new FileNotFoundException("The file does not exists!");
+			throw new FileNotFoundException("Incorrect file!");
+		
+		boolean isJava;
+		if(file.getName().endsWith(".java")) isJava = true;
+		else if(file.getName().endsWith(".c")) isJava = false;
+		else throw new IllegalArgumentException("The file must ends with .java or .c");
+		
 		Player result = null;
 		Process compileProcess = null;
 		try {
-			compileProcess = Runtime
-					.getRuntime()
-					.exec(
-							"cmd.exe /C javac "
-									+ file.getAbsolutePath()
-									+ " -classpath ../../../../lib/backgammonlibrary.jar");
-			// any error message?
-			StreamGobbler errorGobbler = new StreamGobbler(compileProcess
-					.getErrorStream(), "ERROR");
-
-			// any output?
-			StreamGobbler outputGobbler = new StreamGobbler(compileProcess
-					.getInputStream(), "OUTPUT");
-
-			// kick them off
-			errorGobbler.start();
-			outputGobbler.start();
-
-			// TODO fix file path!
-			// result = new PlayerImpl(
-			// Runtime.getRuntime().exec(
-			// "cmd.exe /C java "
-			// + file.getAbsolutePath()
-			// + " -classpath ../../../../lib/backgammonlibrary.jar"));
+			if(isJava) {
+				compileProcess = Runtime.getRuntime().exec(
+								"javac " + file.getAbsolutePath()
+										+ " -classpath lib/backgammonlibrary.jar");
+				
+				// manage streams
+				StreamGobbler errorGobbler = new StreamGobbler(compileProcess
+						.getErrorStream(), "ERROR");
+				StreamGobbler outputGobbler = new StreamGobbler(compileProcess
+						.getInputStream(), "OUTPUT");
+				errorGobbler.start();
+				outputGobbler.start();
+				
+				File classFile = new File(file.getAbsolutePath().replace(".java", ".class"));
+				if (!classFile.exists())
+					throw new FileNotFoundException("Incorrect file!");
+				
+				//manage result
+				 result = PlayerFactory.newPlayer("java " + classFile.getAbsolutePath()
+				 + " -classpath lib/backgammonlibrary.jar", classFile.getParentFile().getName());
+			} else {
+				//TODO manage c++ files
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -63,8 +72,8 @@ public class SourceProcessor {
 
 	public static void main(String[] args) {
 		try {
-			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\test\\backgammonator\\test\\players\\AbstractTestPlayer.java");
-		} catch (FileNotFoundException e) {
+			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
