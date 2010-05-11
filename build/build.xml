@@ -7,9 +7,10 @@
 	<property name="src" location="${project.home}/src" />
 	<property name="build" location="${project.home}/.classes" />
 
-	<target name="all"  depends="lib, demo" />
+	<target name="all"  depends="lib, demo, distSysLib" />
 	<target name="lib"  depends="distLib" />
 	<target name="demo" depends="distDemo" />
+	<target name="syslib" depends="distSysLib" />
 		
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -48,6 +49,19 @@
 			manifest="../src/meta-inf/manifest.mf"
 			includes="backgammonator/**
 								sample/backgammonator/sample/player/protocol/**"
+		/>
+	</target>
+
+	<target name="distSysLib" depends="compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${project.home}/lib" />
+
+		<jar jarfile="${project.home}/lib/backgammonSysLib.jar" basedir="${build}"
+			includes="
+		  backgammonator/lib/tournament/*
+      backgammonator/lib/game/*
+      backgammonator/lib/logger/*
+			backgammonator/util/*"
 		/>
 	</target>
 
