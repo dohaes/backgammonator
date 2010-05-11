@@ -1,4 +1,4 @@
-<project name="Backgammonator Project" default="clean" basedir=".">
+<project name="Backgammonator Project" default="lib" basedir=".">
 	<description>
         simple example build file
     </description>
@@ -7,6 +7,8 @@
 	<property name="src" location="${project.home}/src" />
 	<property name="build" location="${project.home}/.classes" />
 
+	<target name="lib" depends="distLib" />
+	
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp />
@@ -19,15 +21,19 @@
 		<javac srcdir="${src}" destdir="${build}" />
 	</target>
 
-	<target name="dist" depends="compile" description="generate the distribution">
+	<target name="distLib" depends="compile" description="generate the distribution">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${project.home}/lib/backgammonlibrary.jar" basedir="${build}" />
+		<jar jarfile="${project.home}/lib/backgammonlibrary.jar" basedir="${build}"
+		includes=
+			"backgammonator/lib/tournament/*
+			 backgammonator/lib/game/*
+			 backgammonator/lib/logger/*
+			"/>
 	</target>
 
-	<target name="clean" description="clean up" depends="dist">
+	<target name="clean" description="clean up">
 		<!-- Delete the ${build} directory trees -->
 		<delete dir="${build}" />
 	</target>
