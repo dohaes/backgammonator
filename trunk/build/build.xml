@@ -5,7 +5,7 @@
 	<!-- set global properties for this build -->
 	<property name="project.home" location="../" />
 	<property name="src" location="${project.home}/src" />
-	<property name="build" location="${project.home}/.classes" />
+	<property name="build" location="${project.home}/classes" />
 
 	<target name="all"  depends="lib, demo, distSysLib" />
 	<target name="lib"  depends="distLib" />
