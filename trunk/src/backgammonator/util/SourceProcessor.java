@@ -1,14 +1,13 @@
 package backgammonator.util;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.io.FileNotFoundException;
-
-import javax.activation.UnsupportedDataTypeException;
 
 import backgammonator.impl.protocol.PlayerFactory;
 import backgammonator.lib.game.Player;
@@ -72,13 +71,13 @@ public class SourceProcessor {
 		return result;
 	}
 
-//	public static void main(String[] args) {
-//		try {
-//			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		try {
+			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 class StreamGobbler extends Thread {
