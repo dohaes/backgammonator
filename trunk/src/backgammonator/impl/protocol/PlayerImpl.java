@@ -48,15 +48,14 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		if (!inited) init();
-		String tosend = Parser.getBoardConfiguration(board, dice, false, null);
-		byte[] bytes = tosend.getBytes();
-	  stdout.write(tosend.getBytes(), 0, bytes.length);
-//    stdout.flush();
-		
-		String line = scanner.nextLine();
-		return Parser.getMove(line);
+	public PlayerMove getMove(BackgammonBoard board, Dice dice)
+			throws Exception {
+		if (!inited)
+			init();
+		stdout.write(Parser.getBoardConfiguration(board, dice, false, null).getBytes());
+		stdout.flush();
+
+		return Parser.getMove(scanner.nextLine());
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class PlayerImpl implements Player {
             Debug.GAME_LOGIC, ioe);
 		  }
 		  
-			if (status == GameOverStatus.TIMEDOUT && !wins) { //the player is not responding
+			if (status == GameOverStatus.TIMEDOUT) { //the player is not responding
 			  Debug.getInstance().warning("Process for player " + name + " will be destroyed ",
             Debug.GAME_LOGIC, null);
         process.destroy();
