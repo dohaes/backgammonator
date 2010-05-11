@@ -231,8 +231,8 @@ public class GameWithProtocolTestCase extends TestCase {
 		if (files == null || files.length == 0)
 			return file.delete();
 		for (int i = 0; i < files.length; i++) {
-			return delete(files[i]);
+			delete(files[i]);
 		}
-		return true;
+		return file.delete();
 	}
 }
