@@ -81,7 +81,10 @@ public class SourceProcessor {
 					return null;
 				}
 				//manage result
-				 result = PlayerFactory.newPlayer("java " + classFile.getAbsolutePath(),
+				String mainClass = classFile.getName();
+				mainClass = mainClass.substring(0, mainClass.indexOf("."));
+				
+				 result = PlayerFactory.newPlayer("java -cp " + classFile.getParent() + " " + mainClass,
 						 classFile.getParentFile().getName());
 			} else {
 				//TODO manage c++ files
