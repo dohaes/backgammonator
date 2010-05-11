@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Random;
 
 import backgammonator.impl.game.GameManager;
+import backgammonator.impl.logger.TournamentLoggerFactory;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
+import backgammonator.lib.logger.TournamentLogger;
 import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
 
@@ -29,29 +31,37 @@ public class TournamentImpl implements Tournament {
 			throw new IllegalArgumentException("Config must not be null.");
 		}
 		List<Player> players = new LinkedList<Player>(this.players);
+		TournamentLogger logger = TournamentLoggerFactory
+				.getLogger(TournamentLoggerFactory.HTML);
+		logger.startTournament(players, config.getTournamentType());
+		Player winner = null;
 		switch (config.getTournamentType()) {
 		case ELIMINATIONS:
-			return executeElimintaions(players, config);
+			winner = executeElimintaions(players, config, logger);
+			break;
 		case GROUPS:
-			return executeGroups(players, config);
+			winner = executeGroups(players, config, logger);
+			break;
 		case BATTLE:
-			return executeBattle(players, config);
+			winner = executeBattle(players, config, logger);
+			break;
 		}
-		throw new IllegalArgumentException("Not supported tournament type!");
+		logger.endTournament(winner);
+		return winner;
 	}
 
 	private Player executeBattle(List<Player> players,
-			TournamentConfiguration config) {
-		return runGroup(players, config);
+			TournamentConfiguration config, TournamentLogger logger) {
+		return runGroup(players, config, logger);
 	}
 
 	private Player executeElimintaions(List<Player> players,
-			TournamentConfiguration config) {
-		return runEliminations(players, config);
+			TournamentConfiguration config, TournamentLogger logger) {
+		return runEliminations(players, config, logger);
 	}
 
 	private Player executeGroups(List<Player> players,
-			TournamentConfiguration config) {
+			TournamentConfiguration config, TournamentLogger logger) {
 		int groups = config.getGroupsCount();
 		List<Player> winners = new LinkedList<Player>();
 		int size = players.size();
@@ -61,14 +71,14 @@ public class TournamentImpl implements Tournament {
 				p++;
 			}
 			List<Player> group = remove(players, p);
-			Player winner = runGroup(group, config);
+			Player winner = runGroup(group, config, logger);
 			winners.add(winner);
 		}
-		return runEliminations(winners, config);
+		return runEliminations(winners, config, logger);
 	}
 
 	private Player runEliminations(List<Player> players,
-			TournamentConfiguration config) {
+			TournamentConfiguration config, TournamentLogger logger) {
 		while (players.size() > 1) {
 			List<Player> winners = new LinkedList<Player>();
 			List<Player> losers = new LinkedList<Player>();
@@ -76,7 +86,7 @@ public class TournamentImpl implements Tournament {
 				List<Player> chosen = remove(players, 2);
 				Player first = chosen.get(0);
 				Player second = chosen.get(1);
-				int points[] = runBattle(first, second, config);
+				int points[] = runBattle(first, second, config, logger);
 				// TODO equal points
 				if (points[0] >= points[1]) {
 					winners.add(first);
@@ -94,11 +104,13 @@ public class TournamentImpl implements Tournament {
 		return players.get(0);
 	}
 
-	private Player runGroup(List<Player> players, TournamentConfiguration config) {
+	private Player runGroup(List<Player> players,
+			TournamentConfiguration config, TournamentLogger logger) {
 		int points[] = new int[players.size()];
 		for (int i = 0; i < players.size() - 1; i++) {
 			for (int j = i + 1; j < players.size(); j++) {
-				int p[] = runBattle(players.get(i), players.get(j), config);
+				int p[] = runBattle(players.get(i), players.get(j), config,
+						logger);
 				points[i] += p[0];
 				points[j] += p[1];
 			}
@@ -116,7 +128,7 @@ public class TournamentImpl implements Tournament {
 	}
 
 	private int[] runBattle(Player first, Player second,
-			TournamentConfiguration config) {
+			TournamentConfiguration config, TournamentLogger logger) {
 		boolean ran = randomGenerator.nextBoolean();
 		GameOverStatus status = null;
 		Game game = null;
@@ -125,10 +137,13 @@ public class TournamentImpl implements Tournament {
 		for (int i = 0; i < config.getGamesCount(); i++) {
 			if (ran = !ran) {
 				game = GameManager.newGame(first, second, config.isLogMoves());
+				status = game.start();
+				logger.logGame(first, second, game, status);
 			} else {
 				game = GameManager.newGame(second, first, config.isLogMoves());
+				status = game.start();
+				logger.logGame(second, first, game, status);
 			}
-			status = game.start();
 			points[game.getWinner() == first ? 0 : 1] += getPoints(status,
 					config);
 		}

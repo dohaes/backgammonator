@@ -11,7 +11,7 @@ public class TournamentConfiguration {
 
 	public TournamentConfiguration(TournamentType type) {
 		this.type = type;
-		this.setLogMoves(false);
+		this.setLogMoves(true);
 		this.setPlainRate(true);
 		this.setGroupsCount(2);
 		this.setGamesCount(5);
