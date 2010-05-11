@@ -16,7 +16,7 @@ import backgammonator.lib.logger.GameLogger;
 import backgammonator.util.Debug;
 
 /**
- * This class implements the Logger interface. Represents the log as an html
+ * This class implements the GameLogger interface. Represents the log as an html
  * document.
  */
 
@@ -64,7 +64,15 @@ class HTMLGameLogger implements GameLogger {
 
 		switch (status) {
 		case NORMAL:
-			statusString = "he born off all checkers.";
+			statusString = "he born off all checkers - normal victory.";
+			textColor = "#0B3B0B";
+			break;
+		case DOUBLE:
+			statusString = "he born off all checkers - double victory.";
+			textColor = "#0B3B0B";
+			break;
+		case TRIPLE:
+			statusString = "he born off all checkers - triple victory.";
 			textColor = "#0B3B0B";
 			break;
 		case EXCEPTION:
@@ -73,6 +81,10 @@ class HTMLGameLogger implements GameLogger {
 			break;
 		case INVALID_MOVE:
 			statusString = "invalid move on other player.";
+			textColor = "#FF0000";
+			break;
+		case TIMEDOUT:
+			statusString = "other player timed out.";
 			textColor = "#FF0000";
 			break;
 		default:
