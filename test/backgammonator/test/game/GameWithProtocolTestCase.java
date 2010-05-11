@@ -1,5 +1,7 @@
 package backgammonator.test.game;
 
+import java.io.File;
+
 import backgammonator.impl.game.GameManager;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
@@ -16,7 +18,21 @@ import junit.framework.TestCase;
 /**
  * Tests class {@link GameImpl}.
  */
-public class GameWithProtocolTestCase extends TestCase {
+public class GameWithProtocolTestCase extends TestCase { //TODO for protocol impl
+	
+	private static File testDir = new File("test");
+	
+	@Override
+	protected void setUp() throws Exception {
+		if (!testDir.exists()) testDir.mkdir();
+		super.setUp();
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		if (testDir.exists()) delete(testDir);
+		super.tearDown();
+	}
 	
 	public void testTimedoutMove() {
 		AbstractSamplePlayer timedout = new TimedoutMovePlayer();
@@ -177,4 +193,18 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	private boolean delete (File file) {
+		if (file.isFile()) return file.delete();
+		File[] files = file.listFiles();
+		if (files == null || files.length == 0) return file.delete();
+		for (int i = 0; i < files.length; i++) {
+			return delete(files[i]);
+		}
+		return true;
+	}
+	
+	private void copy(String name1, String name2) {
+		
+		
+	}
 }
