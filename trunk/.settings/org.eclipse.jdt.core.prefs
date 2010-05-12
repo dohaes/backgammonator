@@ -1,4 +1,4 @@
-#Wed May 12 21:03:25 EEST 2010
+#Wed May 12 21:11:20 EEST 2010
 eclipse.preferences.version=1
 org.eclipse.jdt.core.compiler.doc.comment.support=enabled
 org.eclipse.jdt.core.compiler.problem.annotationSuperInterface=warning
@@ -27,7 +27,7 @@ org.eclipse.jdt.core.compiler.problem.localVariableHiding=ignore
 org.eclipse.jdt.core.compiler.problem.methodWithConstructorName=warning
 org.eclipse.jdt.core.compiler.problem.missingDeprecatedAnnotation=ignore
 org.eclipse.jdt.core.compiler.problem.missingJavadocComments=warning
-org.eclipse.jdt.core.compiler.problem.missingJavadocCommentsOverriding=disabled
+org.eclipse.jdt.core.compiler.problem.missingJavadocCommentsOverriding=enabled
 org.eclipse.jdt.core.compiler.problem.missingJavadocCommentsVisibility=protected
 org.eclipse.jdt.core.compiler.problem.missingJavadocTagDescription=all_standard_tags
 org.eclipse.jdt.core.compiler.problem.missingJavadocTags=ignore

@@ -30,14 +30,23 @@ public final class DiceImpl implements Dice {
 		setDie(1, die2);
 	}
 
+	/**
+	 * @see Dice#getDie1()
+	 */
 	public int getDie1() {
 		return die[0];
 	}
 
+	/**
+	 * @see Dice#getDie2()
+	 */
 	public int getDie2() {
 		return die[1];
 	}
 
+	/**
+	 * @see Dice#isDouble()
+	 */
 	public boolean isDouble() {
 		return die[0] == die[1];
 	}
@@ -57,6 +66,9 @@ public final class DiceImpl implements Dice {
 		this.die[id] = die;
 	}
 
+	/**
+	 * @see Object#toString()
+	 */
 	public String toString() {
 		return "(" + die[0] + ", " + die[1] + ")";
 	}
