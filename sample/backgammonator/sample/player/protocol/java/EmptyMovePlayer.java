@@ -6,6 +6,11 @@ package backgammonator.sample.player.protocol.java;
  */
 public class EmptyMovePlayer {
 
+	/**
+	 * The entry point.
+	 * 
+	 * @param args ignored
+	 */
 	public static void main(String[] args) {
 		System.out.println("");
 	}

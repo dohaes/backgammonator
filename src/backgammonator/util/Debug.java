@@ -10,13 +10,44 @@ import java.io.PrintStream;
  */
 public final class Debug {
 
+	/**
+	 * Indicates that the debug message is logged from the protocol module.
+	 */
 	public static final int PROTOCOL = 1;
+	
+	/**
+	 * Indicates that the debug message is logged from the game logic module.
+	 */
 	public static final int GAME_LOGIC = 2;
+	
+	/**
+	 * Indicates that the debug message is logged from the game logger module.
+	 */
 	public static final int GAME_LOGGER = 4;
+	
+	/**
+	 * Indicates that the debug message is logged from the tournament logic module.
+	 */
 	public static final int TOURNAMENT_LOGIC = 5;
+	
+	/**
+	 * Indicates that the debug message is logged from the tournament logger module.
+	 */
 	public static final int TOURNAMENT_LOGGER = 6;
+	
+	/**
+	 * Indicates that the debug message is logged from the utils module.
+	 */
 	public static final int UTILS = 7;
+	
+	/**
+	 * Indicates that the debug message is logged from the database module.
+	 */
 	public static final int DATABASE = 8;
+	
+	/**
+	 * Indicates that the debug message is logged from the web interface module.
+	 */
 	public static final int WEB_INTERFACE = 9;
 
 	private static boolean debugOn = true; // TODO use system prop to configure

@@ -12,9 +12,11 @@ import backgammonator.lib.game.PlayerMove;
  */
 public class InvalidMovePlayer extends AbstractSamplePlayer {
 
+	/**
+	 * @see Player#getMove(BackgammonBoard, Dice)
+	 */
 	@Override
-	public PlayerMove getMove(BackgammonBoard board, Dice dice)
-			throws Exception {
+	public PlayerMove getMove(BackgammonBoard board, Dice dice) {
 		int die1 = dice.getDie1();
 		int die2 = dice.getDie2();
 
@@ -26,6 +28,9 @@ public class InvalidMovePlayer extends AbstractSamplePlayer {
 		return new PlayerMove(new CheckerMove[] { chmove1, chmove2 });
 	}
 
+	/**
+	 * @see Player#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Sample Player Invalid Move";

@@ -13,6 +13,8 @@ public final class CheckerMove {
 	 * Create CheckerMove object of a given type for the specified die.
 	 * 
 	 * @param die must be between 1 and 6.
+	 * @param type the type of the checker move.
+	 * @throws IllegalArgumentException if die is invalid.
 	 */
 	public CheckerMove(CheckerMoveType type, int die) {
 		this.type = type;
@@ -25,6 +27,7 @@ public final class CheckerMove {
 	 * 
 	 * @param startPoint must be between 1 and 24.
 	 * @param die must be between 1 and 6.
+	 * @throws IllegalArgumentException if die or start point are invalid.
 	 */
 	public CheckerMove(int startPoint, int die) {
 		this.type = CheckerMoveType.STANDARD_MOVE;
@@ -89,6 +92,10 @@ public final class CheckerMove {
 		this.die = die;
 	}
 
+	/**
+	 * @see Object#toString()
+	 */
+	@Override
 	public String toString() {
 		return type + "(" + this.startPoint + ", " + this.die + ")";
 	}

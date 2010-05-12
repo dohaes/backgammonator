@@ -16,7 +16,7 @@ import backgammonator.util.Debug;
  * realization of the rules of backgammon and manages the game. With each
  * instance of the GameImpl class a {@link BackgammonBoard} object is
  * associated. Class GameImpl uses class {@link MoveValidator} to validate the
- * players' moves. Each {@link GameImpl} object is associated with a
+ * players' moves. Each instance of this class is associated with a
  * {@link Dice} implementation that represent the dice.
  */
 final class GameImpl implements Game {
@@ -26,16 +26,16 @@ final class GameImpl implements Game {
 
 	private Player winner = null;
 
-	private BackgammonBoardImpl board;
-	private DiceImpl dice;
 	private GameLogger logger;
 	private boolean logMoves;
-
-	private PlayerMove currentMove = null;
-	private Throwable throwable = null;
-
+	
 	private MoverRunnable mover;
 	private Thread moverThread;
+
+	PlayerMove currentMove = null;
+	Throwable throwable = null;
+	BackgammonBoardImpl board;
+	DiceImpl dice;
 
 	/**
 	 * Constructs a game between two AI players.
@@ -51,6 +51,9 @@ final class GameImpl implements Game {
 		}
 	}
 
+	/**
+	 * @see Game#start()
+	 */
 	@Override
 	public GameOverStatus start() {
 		winner = null;
@@ -75,11 +78,17 @@ final class GameImpl implements Game {
 		return status;
 	}
 
+	/**
+	 * @see Game#getFilename()
+	 */
 	@Override
 	public String getFilename() {
 		return logger.getFilename();
 	}
 
+	/**
+	 * @see Game#getWinner()
+	 */
 	@Override
 	public Player getWinner() {
 		return winner;

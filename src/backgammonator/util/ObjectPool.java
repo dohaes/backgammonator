@@ -44,7 +44,8 @@ public final class ObjectPool {
 										+ clazz, Debug.UTILS, e);
 				return null;
 			}
-		} else return instances.remove(currentSize - 1);
+		}
+		return instances.remove(currentSize - 1);
 	}
 
 	/**

@@ -39,6 +39,10 @@ public enum GameOverStatus { // TODO
 	 */
 	TRIPLE;
 
+	/**
+	 * @see Object#toString()
+	 */
+	@Override
 	public String toString() {
 		String resultString;
 
@@ -66,5 +70,5 @@ public enum GameOverStatus { // TODO
 		}
 
 		return resultString;
-	};
+	}
 }

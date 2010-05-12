@@ -22,9 +22,7 @@ public class SourceProcessor {
 	 * 
 	 * @param filePath The absolute path to the file
 	 * @return PlayerImpl
-	 * @throws FileNotFoundException when the given file does not exists
-	 * @throws UnsupportedDataTypeException when the given file is not java or
-	 *             c++ file
+	 * @throws IllegalArgumentException when the given file does not exists
 	 */
 	public static Player processFile(String filePath) {
 		File file = new File(filePath);

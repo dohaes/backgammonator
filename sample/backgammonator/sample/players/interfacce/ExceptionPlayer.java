@@ -11,12 +11,18 @@ import backgammonator.lib.game.PlayerMove;
  */
 public class ExceptionPlayer extends AbstractSamplePlayer {
 
+	/**
+	 * @see Player#getMove(BackgammonBoard, Dice)
+	 */
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
 		throw new Exception("Test exeption");
 	}
 
+	/**
+	 * @see Player#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Sample Player Exception";

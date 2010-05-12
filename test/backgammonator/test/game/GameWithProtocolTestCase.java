@@ -8,10 +8,12 @@ import java.io.IOException;
 import backgammonator.impl.game.GameManager;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
 import junit.framework.TestCase;
 
 /**
- * Tests class {@link GameImpl}.
+ * Tests the implementation of interface {@link Game} and {@link Player} working
+ * with the protocol.
  */
 public class GameWithProtocolTestCase extends TestCase {
 
@@ -21,6 +23,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	private String fileName1;
 	private String fileName2;
 
+	/**
+	 * Tests in case of time out while getting move from player.
+	 */
 	public void testTimedoutMove() {
 		try {
 			copy("TimedoutMovePlayer", "SamplePlayer");
@@ -42,6 +47,9 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests in case of exception while getting move from player.
+	 */
 	public void testExceptionInMove() {
 		try {
 			copy("ExceptionPlayer", "SamplePlayer");
@@ -63,6 +71,9 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests in case of empty string returned by player.
+	 */
 	public void testEmptyStringReturned() {
 		try {
 			copy("EmptyMovePlayer", "SamplePlayer");
@@ -84,6 +95,9 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests in case of invalid move returned by player.
+	 */
 	public void testInvalidMoveReturned() {
 		try {
 			copy("InvalidMovePlayer", "SamplePlayer");
@@ -105,6 +119,9 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests in case of endless loop while getting move from player.
+	 */
 	public void testEndlessLoopInMoveReturned() {
 		try {
 			copy("EndlessLoopInMovePlayer", "SamplePlayer");
@@ -126,6 +143,9 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests in case of deadlock while getting move from player.
+	 */
 	public void testDeadlockInMoveReturned() {
 		try {
 			copy("DeadlockInMovePlayer", "SamplePlayer");
@@ -147,6 +167,9 @@ public class GameWithProtocolTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests in case of normal execution of the game.
+	 */
 	public void testNormal() {
 		try {
 			copy("SamplePlayer", "SamplePlayer");

@@ -11,6 +11,9 @@ import backgammonator.lib.game.PlayerMove;
  */
 public class EndlessLoopInMovePlayer extends AbstractSamplePlayer {
 
+	/**
+	 * @see Player#getMove(BackgammonBoard, Dice)
+	 */
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
@@ -20,6 +23,9 @@ public class EndlessLoopInMovePlayer extends AbstractSamplePlayer {
 		}
 	}
 
+	/**
+	 * @see Player#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Sample Player Endless Loop";

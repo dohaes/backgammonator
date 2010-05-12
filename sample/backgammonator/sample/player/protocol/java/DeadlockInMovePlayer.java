@@ -9,6 +9,11 @@ public class DeadlockInMovePlayer {
 	private static Object monitor1 = new Object();
 	private static Object monitor2 = new Object();
 
+	/**
+	 * The entry point.
+	 * 
+	 * @param args ignored
+	 */
 	public static void main(String[] args) {
 		try {
 			synchronized (monitor1) {
@@ -26,6 +31,7 @@ public class DeadlockInMovePlayer {
 	 */
 	class DeadlockRunnable implements Runnable {
 
+		@SuppressWarnings("synthetic-access")
 		@Override
 		public void run() {
 			try {

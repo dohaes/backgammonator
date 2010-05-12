@@ -32,6 +32,9 @@ public class HTMLTournamentLogger implements TournamentLogger {
 		System.setProperty("tournament.logger.outputdir", outputdir);
 	}
 
+	/**
+	 * @see TournamentLogger#endTournament(Player)
+	 */
 	@Override
 	public void endTournament(Player winner) {
 
@@ -59,17 +62,26 @@ public class HTMLTournamentLogger implements TournamentLogger {
 
 	}
 
+	/**
+	 * @see TournamentLogger#getFilename()
+	 */
 	@Override
 	public String getFilename() {
 		return "tournament_"
 				+ this.timestamp.replace(':', '.').replace(' ', '_') + ".html";
 	}
 
+	/**
+	 * @see TournamentLogger#getTournamentTimestamp()
+	 */
 	@Override
 	public String getTournamentTimestamp() {
 		return timestamp;
 	}
 
+	/**
+	 * @see TournamentLogger#logGame(Player, Player, Game, GameOverStatus)
+	 */
 	@Override
 	public void logGame(Player whitePlayer, Player blackPlayer, Game game,
 			GameOverStatus status) {
@@ -89,6 +101,9 @@ public class HTMLTournamentLogger implements TournamentLogger {
 		this.gameNo++;
 	}
 
+	/**
+	 * @see TournamentLogger#startTournament(List, TournamentType)
+	 */
 	@Override
 	public void startTournament(List<Player> players, TournamentType type) {
 		this.gameNo = 1;

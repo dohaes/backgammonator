@@ -3,6 +3,7 @@ package backgammonator.test.game;
 import backgammonator.impl.game.GameManager;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
 import backgammonator.sample.players.interfacce.AbstractSamplePlayer;
 import backgammonator.sample.players.interfacce.DeadlockInMovePlayer;
 import backgammonator.sample.players.interfacce.EndlessLoopInMovePlayer;
@@ -14,10 +15,14 @@ import backgammonator.sample.players.interfacce.TimedoutMovePlayer;
 import junit.framework.TestCase;
 
 /**
- * Tests class {@link GameImpl}.
+ * Tests the implementation of interface {@link Game}.
  */
 public class GameWithInterfaceTestCase extends TestCase {
 
+	/**
+	 * Tests in case of time out in
+	 * {@link Player#getMove(backgammonator.lib.game.BackgammonBoard, backgammonator.lib.game.Dice)}
+	 */
 	public void testTimedoutMove() {
 		AbstractSamplePlayer timedout = new TimedoutMovePlayer();
 		AbstractSamplePlayer normal = new SamplePlayer();
@@ -40,6 +45,10 @@ public class GameWithInterfaceTestCase extends TestCase {
 		assertFalse(timedout.wins());
 	}
 
+	/**
+	 * Tests in case of exception in
+	 * {@link Player#getMove(backgammonator.lib.game.BackgammonBoard, backgammonator.lib.game.Dice)}
+	 */
 	public void testExceptionInMove() {
 		AbstractSamplePlayer exception = new ExceptionPlayer();
 		AbstractSamplePlayer normal = new SamplePlayer();
@@ -62,6 +71,10 @@ public class GameWithInterfaceTestCase extends TestCase {
 		assertFalse(exception.wins());
 	}
 
+	/**
+	 * Tests in case of <code></code> returned in
+	 * {@link Player#getMove(backgammonator.lib.game.BackgammonBoard, backgammonator.lib.game.Dice)}
+	 */
 	public void testNullReturned() {
 		AbstractSamplePlayer nullmove = new NullMovePlayer();
 		AbstractSamplePlayer normal = new SamplePlayer();
@@ -84,6 +97,10 @@ public class GameWithInterfaceTestCase extends TestCase {
 		assertFalse(nullmove.wins());
 	}
 
+	/**
+	 * Tests in case of invalid move returned in
+	 * {@link Player#getMove(backgammonator.lib.game.BackgammonBoard, backgammonator.lib.game.Dice)}
+	 */
 	public void testInvalidMoveReturned() {
 		AbstractSamplePlayer invalid = new InvalidMovePlayer();
 		AbstractSamplePlayer normal = new SamplePlayer();
@@ -106,6 +123,10 @@ public class GameWithInterfaceTestCase extends TestCase {
 		assertFalse(invalid.wins());
 	}
 
+	/**
+	 * Tests in case of endless loop in
+	 * {@link Player#getMove(backgammonator.lib.game.BackgammonBoard, backgammonator.lib.game.Dice)}
+	 */
 	public void testEndlessLoopInMoveReturned() {
 		AbstractSamplePlayer endlessloop = new EndlessLoopInMovePlayer();
 		AbstractSamplePlayer normal = new SamplePlayer();
@@ -128,6 +149,10 @@ public class GameWithInterfaceTestCase extends TestCase {
 		assertFalse(endlessloop.wins());
 	}
 
+	/**
+	 * Tests in case of deadlock in
+	 * {@link Player#getMove(backgammonator.lib.game.BackgammonBoard, backgammonator.lib.game.Dice)}
+	 */
 	public void testDeadlockInMoveReturned() {
 		AbstractSamplePlayer deadlock = new DeadlockInMovePlayer();
 		AbstractSamplePlayer normal = new SamplePlayer();
@@ -150,6 +175,9 @@ public class GameWithInterfaceTestCase extends TestCase {
 		assertFalse(deadlock.wins());
 	}
 
+	/**
+	 * Tests in case of normal execution of the game.
+	 */
 	public void testNormal() {
 		AbstractSamplePlayer normal1 = new SamplePlayer();
 		AbstractSamplePlayer normal2 = new SamplePlayer();

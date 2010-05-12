@@ -38,7 +38,7 @@ public interface GameLogger {
 	/**
 	 * Notifies the logger that the game has finished giving the color of the
 	 * winning player and the exist status of the game. The value of the exit
-	 * status can be {@link GameOverStatus#OK},
+	 * status can be {@link GameOverStatus#NORMAL},
 	 * {@link GameOverStatus#INVALID_MOVE}, {@link GameOverStatus#TIMEDOUT}. or
 	 * {@link GameOverStatus#EXCEPTION}.
 	 * 

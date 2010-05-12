@@ -4,7 +4,16 @@ package backgammonator.lib.game;
  * The color of the player.
  */
 public enum PlayerColor {
-	WHITE, BLACK;
+	
+	/**
+	 * Indicates that the player plays with the white checkers.
+	 */
+	WHITE,
+	
+	/**
+	 * Indicates that the player plays with the black checkers.
+	 */
+	BLACK;
 
 	/**
 	 * Returns the opposite color.
@@ -13,6 +22,10 @@ public enum PlayerColor {
 		return this == WHITE ? BLACK : WHITE;
 	}
 
+	/**
+	 * @see Object#toString()
+	 */
+	@Override
 	public String toString() {
 		return this == WHITE ? "white" : "black";
 	}

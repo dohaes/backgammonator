@@ -16,15 +16,24 @@ public class SamplePlayer extends AbstractSamplePlayer {
 	private static int ID = 0;
 	private int id = ID++;
 
+	/**
+	 * Constructs new instance of the class.
+	 */
 	public SamplePlayer() {
 	}
 
+	/**
+	 * Constructs new instance of the class with id.
+	 */
 	public SamplePlayer(int id) {
 		this.id = id;
 	}
 
-	public PlayerMove getMove(BackgammonBoard board, Dice dice)
-			throws Exception {
+	/**
+	 * @see Player#getMove(BackgammonBoard, Dice)
+	 */
+	@Override
+	public PlayerMove getMove(BackgammonBoard board, Dice dice) {
 		// System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2()
 		// + ")");
 		CheckerMove m1, m2, m3, m4;
@@ -39,9 +48,8 @@ public class SamplePlayer extends AbstractSamplePlayer {
 			m3 = findMove(b, dice.getDie1());
 			m4 = findMove(b, dice.getDie2());
 			return new PlayerMove(new CheckerMove[] { m1, m2, m3, m4 });
-		} else {
-			return new PlayerMove(new CheckerMove[] { m1, m2 });
 		}
+		return new PlayerMove(new CheckerMove[] { m1, m2 });
 	}
 
 	private CheckerMove findMove(InternalBoard board, int die) {
@@ -61,6 +69,9 @@ public class SamplePlayer extends AbstractSamplePlayer {
 		return new CheckerMove(CheckerMoveType.NO_AVAILABLE_MOVE, die);
 	}
 
+	/**
+	 * @see Player#getName()
+	 */
 	public String getName() {
 		return "Sample G " + id;
 	}
