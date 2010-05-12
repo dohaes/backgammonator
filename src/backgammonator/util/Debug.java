@@ -88,7 +88,7 @@ public final class Debug {
 	 */
 	public synchronized void info(String message, int moduleId) {
 		if (!debugOn) return;
-		String debug = "[INFO] " + "[" + getModule(moduleId) + "]: " + message;
+		String debug = "[INFO] " + "[" + getModule(moduleId) + "] " + message;
 		if (onConsole) {
 			consoleLog.println(debug);
 		}
@@ -106,8 +106,7 @@ public final class Debug {
 	 */
 	public synchronized void warning(String message, int moduleId, Throwable t) {
 		if (!debugOn) return;
-		String debug = "[WARNING] " + "[" + getModule(moduleId) + "]: "
-				+ message + "\n";
+		String debug = "[WARNING] " + "[" + getModule(moduleId) + "] " + message;
 		if (onConsole) {
 			consoleLog.println(debug);
 			if (t != null) t.printStackTrace(consoleLog);
@@ -127,7 +126,7 @@ public final class Debug {
 	 */
 	public synchronized void error(String message, int moduleId, Throwable t) {
 		if (!debugOn) return;
-		String debug = "[ERROR] " + "[" + getModule(moduleId) + "]: " + message;
+		String debug = "[ERROR] " + "[" + getModule(moduleId) + "] " + message;
 		if (onConsole) {
 			consoleLog.println(debug);
 			if (t != null) t.printStackTrace(consoleLog);

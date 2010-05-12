@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import backgammonator.lib.game.BackgammonBoard;
@@ -60,7 +61,19 @@ public class PlayerImpl implements Player {
 				.getBytes());
 		stdout.flush();
 
-		return Parser.getMove(scanner.nextLine());
+		try {
+			return Parser.getMove(scanner.nextLine());
+		} catch (NoSuchElementException nse) {
+			// the process has unexpectedly died
+			// pipe is being closed and streams are empty
+			throw new IllegalStateException("Process for player " + name
+					+ " has been unexpectedly terminated", nse);
+		} catch (IllegalArgumentException iae) {
+			//invalid move
+			//the parser cannot parse the returned string
+			//the move is not formatted according to the protocol
+			return null;
+		}
 	}
 
 	/**
@@ -82,11 +95,18 @@ public class PlayerImpl implements Player {
 						Debug.GAME_LOGIC, ioe);
 			}
 
-			if (status == GameOverStatus.TIMEDOUT) { // the player is not
-				// responding
-				Debug.getInstance().warning(
-						"Process for player " + name + " will be destroyed ",
-						Debug.GAME_LOGIC, null);
+			Debug.getInstance().info("Stopping player " + name,
+					Debug.GAME_LOGIC);
+
+			// the player is not responding
+			if (status == GameOverStatus.TIMEDOUT && !wins) {
+				Debug
+						.getInstance()
+						.warning(
+								"Player "
+										+ name
+										+ " is not responding. It will be forced to stop.",
+								Debug.GAME_LOGIC, null);
 				process.destroy();
 			} else {
 				int exitcode = process.waitFor();
@@ -135,7 +155,7 @@ public class PlayerImpl implements Player {
 				process.getErrorStream()));
 		try {
 			while ((line = cleaner.readLine()) != null) {
-				System.out.println("===[err] : " + line);
+				System.out.println("	[" + name + "] [stderr] " + line);
 			}
 		} catch (IOException ioe) {
 			Debug.getInstance().error("Exception while cleaning stream",
@@ -153,7 +173,7 @@ public class PlayerImpl implements Player {
 		cleaner = new BufferedReader(new InputStreamReader(stdin));
 		try {
 			while ((line = cleaner.readLine()) != null) {
-				System.out.println("===[out] : " + line);
+				System.out.println("	[" + name + "] [stdout] " + line);
 			}
 		} catch (IOException ioe) {
 			Debug.getInstance().error("Exception while cleaning stream",

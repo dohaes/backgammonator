@@ -16,8 +16,8 @@ import backgammonator.util.Debug;
  * realization of the rules of backgammon and manages the game. With each
  * instance of the GameImpl class a {@link BackgammonBoard} object is
  * associated. Class GameImpl uses class {@link MoveValidator} to validate the
- * players' moves. Each instance of this class is associated with a
- * {@link Dice} implementation that represent the dice.
+ * players' moves. Each instance of this class is associated with a {@link Dice}
+ * implementation that represent the dice.
  */
 final class GameImpl implements Game {
 
@@ -28,14 +28,14 @@ final class GameImpl implements Game {
 
 	private GameLogger logger;
 	private boolean logMoves;
-	
+
 	private MoverRunnable mover;
 	private Thread moverThread;
 
-	PlayerMove currentMove = null;
-	Throwable throwable = null;
-	BackgammonBoardImpl board;
-	DiceImpl dice;
+	private PlayerMove currentMove = null;
+	private Throwable throwable = null;
+	private BackgammonBoardImpl board;
+	private DiceImpl dice;
 
 	/**
 	 * Constructs a game between two AI players.
@@ -56,26 +56,37 @@ final class GameImpl implements Game {
 	 */
 	@Override
 	public GameOverStatus start() {
-		winner = null;
-		board.reset();
-		if (logMoves) logger.startGame(whitePlayer, blackPlayer);
-		GameOverStatus status;
+		Debug.getInstance().info(
+				"Starting game: " + whitePlayer.getName() + " vs "
+						+ blackPlayer.getName(), Debug.GAME_LOGIC);
+		try {
+			winner = null;
+			board.reset();
+			if (logMoves) logger.startGame(whitePlayer, blackPlayer);
+			GameOverStatus status;
 
-		startNewMoverThread(false);
+			startNewMoverThread(false);
 
-		while (true) {
-			board.switchPlayer();
-			status = makeMove(whitePlayer, blackPlayer);
-			if (status != null) break;
-			board.switchPlayer();
-			status = makeMove(blackPlayer, whitePlayer);
-			if (status != null) break;
+			while (true) {
+				board.switchPlayer();
+				status = makeMove(whitePlayer, blackPlayer);
+				if (status != null) break;
+				board.switchPlayer();
+				status = makeMove(blackPlayer, whitePlayer);
+				if (status != null) break;
+			}
+
+			if (logMoves) logger.endGame(status,
+					status == GameOverStatus.NORMAL ? board
+							.getCurrentPlayerColor() : board
+							.getCurrentPlayerColor().opposite());
+			return status;
+
+		} finally {
+			Debug.getInstance().info(
+					"Game over: " + winner.getName() + " wins",
+					Debug.GAME_LOGIC);
 		}
-
-		if (logMoves) logger.endGame(status,
-				status == GameOverStatus.NORMAL ? board.getCurrentPlayerColor()
-						: board.getCurrentPlayerColor().opposite());
-		return status;
 	}
 
 	/**
@@ -115,8 +126,9 @@ final class GameImpl implements Game {
 			mover.makeMove(currentPlayer);
 			if (throwable != null) {
 				Debug.getInstance().error(
-						"Exception thrown while performing move",
-						Debug.GAME_LOGIC, throwable);
+						"Exception thrown while performing move for player "
+								+ currentPlayer.getName(), Debug.GAME_LOGIC,
+						throwable);
 				mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
 				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
@@ -126,8 +138,9 @@ final class GameImpl implements Game {
 			}
 
 			if (!mover.notified()) {
-				Debug.getInstance().error("Move timeout", Debug.GAME_LOGIC,
-						null);
+				Debug.getInstance().error(
+						"Move timeout for player " + currentPlayer.getName(),
+						Debug.GAME_LOGIC, null);
 
 				startNewMoverThread(true);
 				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);
@@ -141,8 +154,9 @@ final class GameImpl implements Game {
 			boolean invalid = false;
 
 			if (currentMove == null || !board.makeMove(currentMove, dice)) {
-				Debug.getInstance().error("Invalid move", Debug.GAME_LOGIC,
-						null);
+				Debug.getInstance().error(
+						"Invalid move for player " + currentPlayer.getName(),
+						Debug.GAME_LOGIC, null);
 				mover.gameOver(currentPlayer, false,
 						GameOverStatus.INVALID_MOVE);
 				board.switchPlayer();
@@ -170,8 +184,9 @@ final class GameImpl implements Game {
 				return GameOverStatus.NORMAL;
 			}
 		} catch (Exception e) {
-			Debug.getInstance().error("Exception thrown while performing move",
-					Debug.GAME_LOGIC, e);
+			Debug.getInstance().error(
+					"Exception thrown while performing move for player "
+							+ currentPlayer.getName(), Debug.GAME_LOGIC, e);
 			mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
 			board.switchPlayer();
 			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
@@ -225,6 +240,7 @@ final class GameImpl implements Game {
 	 * initialize a Thread object. Every player's move is executed in this
 	 * thread in order to prevent hanging of the main thread.
 	 */
+	@SuppressWarnings("synthetic-access")
 	class MoverRunnable implements Runnable {
 
 		private Player player;
