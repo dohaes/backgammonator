@@ -18,25 +18,19 @@ public interface TournamentLogger {
 	 * Notifies the logger that a tournament has started with the specified list
 	 * of players. The logger should prepare for logging.
 	 * 
-	 * @param players
-	 *            is the list of players, whose will be participate in the
+	 * @param players is the list of players, whose will be participate in the
 	 *            tournament.
-	 * @param type
-	 *            is the type of the tournament.
+	 * @param type is the type of the tournament.
 	 */
 	void startTournament(List<Player> players, TournamentType type);
 
 	/**
 	 * Logs a single game of the tournament.
 	 * 
-	 * @param whitePlayer
-	 *            is the white player in the game.
-	 * @param blackPlayer
-	 *            is the black player in the game.
-	 * @param game
-	 *            is the game which will be logged.
-	 * @param status
-	 *            is the game over status of the game.
+	 * @param whitePlayer is the white player in the game.
+	 * @param blackPlayer is the black player in the game.
+	 * @param game is the game which will be logged.
+	 * @param status is the game over status of the game.
 	 */
 	void logGame(Player whitePlayer, Player blackPlayer, Game game,
 			GameOverStatus status);
@@ -44,8 +38,7 @@ public interface TournamentLogger {
 	/**
 	 * Notifies the logger that the tournament has finished giving the result.
 	 * 
-	 * @param winner
-	 *            is the winner of the tournament.
+	 * @param winner is the winner of the tournament.
 	 */
 	void endTournament(Player winner);
 

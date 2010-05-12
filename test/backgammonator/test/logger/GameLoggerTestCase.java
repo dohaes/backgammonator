@@ -157,21 +157,19 @@ public class GameLoggerTestCase extends TestCase {
 		File file = new File(fileName);
 
 		// Make sure the file or directory exists and isn't write protected
-		if (!file.exists())
-			throw new IllegalArgumentException(
-					"Delete: no such file or directory: " + fileName);
+		if (!file.exists()) throw new IllegalArgumentException(
+				"Delete: no such file or directory: " + fileName);
 
-		if (!file.canWrite())
-			throw new IllegalArgumentException("Delete: write protected: "
-					+ fileName);
+		if (!file.canWrite()) throw new IllegalArgumentException(
+				"Delete: write protected: " + fileName);
 
 		Thread.sleep(10);
 
 		// Attempt to delete it
 		boolean success = file.delete();
 
-		if (!success)
-			throw new IllegalArgumentException("Delete: deletion failed");
+		if (!success) throw new IllegalArgumentException(
+				"Delete: deletion failed");
 
 		super.tearDown();
 	}

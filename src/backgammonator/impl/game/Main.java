@@ -13,8 +13,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		if (args.length != 2)
-			throw new IllegalArgumentException("There must be two arguments!");
+		if (args.length != 2) throw new IllegalArgumentException(
+				"There must be two arguments!");
 
 		Game game = GameManager.newGame(args[0], args[1], true);
 		game.start();

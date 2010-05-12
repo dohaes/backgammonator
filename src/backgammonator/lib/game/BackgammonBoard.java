@@ -23,9 +23,9 @@ public interface BackgammonBoard {
 	public int getBornOff(PlayerColor color);
 
 	/**
-   * Returns the color of the current player to move or to be notified for the
-   * end of the game. If the game is over the last player who had been notified
-   * for the end of the game will be returned.
-   */
+	 * Returns the color of the current player to move or to be notified for the
+	 * end of the game. If the game is over the last player who had been
+	 * notified for the end of the game will be returned.
+	 */
 	public PlayerColor getCurrentPlayerColor();
 }

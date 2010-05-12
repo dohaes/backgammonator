@@ -17,9 +17,8 @@ public final class Parser {
 	/**
 	 * Parses the AI player's output string to PlayerMove object.
 	 * 
-	 * @param playerMoveString
-	 *            is the AI player's output string. It should be in the
-	 *            following format(values must be separated with spaces):<br />
+	 * @param playerMoveString is the AI player's output string. It should be in
+	 *            the following format(values must be separated with spaces):<br />
 	 *            &lt;start_point_1&gt; &lt;move_length_1&gt;
 	 *            &lt;start_point_2&gt; &lt;move_length_2&gt; [
 	 *            &lt;start_point_3&gt; &lt;move_length_3&gt;
@@ -35,8 +34,8 @@ public final class Parser {
 	 *            The number of checker moves might be 4 when the dice are
 	 *            double.
 	 * @return the parsed PlayerMove object.
-	 * @throws IllegalArgumentException
-	 *             when the given string is not in the requested format.
+	 * @throws IllegalArgumentException when the given string is not in the
+	 *             requested format.
 	 */
 	public static PlayerMove getMove(String playerMoveString)
 			throws IllegalArgumentException {
@@ -103,17 +102,13 @@ public final class Parser {
 	 * BackgammonBoard and Dice objects to string, which will be passed to the
 	 * AI player's input.
 	 * 
-	 * @param board
-	 *            is the BackgammonBoard object, representing the current board
-	 *            state.
-	 * @param dice
-	 *            is the Dice object for the AI player's move. <code>null</code>
-	 *            if the game is over.
-	 * @param isCurrentPlayerWon
-	 *            determines if the current player is the winner.
-	 * @param status
-	 *            is the game over status. <code>null</code> if the game is not
-	 *            over yet
+	 * @param board is the BackgammonBoard object, representing the current
+	 *            board state.
+	 * @param dice is the Dice object for the AI player's move.
+	 *            <code>null</code> if the game is over.
+	 * @param isCurrentPlayerWon determines if the current player is the winner.
+	 * @param status is the game over status. <code>null</code> if the game is
+	 *            not over yet
 	 * @return a string, representing the current board state and dice. Suitable
 	 *         for passing to AI player's input. It will be in the following
 	 *         format(the values are separated with spaces):<br />

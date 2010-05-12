@@ -22,10 +22,8 @@ public final class DiceImpl implements Dice {
 	/**
 	 * Creates dice with predefined values.
 	 * 
-	 * @param die1
-	 *            the first die.
-	 * @param die2
-	 *            the second die.
+	 * @param die1 the first die.
+	 * @param die2 the second die.
 	 */
 	public DiceImpl(int die1, int die2) {
 		setDie(0, die1);
@@ -58,7 +56,7 @@ public final class DiceImpl implements Dice {
 		}
 		this.die[id] = die;
 	}
-	
+
 	public String toString() {
 		return "(" + die[0] + ", " + die[1] + ")";
 	}

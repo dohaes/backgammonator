@@ -136,10 +136,8 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	/**
 	 * Update the board with the given move.
 	 * 
-	 * @param move
-	 *            the move.
-	 * @param dice
-	 *            the dice corresponding to the move.
+	 * @param move the move.
+	 * @param dice the dice corresponding to the move.
 	 * @return true if the move is valid.
 	 */
 	boolean makeMove(PlayerMove move, Dice dice) {

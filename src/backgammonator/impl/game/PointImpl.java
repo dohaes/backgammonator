@@ -23,10 +23,8 @@ public final class PointImpl implements Point {
 	/**
 	 * Creates point with checkers on it.
 	 * 
-	 * @param count
-	 *            the count on the point.
-	 * @param color
-	 *            the color of the checkers.
+	 * @param count the count on the point.
+	 * @param color the color of the checkers.
 	 */
 	public PointImpl(int count, PlayerColor color) {
 		if (count < 0 || count > Constants.CHECKERS_COUNT) {
@@ -57,8 +55,7 @@ public final class PointImpl implements Point {
 	/**
 	 * Increases the number of checkers on the point.
 	 * 
-	 * @param color
-	 *            the color of the placed checker.
+	 * @param color the color of the placed checker.
 	 * @return true if there has been hit checker of the opposite color on the
 	 *         point.
 	 */
@@ -79,10 +76,8 @@ public final class PointImpl implements Point {
 	/**
 	 * Updates the point's data.
 	 * 
-	 * @param count
-	 *            the count on the point.
-	 * @param color
-	 *            the color of the checkers.
+	 * @param count the count on the point.
+	 * @param color the color of the checkers.
 	 */
 	void updatePoint(int count, PlayerColor color) {
 		if (count < 0 || count > Constants.CHECKERS_COUNT) {
@@ -91,7 +86,7 @@ public final class PointImpl implements Point {
 		this.count = count;
 		this.color = color;
 	}
-	
+
 	public String toString() {
 		return color + " " + count;
 	}

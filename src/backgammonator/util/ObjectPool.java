@@ -44,8 +44,7 @@ public final class ObjectPool {
 										+ clazz, Debug.UTILS, e);
 				return null;
 			}
-		} else
-			return instances.remove(currentSize - 1);
+		} else return instances.remove(currentSize - 1);
 	}
 
 	/**
@@ -57,8 +56,8 @@ public final class ObjectPool {
 	public synchronized void returnObject(Object object) {
 		int currentSize = instances.size();
 		if (currentSize == size) {
-			Debug.getInstance().warning("Object pool is full",
-					Debug.UTILS, null);
+			Debug.getInstance().warning("Object pool is full", Debug.UTILS,
+					null);
 			return;
 		}
 		if (object.getClass() != clazz) {

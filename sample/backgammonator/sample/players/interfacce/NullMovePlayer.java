@@ -6,13 +6,14 @@ import backgammonator.lib.game.Player;
 import backgammonator.lib.game.PlayerMove;
 
 /**
- * Sample implementation of the {@link Player} interface.
- * This player returns null for a move.
+ * Sample implementation of the {@link Player} interface. This player returns
+ * null for a move.
  */
 public class NullMovePlayer extends AbstractSamplePlayer {
 
 	@Override
-	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
+	public PlayerMove getMove(BackgammonBoard board, Dice dice)
+			throws Exception {
 		return null;
 	}
 

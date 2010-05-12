@@ -29,8 +29,7 @@ public final class GameLoggerFactory {
 	/**
 	 * Gets new instance of the selected Logger implementation.
 	 * 
-	 * @param type
-	 *            the type of the logger
+	 * @param type the type of the logger
 	 * @return new instance of the selected Logger implementation
 	 */
 	public static GameLogger getLogger(int type) {

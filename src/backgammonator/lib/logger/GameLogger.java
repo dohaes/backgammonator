@@ -17,28 +17,20 @@ public interface GameLogger {
 	 * Notifies the logger that a game has started between the specified
 	 * players. The logger should prepare for logging.
 	 * 
-	 * @param whitePlayer
-	 *            the first player to move.
-	 * @param blackPlayer
-	 *            the second player to move .
+	 * @param whitePlayer the first player to move.
+	 * @param blackPlayer the second player to move .
 	 */
 	void startGame(Player whitePlayer, Player blackPlayer);
 
 	/**
 	 * Logs a single move of the backgammon board.
 	 * 
-	 * @param move
-	 *            the move to log.
-	 * @param color
-	 *            the color of the current player to move.
-	 * @param dice
-	 *            the numbers on the dice.
-	 * @param hits
-	 *            number of hits.
-	 * @param bornOffs
-	 *            number of bornOffs.
-	 * @param invalid
-	 *            true if the move to log is invalid, of false otherwise.
+	 * @param move the move to log.
+	 * @param color the color of the current player to move.
+	 * @param dice the numbers on the dice.
+	 * @param hits number of hits.
+	 * @param bornOffs number of bornOffs.
+	 * @param invalid true if the move to log is invalid, of false otherwise.
 	 */
 	void logMove(PlayerMove move, PlayerColor color, Dice dice, int hits,
 			int bornOffs, boolean invalid);
@@ -50,10 +42,8 @@ public interface GameLogger {
 	 * {@link GameOverStatus#INVALID_MOVE}, {@link GameOverStatus#TIMEDOUT}. or
 	 * {@link GameOverStatus#EXCEPTION}.
 	 * 
-	 * @param status
-	 *            is the exit code of the game
-	 * @param winner
-	 *            is the winner of the game
+	 * @param status is the exit code of the game
+	 * @param winner is the winner of the game
 	 */
 	void endGame(GameOverStatus status, PlayerColor winner);
 

@@ -15,12 +15,9 @@ public interface Player {
 	 * This method returns the players move according to the current
 	 * configuration of the backgammon board and the given dice.
 	 * 
-	 * @param board
-	 *            the current configuration of the board
-	 * @param dice
-	 *            the dice.
-	 * @throws Exception
-	 *             if any error occurs.
+	 * @param board the current configuration of the board
+	 * @param dice the dice.
+	 * @throws Exception if any error occurs.
 	 * @return the move of the player.
 	 */
 	PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception;

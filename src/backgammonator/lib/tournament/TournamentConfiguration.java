@@ -1,6 +1,5 @@
 package backgammonator.lib.tournament;
 
-
 public class TournamentConfiguration {
 	private TournamentType type;
 	private boolean logMoves;

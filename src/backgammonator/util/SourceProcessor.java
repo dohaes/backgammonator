@@ -20,15 +20,11 @@ public class SourceProcessor {
 	/**
 	 * Compiles the file and process it to executable.
 	 * 
-	 * @param filePath
-	 *            The absolute path to the file
-	 * 
+	 * @param filePath The absolute path to the file
 	 * @return PlayerImpl
-	 * 
-	 * @throws FileNotFoundException
-	 *             when the given file does not exists
-	 * @throws UnsupportedDataTypeException
-	 *             when the given file is not java or c++ file
+	 * @throws FileNotFoundException when the given file does not exists
+	 * @throws UnsupportedDataTypeException when the given file is not java or
+	 *             c++ file
 	 */
 	public static Player processFile(String filePath) {
 		File file = new File(filePath);
@@ -38,25 +34,25 @@ public class SourceProcessor {
 					null);
 			return null;
 		}
-		
+
 		boolean isJava;
-		if(file.getName().endsWith(".java")) isJava = true;
-		else if(file.getName().endsWith(".c")) isJava = false;
-		//TODO debug.error this exception!
+		if (file.getName().endsWith(".java")) isJava = true;
+		else if (file.getName().endsWith(".c")) isJava = false;
+		// TODO debug.error this exception!
 		else {
 			Debug.getInstance().error(
 					"The file must ends with .java or .c: " + filePath,
 					Debug.UTILS, null);
 			return null;
 		}
-		
+
 		Player result = null;
 		Process compileProcess = null;
 		try {
-			if(isJava) {
+			if (isJava) {
 				compileProcess = Runtime.getRuntime().exec(
-								"javac " + file.getAbsolutePath());
-				
+						"javac " + file.getAbsolutePath());
+
 				// TODO optimizing threads!
 				// manage streams
 				StreamGobbler errorGobbler = new StreamGobbler(compileProcess
@@ -65,51 +61,51 @@ public class SourceProcessor {
 						.getInputStream(), "OUTPUT");
 				errorGobbler.start();
 				outputGobbler.start();
-				
+
 				int exitCode = compileProcess.waitFor();
-				//TODO notify user for compile error
+				// TODO notify user for compile error
 				if (exitCode != 0) {
 					Debug.getInstance().error("Compile returned: " + exitCode,
 							Debug.UTILS, null);
 					return null;
 				}
-				File classFile = new File(file.getAbsolutePath().replace(".java", ".class"));
+				File classFile = new File(file.getAbsolutePath().replace(
+						".java", ".class"));
 				if (!classFile.exists()) {
 					Debug.getInstance().error(
 							"The compiled file is not found: " + filePath,
 							Debug.UTILS, null);
 					return null;
 				}
-				//manage result
+				// manage result
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
-				
-				 result = PlayerFactory.newPlayer("java -cp " + classFile.getParent() + " " + mainClass,
-						 classFile.getParentFile().getName());
+
+				result = PlayerFactory.newPlayer("java -cp "
+						+ classFile.getParent() + " " + mainClass, classFile
+						.getParentFile().getName());
 			} else {
-				//TODO manage c++ files
+				// TODO manage c++ files
 			}
 		} catch (Throwable e) {
-			Debug.getInstance().error(
-					"Unexpected exception: " + filePath,
+			Debug.getInstance().error("Unexpected exception: " + filePath,
 					Debug.UTILS, e);
 			return result;
 		}
 		return result;
 	}
 
-//	public static void main(String[] args) {
-//		try {
-//			processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	// public static void main(String[] args) {
+	// try {
+	// processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 }
 
 /**
  * Dumps error and out streams of the compile process
- * 
  */
 class StreamGobbler extends Thread {
 	private InputStream is;
@@ -118,6 +114,7 @@ class StreamGobbler extends Thread {
 
 	/**
 	 * Constructor with two parameters
+	 * 
 	 * @param is
 	 * @param type
 	 */

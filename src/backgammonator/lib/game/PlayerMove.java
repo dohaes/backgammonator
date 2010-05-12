@@ -13,10 +13,9 @@ public final class PlayerMove {
 	/**
 	 * Creates new PlayerMove object with the given arguments.
 	 * 
-	 * @param checkerMoves
-	 *            array of CheckerMove objects.
-	 * @throws IllegalArgumentException
-	 *             if the given array represents invalid moves.
+	 * @param checkerMoves array of CheckerMove objects.
+	 * @throws IllegalArgumentException if the given array represents invalid
+	 *             moves.
 	 */
 	public PlayerMove(CheckerMove[] checkerMoves) {
 		if (checkerMoves == null) {
@@ -35,13 +34,11 @@ public final class PlayerMove {
 	/**
 	 * Gets the corresponding {@link CheckerMove} object from the array.
 	 * 
-	 * @param index
-	 *            the index of the {@link CheckerMove} object in the array. its
-	 *            value should be between 0 and 1 or between 0 and 3 depending
-	 *            if the die is double.
+	 * @param index the index of the {@link CheckerMove} object in the array.
+	 *            its value should be between 0 and 1 or between 0 and 3
+	 *            depending if the die is double.
 	 * @return the corresponding {@link CheckerMove}
-	 * @throws IllegalArgumentException
-	 *             if the index is out of bounds.
+	 * @throws IllegalArgumentException if the index is out of bounds.
 	 */
 	public CheckerMove getCheckerMove(int index) {
 		if (index < 0 || index >= checkerMoves.length) {

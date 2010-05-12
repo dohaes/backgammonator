@@ -25,7 +25,8 @@ import backgammonator.util.Debug;
 public class PlayerImpl implements Player {
 
 	private String command;
-	// TODO should return the name of the registered user that uploaded the source
+	// TODO should return the name of the registered user that uploaded the
+	// source
 	private String name = "test user";
 
 	private Process process;
@@ -40,7 +41,8 @@ public class PlayerImpl implements Player {
 	 * Constructs a new player instance.
 	 * 
 	 * @param command the command to be executed to init the process with.
-	 * @param name the name of the player - same as the username of the user who uploaded the source.
+	 * @param name the name of the player - same as the username of the user who
+	 *            uploaded the source.
 	 */
 	PlayerImpl(String command, String name) {
 		this.command = command;
@@ -50,35 +52,41 @@ public class PlayerImpl implements Player {
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
-		if (!inited)
-			init();
-		stdout.write(Parser.getBoardConfiguration(board, dice, false, null).getBytes());
+		if (!inited) init();
+		stdout.write(Parser.getBoardConfiguration(board, dice, false, null)
+				.getBytes());
 		stdout.flush();
 
 		return Parser.getMove(scanner.nextLine());
 	}
 
 	@Override
-	public void gameOver(BackgammonBoard board, boolean wins, GameOverStatus status) {
-	  
+	public void gameOver(BackgammonBoard board, boolean wins,
+			GameOverStatus status) {
+
 		try {
-		  try {
-		    if (!inited) init();
-		    stdout.write(Parser.getBoardConfiguration(board, null, wins, status).getBytes());
-		    stdout.flush();
-		  } catch (Throwable ioe) {
-		    Debug.getInstance().error("Error sending final results to player " + name,
-            Debug.GAME_LOGIC, ioe);
-		  }
-		  
-			if (status == GameOverStatus.TIMEDOUT) { //the player is not responding
-			  Debug.getInstance().warning("Process for player " + name + " will be destroyed ",
-            Debug.GAME_LOGIC, null);
-        process.destroy();
+			try {
+				if (!inited) init();
+				stdout.write(Parser.getBoardConfiguration(board, null, wins,
+						status).getBytes());
+				stdout.flush();
+			} catch (Throwable ioe) {
+				Debug.getInstance().error(
+						"Error sending final results to player " + name,
+						Debug.GAME_LOGIC, ioe);
+			}
+
+			if (status == GameOverStatus.TIMEDOUT) { // the player is not
+				// responding
+				Debug.getInstance().warning(
+						"Process for player " + name + " will be destroyed ",
+						Debug.GAME_LOGIC, null);
+				process.destroy();
 			} else {
-        int exitcode = process.waitFor();
-        Debug.getInstance().info("Process for player " + name + " returned "  + exitcode,
-              Debug.GAME_LOGIC);
+				int exitcode = process.waitFor();
+				Debug.getInstance().info(
+						"Process for player " + name + " returned " + exitcode,
+						Debug.GAME_LOGIC);
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error("Error occured", Debug.GAME_LOGIC, e);
@@ -109,13 +117,13 @@ public class PlayerImpl implements Player {
 	}
 
 	private void cleanStreams() {
-    String line = null;
+		String line = null;
 		// clean stderr
 		BufferedReader cleaner = new BufferedReader(new InputStreamReader(
 				process.getErrorStream()));
 		try {
 			while ((line = cleaner.readLine()) != null) {
-			  System.out.println("===[err] : " + line);
+				System.out.println("===[err] : " + line);
 			}
 		} catch (IOException ioe) {
 			Debug.getInstance().error("Exception while cleaning stream",
@@ -133,7 +141,7 @@ public class PlayerImpl implements Player {
 		cleaner = new BufferedReader(new InputStreamReader(stdin));
 		try {
 			while ((line = cleaner.readLine()) != null) {
-			  System.out.println("===[out] : " + line);
+				System.out.println("===[out] : " + line);
 			}
 		} catch (IOException ioe) {
 			Debug.getInstance().error("Exception while cleaning stream",
