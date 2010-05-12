@@ -12,7 +12,7 @@ import backgammonator.test.util.TestUtil;
  * Tests class {@link MoveValidator}
  */
 public class MoveValidatorTestCase extends TestCase {
-	
+
 	public void testValidMoves() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		SamplePlayer player = new SamplePlayer();
@@ -20,11 +20,10 @@ public class MoveValidatorTestCase extends TestCase {
 		for (int i = 0; i < 10; i++) {
 			TestUtil.generateNext(dice);
 			PlayerMove move = player.getMove(board, dice);
-			assertTrue("Invalid move " + i, TestUtil.makeMove(board, move, dice));
+			assertTrue("Invalid move " + i, TestUtil
+					.makeMove(board, move, dice));
 		}
 	}
-
-	
 
 	public void testInvalidMovesDices() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
@@ -34,8 +33,8 @@ public class MoveValidatorTestCase extends TestCase {
 			TestUtil.generateNext(dice);
 			PlayerMove move = player.getMove(board, dice);
 			TestUtil.generateNext(dice);
-			assertFalse("Invalid move accepted " + i, TestUtil.makeMove(board, move,
-					dice));
+			assertFalse("Invalid move accepted " + i, TestUtil.makeMove(board,
+					move, dice));
 		}
 	}
 
@@ -51,5 +50,4 @@ public class MoveValidatorTestCase extends TestCase {
 	public void testInvalidMovesNoValidMoves() throws Exception {
 	}
 
-	
 }

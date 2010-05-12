@@ -12,8 +12,7 @@ public final class CheckerMove {
 	/**
 	 * Create CheckerMove object of a given type for the specified die.
 	 * 
-	 * @param die
-	 *            must be between 1 and 6.
+	 * @param die must be between 1 and 6.
 	 */
 	public CheckerMove(CheckerMoveType type, int die) {
 		this.type = type;
@@ -24,10 +23,8 @@ public final class CheckerMove {
 	/**
 	 * Create CheckerMove object with given start point and move length.
 	 * 
-	 * @param startPoint
-	 *            must be between 1 and 24.
-	 * @param die
-	 *            must be between 1 and 6.
+	 * @param startPoint must be between 1 and 24.
+	 * @param die must be between 1 and 6.
 	 */
 	public CheckerMove(int startPoint, int die) {
 		this.type = CheckerMoveType.STANDARD_MOVE;

@@ -22,7 +22,7 @@ public class SignatureTestCase extends TestCase {
 	private Method[] methodsFromImpl;
 	private Field[] fieldsFromImpl;
 	private Method[] methodsFromInterface;
-	
+
 	private static Method[] methodsFromObject = Object.class.getMethods();
 
 	public void testBackgammonBoard() {
@@ -40,9 +40,6 @@ public class SignatureTestCase extends TestCase {
 		assertSignatures();
 	}
 
-	
-	
-	
 	private void initAll(Class clazz, Class interfacce) {
 		methodsFromInterface = interfacce.getMethods();
 		methodsFromImpl = clazz.getMethods();
@@ -117,19 +114,15 @@ public class SignatureTestCase extends TestCase {
 	 * interfacce is an interface
 	 */
 	private boolean isInHeirarchy(Class clazz, Class interfacce) {
-		if (clazz == null)
-			return false;
-		if (clazz == interfacce)
-			return true;
+		if (clazz == null) return false;
+		if (clazz == interfacce) return true;
 
 		Class superclass = clazz.getSuperclass();
-		if (isInHeirarchy(superclass, interfacce))
-			return true;
+		if (isInHeirarchy(superclass, interfacce)) return true;
 
 		Class[] interfaces = clazz.getInterfaces();
 		for (int i = 0; i < interfaces.length; i++) {
-			if (isInHeirarchy(interfaces[i], interfacce))
-				return true;
+			if (isInHeirarchy(interfaces[i], interfacce)) return true;
 		}
 
 		return false;

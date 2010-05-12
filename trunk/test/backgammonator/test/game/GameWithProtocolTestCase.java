@@ -170,8 +170,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	}
 
 	private void copy(String name1, String name2) {
-		if (!testDir.exists())
-			testDir.mkdirs();
+		if (!testDir.exists()) testDir.mkdirs();
 		boolean index = name1.equals(name2);
 		String dirName1 = testDir.getAbsolutePath() + File.separatorChar
 				+ name1.toLowerCase() + (index ? "1" : "");
@@ -183,16 +182,21 @@ public class GameWithProtocolTestCase extends TestCase {
 		dir1.mkdirs();
 		dir2.mkdirs();
 
-		fileName1 = dir1.getAbsolutePath() + File.separatorChar + name1 + ".java";
-		fileName2 = dir2.getAbsolutePath() + File.separatorChar + name2 + ".java";
+		fileName1 = dir1.getAbsolutePath() + File.separatorChar + name1
+				+ ".java";
+		fileName2 = dir2.getAbsolutePath() + File.separatorChar + name2
+				+ ".java";
 
 		String samplesPath = new File(samples.replace('/', File.separatorChar))
 				.getAbsolutePath();
 		try {
-			copyFile(samplesPath + File.separatorChar + name1 + ".java", fileName1);
-			copyFile(samplesPath + File.separatorChar + name2 + ".java", fileName2);
+			copyFile(samplesPath + File.separatorChar + name1 + ".java",
+					fileName1);
+			copyFile(samplesPath + File.separatorChar + name2 + ".java",
+					fileName2);
 		} catch (IOException e) {
-			fail("Unexpected exception while cpopying files : " + e.getMessage());
+			fail("Unexpected exception while cpopying files : "
+					+ e.getMessage());
 		}
 
 	}
@@ -213,23 +217,20 @@ public class GameWithProtocolTestCase extends TestCase {
 				fos.flush();
 				fos.close();
 			}
-			if (fis != null)
-				fis.close();
+			if (fis != null) fis.close();
 		}
 
 	}
 
 	private void cleanup() {
-		if (testDir.exists())
-			assertTrue("Could not delete files", delete(testDir));
+		if (testDir.exists()) assertTrue("Could not delete files",
+				delete(testDir));
 	}
 
 	private boolean delete(File file) {
-		if (file.isFile())
-			return file.delete();
+		if (file.isFile()) return file.delete();
 		File[] files = file.listFiles();
-		if (files == null || files.length == 0)
-			return file.delete();
+		if (files == null || files.length == 0) return file.delete();
 		for (int i = 0; i < files.length; i++) {
 			delete(files[i]);
 		}

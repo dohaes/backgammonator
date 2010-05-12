@@ -113,8 +113,7 @@ public final class MoveValidator {
 	}
 
 	private boolean validateEmptyMoves(CheckerMove move) {
-		if (!move.isUnavailableMove())
-			return true;
+		if (!move.isUnavailableMove()) return true;
 		int die = move.getDie();
 		PlayerColor color = board.getCurrentPlayerColor();
 

@@ -20,31 +20,32 @@ public final class Debug {
 	public static final int WEB_INTERFACE = 9;
 
 	private static boolean debugOn = true; // TODO use system prop to configure
-	private static boolean onConsole = true; // TODO use system prop to configure
+	private static boolean onConsole = true; // TODO use system prop to
+												// configure
 	private static boolean inFile = false; // TODO use system prop to configure
-	
+
 	private static PrintStream consoleLog = System.out;
-	
+
 	private static PrintStream fileLog = null;
 	private static File logFile = new File("log.txt");
-	
+
 	private static Debug instance = null;
 
 	private Debug() {
-	  if (logFile.exists()) logFile.delete();
-	  try {
-      if (inFile) fileLog = new PrintStream(logFile);
-    } catch (FileNotFoundException e) {
-      System.out.println("[ERROR] [Utils] Cannot initialize log file. Log in file will be disabled.");
-    }
+		if (logFile.exists()) logFile.delete();
+		try {
+			if (inFile) fileLog = new PrintStream(logFile);
+		} catch (FileNotFoundException e) {
+			System.out
+					.println("[ERROR] [Utils] Cannot initialize log file. Log in file will be disabled.");
+		}
 	}
 
 	/**
 	 * Returns reference to the instance of the Debug class
 	 */
 	public static Debug getInstance() {
-		if (instance == null)
-			instance = new Debug();
+		if (instance == null) instance = new Debug();
 		return instance;
 	}
 
@@ -61,7 +62,7 @@ public final class Debug {
 			consoleLog.println(debug);
 		}
 		if (inFile) {
-		  fileLog.println(debug);
+			fileLog.println(debug);
 		}
 	}
 
@@ -73,16 +74,17 @@ public final class Debug {
 	 * @param t Throwable object to log, can be null.
 	 */
 	public synchronized void warning(String message, int moduleId, Throwable t) {
-	  if (!debugOn) return;
-	  String debug = "[WARNING] " + "[" + getModule(moduleId) + "]: " + message + "\n";
-    if (onConsole) {
+		if (!debugOn) return;
+		String debug = "[WARNING] " + "[" + getModule(moduleId) + "]: "
+				+ message + "\n";
+		if (onConsole) {
 			consoleLog.println(debug);
 			if (t != null) t.printStackTrace(consoleLog);
 		}
-    if (inFile) {
-      fileLog.println(debug);
-      if (t != null) t.printStackTrace(fileLog);
-    }
+		if (inFile) {
+			fileLog.println(debug);
+			if (t != null) t.printStackTrace(fileLog);
+		}
 	}
 
 	/**
@@ -93,32 +95,32 @@ public final class Debug {
 	 * @param t Throwable object to log, can be null.
 	 */
 	public synchronized void error(String message, int moduleId, Throwable t) {
-	  if (!debugOn) return;
-	  String debug = "[ERROR] " + "[" + getModule(moduleId) + "]: " + message;
-	  if (onConsole) {
-      consoleLog.println(debug);
-      if (t != null) t.printStackTrace(consoleLog);
-    }
-    if (inFile) {
-      fileLog.println(debug);
-      if (t != null) t.printStackTrace(fileLog);
-    }
+		if (!debugOn) return;
+		String debug = "[ERROR] " + "[" + getModule(moduleId) + "]: " + message;
+		if (onConsole) {
+			consoleLog.println(debug);
+			if (t != null) t.printStackTrace(consoleLog);
+		}
+		if (inFile) {
+			fileLog.println(debug);
+			if (t != null) t.printStackTrace(fileLog);
+		}
 	}
-	
+
 	/**
 	 * Closes the log file.
 	 */
 	public synchronized void close() {
-	  if (inFile) {
-  	  fileLog.flush();
-  	  fileLog.close();
-	  }
+		if (inFile) {
+			fileLog.flush();
+			fileLog.close();
+		}
 	}
 
 	private static String getModule(int i) {
 		String res;
 		switch (i) {
-		
+
 		case PROTOCOL:
 			res = "Protocol";
 			break;
