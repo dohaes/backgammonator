@@ -62,6 +62,9 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 
 	}
 
+	/**
+	 * @see BackgammonBoard#getPoint(int)
+	 */
 	public Point getPoint(int point) {
 		if (point < 1 || point > Constants.POINTS_COUNT) {
 			throw new IllegalArgumentException("Illegal position: " + point);
@@ -69,16 +72,25 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		return getPoint0(point);
 	}
 
+	/**
+	 * @see BackgammonBoard#getHits(PlayerColor)
+	 */
 	public int getHits(PlayerColor color) {
 		return (color == PlayerColor.WHITE ? board[HIT_WHITE]
 				: board[HIT_BLACK]).getCount();
 	}
 
+	/**
+	 * @see BackgammonBoard#getBornOff(PlayerColor)
+	 */
 	public int getBornOff(PlayerColor color) {
 		return (color == PlayerColor.WHITE ? board[BORN_WHITE]
 				: board[BORN_BLACK]).getCount();
 	}
 
+	/**
+	 * @see BackgammonBoard#getPoint(int)
+	 */
 	public PlayerColor getCurrentPlayerColor() {
 		return currentColor;
 	}
