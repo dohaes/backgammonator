@@ -65,7 +65,7 @@ public class GameWithProtocolTestCase extends TestCase {
 
 	public void testEmptyStringReturned() {
 		try {
-			copy("EmpryMovePlayer", "SamplePlayer");
+			copy("EmptyMovePlayer", "SamplePlayer");
 			Game game = GameManager.newGame(fileName1, fileName2, false);
 			GameOverStatus status = null;
 
