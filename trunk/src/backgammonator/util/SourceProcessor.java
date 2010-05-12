@@ -92,6 +92,14 @@ public class SourceProcessor {
 		}
 		return result;
 	}
+	
+	/**
+	 * Cleans up <code>deploymentdir</code> after the tournament is over.
+	 * @param deproylemntdir the full path to the directory to clean.
+	 */
+	public void cleanup(String deproylemntdir) {
+		//TODO
+	}
 
 	// public static void main(String[] args) {
 	// try {
