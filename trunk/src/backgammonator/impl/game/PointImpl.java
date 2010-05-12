@@ -34,10 +34,18 @@ public final class PointImpl implements Point {
 		this.color = color;
 	}
 
+	/**
+	 * @see Point#getCount()
+	 */
+	@Override
 	public int getCount() {
 		return count;
 	}
 
+	/**
+	 * @see Point#getColor()
+	 */
+	@Override
 	public PlayerColor getColor() {
 		return color;
 	}
@@ -87,6 +95,10 @@ public final class PointImpl implements Point {
 		this.color = color;
 	}
 
+	/**
+	 * @see Object#toString()
+	 */
+	@Override
 	public String toString() {
 		return color + " " + count;
 	}

@@ -14,9 +14,11 @@ public class DeadlockInMovePlayer extends AbstractSamplePlayer {
 	private Object monitor1 = new Object();
 	private Object monitor2 = new Object();
 
+	/**
+	 * @see Player#getMove(BackgammonBoard, Dice)
+	 */
 	@Override
-	public PlayerMove getMove(BackgammonBoard board, Dice dice)
-			throws Exception {
+	public PlayerMove getMove(BackgammonBoard board, Dice dice) {
 		new Thread(new DeadlockRunnable(), "Deadlock in getMove").start();
 		try {
 			synchronized (monitor1) {
@@ -33,6 +35,9 @@ public class DeadlockInMovePlayer extends AbstractSamplePlayer {
 		return null;
 	}
 
+	/**
+	 * @see Player#getName()
+	 */
 	@Override
 	public String getName() {
 		return "Sample Player Deadlock";
@@ -43,6 +48,7 @@ public class DeadlockInMovePlayer extends AbstractSamplePlayer {
 	 */
 	class DeadlockRunnable implements Runnable {
 
+		@SuppressWarnings("synthetic-access")
 		@Override
 		public void run() {
 			try {

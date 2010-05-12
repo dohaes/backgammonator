@@ -6,6 +6,7 @@ import java.util.Scanner;
  * Sample implementation of a player using the protocol. This player returns an
  * invalid move.
  */
+@SuppressWarnings("unused")
 public class InvalidMovePlayer {
 
 	private int[] count = new int[25]; // to index from 1 to 24
@@ -23,6 +24,11 @@ public class InvalidMovePlayer {
 
 	private Scanner scanner = new Scanner(System.in);
 
+	/**
+	 * The entry point.
+	 * 
+	 * @param args ignored
+	 */
 	public static void main(String[] args) {
 		new InvalidMovePlayer().start();
 	}

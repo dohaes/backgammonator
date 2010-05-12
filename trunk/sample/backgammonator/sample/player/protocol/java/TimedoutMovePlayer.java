@@ -6,6 +6,11 @@ package backgammonator.sample.player.protocol.java;
  */
 public class TimedoutMovePlayer {
 
+	/**
+	 * The entry point.
+	 * 
+	 * @param args ignored
+	 */
 	public static void main(String[] args) throws InterruptedException {
 		Thread.sleep(2100);
 	}

@@ -49,6 +49,9 @@ public class PlayerImpl implements Player {
 		this.name = name;
 	}
 
+	/**
+	 * @see Player#getMove(BackgammonBoard, Dice)
+	 */
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
@@ -60,6 +63,9 @@ public class PlayerImpl implements Player {
 		return Parser.getMove(scanner.nextLine());
 	}
 
+	/**
+	 * @see Player#gameOver(BackgammonBoard, boolean, GameOverStatus)
+	 */
 	@Override
 	public void gameOver(BackgammonBoard board, boolean wins,
 			GameOverStatus status) {
@@ -98,13 +104,19 @@ public class PlayerImpl implements Player {
 
 	}
 
+	/**
+	 * @see Player#getName()
+	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Finalizes the Player object.
+	 */
 	@Override
-	protected void finalize() throws Throwable {
+	protected void finalize() {
 
 		try {
 			stdin.close();

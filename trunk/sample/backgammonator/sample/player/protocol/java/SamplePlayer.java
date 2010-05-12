@@ -5,6 +5,7 @@ import java.util.Scanner;
 /**
  * Sample implementation of a player using the protocol.
  */
+@SuppressWarnings("unused")
 public class SamplePlayer {
 
 	private static int ID = 0;
@@ -25,8 +26,13 @@ public class SamplePlayer {
 
 	private Scanner scanner = new Scanner(System.in);
 
+	/**
+	 * The entry point.
+	 * 
+	 * @param args ignored
+	 */
 	public static void main(String[] args) {
-		new SamplePlayer().start();
+		new SamplePlayer(0).start();
 	}
 
 	private void start() {
@@ -60,9 +66,9 @@ public class SamplePlayer {
 		status = scanner.nextInt();
 	}
 
-	public SamplePlayer() {
-	}
-
+	/**
+	 * Constructs new instance of the class.
+	 */
 	public SamplePlayer(int id) {
 		this.id = id;
 	}
@@ -80,9 +86,8 @@ public class SamplePlayer {
 			m3 = findMove(b, die1);
 			m4 = findMove(b, die2);
 			return m1 + " " + m2 + " " + m3 + " " + m4;
-		} else {
-			return m1 + " " + m2;
-		}
+		} 
+		return m1 + " " + m2;
 	}
 
 	private String findMove(InternalBoard board, int die) {
@@ -106,6 +111,7 @@ public class SamplePlayer {
 
 		private int[] pos;
 
+		@SuppressWarnings("synthetic-access")
 		public InternalBoard() {
 			pos = new int[26];
 			pos[25] = hits_mine; // current player's hits

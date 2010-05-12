@@ -25,16 +25,25 @@ public class SignatureTestCase extends TestCase {
 
 	private static Method[] methodsFromObject = Object.class.getMethods();
 
+	/**
+	 * Tests {@link BackgammonBoardImpl} objects.
+	 */
 	public void testBackgammonBoard() {
 		initAll(BackgammonBoardImpl.class, BackgammonBoard.class);
 		assertSignatures();
 	}
 
+	/**
+	 * Tests {@link DiceImpl} objects.
+	 */
 	public void testDice() {
 		initAll(DiceImpl.class, Dice.class);
 		assertSignatures();
 	}
 
+	/**
+	 * Tests {@link PointImpl} objects.
+	 */
 	public void testPoint() {
 		initAll(PointImpl.class, Point.class);
 		assertSignatures();

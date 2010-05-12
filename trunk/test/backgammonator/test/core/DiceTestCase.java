@@ -1,6 +1,7 @@
 package backgammonator.test.core;
 
 import backgammonator.impl.game.DiceImpl;
+import backgammonator.lib.game.Dice;
 import backgammonator.test.util.TestUtil;
 import junit.framework.TestCase;
 
@@ -12,6 +13,9 @@ public class DiceTestCase extends TestCase {
 	private DiceImpl dice = new DiceImpl();
 	private int die;
 
+	/**
+	 * Tests if the generated values of the dice are in the interval for 1 to 6.
+	 */
 	public void testNumberInterval() {
 		for (int i = 0; i < 10; i++) {
 			TestUtil.generateNext(dice);
@@ -20,6 +24,9 @@ public class DiceTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests method {@link Dice#isDouble()}
+	 */
 	public void testDouble() {
 		for (int i = 0; i < 10; i++) {
 			TestUtil.generateNext(dice);

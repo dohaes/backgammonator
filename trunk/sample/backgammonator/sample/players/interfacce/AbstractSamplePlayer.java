@@ -13,6 +13,9 @@ public abstract class AbstractSamplePlayer implements Player {
 	private boolean wins;
 	private GameOverStatus status;
 
+	/**
+	 * @see Player#gameOver(BackgammonBoard, boolean, GameOverStatus)
+	 */
 	@Override
 	public void gameOver(BackgammonBoard board, boolean wins,
 			GameOverStatus status) {
@@ -20,10 +23,16 @@ public abstract class AbstractSamplePlayer implements Player {
 		this.status = status;
 	}
 
+	/**
+	 * Returns the game over status which is passed to this player.
+	 */
 	public GameOverStatus getStatus() {
 		return status;
 	}
 
+	/**
+	 * Returns whether this player wins or loses.
+	 */
 	public boolean wins() {
 		return wins;
 	}

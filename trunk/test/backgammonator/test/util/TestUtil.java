@@ -35,10 +35,8 @@ public final class TestUtil {
 	}
 
 	/**
-	 * Invokes method {@link DiceImpl#generateNext()} via reflection on
+	 * Invokes method DiceImpl.generateNext() via reflection on the given
 	 * <code>dice</code>
-	 * 
-	 * @see {@link DiceImpl#generateNext()}
 	 */
 	public static void generateNext(DiceImpl dice) {
 		if (generateNext == null) throw new RuntimeException(
@@ -51,12 +49,9 @@ public final class TestUtil {
 	}
 
 	/**
-	 * Invokes method
-	 * {@link BackgammonBoardImpl#makeMove(PlayerMove move, Dice dice)} via
-	 * reflection. The method is invoked on <code>board</code> with arguments
-	 * <code>move</code> and <code>dice</code>.
-	 * 
-	 * @see {@link BackgammonBoardImpl#makeMove(PlayerMove move, Dice dice)}
+	 * Invokes method BackgammonBoardImpl.makeMove(PlayerMove move, Dice dice)
+	 * via reflection. The method is invoked on <code>board</code> with
+	 * arguments <code>move</code> and <code>dice</code>.
 	 */
 	public static boolean makeMove(BackgammonBoardImpl board, PlayerMove move,
 			DiceImpl dice) throws Exception {

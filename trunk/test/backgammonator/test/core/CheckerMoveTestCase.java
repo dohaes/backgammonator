@@ -8,42 +8,52 @@ import backgammonator.lib.game.CheckerMove;
  */
 public class CheckerMoveTestCase extends TestCase {
 
+	/**
+	 * Tests creation of a valid {@link CheckerMove} object.
+	 */
 	public void testCreateValidMove() {
 		CheckerMove move = null;
 		try {
 			move = new CheckerMove(2, 3);
-		} catch (Throwable t) {
+			assertEquals(2, move.getStartPoint());
+			assertEquals(3, move.getDie());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(2, move.getStartPoint());
-		assertEquals(3, move.getDie());
+
 		try {
 			move = new CheckerMove(3, 1);
-		} catch (Throwable t) {
+			assertEquals(1, move.getDie());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(1, move.getDie());
+
 		try {
 			move = new CheckerMove(2, 6);
-		} catch (Throwable t) {
+			assertEquals(6, move.getDie());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(6, move.getDie());
+
 		try {
 			move = new CheckerMove(1, 3);
-		} catch (Throwable t) {
+			assertEquals(1, move.getStartPoint());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(1, move.getStartPoint());
+
 		try {
 			move = new CheckerMove(24, 3);
-		} catch (Throwable t) {
+			assertEquals(24, move.getStartPoint());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception : " + t.getMessage());
 		}
-		assertEquals(24, move.getStartPoint());
 
 	}
 
+	/**
+	 * Tests creation of a {@link CheckerMove} object with invalid length.
+	 */
 	public void testInvalidLength() {
 		try {
 			new CheckerMove(26, 5);
@@ -65,6 +75,9 @@ public class CheckerMoveTestCase extends TestCase {
 
 	}
 
+	/**
+	 * Tests creation of a {@link CheckerMove} object with invalid point.
+	 */
 	public void testInvalidPoint() {
 
 		try {

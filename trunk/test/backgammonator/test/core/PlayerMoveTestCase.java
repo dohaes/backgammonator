@@ -18,6 +18,9 @@ public class PlayerMoveTestCase extends TestCase {
 	private CheckerMove[] moves3w = { move2d, move1, move5d };
 	private CheckerMove[] moves2 = { move2d, move3d, move4d, move5d };
 
+	/**
+	 * Tests creation of a valid {@link PlayerMove} object.
+	 */
 	public void testCreateValidMove() {
 		try {
 			new PlayerMove(moves1);
@@ -32,6 +35,9 @@ public class PlayerMoveTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests creation of an invalid {@link CheckerMove} object.
+	 */
 	public void testCreateInvalidMove() {
 		try {
 			new PlayerMove(null);
@@ -52,6 +58,9 @@ public class PlayerMoveTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests method {@link PlayerMove#isDouble()}
+	 */
 	public void testIsDouble() {
 		PlayerMove playerMove = new PlayerMove(moves2);
 		assertTrue(playerMove.isDouble());
@@ -59,6 +68,9 @@ public class PlayerMoveTestCase extends TestCase {
 		assertFalse(playerMove.isDouble());
 	}
 
+	/**
+	 * Tests method {@link PlayerMove#getCheckerMove(int)}
+	 */
 	public void testGetCheckerMove() {
 		PlayerMove move = new PlayerMove(moves1);
 
@@ -83,27 +95,21 @@ public class PlayerMoveTestCase extends TestCase {
 		CheckerMove chmove = null;
 		try {
 			chmove = move.getCheckerMove(0);
-		} catch (Throwable t) {
+			assertNotNull(chmove);
+			assertEquals(1, chmove.getDie());
+			assertEquals(11, chmove.getStartPoint());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception was thrown : " + t.getMessage());
 		}
-
-		assertNotNull(chmove);
-		assertEquals(1, chmove.getDie());
-		assertEquals(11, chmove.getStartPoint());
 
 		try {
 			chmove = move.getCheckerMove(1);
-		} catch (Throwable t) {
+			assertNotNull(chmove);
+			assertEquals(2, chmove.getDie());
+			assertEquals(22, chmove.getStartPoint());
+		} catch (IllegalArgumentException t) {
 			fail("Unexpected exception was thrown : " + t.getMessage());
 		}
-
-		assertNotNull(chmove);
-		assertEquals(2, chmove.getDie());
-		assertEquals(22, chmove.getStartPoint());
-	}
-
-	public void testToString() {
-		// TODO
 	}
 
 }

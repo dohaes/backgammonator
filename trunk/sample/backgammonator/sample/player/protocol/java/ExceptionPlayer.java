@@ -6,6 +6,11 @@ package backgammonator.sample.player.protocol.java;
  */
 public class ExceptionPlayer {
 
+	/**
+	 * The entry point.
+	 * 
+	 * @param args ignored
+	 */
 	public static void main(String[] args) {
 		throw new RuntimeException("Test exeption");
 	}
