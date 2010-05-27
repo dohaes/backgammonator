@@ -1,0 +1,7 @@
+  # Download the 4 files from Downloads.
+  # Install Apache Tomcat.
+  # Install MySQL Server.
+  # Install MySQL GUI if necessary.
+  # Move the MySQL Driver to TOMCAT_HOME\common\lib.
+  # Start MySQL and Tomcat.
+  # Copy the necessary files to TOMCAT_HOME\webapps\backgammonator. In this way they will be visible through a web browser at http:\\localhost:8080\backgammonator...
