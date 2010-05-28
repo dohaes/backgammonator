@@ -2,7 +2,7 @@
 
 The *backgammonlibrary.jar* is purposed to be used in a standard Java projects as part of the class path. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
-  # Download the backgammonSysLib.jar from [http://code.google.com/p/backgammonator/downloads/list here]
+  # Download the backgammonSysLib.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonlibrary.jar&can=2&q=#makechanges here]
   # Make a new general Java project in your IDE
   # Place the backgammonlibrary.jar on the project's class path.
   # Create a new class which implements interface backgammonator.lib.game.Player. The backgammonlibrary.jar contains sample implementations of the Player interface which can be explored.
