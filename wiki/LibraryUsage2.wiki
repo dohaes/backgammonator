@@ -12,7 +12,7 @@ The *backgammonDemo.jar* is an executable jar file which can be run in the conso
   java -jar full_path_to_backgammonDemo.jar full_path_to_source1 full_path_to_source2
 
   Here full_path_to_source1 and full_path_to_source2 are the absolute paths ot the two 
-  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the player that will be constucted with them. If any errors occure during this process they will be printed on the console. In the backgammonDemo.jar there are sample implementations of the communication protocol which can be explored.
+  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. In the backgammonDemo.jar there are sample implementations of the communication protocol which can be explored.
 
   # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
