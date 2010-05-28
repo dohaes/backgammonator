@@ -1,8 +1,8 @@
 package backgammonator.impl.game;
 
+import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.Player;
-import backgammonator.util.SourceProcessor;
 
 /**
  * This class is used to create a new game between two AI players.
