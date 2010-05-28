@@ -1,0 +1,17 @@
+#summary A manual on how to use the backgammonDemo.jar.
+
+The *backgammonDemo.jar* is an executable jar file which can be run in the console. It makes an exact simulation of the bahaviour of the system as if the files given as arguments are uploaded on teh system and about to process. Users which wish to use the Backgammonator Library in this case should follow the steps below:
+
+  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/list here]
+  # Install JDK 1.5 or heigher on your computer.
+  # Open the command window.
+  # Make sure that the JAVA_HOME environment variable is set to point to the directory with your java installation.
+  # Add JAVA_HOME/bin to the path
+  # Start the executable jar by running the following command:
+
+java -jar <full_path_to_backgammonDemo.jar> <full_path_to_source1> <full_path_to_source2>
+
+Here <full_path_to_source1> and <full_path_to_source2> are the absolute paths ot the two source files which represent the player. These files will be brocessed and compiled and a game will be startet between the player that will be constucted with them. If any errors occure during this process they will be printed on the console.
+
+  #A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
+  # After the game is over you can view the resutls as described above.
