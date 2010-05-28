@@ -9,9 +9,9 @@ The *backgammonDemo.jar* is an executable jar file which can be run in the conso
   # Add JAVA_HOME/bin to the path
   # Start the executable jar by running the following command:
 
-java -jar <full_path_to_backgammonDemo.jar> <full_path_to_source1> <full_path_to_source2>
+java -jar full_path_to_backgammonDemo.jar full_path_to_source1 full_path_to_source2
 
-Here <full_path_to_source1> and <full_path_to_source2> are the absolute paths ot the two source files which represent the player. These files will be brocessed and compiled and a game will be startet between the player that will be constucted with them. If any errors occure during this process they will be printed on the console.
+Here full_path_to_source1 and full_path_to_source2 are the absolute paths ot the two source files which represent the player. These files will be brocessed and compiled and a game will be startet between the player that will be constucted with them. If any errors occure during this process they will be printed on the console.
 
   #A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
