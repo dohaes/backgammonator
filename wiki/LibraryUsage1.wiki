@@ -2,11 +2,11 @@
 
 The backgammonSysLib.jar is purposed to be used in a standart Java project as part of the class path. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
-  # Download the *backgammonSysLib.jar* from [http://code.google.com/p/backgammonator/downloads/list here]
+  # Download the backgammonSysLib.jar from [http://code.google.com/p/backgammonator/downloads/list here]
   # Make a new general Java project in your IDE
   # Place the *backgammonSysLib.jar* on the project's class path.
-  # Create a new class which implements interface *backgammonator.lib.game.Player*.
-  # Create a new game using the *backgammonator.impl.game.GameManager.gewGame()* with instances of your implementation of the Player interface. The boolean parameter shows if a game log will be crated using the deafult HTML logger. If the value is true, HTML file containing the result of the game will appear in your project's base directory.
-  # Invoke *Game.start()* method on the object returned by newGame(...) to start the game.
+  # Create a new class which implements interface backgammonator.lib.game.Player.
+  # Create a new game using the backgammonator.impl.game.GameManager.gewGame() with instances of your implementation of the Player interface. The boolean parameter shows if a game log will be crated using the deafult HTML logger. If the value is true, HTML file containing the result of the game will appear in your project's base directory.
+  # Invoke Game.start() method on the object returned by newGame(...) to start the game.
   # After the game is over you can view the resutls as described above.
-  # You can run a single game between the same player multiple times. If the game between the players is still not over and Game.start() is invoked an *IllegalStateException* will be thrown.
+  # You can run a single game between the same player multiple times. If the game between the players is still not over and Game.start() is invoked an IllegalStateException will be thrown.
