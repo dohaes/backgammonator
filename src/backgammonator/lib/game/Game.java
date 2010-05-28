@@ -16,6 +16,8 @@ public interface Game {
 	 * Starts and navigates the game between the two players. Always the white
 	 * player is first.
 	 * 
+	 * @throws IllegalStateException if this method is invoked again on this
+	 *             game object while the game is not over yet.
 	 * @return the status of the game.
 	 * @see GameOverStatus
 	 */
