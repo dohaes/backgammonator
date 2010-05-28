@@ -16,5 +16,5 @@ The *backgammonDemo.jar* is an executable jar file which can be run in the conso
   game will be startet between the player that will be constucted with them. If any errors
   occure during this process they will be printed on the console.
 
-  #A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
+  # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
