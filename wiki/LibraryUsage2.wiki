@@ -2,7 +2,7 @@
 
 The *backgammonDemo.jar* is an executable jar file which can be run in the console. It makes an exact simulation of the bahaviour of the system as if the files given as arguments are uploaded on teh system and about to process. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
-  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/list here]
+  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here]
   # Install JDK 1.5 or heigher on your computer.
   # Open the command window.
   # Make sure that the JAVA_HOME environment variable is set to point to the directory with your java installation.
