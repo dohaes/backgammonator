@@ -5,7 +5,7 @@ The *backgammonlibrary.jar* is purposed to be used in a standard Java projects a
   # Download the backgammonSysLib.jar from [http://code.google.com/p/backgammonator/downloads/list here]
   # Make a new general Java project in your IDE
   # Place the backgammonlibrary.jar on the project's class path.
-  # Create a new class which implements interface backgammonator.lib.game.Player.
+  # Create a new class which implements interface backgammonator.lib.game.Player. The backgammonlibrary.jar contains sample implementations of the Player interface which can be explored.
   # Create a new game using the backgammonator.impl.game.GameManager.gewGame() with instances of your implementation of the Player interface. The boolean parameter shows if a game log will be crated using the deafult HTML logger. If the value is true, HTML file containing the result of the game will appear in your project's base directory.
   # Invoke Game.start() method on the object returned by newGame(...) to start the game.
   # After the game is over you can view the resutls as described above.
