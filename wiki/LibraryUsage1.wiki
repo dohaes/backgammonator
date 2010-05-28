@@ -1,4 +1,4 @@
-#summary A manual on how to use the *backgammonSysLib.jar*.
+#summary A manual on how to use the backgammonSysLib.jar.
 
 The backgammonSysLib.jar is purposed to be used in a standart Java project as part of the class path. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
