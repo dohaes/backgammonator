@@ -1,4 +1,4 @@
-package backgammonator.util;
+package backgammonator.impl.protocol;
 
 import java.io.BufferedReader;
 
@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import backgammonator.impl.protocol.PlayerFactory;
 import backgammonator.lib.game.Player;
+import backgammonator.util.Debug;
 
 /**
  * Processing the uploaded source files to executables. It should support
@@ -79,7 +79,7 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = PlayerFactory.newPlayer("java -cp "
+				result = new ProtocolPlayer("java -cp "
 						+ classFile.getParent() + " " + mainClass, classFile
 						.getParentFile().getName());
 			} else {
