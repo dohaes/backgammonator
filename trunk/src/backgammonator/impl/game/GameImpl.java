@@ -25,6 +25,7 @@ final class GameImpl implements Game {
 	private Player blackPlayer;
 
 	private Player winner = null;
+	private volatile boolean running = false;
 
 	private GameLogger logger;
 	private boolean logMoves;
@@ -56,6 +57,8 @@ final class GameImpl implements Game {
 	 */
 	@Override
 	public GameOverStatus start() {
+		if (running) throw new IllegalStateException("Game is not over");
+		running = true;
 		Debug.getInstance().info(
 				"Starting game: " + whitePlayer.getName() + " vs "
 						+ blackPlayer.getName(), Debug.GAME_LOGIC);
@@ -86,6 +89,7 @@ final class GameImpl implements Game {
 			Debug.getInstance().info(
 					"Game over: " + winner.getName() + " wins",
 					Debug.GAME_LOGIC);
+			running = false;
 		}
 	}
 
