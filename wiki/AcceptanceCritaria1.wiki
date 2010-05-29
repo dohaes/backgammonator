@@ -1,13 +1,13 @@
 #summary Acceptance criteria scenarios on User Story 1
 
-= Introduction =
+*User Story*
 
-Add your content here.
+As a contestant<br/>
+I want my program to use a protocol<br/>
+so that it can interact with the system<br/>
 
 
-= Details =
+*Scenario 1*
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  # Do this
+  # Do that
