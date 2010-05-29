@@ -4,7 +4,7 @@
 
 As a contest manager<br/>
 I want the system to provide me with a web interface<br/>
-so that I can run the tournament via it<br/>
+so that I can configure and run a tournament via it<br/>
 
 *Scenario 1*
 
