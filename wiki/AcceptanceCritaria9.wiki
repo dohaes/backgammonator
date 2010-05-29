@@ -3,7 +3,7 @@
 *User Story*
 
 As a contestant<br/>
-I want to upload the source code of my program via web interface<br/>
+I want to upload the source code of my program via a web interface<br/>
 so that I can take part in the tournament<br/>
 
 *Scenario 1*
