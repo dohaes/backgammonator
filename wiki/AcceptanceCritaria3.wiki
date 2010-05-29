@@ -4,7 +4,7 @@
 
 As a contestant<br/>
 I want to be use the Backgammоnator Library<br/>
-so that I can test my AI players locally<br/>
+so that I can test my AI players locally and view the results<br/>
 
 *Scenario 1*
 
