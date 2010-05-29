@@ -3,7 +3,7 @@
 *User Story*
 
 As a contest manager<br/>
-I want the system to provide me with an user interface<br/>
+I want the system to provide me with a web interface<br/>
 so that I can run the tournament via it<br/>
 
 *Scenario 1*
