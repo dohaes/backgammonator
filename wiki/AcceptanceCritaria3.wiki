@@ -3,7 +3,7 @@
 *User Story*
 
 As a contestant<br/>
-I want to be use the Backgammоnator Library</br>
+I want to be use the Backgammоnator Library<br/>
 so that I can test my AI players locally<br/>
 
 *Scenario 1*
