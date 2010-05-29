@@ -2,9 +2,9 @@
 
 *User Story*
 
-As a contest manager<br/>
-I want to adjust the tournament settings<br/>
-so that I can define tournament type, number of battles and participating players<br/>
+As a contestant<br/>
+I want the system to provide sample AI players<br/>
+so that I can explore their source code or run them against my AI players<br/>
 
 *Scenario 1*
 
