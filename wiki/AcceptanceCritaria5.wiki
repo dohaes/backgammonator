@@ -4,7 +4,7 @@
 
 As a contestant manager<br/>
 I want the system to provide an systematized game log<br/>
-so that I can view the results from the game analyze them.<br/>
+so that I can view the results for each game.<br/>
 
 *Scenario 1*
 
