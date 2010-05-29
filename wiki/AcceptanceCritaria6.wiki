@@ -5,6 +5,7 @@
 As a contest manager<br/>
 I want the system to provide systematized tournament log<br/>
 so that I can view the results from the tournament and analyze them.<br/>
+
 *Scenario 1*
 
   # Do this
