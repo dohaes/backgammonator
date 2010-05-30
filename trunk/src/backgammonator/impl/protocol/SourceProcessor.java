@@ -27,20 +27,18 @@ public class SourceProcessor {
 	public static Player processFile(String filePath) {
 		File file = new File(filePath);
 		if (!file.exists()) {
-			Debug.getInstance().error(
-					"The given file is not found: " + filePath, Debug.UTILS,
-					null);
+			Debug.getInstance().error("The given file is not found: " + filePath,
+					Debug.UTILS, null);
 			return null;
 		}
 
 		boolean isJava;
 		if (file.getName().endsWith(".java")) isJava = true;
 		else if (file.getName().endsWith(".c")) isJava = false;
-		// TODO debug.error this exception!
 		else {
-			Debug.getInstance().error(
-					"The file must ends with .java or .c: " + filePath,
-					Debug.UTILS, null);
+			Debug.getInstance()
+					.error("The file must ends with .java or .c: " + filePath,
+							Debug.UTILS, null);
 			return null;
 		}
 
@@ -51,11 +49,11 @@ public class SourceProcessor {
 				compileProcess = Runtime.getRuntime().exec(
 						"javac " + file.getAbsolutePath());
 
-				// TODO optimizing threads!
+				// TODO optimizing threads! maybe we need threadpool ?
 				// manage streams
-				StreamGobbler errorGobbler = new StreamGobbler(compileProcess
+				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
 						.getErrorStream(), "ERROR");
-				StreamGobbler outputGobbler = new StreamGobbler(compileProcess
+				StreamCatcher outputGobbler = new StreamCatcher(compileProcess
 						.getInputStream(), "OUTPUT");
 				errorGobbler.start();
 				outputGobbler.start();
@@ -67,21 +65,19 @@ public class SourceProcessor {
 							Debug.UTILS, null);
 					return null;
 				}
-				File classFile = new File(file.getAbsolutePath().replace(
-						".java", ".class"));
+				File classFile = new File(file.getAbsolutePath().replace(".java",
+						".class"));
 				if (!classFile.exists()) {
 					Debug.getInstance().error(
-							"The compiled file is not found: " + filePath,
-							Debug.UTILS, null);
+							"The compiled file is not found: " + filePath, Debug.UTILS, null);
 					return null;
 				}
 				// manage result
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayer("java -cp "
-						+ classFile.getParent() + " " + mainClass, classFile
-						.getParentFile().getName());
+				result = new ProtocolPlayer("java -cp " + classFile.getParent() + " "
+						+ mainClass, classFile.getParentFile().getName());
 			} else {
 				// TODO manage c++ files
 			}
@@ -92,28 +88,32 @@ public class SourceProcessor {
 		}
 		return result;
 	}
-	
-	/**
-	 * Cleans up <code>deploymentdir</code> after the tournament is over.
-	 * @param deproylemntdir the full path to the directory to clean.
-	 */
-	public void cleanup(String deproylemntdir) {
-		//TODO
-	}
 
-	// public static void main(String[] args) {
-	// try {
-	// processFile("C:\\Develop\\eclipse\\workspace\\backgammonator\\sample\\backgammonator\\sample\\players\\interfacce\\AbstractSamplePlayer.java");
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
+	/**
+	 * Cleaning compilation files
+	 * 
+	 * @param deproylemntdir player's implementation dir
+	 */
+	public static void cleanUp(String deproylemntdir) {
+		File dir = new File(deproylemntdir);
+		if (!dir.exists() || !dir.isDirectory()) {
+			Debug.getInstance().error(
+					"The given dir is not correct: " + deproylemntdir, Debug.UTILS, null);
+		}
+
+		File[] allFiles = dir.listFiles();
+		for (int i = 0; i < allFiles.length; i++) {
+			if (allFiles[i].getName().endsWith(".class")) {
+				allFiles[i].delete();
+			}
+		}
+	}
 }
 
 /**
  * Dumps error and out streams of the compile process
  */
-class StreamGobbler extends Thread {
+class StreamCatcher extends Thread {
 	private InputStream is;
 	private String type;
 	private StringBuffer output = new StringBuffer();
@@ -124,7 +124,7 @@ class StreamGobbler extends Thread {
 	 * @param is
 	 * @param type
 	 */
-	StreamGobbler(InputStream is, String type) {
+	StreamCatcher(InputStream is, String type) {
 		this.is = is;
 		this.type = type;
 	}
