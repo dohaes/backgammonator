@@ -10,7 +10,8 @@ import backgammonator.lib.game.Game;
 public class Main {
 
 	/**
-	 * @param args
+	 * Main method for testing two backgammon players
+	 * @param args the two absolute paths to that source files
 	 */
 	public static void main(String[] args) {
 		if (args.length != 2) throw new IllegalArgumentException(
@@ -18,5 +19,8 @@ public class Main {
 
 		Game game = GameManager.newGame(args[0], args[1], true);
 		game.start();
+		//TODO clean up compilation files?
+		//SourceProcessor.cleanUp(args[0]);
+		//SourceProcessor.cleanUp(args[1]);
 	}
 }
