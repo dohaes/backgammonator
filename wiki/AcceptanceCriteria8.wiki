@@ -1,0 +1,12 @@
+#summary Acceptance criteria scenarios on User Story 8
+
+*User Story*
+
+As a contest manager<br/>
+I want the system to provide me with a web interface<br/>
+so that I can configure and run a tournament via it<br/>
+
+*Scenario 1*
+
+  # Do this
+  # Do that
