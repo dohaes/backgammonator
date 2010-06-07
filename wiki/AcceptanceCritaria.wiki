@@ -1,0 +1,166 @@
+#summary Acceptance criteria scenarios.
+
+<wiki:toc max_depth="1" />
+
+= User story 1 =
+
+==User Story==
+
+As a contestant<br/>
+I want my program to use a protocol<br/>
+so that it can interact with the system<br/>
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 2 =
+
+==User Story==
+
+As a contestant<br/>
+I want the system to be able to process Java sources<br/>
+so that I can implement my AI player in Java.<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 3 =
+
+==User Story==
+
+As a contestant<br/>
+I want to be use the Backgammоnator Library<br/>
+so that I can test my AI players locally and view the results<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 4=
+
+==User Story==
+
+As a contest manager<br/>
+I want the system to have algorithms that implement tournaments schemas<br/>
+so that I can run a tournament and see the results.<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 5 =
+
+==User Story==
+
+As a contestant manager<br/>
+I want the system to provide an systematized game log<br/>
+so that I can view the results for each game.<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 6 =
+
+==User Story==
+
+As a contest manager<br/>
+I want the system to provide systematized tournament log<br/>
+so that I can view the results from the tournament and analyze them.<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 7 =
+
+==User Story==
+
+As a contestant<br/>
+I want the system to validate/verify my program<br/>
+so that I can be aware if there are any errors<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 8 =
+
+==User Story==
+
+As a contest manager<br/>
+I want the system to provide me with a web interface<br/>
+so that I can configure and run a tournament via it<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 9 =
+
+==User Story==
+
+As a contestant<br/>
+I want to upload the source code of my program via a web interface<br/>
+so that I can take part in the tournament<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 10 =
+
+==User Story==
+
+As a contest manager<br/>
+I want the contestants' programs to be granted a limited set of permissions<br/>
+so that no malicious code can be executed and the system stays secured<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
+
+
+= User story 11 =
+
+==User Story==
+
+As a contestant<br/>
+I want the system to provide sample AI players<br/>
+so that I can explore their source code or run them against my AI players<br/>
+
+
+==Scenario 1==
+
+  # Do this
+  # Do that
