@@ -146,21 +146,20 @@ public class SourceProcessor {
 //				.replace('/', File.separatorChar);
 //		Player player2 = processFile(samplesPath + File.separator
 //				+ "SamplePlayer.java");
-
-		Game game = GameManager.newGame(result, new SamplePlayer(), false);
+		SamplePlayer samplePlayer =  new SamplePlayer();
+		Game game = GameManager.newGame(result, samplePlayer, false);
 		Object sync = new Object();
 
 		String message = "Vefification succeeded successfully! No problem found.";
 		GameOverStatus status;
 		for (int i = 0; i < 5; i++) {
 			status = game.start();
-			if (status != GameOverStatus.NORMAL) {
+			if (status != GameOverStatus.NORMAL && game.getWinner() == samplePlayer) {
 				message = "Problems with the implemented protocol. Our test with"
 						+ "sample player indicated: "
 						+ status
-						+ " at "
-						+ i
-						+ " try";
+						+ " at try "
+						+ i;
 				break;
 			}
 		}
@@ -170,10 +169,10 @@ public class SourceProcessor {
 		return message;
 	}
 
-	public static void main(String[] args) {
-		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
-		System.out.println(res);
-	}
+//	public static void main(String[] args) {
+//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+//		System.out.println(res);
+//	}
 
 	/**
 	 * Cleaning compilation files
