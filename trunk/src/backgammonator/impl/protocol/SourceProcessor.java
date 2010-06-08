@@ -12,6 +12,7 @@ import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
 import backgammonator.util.Debug;
+import backgammonator.sample.players.interfacce.SamplePlayer;
 
 /**
  * Processing the uploaded source files to executables. It should support
@@ -141,19 +142,19 @@ public class SourceProcessor {
 			return "Exception:" + e.getMessage();
 		}
 
-		String samplesPath = "sample/backgammonator/sample/player/protocol/java"
-				.replace('/', File.separatorChar);
-		Player player2 = processFile(samplesPath + File.separator
-				+ "SamplePlayer.java");
+//		String samplesPath = "sample/backgammonator/sample/player/protocol/java"
+//				.replace('/', File.separatorChar);
+//		Player player2 = processFile(samplesPath + File.separator
+//				+ "SamplePlayer.java");
 
-		Game game = GameManager.newGame(result, player2, false);
+		Game game = GameManager.newGame(result, new SamplePlayer(), false);
 		Object sync = new Object();
 
 		String message = "Vefification succeeded successfully! No problem found.";
 		GameOverStatus status;
 		for (int i = 0; i < 5; i++) {
 			status = game.start();
-			if (status != GameOverStatus.NORMAL && game.getWinner() == player2) {
+			if (status != GameOverStatus.NORMAL) {
 				message = "Problems with the implemented protocol. Our test with"
 						+ "sample player indicated: "
 						+ status
