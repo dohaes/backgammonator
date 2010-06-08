@@ -142,19 +142,19 @@ public class SourceProcessor {
 
 		Game game = GameManager.newGame(result, player2, true);
 		Object sync = new Object();
-		GameThread gameThead = new GameThread(game, sync);
 
 		for (int i = 0; i < 50; i++) {
+			GameThread gameThead = new GameThread(game, sync);
 			gameThead.start();
 			try {
 				synchronized (sync) {
-					sync.wait(10000);
+					sync.wait(1000);
 				}
 			} catch (InterruptedException e) {
 				Debug.getInstance().error("Interrupted exception: " + filePath,
 						Debug.UTILS, e);
 			}
-			if (gameThead.getStatus() != GameOverStatus.NORMAL) {
+			if (gameThead.getStatus() != GameOverStatus.NORMAL && game.getWinner() != player2) {
 				return "Problems with the implemented protocol. Our test with"
 						+ "sample player indicated: " + gameThead.getStatus() + " at " + i
 						+ " try";
