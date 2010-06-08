@@ -6,7 +6,18 @@ As a contestant manager<br/>
 I want the system to provide an systematized game log<br/>
 so that I can view the results for each game.<br/>
 
+Generation of game logs is optional. Each game log should provide the following information:
+  * list of the players moves
+  * information about the end of the game 
+
+For each move the following info is logged:
+  * number of the move
+  * color of the player
+  * numbers on the dice
+  * moved checkers - positions and length of the move
+  * hits and born offs for the move
+  
 *Scenario 1*
 
-  # Do this
-  # Do that
+  # Start a new game.
+  # In directory "reports" there should be a game log created
