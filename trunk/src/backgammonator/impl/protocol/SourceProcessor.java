@@ -149,23 +149,30 @@ public class SourceProcessor {
 		Game game = GameManager.newGame(result, player2, false);
 		Object sync = new Object();
 
-		GameThread gameThead = new GameThread(game, sync, player2);
-		gameThead.start();
-		synchronized (sync) {
-			try {
-				sync.wait(50000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		String message = "Vefification succeeded successfully! No problem found.";
+		GameOverStatus status;
+		for (int i = 0; i < 5; i++) {
+			status = game.start();
+			if (status != GameOverStatus.NORMAL && game.getWinner() == player2) {
+				message = "Problems with the implemented protocol. Our test with"
+						+ "sample player indicated: "
+						+ status
+						+ " at "
+						+ i
+						+ " try";
+				break;
 			}
 		}
-
-		return gameThead.getMessage();
+		synchronized (sync) {
+			sync.notifyAll();
+		}
+		return message;
 	}
 
-//	public static void main(String[] args) {
-//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
-//		System.out.println(res);
-//	}
+	public static void main(String[] args) {
+		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+		System.out.println(res);
+	}
 
 	/**
 	 * Cleaning compilation files
@@ -229,44 +236,4 @@ class StreamCatcher extends Thread {
 		}
 	}
 
-}
-
-class GameThread extends Thread {
-	private Game game;
-	private Object sync;
-	private String message;
-	private GameOverStatus status;
-	private Player player2;
-
-	GameThread(Game game, Object sync, Player player2) {
-		this.game = game;
-		this.sync = sync;
-		this.player2 = player2;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	/**
-	 * @see java.lang.Thread#run()
-	 */
-	public void run() {
-		message = "Vefification succeeded successfully! No problem found.";
-		for (int i = 0; i < 5; i++) {
-			status = game.start();
-			if (status != GameOverStatus.NORMAL && game.getWinner() == player2) {
-				message = "Problems with the implemented protocol. Our test with"
-						+ "sample player indicated: "
-						+ status
-						+ " at "
-						+ i
-						+ " try";
-				break;
-			}
-		}
-		synchronized (sync) {
-			sync.notifyAll();
-		}
-	}
 }
