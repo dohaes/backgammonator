@@ -33,7 +33,9 @@
 
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac srcdir="${src}" destdir="${build}" />
+		<javac srcdir="${src}:../sample/backgammonator/sample/players/interfacce/"
+		       destdir="${build}"
+		       classpath="${project.home}/lib/backgammonLibraryFull.jar" />
 		<javac srcdir="${websrc}"
 		       destdir="${build}"
 		       classpath="${servlet.api}" />
@@ -102,8 +104,10 @@
 		<jar jarfile="${project.home}/lib/backgammonLibraryFull.jar"
 		     basedir="${build}"
 		     includes="backgammonator/**
-								sample/backgammonator/sample/player/protocol/**" 
-					excludes="backgammonator/impl/game/Main.class"/>
+								sample/backgammonator/sample/player/protocol/**
+								sample/backgammonator/sample/players/interfacce/**
+								"
+		     excludes="backgammonator/impl/game/Main.class" />
 	</target>
 
 	<target name="clean" description="clean up">
