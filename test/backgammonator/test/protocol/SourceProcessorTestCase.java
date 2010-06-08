@@ -91,7 +91,6 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithNormal() {
 		copy("SamplePlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
-		System.out.println("res: " + res);
 		assertTrue(res.indexOf("success") != -1);
 	}
 
