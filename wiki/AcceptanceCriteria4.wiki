@@ -6,8 +6,34 @@ As a contest manager<br/>
 I want the system to have algorithms that implement tournaments schemas<br/>
 so that I can run a tournament and see the results.<br/>
 
+There are three types of tournamets that can be run:
+ * ELIMINATIONS
+ * GROUPS
+ * BATTLE
 
 *Scenario 1*
 
-  # Do this
+  # Navigate to the tournament configuration page.
+  # Select the radio button for GROUPS.
+  # A tournament of type GROUPSshould be executed...
+  # Do that
+  # Do that
+  # Do that
+
+*Scenario 2*
+
+  # Navigate to the tournament configuration page.
+  # Select the radio button for BATTLE.
+  # A tournament of type BATTLE should be executed...
+  # Do that
+  # Do that
+  # Do that
+
+*Scenario 3*
+
+  # Navigate to the tournament configuration page.
+  # Select the radio button for ELIMINATIONS.
+  # A tournament of type ELIMINATIONS should be executed...
+  # Do that
+  # Do that
   # Do that
