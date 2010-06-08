@@ -42,7 +42,7 @@ The validation of the uploaded sources is optional and has the following steps:
   # Select Java programming language.
   # Click on "Upload".
   # The submit button should be disabled.
- # Message for successfull upload and invalid move while validating should be displayed and you will be redirected to the source upload page.
+  # Message for successfull upload and invalid move while validating should be displayed and you will be redirected to the source upload page.
 
 *Scenario 4*
 
@@ -52,5 +52,4 @@ The validation of the uploaded sources is optional and has the following steps:
   # Select Java programming language.
   # Click on "Upload".
   # The submit button should be disabled.
- # Message for successfull upload and timeout in move while validating should be displayed and you will be redirected to the source upload page.
-
+  # Message for successfull upload and timeout in move while validating should be displayed and you will be redirected to the source upload page.
