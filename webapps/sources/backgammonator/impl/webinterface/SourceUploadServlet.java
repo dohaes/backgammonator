@@ -46,17 +46,14 @@ public final class SourceUploadServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.print("1");
 		boolean validate = false;
 		String expected = null;
 		FileItem file = null;
 
 		if (!ServletFileUpload.isMultipartContent(request)) {
 			// invalid content type
-			out.print("2");
 			afterUpload(out, "Invalit content type!");
 		}
-		out.print("3");
 		// Parse the HTTP request...
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
 		// diskFileItemFactory.setSizeThreshold(40960); // in bytes - 40K
@@ -66,7 +63,6 @@ public final class SourceUploadServlet extends HttpServlet {
 		ServletFileUpload servletFileUpload = new ServletFileUpload(
 				diskFileItemFactory);
 		servletFileUpload.setSizeMax(81920); // in bytes - 80K
-		out.print("4");
 		try {
 			List fileItemsList = servletFileUpload.parseRequest(request);
 			// Process file items... 
@@ -74,7 +70,6 @@ public final class SourceUploadServlet extends HttpServlet {
 			while (iter.hasNext()) {
 				FileItem fileItem = (FileItem) iter.next();
 				if (fileItem.isFormField()) {
-					out.print("5");
 					// The file item contains a simple name-value pair of a
 					// form field
 					String fieldName = fileItem.getFieldName();
@@ -86,25 +81,19 @@ public final class SourceUploadServlet extends HttpServlet {
 				} else {
 					// The file item contains an uploaded file
 					file = fileItem;
-					out.print("6");
 				}
 			}
 		} catch (SizeLimitExceededException slee) {
 			// The size of the HTTP request body exceeds the limit
-			out.print("7");
 			afterUpload(out, slee.getMessage());
 		} catch (FileUploadException fue) {
-			out.print("8");
 			afterUpload(out, fue.getMessage());
 		} catch (Throwable t) {
-			out.print("9");
 			afterUpload(out, t.getMessage());
 		}
-		out.print("10");
 		
 		// process the file
 		if (file == null) {
-			out.print("11");
 			afterUpload(out, "No file specified for upload!");
 		}
 		FileOutputStream fos = null;
@@ -114,8 +103,6 @@ public final class SourceUploadServlet extends HttpServlet {
 
 		try {
 			if (!verifay(filename, expected)) {
-				out.print("12");
-				out.print("Invalid file name!");
 				afterUpload(out, "Invalid file name!");
 				
 			}
@@ -128,14 +115,12 @@ public final class SourceUploadServlet extends HttpServlet {
 				userDir.mkdirs();
 			} else {
 				if (!deleteContents(userDir)) {
-					out.print("Cannot delete previously uploaded sources!");
 					afterUpload(out, "Cannot delete previously uploaded sources!");
 				}
 			}
 
 			File uploaded = new File(userDir, filename);
 
-			out.print(uploaded.getAbsolutePath());
 			
 			fos = new FileOutputStream(uploaded);
 			is = file.getInputStream();
@@ -149,7 +134,6 @@ public final class SourceUploadServlet extends HttpServlet {
 			if (validate) {
 				validationMessage = SourceProcessor.validateSource(uploaded.getAbsolutePath());
 			}
-			out.println("==== valid. : " + validationMessage + "<br/>");
 		} catch (Throwable t) {
 			afterUpload(out, t.getMessage());
 		} finally {
