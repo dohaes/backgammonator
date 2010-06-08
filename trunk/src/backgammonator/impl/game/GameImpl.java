@@ -171,10 +171,7 @@ final class GameImpl implements Game {
 			}
 
 			if (logMoves && currentMove != null) {
-				logger.logMove(currentMove, board.getCurrentPlayerColor(),
-						dice, board.getHits(board.getCurrentPlayerColor()
-								.opposite()), board.getBornOff(board
-								.getCurrentPlayerColor()), invalid);
+				logger.logMove(currentMove, dice, invalid, board);
 			}
 
 			if (invalid) return GameOverStatus.INVALID_MOVE;
