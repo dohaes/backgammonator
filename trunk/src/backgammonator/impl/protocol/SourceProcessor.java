@@ -117,7 +117,8 @@ public class SourceProcessor {
 
 				int exitCode = compileProcess.waitFor();
 				if (exitCode != 0) {
-					return "Compilation Error!: \r\n" + errorGobbler.getMessage();
+					return "Compilation Error!: \r\n"
+							+ errorGobbler.getMessage();
 				}
 				File classFile = new File(file.getAbsolutePath().replace(
 						".java", ".class"));
@@ -148,31 +149,23 @@ public class SourceProcessor {
 		Game game = GameManager.newGame(result, player2, true);
 		Object sync = new Object();
 
-		for (int i = 0; i < 50; i++) {
-			GameThread gameThead = new GameThread(game, sync);
-			gameThead.start();
+		GameThread gameThead = new GameThread(game, sync, player2);
+		gameThead.start();
+		synchronized (sync) {
 			try {
-				synchronized (sync) {
-					sync.wait(10000);
-				}
+				sync.wait(50000);
 			} catch (InterruptedException e) {
-				Debug.getInstance().error("Interrupted exception: " + filePath,
-						Debug.UTILS, e);
-			}
-			if (gameThead.getStatus() != GameOverStatus.NORMAL
-					&& game.getWinner() == player2) {
-				return "Problems with the implemented protocol. Our test with"
-						+ "sample player indicated: " + gameThead.getStatus()
-						+ " at " + i + " try";
+				e.printStackTrace();
 			}
 		}
-		return "Vefification succeeded successfully! No problem found.";
+
+		return gameThead.getMessage();
 	}
 
-//	public static void main(String[] args) {
-//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\TimedoutMovePlayer.java");
-//		System.out.println(res);
-//	}
+	public static void main(String[] args) {
+		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+		System.out.println(res);
+	}
 
 	/**
 	 * Cleaning compilation files
@@ -241,27 +234,39 @@ class StreamCatcher extends Thread {
 class GameThread extends Thread {
 	private Game game;
 	private Object sync;
+	private String message;
 	private GameOverStatus status;
+	private Player player2;
 
-	GameThread(Game game, Object sync) {
+	GameThread(Game game, Object sync, Player player2) {
 		this.game = game;
 		this.sync = sync;
+		this.player2 = player2;
 	}
 
-	/**
-	 * @return game over status
-	 */
-	public GameOverStatus getStatus() {
-		return status;
+	public String getMessage() {
+		return message;
 	}
 
 	/**
 	 * @see java.lang.Thread#run()
 	 */
 	public void run() {
-		status = game.start();
+		message = "Vefification succeeded successfully! No problem found.";
+		for (int i = 0; i < 5; i++) {
+			status = game.start();
+			if (status != GameOverStatus.NORMAL && game.getWinner() == player2) {
+				message = "Problems with the implemented protocol. Our test with"
+						+ "sample player indicated: "
+						+ status
+						+ " at "
+						+ i
+						+ " try";
+				break;
+			}
+		}
 		synchronized (sync) {
-			sync.notify();
+			sync.notifyAll();
 		}
 	}
 }
