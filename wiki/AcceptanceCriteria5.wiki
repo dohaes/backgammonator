@@ -17,7 +17,10 @@ For each move the following info is logged:
   * moved checkers - positions and length of the move
   * hits and born offs for the move
   
-*Scenario 1*
+*Scenario*
 
-  # Start a new game.
-  # In directory "reports" there should be a game log created
+  # Start a new game and wait until it ends.
+  # In directory "reports" there should be a folder for the game created.
+  # In index.html, in the game folder, will be the game log with summary for each move, systematized in table with following fields: Player, Die 1, Die 2, Checker Move 1,  Checker Move 2,	Hit checkers, Born off checkers, Details.
+  # When the user chooses to View link in the Details column, he should see a detailed information for the move in separated page in separated window.
+  # In the move's detailed information page there should be image, showing the board configuration, links for the previous and next moves' detailed info. There should be information for the dice and last played player.
