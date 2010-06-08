@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.lib.game.GameOverStatus;
 import junit.framework.TestCase;
 
 /**
@@ -45,7 +46,7 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithExc() {
 		copy("ExceptionPlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
-		assertTrue(res.indexOf("exception") != -1);
+		assertTrue(res.indexOf(GameOverStatus.EXCEPTION.toString()) != -1);
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithTimeOut() {
 		copy("TimedoutMovePlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
-		assertTrue(res.indexOf("timed out") != -1);
+		assertTrue(res.indexOf(GameOverStatus.TIMEDOUT.toString()) != -1);
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithPremature() {
 		copy("PrematureExitPlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
-		assertTrue(res.indexOf("exception") != -1);
+		assertTrue(res.indexOf(GameOverStatus.EXCEPTION.toString()) != -1);
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithEmptyMove() {
 		copy("EmptyMovePlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
-		assertTrue(res.indexOf("invalid move") != -1);
+		assertTrue(res.indexOf(GameOverStatus.INVALID_MOVE.toString()) != -1);
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithInvalidMove() {
 		copy("InvalidMovePlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
-		assertTrue(res.indexOf("invalid move") != -1);
+		assertTrue(res.indexOf(GameOverStatus.INVALID_MOVE.toString()) != -1);
 	}
 
 	/**
@@ -90,6 +91,7 @@ public class SourceProcessorTestCase extends TestCase {
 	public void testValidateSourceWithNormal() {
 		copy("SamplePlayer", true);
 		String res = SourceProcessor.validateSource(fileName1);
+		System.out.println("res: " + res);
 		assertTrue(res.indexOf("success") != -1);
 	}
 
