@@ -63,23 +63,15 @@ public class GameLoggerTestCase extends TestCase {
 						+ "<h3>"
 						+ this.gameLogger.getGameTimestamp()
 						+ "</h3>\n"
-						+ "<table border=\"1\">"
-						+ "<tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr>"
-						+ "<tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n"
-						+ "<tr style=\"color:#000000\"><td>1</td><td>white</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td></tr>\n"
-						+ "<tr style=\"color:#000000\"><td>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>1</td><td rowspan=2>15</td></tr>\n"
-						+ "<tr><td>2</td><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n"
-						+ "<tr style=\"color:#0B3B0B\"><td colspan=10>black player wins the game - normal victory</td></tr></table></body></html>\n");
+						+ "<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td><td rowspan=2><b>Details</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n<tr style=\"color:#000000\"><td rowspan=1>1</td><td>black</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td><td rowspan=1><a href=\"moves/1.html\" target=\"_blank\">View</a></td></tr>\n<tr style=\"color:#000000\"><td rowspan=2>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>0</td><td rowspan=2>0</td><td rowspan=2><a href=\"moves/2.html\" target=\"_blank\">View</a></td></tr>\n<tr><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n<tr style=\"color:#0B3B0B\"><td colspan=11>black player wins the game - normal victory</td></tr></table></body></html>\n");
 	}
 
 	public void testInvalidMoveEndGame() {
 		this.gameLogger.logMove(new PlayerMove(new CheckerMove[] {
-				new CheckerMove(1, 5), new CheckerMove(1, 2) }),
-				PlayerColor.WHITE, new DiceImpl(5, 2), 0, 0, false);
+				new CheckerMove(1, 5), new CheckerMove(1, 2) }), new DiceImpl(5, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.logMove(new PlayerMove(new CheckerMove[] {
 				new CheckerMove(4, 2), new CheckerMove(15, 2),
-				new CheckerMove(15, 2), new CheckerMove(15, 2) }),
-				PlayerColor.BLACK, new DiceImpl(2, 2), 1, 15, true);
+				new CheckerMove(15, 2), new CheckerMove(15, 2) }), new DiceImpl(2, 2), true, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.INVALID_MOVE, PlayerColor.WHITE);
 
 		String filename = System.getProperty("game.logger.outputdir") + "\\"
@@ -102,23 +94,15 @@ public class GameLoggerTestCase extends TestCase {
 						+ "<h3>"
 						+ this.gameLogger.getGameTimestamp()
 						+ "</h3>\n"
-						+ "<table border=\"1\">"
-						+ "<tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr>"
-						+ "<tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n"
-						+ "<tr style=\"color:#000000\"><td>1</td><td>white</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td></tr>\n"
-						+ "<tr style=\"color:#FF0000\"><td>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>1</td><td rowspan=2>15</td></tr>\n"
-						+ "<tr><td>2</td><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n"
-						+ "<tr style=\"color:#FF0000\"><td colspan=10>white player wins the game - invalid move</td></tr></table></body></html>\n");
+						+ "<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td><td rowspan=2><b>Details</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n<tr style=\"color:#000000\"><td rowspan=1>1</td><td>black</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td><td rowspan=1><a href=\"moves/1.html\" target=\"_blank\">View</a></td></tr>\n<tr style=\"color:#FF0000\"><td rowspan=2>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>0</td><td rowspan=2>0</td><td rowspan=2><a href=\"moves/2.html\" target=\"_blank\">View</a></td></tr>\n<tr><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n<tr style=\"color:#FF0000\"><td colspan=11>white player wins the game - invalid move</td></tr></table></body></html>\n");
 	}
 
 	public void testExceptionEndGame() {
 		this.gameLogger.logMove(new PlayerMove(new CheckerMove[] {
-				new CheckerMove(1, 5), new CheckerMove(1, 2) }),
-				PlayerColor.WHITE, new DiceImpl(5, 2), 0, 0, false);
+				new CheckerMove(1, 5), new CheckerMove(1, 2) }), new DiceImpl(5, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.logMove(new PlayerMove(new CheckerMove[] {
 				new CheckerMove(4, 2), new CheckerMove(15, 2),
-				new CheckerMove(15, 2), new CheckerMove(15, 2) }),
-				PlayerColor.BLACK, new DiceImpl(2, 2), 1, 15, false);
+				new CheckerMove(15, 2), new CheckerMove(15, 2) }), new DiceImpl(2, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.EXCEPTION, PlayerColor.WHITE);
 
 		String filename = System.getProperty("game.logger.outputdir") + "\\"
@@ -141,13 +125,7 @@ public class GameLoggerTestCase extends TestCase {
 						+ "<h3>"
 						+ this.gameLogger.getGameTimestamp()
 						+ "</h3>\n"
-						+ "<table border=\"1\">"
-						+ "<tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td></tr>"
-						+ "<tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n"
-						+ "<tr style=\"color:#000000\"><td>1</td><td>white</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td></tr>\n"
-						+ "<tr style=\"color:#000000\"><td>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>1</td><td rowspan=2>15</td></tr>\n"
-						+ "<tr><td>2</td><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n"
-						+ "<tr style=\"color:#FF0000\"><td colspan=10>white player wins the game - exception</td></tr></table></body></html>\n");
+						+ "<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td><td rowspan=2><b>Details</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n<tr style=\"color:#000000\"><td rowspan=1>1</td><td>black</td><td>5</td><td>2</td><td>1</td><td>5</td><td>1</td><td>2</td><td rowspan=1>0</td><td rowspan=1>0</td><td rowspan=1><a href=\"moves/1.html\" target=\"_blank\">View</a></td></tr>\n<tr style=\"color:#000000\"><td rowspan=2>2</td><td>black</td><td>2</td><td>2</td><td>4</td><td>2</td><td>15</td><td>2</td><td rowspan=2>0</td><td rowspan=2>0</td><td rowspan=2><a href=\"moves/2.html\" target=\"_blank\">View</a></td></tr>\n<tr><td>black</td><td>2</td><td>2</td><td>15</td><td>2</td><td>15</td><td>2</td></tr>\n<tr style=\"color:#FF0000\"><td colspan=11>white player wins the game - exception</td></tr></table></body></html>\n");
 	}
 
 	@Override
