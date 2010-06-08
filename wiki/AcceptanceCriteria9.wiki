@@ -6,7 +6,59 @@ As a contestant<br/>
 I want to upload the source code of my program via a web interface<br/>
 so that I can take part in the tournament<br/>
 
+The web interface should have:
+ * filed for file upload
+ * radio buttons to select the programming language : Java or C/C++
+ * checkbox to select weather the uploaded source to be processed and validated.
+ * submit button to upload the file
+
+As convension files which contain Java source code must have .java extensions and files with C/C++ code must have .c extensions.
+The submit button should be inactive while the sources are being processed.
+
 *Scenario 1*
 
-  # Do this
-  # Do that
+  # Nvigate to the source upload page
+  # Select a file which extension is .java, nor .c
+  # Check Java or C/C++ programming language.
+  # Leave the validate ckechbox unchecked.
+  # Upload the file.
+  # Error massage for invalid file name should be displayed and you will be redirected to the source upload page.
+
+*Scenario 2*
+
+  # Nvigate to the source upload page
+  # Select a file which extension is .java
+  # Check C/C++ programming language.
+  # Leave the validate ckechbox unchecked.
+  # Upload the file.
+  # Error massage for invalid file name should be displayed and you will be redirected to the source upload page.
+
+*Scenario 3*
+
+  # Nvigate to the source upload page
+  # Select a file which extension is .java which has some compilation error in it.
+  # Check Java programming language.
+  # Check the validate ckechbox.
+  # Upload the file.
+  # The submit button should be inactive while the system processes the source.
+  # Error massage for compilation error should be displayed and you will be redirected to the source upload page.
+
+*Scenario 4*
+
+  # Nvigate to the source upload page
+  # Leave the field for the file empty.
+  # Check Java or C/C++ programming language.
+  # Leave the validate ckechbox unchecked.
+  # Press "Upload".
+  # Error massage for invalid file name should be displayed and you will be redirected to the source upload page.
+
+*Scenario 5*
+
+  # Nvigate to the source upload page
+  # Select a file which extension is .java which implements the protocol properly.
+  # Check Java programming language.
+  # Check the validate ckechbox.
+  # Upload the file.
+  # The submit button should be inactive while the system processes the source.
+  # Message for successfull upload and validation should be displayed and you will be redirected to the source upload page.
+
