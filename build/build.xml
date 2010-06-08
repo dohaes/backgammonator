@@ -12,12 +12,12 @@
 		${project.home}/webapps/lib/commons-fileupload-1.2.1.jar:
 		${project.home}/webapps/lib/commons-io-1.4.jar" />
 
-	<target name="all" depends="lib, demo, distSysLib, distWeb, distDemoFull" />
+	<target name="all" depends="lib, demo, distSysLib, distWeb, distLibFull" />
 	<target name="lib" depends="distLib" />
 	<target name="demo" depends="distDemo" />
 	<target name="syslib" depends="distSysLib" />
 	<target name="web" depends="distWeb" />
-	<target name="demofull" depends="distDemoFull" />
+	<target name="libfull" depends="distLibFull" />
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -93,7 +93,7 @@
 		  backgammonator/impl/webinterface/*" />
 	</target>
 
-	<target name="distDemoFull"
+	<target name="distLibFull"
 	        depends="compile"
 	        description="generate the distribution">
 		<!-- Create the distribution directory -->
