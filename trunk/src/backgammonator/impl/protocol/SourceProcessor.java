@@ -153,7 +153,7 @@ public class SourceProcessor {
 			gameThead.start();
 			try {
 				synchronized (sync) {
-					sync.wait(1000);
+					sync.wait(10000);
 				}
 			} catch (InterruptedException e) {
 				Debug.getInstance().error("Interrupted exception: " + filePath,
@@ -169,10 +169,10 @@ public class SourceProcessor {
 		return "Vefification succeeded successfully! No problem found.";
 	}
 
-//	public static void main(String[] args) {
-//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\InvalidMovePlayer.java");
-//		System.out.println(res);
-//	}
+	public static void main(String[] args) {
+		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+		System.out.println(res);
+	}
 
 	/**
 	 * Cleaning compilation files
