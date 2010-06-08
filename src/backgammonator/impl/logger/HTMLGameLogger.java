@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import backgammonator.lib.game.BackgammonBoard;
 import backgammonator.lib.game.Dice;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
@@ -34,6 +35,10 @@ class HTMLGameLogger implements GameLogger {
 		System.setProperty("game.logger.outputdir", outputdir);
 	}
 
+	private String getMovesDirName() {
+		return "moves-" + this.timestamp.replace(':', '.').replace(' ', '_');
+	}
+
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
 
@@ -44,6 +49,21 @@ class HTMLGameLogger implements GameLogger {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date date = new Date();
 		this.timestamp = dateFormat.format(date);
+
+		try {
+			File outputDir = new File(outputdir);
+			if (!outputDir.exists()) {
+				outputDir.mkdir();
+			}
+
+			File movesDir = new File(outputdir, this.getMovesDirName());
+			if (!movesDir.exists()) {
+				movesDir.mkdir();
+			}
+		} catch (Exception e) {
+			Debug.getInstance().error("Error creating folders",
+					Debug.GAME_LOGGER, e);
+		}
 
 		this.logStringBuffer = new StringBuffer(
 				"<html>\n<body>\n<h1 style=\"color:#0000FF\">");
@@ -86,9 +106,6 @@ class HTMLGameLogger implements GameLogger {
 
 		try {
 			File outputDir = new File(outputdir);
-			if (!outputDir.exists()) {
-				outputDir.mkdir();
-			}
 			File file = new File(outputDir, this.getFilename());
 			FileWriter fstream = new FileWriter(file);
 			BufferedWriter out = new BufferedWriter(fstream);
@@ -99,12 +116,122 @@ class HTMLGameLogger implements GameLogger {
 			Debug.getInstance().error("Error writing to file",
 					Debug.GAME_LOGGER, e);
 		}
+		
+		StringBuffer moveHtml = new StringBuffer("<html>\n<body>\n<h2>Move ");
+		moveHtml.append(moveId);
+		moveHtml.append("</h2>\n");
+		moveHtml.append(winner.toString());
+		moveHtml.append(" player wins the game - ");
+		moveHtml.append(status.toString());
+		moveHtml.append("<br />\n</body></html>\n");
+		
+		try {
+			File outputDir = new File(outputdir, this.getMovesDirName());
+			File file = new File(outputDir, "" + moveId + ".html");
+			FileWriter fstream = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write(moveHtml.toString());
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			Debug.getInstance().error("Error writing to file",
+					Debug.GAME_LOGGER, e);
+		}
 
 	}
 
 	@Override
-	public void logMove(PlayerMove move, PlayerColor color, Dice dice, int hit,
-			int bornOff, boolean invalid) {
+	public void logMove(PlayerMove move, Dice dice, boolean invalid,
+			BackgammonBoard board) {
+		
+		// create move's image
+		StringBuffer moveHtml = new StringBuffer("<html>\n<body>\n<h2>Move ");
+		moveHtml.append(moveId);
+		moveHtml.append("</h2>\n");
+		moveHtml.append("<h3>Dice: ");
+		moveHtml.append(dice.getDie1());
+		moveHtml.append(", ");
+		moveHtml.append(dice.getDie2());
+		moveHtml.append("</h3><br />\n");
+
+		if (moveId > 1) {
+			moveHtml.append("<a href=\"");
+			moveHtml.append(moveId - 1);
+			moveHtml.append(".html\">&lt;&lt; previous</a><br />\n");
+		}
+
+		moveHtml.append("<a href=\"");
+		moveHtml.append(moveId + 1);
+		moveHtml
+				.append(".html\">next &gt;&gt;</a><br /><br />\n<img src=\"../../res/up.png\"/><br />\n<img src=\"../../res/column-left.png\"/>");
+		for (int i = 13; i <= 24; i++) {
+			int pointNumber = i;
+			if(board.getCurrentPlayerColor() == PlayerColor.WHITE){
+				pointNumber = 24 - i + 1;
+			}
+			int currCount = board.getPoint(pointNumber).getCount();
+			if(currCount > 6){
+				currCount = 6;
+			}
+			String currColor = board.getPoint(pointNumber).getColor() == PlayerColor.WHITE ? "w"
+					: "b";
+			moveHtml.append("<img src=\"../../res/");
+			moveHtml.append(currCount);
+			moveHtml.append(currColor);
+			moveHtml.append("u.png\"/>");
+
+			if (i == 18 || i == 24) {
+				moveHtml.append("<img src=\"../../res/column.png\"/>");
+			} else {
+				moveHtml.append("<img src=\"../../res/border-up.png\"/>");
+			}
+		}
+		moveHtml
+				.append("<br />\n<img src=\"../../res/center.png\"/><br />\n<img src=\"../../res/column-left.png\"/>");
+		for (int i = 12; i >= 1; i--) {
+			int pointNumber = i;
+			if(board.getCurrentPlayerColor() == PlayerColor.WHITE){
+				pointNumber = 24 - i + 1;
+			}
+			int currCount = board.getPoint(pointNumber).getCount();
+			if(currCount > 6){
+				currCount = 6;
+			}
+			String currColor = board.getPoint(pointNumber).getColor() == PlayerColor.WHITE ? "w"
+					: "b";
+			moveHtml.append("<img src=\"../../res/");
+			moveHtml.append(currCount);
+			moveHtml.append(currColor);
+			moveHtml.append("d.png\"/>");
+
+			if (i == 7 || i == 1) {
+				moveHtml.append("<img src=\"../../res/column.png\"/>");
+			} else {
+				moveHtml.append("<img src=\"../../res/border-down.png\"/>");
+			}
+		}
+		moveHtml
+				.append("<br />\n<img src=\"../../res/down.png\"/>\n</body>\n</html>");
+		
+		try {
+			File outputDir = new File(outputdir, this.getMovesDirName());
+			File file = new File(outputDir, "" + moveId + ".html");
+			FileWriter fstream = new FileWriter(file);
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write(moveHtml.toString());
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			Debug.getInstance().error("Error writing to file",
+					Debug.GAME_LOGGER, e);
+		}
+		
+		// main log
+
+		PlayerColor color = board.getCurrentPlayerColor();
+		int hit = board.getHits(board.getCurrentPlayerColor().opposite());
+		int bornOff = board.getBornOff(board.getCurrentPlayerColor());
+
 		String rowspan;
 		if (move.isDouble()) {
 			rowspan = "2";
@@ -114,9 +241,13 @@ class HTMLGameLogger implements GameLogger {
 		String textColor = invalid ? "#FF0000" : "#000000";
 		this.logStringBuffer.append("<tr style=\"color:");
 		this.logStringBuffer.append(textColor);
-		this.logStringBuffer.append("\"><td>");
+		this.logStringBuffer.append("\"><td><a href=\"");
+		this.logStringBuffer.append(this.getMovesDirName());
+		this.logStringBuffer.append("/");
 		this.logStringBuffer.append(this.moveId);
-		this.logStringBuffer.append("</td><td>");
+		this.logStringBuffer.append(".html\">");
+		this.logStringBuffer.append(this.moveId);
+		this.logStringBuffer.append("</a></td><td>");
 		this.logStringBuffer.append(color);
 		this.logStringBuffer.append("</td><td>");
 		this.logStringBuffer.append(dice.getDie1());
@@ -158,6 +289,7 @@ class HTMLGameLogger implements GameLogger {
 			this.logStringBuffer.append(move.getCheckerMove(3).getDie());
 			this.logStringBuffer.append("</td></tr>\n");
 		}
+
 		this.moveId++;
 	}
 
