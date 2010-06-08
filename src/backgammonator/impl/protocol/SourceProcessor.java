@@ -229,7 +229,7 @@ class StreamCatcher extends Thread {
 			BufferedReader br = new BufferedReader(isr);
 			String line = null;
 			while ((line = br.readLine()) != null) {
-				System.out.println(type + ">" + line);
+//				System.out.println(type + ">" + line);
 				output.append(line + "\r\n");
 			}
 		} catch (IOException ioe) {
