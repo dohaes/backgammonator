@@ -6,11 +6,17 @@
 	<property name="project.home" location="../" />
 	<property name="src" location="${project.home}/src" />
 	<property name="build" location="${project.home}/classes" />
+	<property name="websrc" location="${project.home}/webapps/sources" />
+	<property name="servlet.api"
+	          location="${project.home}/webapps/lib/servlet.jar:
+		${project.home}/webapps/lib/commons-fileupload-1.2.1.jar:
+		${project.home}/webapps/lib/commons-io-1.4.jar" />
 
-	<target name="all" depends="lib, demo, distSysLib" />
+	<target name="all" depends="lib, demo, distSysLib, distWeb" />
 	<target name="lib" depends="distLib" />
 	<target name="demo" depends="distDemo" />
 	<target name="syslib" depends="distSysLib" />
+	<target name="web" depends="distWeb" />
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -27,34 +33,63 @@
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="${src}" destdir="${build}" />
+		<javac srcdir="${websrc}"
+		       destdir="${build}"
+		       classpath="${servlet.api}" />
 	</target>
 
-	<target name="distLib" depends="compile" description="generate the distribution">
+	<target name="distLib"
+	        depends="compile"
+	        description="generate the distribution">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonLibrary.jar" basedir="${build}" excludes="backgammonator/impl/protocol/*
-							backgammonator/impl/game/Main.class" includes="backgammonator/**
+		<jar jarfile="${project.home}/lib/backgammonLibrary.jar"
+		     basedir="${build}"
+		     excludes="backgammonator/impl/protocol/*
+							backgammonator/impl/game/Main.class"
+		     includes="backgammonator/**
 			sample/backgammonator/sample/players/interfacce/**" />
 	</target>
 
-	<target name="distDemo" depends="compile" description="generate the distribution">
+	<target name="distDemo"
+	        depends="compile"
+	        description="generate the distribution">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonDemo.jar" basedir="${build}" manifest="../src/meta-inf/manifest.mf" includes="backgammonator/**
+		<jar jarfile="${project.home}/lib/backgammonDemo.jar"
+		     basedir="${build}"
+		     manifest="../src/meta-inf/manifest.mf"
+		     includes="backgammonator/**
 								sample/backgammonator/sample/player/protocol/**" />
 	</target>
 
-	<target name="distSysLib" depends="compile" description="generate the distribution">
+	<target name="distSysLib"
+	        depends="compile"
+	        description="generate the distribution">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${project.home}/lib" />
 
-		<jar jarfile="${project.home}/lib/backgammonSysLib.jar" basedir="${build}" includes="
+		<jar jarfile="${project.home}/lib/backgammonSysLib.jar"
+		     basedir="${build}"
+		     includes="
 		  backgammonator/lib/tournament/*
       backgammonator/lib/game/*
       backgammonator/lib/logger/*
 			backgammonator/util/*" />
+	</target>
+
+	<target name="distWeb"
+	        depends="compile"
+	        description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${project.home}/lib" />
+
+		<jar jarfile="${project.home}/lib/backgammonWeb.jar"
+		     basedir="${build}"
+		     includes="
+		  backgammonator/impl/webinterface/*" />
 	</target>
 
 	<target name="clean" description="clean up">
