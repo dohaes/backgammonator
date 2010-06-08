@@ -169,10 +169,10 @@ public class SourceProcessor {
 		return "Vefification succeeded successfully! No problem found.";
 	}
 
-	public static void main(String[] args) {
-		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
-		System.out.println(res);
-	}
+//	public static void main(String[] args) {
+//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\TimedoutMovePlayer.java");
+//		System.out.println(res);
+//	}
 
 	/**
 	 * Cleaning compilation files
