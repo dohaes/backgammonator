@@ -6,34 +6,8 @@ As a contest manager<br/>
 I want the system to have algorithms that implement tournaments schemas<br/>
 so that I can run a tournament and see the results.<br/>
 
+
 *Scenario 1*
 
-The *backgammonlibrary.jar* is purposed to be used in a standard Java projects as part of the class path. Users which wish to use the Backgammonator Library in this case should follow the steps below:
-
-  # Download the backgammonlibrary.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonlibrary.jar&can=2&q=#makechanges here]
-  # Make a new general Java project in your IDE
-  # Place the backgammonlibrary.jar on the project's class path.
-  # Create a new class which implements interface backgammonator.lib.game.Player. The backgammonlibrary.jar contains sample implementations of the Player interface which can be explored.
-  # Create a new game using the backgammonator.impl.game.GameManager.gewGame() with instances of your implementation of the Player interface. The boolean parameter shows if a game log will be crated using the deafult HTML logger. If the value is true, HTML file containing the result of the game will appear in your project's base directory.
-  # Invoke Game.start() method on the object returned by newGame(...) to start the game.
-  # After the game is over you can view the resutls as described above.
-  # You can run a single game between the same players multiple times. If the game between the players is still not over and Game.start() is invoked an IllegalStateException will be thrown.
-
-*Scenario 2*
-
-The *backgammonDemo.jar* is an executable jar file which can be run in the console. It makes an exact simulation of the bahaviour of the system as if the files given as arguments are uploaded on teh system and about to process. Users which wish to use the Backgammonator Library in this case should follow the steps below:
-
-  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here]
-  # Install JDK 1.5 or heigher on your computer.
-  # Open the command window.
-  # Make sure that the JAVA_HOME environment variable is set to point to the directory with your java installation.
-  # Add JAVA_HOME/bin to the path
-  # Start the executable jar by running the following command:
-
-  java -jar full_path_to_backgammonDemo.jar full_path_to_source1 full_path_to_source2
-
-  Here full_path_to_source1 and full_path_to_source2 are the absolute paths ot the two 
-  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. In the backgammonDemo.jar there are sample implementations of the communication protocol that can be explored and used as exaples.
-
-  # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
-  # After the game is over you can view the resutls as described above.
+  # Do this
+  # Do that
