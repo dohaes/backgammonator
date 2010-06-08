@@ -96,7 +96,7 @@ public class SourceProcessor {
 	/**
 	 * Validate he given file
 	 */
-	public static String validateFile(String filePath) {
+	public static String validateSource(String filePath) {
 		File file = new File(filePath);
 		boolean isJava;
 		if (file.getName().endsWith(".java")) isJava = true;
@@ -169,10 +169,10 @@ public class SourceProcessor {
 		return "Vefification succeeded successfully! No problem found.";
 	}
 
-	public static void main(String[] args) {
-		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\InavalidMovePlayer.java");
-		System.out.println(res);
-	}
+//	public static void main(String[] args) {
+//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\InvalidMovePlayer.java");
+//		System.out.println(res);
+//	}
 
 	/**
 	 * Cleaning compilation files
