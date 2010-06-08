@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
 import backgammonator.impl.logger.GameLoggerFactory;
 import backgammonator.lib.game.CheckerMove;
@@ -34,16 +35,16 @@ public class GameLoggerTestCase extends TestCase {
 
 	public void testRegularEndGame() {
 		this.gameLogger.logMove(new PlayerMove(new CheckerMove[] {
-				new CheckerMove(1, 5), new CheckerMove(1, 2) }),
-				PlayerColor.WHITE, new DiceImpl(5, 2), 0, 0, false);
+				new CheckerMove(1, 5), new CheckerMove(1, 2) }), new DiceImpl(
+				5, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.logMove(new PlayerMove(new CheckerMove[] {
 				new CheckerMove(4, 2), new CheckerMove(15, 2),
 				new CheckerMove(15, 2), new CheckerMove(15, 2) }),
-				PlayerColor.BLACK, new DiceImpl(2, 2), 1, 15, false);
+				new DiceImpl(2, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.NORMAL, PlayerColor.BLACK);
 
-		String filename = System.getProperty("game.logger.outputdir") + "\\"
-				+ this.gameLogger.getFilename();
+		String filename = System.getProperty("game.logger.outputdir")
+				+ File.separator + this.gameLogger.getFilename();
 		String resultFileContent = "";
 		try {
 			int len = (int) (new File(filename).length());

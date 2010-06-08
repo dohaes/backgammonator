@@ -97,7 +97,7 @@ public class HTMLTournamentLogger implements TournamentLogger {
 		this.logStringBuffer.append(status.toString());
 		this.logStringBuffer.append("</td><td><a href=\"");
 		this.logStringBuffer.append(game.getFilename());
-		this.logStringBuffer.append("\">View</a></td></tr>\n");
+		this.logStringBuffer.append("\" target=\"_blank\">View</a></td></tr>\n");
 		this.gameNo++;
 	}
 
