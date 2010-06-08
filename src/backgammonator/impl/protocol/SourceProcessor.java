@@ -160,11 +160,11 @@ public class SourceProcessor {
 						+ " try";
 			}
 		}
-		return null;
+		return "Vefification succeeded successfully! No problem found.";
 	}
 
 	public static void main(String[] args) {
-		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\InvalidMovePlayer.java");
+		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
 		System.out.println(res);
 	}
 
