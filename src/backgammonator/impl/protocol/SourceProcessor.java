@@ -30,8 +30,9 @@ public class SourceProcessor {
 	public static Player processFile(String filePath) {
 		File file = new File(filePath);
 		if (!file.exists()) {
-			Debug.getInstance().error("The given file is not found: " + filePath,
-					Debug.UTILS, null);
+			Debug.getInstance().error(
+					"The given file is not found: " + filePath, Debug.UTILS,
+					null);
 			return null;
 		}
 
@@ -39,9 +40,9 @@ public class SourceProcessor {
 		if (file.getName().endsWith(".java")) isJava = true;
 		else if (file.getName().endsWith(".c")) isJava = false;
 		else {
-			Debug.getInstance()
-					.error("The file must ends with .java or .c: " + filePath,
-							Debug.UTILS, null);
+			Debug.getInstance().error(
+					"The file must ends with .java or .c: " + filePath,
+					Debug.UTILS, null);
 			return null;
 		}
 
@@ -67,19 +68,20 @@ public class SourceProcessor {
 							Debug.UTILS, null);
 					return null;
 				}
-				File classFile = new File(file.getAbsolutePath().replace(".java",
-						".class"));
+				File classFile = new File(file.getAbsolutePath().replace(
+						".java", ".class"));
 				if (!classFile.exists()) {
 					Debug.getInstance().error(
-							"The compiled file is not found: " + filePath, Debug.UTILS, null);
+							"The compiled file is not found: " + filePath,
+							Debug.UTILS, null);
 					return null;
 				}
 				// manage result
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayer("java -cp " + classFile.getParent() + " "
-						+ mainClass, classFile.getParentFile().getName());
+				result = new ProtocolPlayer("java -cp " + classFile.getParent()
+						+ " " + mainClass, classFile.getParentFile().getName());
 			} else {
 				// TODO manage c++ files
 			}
@@ -109,13 +111,16 @@ public class SourceProcessor {
 			if (isJava) {
 				compileProcess = Runtime.getRuntime().exec(
 						"javac " + file.getAbsolutePath());
+				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
+						.getErrorStream(), "ERROR");
+				errorGobbler.start();
 
 				int exitCode = compileProcess.waitFor();
 				if (exitCode != 0) {
-					return "Compilation Error!";
+					return "Compilation Error!: \r\n" + errorGobbler.getMessage();
 				}
-				File classFile = new File(file.getAbsolutePath().replace(".java",
-						".class"));
+				File classFile = new File(file.getAbsolutePath().replace(
+						".java", ".class"));
 				if (!classFile.exists()) {
 					return "Error with the compilation!";
 				}
@@ -124,8 +129,8 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayer("java -cp " + classFile.getParent() + " "
-						+ mainClass, classFile.getParentFile().getName());
+				result = new ProtocolPlayer("java -cp " + classFile.getParent()
+						+ " " + mainClass, classFile.getParentFile().getName());
 			} else {
 				// TODO postponed for now!
 			}
@@ -154,17 +159,18 @@ public class SourceProcessor {
 				Debug.getInstance().error("Interrupted exception: " + filePath,
 						Debug.UTILS, e);
 			}
-			if (gameThead.getStatus() != GameOverStatus.NORMAL && game.getWinner() == player2) {
+			if (gameThead.getStatus() != GameOverStatus.NORMAL
+					&& game.getWinner() == player2) {
 				return "Problems with the implemented protocol. Our test with"
-						+ "sample player indicated: " + gameThead.getStatus() + " at " + i
-						+ " try";
+						+ "sample player indicated: " + gameThead.getStatus()
+						+ " at " + i + " try";
 			}
 		}
 		return "Vefification succeeded successfully! No problem found.";
 	}
 
 	public static void main(String[] args) {
-		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\InavalidMovePlayer.java");
 		System.out.println(res);
 	}
 
@@ -177,7 +183,8 @@ public class SourceProcessor {
 		File dir = new File(deproylemntdir);
 		if (!dir.exists() || !dir.isDirectory()) {
 			Debug.getInstance().error(
-					"The given dir is not correct: " + deproylemntdir, Debug.UTILS, null);
+					"The given dir is not correct: " + deproylemntdir,
+					Debug.UTILS, null);
 		}
 
 		File[] allFiles = dir.listFiles();
@@ -196,6 +203,10 @@ class StreamCatcher extends Thread {
 	private InputStream is;
 	private String type;
 	private StringBuffer output = new StringBuffer();
+
+	public String getMessage() {
+		return output.toString();
+	}
 
 	/**
 	 * Constructor with two parameters
@@ -216,9 +227,10 @@ class StreamCatcher extends Thread {
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
 			String line = null;
-			while ((line = br.readLine()) != null)
+			while ((line = br.readLine()) != null) {
 				System.out.println(type + ">" + line);
-			output.append(line + "\r\n");
+				output.append(line + "\r\n");
+			}
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
