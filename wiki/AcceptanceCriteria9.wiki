@@ -62,3 +62,12 @@ The submit button should be inactive while the sources are being processed.
   # The submit button should be inactive while the system processes the source.
   # Message for successfull upload and validation should be displayed and you will be redirected to the source upload page.
 
+*Scenario 6*
+
+  # Nvigate to the source upload page
+  # Select a file which extension is .java which implements the protocol incorrectly.
+  # Check Java programming language.
+  # Check the validate ckechbox.
+  # Upload the file.
+  # The submit button should be inactive while the system processes the source.
+  # Error massage should be displayed indicating with appropriate message that the validation did not pass and you will be redirected to the source upload page.
