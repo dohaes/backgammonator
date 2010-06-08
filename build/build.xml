@@ -12,11 +12,12 @@
 		${project.home}/webapps/lib/commons-fileupload-1.2.1.jar:
 		${project.home}/webapps/lib/commons-io-1.4.jar" />
 
-	<target name="all" depends="lib, demo, distSysLib, distWeb" />
+	<target name="all" depends="lib, demo, distSysLib, distWeb, distDemoFull" />
 	<target name="lib" depends="distLib" />
 	<target name="demo" depends="distDemo" />
 	<target name="syslib" depends="distSysLib" />
 	<target name="web" depends="distWeb" />
+	<target name="demofull" depends="distDemoFull" />
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -90,6 +91,19 @@
 		     basedir="${build}"
 		     includes="
 		  backgammonator/impl/webinterface/*" />
+	</target>
+
+	<target name="distDemoFull"
+	        depends="compile"
+	        description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${project.home}/lib" />
+
+		<jar jarfile="${project.home}/lib/backgammonLibraryFull.jar"
+		     basedir="${build}"
+		     includes="backgammonator/**
+								sample/backgammonator/sample/player/protocol/**" 
+					excludes="backgammonator/impl/game/Main.class"/>
 	</target>
 
 	<target name="clean" description="clean up">
