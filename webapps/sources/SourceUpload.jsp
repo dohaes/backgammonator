@@ -8,11 +8,13 @@
 
 <br/>
 
-<%! private final static String UPLOADS = "D:/uploads"; %>
-<!-- TODO use the user name of the contestant -->
-<%! private final static String USER = "test_user"; %>
+<% 
+String message = request.getParameter("result");
+if (message != null) out.println(message + "<br/><br/>"); 
+%>
 
-<form method='POST' enctype='multipart/form-data' action='sourceupload'>
+<form method='POST' enctype='multipart/form-data' action='sourceupload'
+      name="submitform" id="submitform" >
 
 File to upload: <input type="file" name="filename" />
 
@@ -27,7 +29,10 @@ Programming language:
 
 <br/><br/>
 
-<input type=submit value=Upload />
+<input type="submit" value="Upload" name="submitbutton"
+        onclick="document.submitform.submitbutton.value='Processing...';
+        document.submitform.submitbutton.disabled=true;
+        document.submitform.submit();" />
 </form>
 
 </body>
