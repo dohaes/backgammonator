@@ -146,7 +146,7 @@ public class SourceProcessor {
 		Player player2 = processFile(samplesPath + File.separator
 				+ "SamplePlayer.java");
 
-		Game game = GameManager.newGame(result, player2, true);
+		Game game = GameManager.newGame(result, player2, false);
 		Object sync = new Object();
 
 		GameThread gameThead = new GameThread(game, sync, player2);
@@ -162,10 +162,10 @@ public class SourceProcessor {
 		return gameThead.getMessage();
 	}
 
-	public static void main(String[] args) {
-		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
-		System.out.println(res);
-	}
+//	public static void main(String[] args) {
+//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+//		System.out.println(res);
+//	}
 
 	/**
 	 * Cleaning compilation files
