@@ -154,7 +154,7 @@ public class SourceProcessor {
 				Debug.getInstance().error("Interrupted exception: " + filePath,
 						Debug.UTILS, e);
 			}
-			if (gameThead.getStatus() != GameOverStatus.NORMAL && game.getWinner() != player2) {
+			if (gameThead.getStatus() != GameOverStatus.NORMAL && game.getWinner() == player2) {
 				return "Problems with the implemented protocol. Our test with"
 						+ "sample player indicated: " + gameThead.getStatus() + " at " + i
 						+ " try";
@@ -164,7 +164,7 @@ public class SourceProcessor {
 	}
 
 	public static void main(String[] args) {
-		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
+		String res = validateFile("sample\\backgammonator\\sample\\player\\protocol\\java\\InvalidMovePlayer.java");
 		System.out.println(res);
 	}
 
