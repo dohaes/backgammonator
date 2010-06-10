@@ -14,6 +14,9 @@ import backgammonator.lib.logger.TournamentLogger;
 import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
 
+/**
+ * @author georgi.b.andreev
+ */
 public class TournamentImpl implements Tournament {
 
 	private List<Player> players;
@@ -26,6 +29,9 @@ public class TournamentImpl implements Tournament {
 		this.players = new LinkedList<Player>(players);
 	}
 
+	/**
+	 * @see backgammonator.lib.tournament.Tournament#start(backgammonator.lib.tournament.TournamentConfiguration)
+	 */
 	public Player start(TournamentConfiguration config) {
 		if (config == null) {
 			throw new IllegalArgumentException("Config must not be null.");

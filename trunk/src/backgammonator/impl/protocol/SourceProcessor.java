@@ -201,6 +201,7 @@ public class SourceProcessor {
  */
 class StreamCatcher extends Thread {
 	private InputStream is;
+	@SuppressWarnings("unused")
 	private String type;
 	private StringBuffer output = new StringBuffer();
 
