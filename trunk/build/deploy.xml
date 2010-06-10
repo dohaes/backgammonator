@@ -1,0 +1,43 @@
+<project name="Deploy Backgammonator" default="deploy" basedir=".">
+	<!-- set global properties for this build -->
+	<property name="tomcat" location="${TOMCAT_HOME}" />
+
+	<import file="build.xml" />
+
+	<target name="deploy" depends="distLibFull, distDeploy, clean" />
+
+	<target name="distDeploy" depends="compile">
+		<!-- move MySQL driver -->
+		<copy todir="${tomcat}/common/lib">
+			<fileset dir="${lib}" includes="mysql-connector.jar" />
+		</copy>
+
+		<!-- move used libraries -->
+		<copy todir="${tomcat}/webapps/ROOT/WEB-INF/lib">
+			<fileset dir="${lib}" includes="commons*.jar" />
+		</copy>
+
+		<!-- move backgammonator library -->
+		<copy todir="${tomcat}/webapps/ROOT/WEB-INF/lib">
+			<fileset dir="${lib}" includes="backgammonLibraryFull.jar" />
+		</copy>
+
+		<!-- move web.xml -->
+		<copy todir="${tomcat}/webapps/ROOT/WEB-INF">
+			<fileset dir="${websrc}/WEB-INF" includes="*" />
+		</copy>
+
+		<!-- move jsps -->
+		<copy todir="${tomcat}/webapps/ROOT">
+			<fileset dir="${websrc}" includes="*.jsp" />
+		</copy>
+	</target>
+
+	<target name="cleanAll" depends="clean" description="clean up tomcat files and lib jars">
+		<!-- Delete the jars in the lib -->
+		<delete dir="${lib}" includes="backgammon*" />
+
+		<!-- Delete the tomcat files -->
+		<delete dir="${tomcat}/webapps/ROOT" />
+	</target>
+</project>
