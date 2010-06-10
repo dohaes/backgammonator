@@ -43,7 +43,6 @@ public final class SourceUploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response)throws IOException {
-		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		boolean validate = false;
@@ -180,9 +179,9 @@ public final class SourceUploadServlet extends HttpServlet {
 	}
 	
 	private void afterUpload(PrintWriter out, String message) {
-		out.print("<form name=\"hiddenForm\" action=\"SourceUpload.jsp\" method=\"POST\">"); 
-		out.print("<input type=\"hidden\" name=\"result\" value=\"" + message + "\" > </form> ");
-		out.print("<script language=\"Javascript\">");
+		out.print("<body><form name='hiddenForm' action='SourceUpload.jsp' method='POST'>"); 
+		out.print("<input type='hidden' name='result' value='" + message + "' ></input> </form> </body>");
+		out.print("<script language='Javascript'>");
 		out.print("document.hiddenForm.submit();");
 		out.print("</script>");
 	}
