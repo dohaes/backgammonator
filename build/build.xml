@@ -1,4 +1,4 @@
-<project name="Backgammonator Project" default="all" basedir=".">
+<project name="Build Backgammonator" default="build" basedir=".">
 	<!-- set global properties for this build -->
 	<property name="project.home" location="../" />
 	<property name="src" location="${project.home}/src" />
@@ -9,7 +9,7 @@
 		${lib}/commons-fileupload.jar:
 		${lib}/commons-io.jar" />
 
-	<target name="all" depends="lib, demo, distSysLib, distWeb, distLibFull, clean" />
+	<target name="build" depends="distLib, distDemo, distSysLib, distWeb, distLibFull, clean" description="builds all jars"/>
 	<target name="lib" depends="distLib" />
 	<target name="demo" depends="distDemo" />
 	<target name="syslib" depends="distSysLib" />
@@ -28,14 +28,13 @@
 
 	</target>
 
-	<target name="compile" depends="init" description="compile the source ">
+	<target name="compile" depends="init">
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac srcdir="${src}:../sample/backgammonator/sample/players/interfacce/"
-			destdir="${build}" classpath="${lib}/backgammonLibraryFull.jar" />
+		<javac srcdir="${src}:../sample/backgammonator/sample/players/interfacce/" destdir="${build}" classpath="${lib}/backgammonLibraryFull.jar" />
 		<javac srcdir="${websrc}" destdir="${build}" classpath="${classpath}" />
 	</target>
 
-	<target name="distLib" depends="compile" description="generate the distribution">
+	<target name="distLib" depends="compile">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${lib}" />
 
@@ -44,7 +43,7 @@
 			sample/backgammonator/sample/players/interfacce/**" />
 	</target>
 
-	<target name="distDemo" depends="compile" description="generate the distribution">
+	<target name="distDemo" depends="compile">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${lib}" />
 
@@ -52,7 +51,7 @@
 								sample/backgammonator/sample/player/protocol/**" />
 	</target>
 
-	<target name="distSysLib" depends="compile" description="generate the distribution">
+	<target name="distSysLib" depends="compile">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${lib}" />
 
@@ -63,7 +62,7 @@
 		  backgammonator/util/*" />
 	</target>
 
-	<target name="distWeb" depends="compile" description="generate the distribution">
+	<target name="distWeb" depends="compile">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${lib}" />
 
@@ -71,7 +70,7 @@
 		  backgammonator/impl/webinterface/*" />
 	</target>
 
-	<target name="distLibFull" depends="compile" description="generate the distribution">
+	<target name="distLibFull" depends="compile">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${lib}" />
 
