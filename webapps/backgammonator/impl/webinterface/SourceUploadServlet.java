@@ -52,6 +52,7 @@ public final class SourceUploadServlet extends HttpServlet {
 		if (!ServletFileUpload.isMultipartContent(request)) {
 			// invalid content type
 			afterUpload(out, "Invalit content type!");
+			return;
 		}
 		// Parse the HTTP request...
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
@@ -85,15 +86,19 @@ public final class SourceUploadServlet extends HttpServlet {
 		} catch (SizeLimitExceededException slee) {
 			// The size of the HTTP request body exceeds the limit
 			afterUpload(out, slee.getMessage());
+			return;
 		} catch (FileUploadException fue) {
 			afterUpload(out, fue.getMessage());
+			return;
 		} catch (Throwable t) {
 			afterUpload(out, t.getMessage());
+			return;
 		}
 		
 		// process the file
 		if (file == null) {
 			afterUpload(out, "No file specified for upload!");
+			return;
 		}
 		FileOutputStream fos = null;
 		InputStream is = null;
@@ -103,7 +108,7 @@ public final class SourceUploadServlet extends HttpServlet {
 		try {
 			if (!verifay(filename, expected)) {
 				afterUpload(out, "Invalid file name!");
-				
+				return;
 			}
 			
 			if (!UPLOADS_DIR.exists()) {
@@ -115,6 +120,7 @@ public final class SourceUploadServlet extends HttpServlet {
 			} else {
 				if (!deleteContents(userDir)) {
 					afterUpload(out, "Cannot delete previously uploaded sources!");
+					return;
 				}
 			}
 
@@ -135,12 +141,14 @@ public final class SourceUploadServlet extends HttpServlet {
 			}
 		} catch (Throwable t) {
 			afterUpload(out, t.getMessage());
+			return;
 		} finally {
 			try {
 				if (fos != null) fos.close();
 				if (is != null) is.close();
 			} catch (IOException ioe) {
 				afterUpload(out, ioe.getMessage());
+				return;
 			}
 		}
 	
