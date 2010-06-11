@@ -1,9 +1,13 @@
-#summary A tutorial on how to install and run Apache Tomcat Server and MySQL Server.
+#summary A tutorial on how to install and run Apache Tomcat Server and MySQL Server and deploy the backgammonator app.
 
-  # Download the 4 files from Downloads.
-  # Install Apache Tomcat.
-  # Install MySQL Server.
-  # Install MySQL GUI if necessary.
-  # Move the MySQL Driver to TOMCAT_HOME\common\lib.
+  # Download and install Apache Tomcat from Downloads.
+  # Download and install the two files for MySQL from Downloads.
   # Start MySQL and Tomcat.
-  # Copy the necessary files from PROJECT_HOME\webapps to TOMCAT_HOME\webapps\backgammonator. In this way they will be visible through a web browser at http://localhost:8080/backgammonator/...
+  # (Optional) Rename the TOMCAT_HOME\webapps\ROOT directory.
+  # Set the TOMCAT_HOME property in Eclipse->Window->Preferences->Ant->Runtime.
+  # Execute the deploy target of deploy.xml with ant. This will:
+    # Create the backgammonator libraries and move them in TOMCAT_HOME\webapps\ROOT.
+    # Move the web.xml and jsps to TOMCAT_HOME\webapps\ROOT.
+    # Move the necessary libs to TOMCAT_HOME\webapps\ROOT.
+    # Move the MySQL driver to TOMCAT_HOME\common\lib.
+  # Open http://localhost:8080/...
