@@ -1,6 +1,5 @@
 package backgammonator.lib.tournament;
 
-import backgammonator.lib.game.Player;
 
 /**
  * @author georgi.b.andreev
@@ -8,8 +7,11 @@ import backgammonator.lib.game.Player;
 public interface Tournament {
 
 	/**
-	 * @param config config.
-	 * @return winner.
+	 * Executes a tournament with the given configuration.
+	 * 
+	 * @param config tournament configuration.
+	 * @return the winner of the tournament.
+	 * @throws TournamentException if an error occurs.
 	 */
-	public Player start(TournamentConfiguration config);
+	public TournamentResult start(TournamentConfiguration config) throws TournamentException;
 }

@@ -16,6 +16,7 @@ import backgammonator.impl.tournament.TournamentManager;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
+import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.lib.tournament.TournamentType;
 
 /**
@@ -33,56 +34,68 @@ public final class StartTournamentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
-		String type = request.getParameter("type");
-		TournamentConfiguration config = new TournamentConfiguration(
-				TournamentType.valueOf(type));
-		String logMoves = request.getParameter("logmoves");
-		config.setLogMoves(logMoves != null);
-		String plainRate = request.getParameter("plainrate");
-		config.setPlainRate(plainRate != null);
-		String groupsCount = request.getParameter("groupscount");
-		try {
-			int tmp = Integer.parseInt(groupsCount);
-			config.setGroupsCount(tmp);
-		} catch (NumberFormatException e) {
-			redirect(out, URL, "Error ! <br/>Error reading Groups Count.");
-		}
-		String gamesCount = request.getParameter("gamescount");
-		try {
-			int tmp = Integer.parseInt(gamesCount);
-			config.setGamesCount(tmp);
-		} catch (NumberFormatException e) {
-			redirect(out, URL, "Error ! <br/>Error reading Games Count.");
-		}
-		String moveTimeout = request.getParameter("timeout");
-		try {
-			int tmp = Integer.parseInt(moveTimeout);
-			config.setMoveTimeout(tmp * 1000);
-		} catch (NumberFormatException e) {
-			redirect(out, URL, "Error ! <br/>Error reading Move Timeout.");
-		}
 
-		String[] players = request.getParameterValues("players");
-		if (players == null) {
-			players = new String[0];
-		}
-		List<Player> tmp = new ArrayList<Player>(players.length);
-		for (int i = 0; i < players.length; i++) {
-			Player p = createPlayer(players[i]);
-			if (p == null) {
-				redirect(out, URL, "Error ! <br/>Error creating player "
-						+ players[i] + ".");
+		try {
+			String type = request.getParameter("type");
+			TournamentConfiguration config = new TournamentConfiguration(
+					TournamentType.valueOf(type));
+			String logMoves = request.getParameter("logmoves");
+			config.setLogMoves(logMoves != null);
+			String plainRate = request.getParameter("plainrate");
+			config.setUsePlainRate(plainRate != null);
+			String groupsCount = request.getParameter("groupscount");
+			try {
+				int tmp = Integer.parseInt(groupsCount);
+				config.setGroupsCount(tmp);
+			} catch (Exception e) {
+				redirect(out, URL, "Error ! <br/>Error reading Groups Count.");
 			}
-			tmp.add(p);
-		}
-		Tournament tournament = TournamentManager.newTournament(tmp);
-		Player winner = tournament.start(config);
-		redirect(out, URL, "Success ! <br/>Winner is " + winner.getName() + ".");
-	}
+			String gamesCount = request.getParameter("gamescount");
+			try {
+				int tmp = Integer.parseInt(gamesCount);
+				config.setGamesCount(tmp);
+			} catch (Exception e) {
+				redirect(out, URL, "Error ! <br/>Error reading Games Count.");
+			}
+			String moveTimeout = request.getParameter("timeout");
+			try {
+				int tmp = Integer.parseInt(moveTimeout);
+				config.setMoveTimeout(tmp * 1000);
+			} catch (Exception e) {
+				redirect(out, URL, "Error ! <br/>Error reading Move Timeout.");
+			}
 
-	private Player createPlayer(String user) {
+			String[] players = request.getParameterValues("players");
+			if (players == null) {
+				players = new String[0];
+			}
+			List<Player> tmp = new ArrayList<Player>(players.length);
+			for (int i = 0; i < players.length; i++) {
+				Player p = createPlayer(players[i]);
+				if (p == null) {
+					redirect(out, URL, "Error ! <br/>Error creating player "
+							+ players[i] + ".");
+				}
+				tmp.add(p);
+			}
+			Tournament tournament = TournamentManager.newTournament(tmp);
+			TournamentResult result = tournament.start(config);
+			StringBuilder message = new StringBuilder("Success ! <br/>");
+			for (int i = 0; i < result.getPlayersCount(); i++) {
+				message.append((i + 1)).append(". ").append(
+						result.getPlayer(i).getName()).append(" with ").append(
+						result.getPlayerPoints(i)).append(" points.<br/>");
+			}
+			redirect(out, URL, message.toString());
+		} catch (Exception e) {
+			redirect(out, URL,
+					"Error ! <br/>Error occured while creating tournament. " + e.getMessage());
+		}
+	}
+	
+	private static Player createPlayer(String user) {
 		try {
-			File dir = new File(new File("D:/uploads"), user);
+			File dir = new File(new File("uploads"), user);
 			if (dir.isDirectory()) {
 				String[] java = dir.list(new FilenameFilter() {
 					public boolean accept(File dir, String name) {

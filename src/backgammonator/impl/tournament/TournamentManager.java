@@ -4,16 +4,21 @@ import java.util.List;
 
 import backgammonator.lib.game.Player;
 import backgammonator.lib.tournament.Tournament;
+import backgammonator.lib.tournament.TournamentException;
 
 /**
  * @author georgi.b.andreev
  */
 public class TournamentManager {
+
 	/**
-	 * @param players the players.
-	 * @return the tournament.
+	 * Creates new tournament from the given players.
+	 * 
+	 * @param players the players that will take part in the tournament.
+	 * @return the tournament that can be executed.
+	 * @throws TournamentException if an error occurs.
 	 */
-	public static Tournament newTournament(List<Player> players) {
+	public static Tournament newTournament(List<Player> players) throws TournamentException {
 		return new TournamentImpl(players);
 	}
 }

@@ -52,7 +52,7 @@ public class SourceProcessor {
 		try {
 			if (isJava) {
 				compileProcess = Runtime.getRuntime().exec(
-						"javac " + file.getAbsolutePath());
+						"javac \"" + file.getAbsolutePath() + "\"");
 
 				// manage streams
 				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
@@ -144,7 +144,7 @@ public class SourceProcessor {
 		try {
 			if (isJava) {
 				compileProcess = Runtime.getRuntime().exec(
-						"javac " + file.getAbsolutePath());
+						"javac \"" + file.getAbsolutePath() + "\"");
 				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
 						.getErrorStream(), "ERROR");
 				errorGobbler.start();
