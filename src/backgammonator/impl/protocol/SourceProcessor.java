@@ -81,7 +81,7 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayer("java -cp " + classFile.getParent()
+				result = new ProtocolPlayerWrapper("java -cp " + classFile.getParent()
 						+ " " + mainClass, classFile.getParentFile().getName());
 			} else {
 				// TODO manage c++ files
@@ -131,7 +131,7 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayer("java -cp " + classFile.getParent()
+				result = new ProtocolPlayerWrapper("java -cp " + classFile.getParent()
 						+ " " + mainClass, classFile.getParentFile().getName());
 			} else {
 				// TODO postponed for now!
