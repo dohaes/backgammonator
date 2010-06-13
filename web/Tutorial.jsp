@@ -7,25 +7,30 @@
 <table>
 <tr>
 <td width='150px' style='vertical-align:top;'>
-<a href="index.jsp">Home</a>
+<a href="/">Home</a>
 <br/>
 <a href="Tutorial.jsp">Tutorials</a>
 <br/>
-<a href="Download.jsp">Downloads</a>
+<br/>
+<a href="res/backgammonLibrary.jar">Library Jar</a>
+<br/>
+<a href="res/backgammonDemo.jar">Demo Jar</a>
+<br/>
+<a href="res/samplePlayers.jar">Sample Players</a>
 </td>
 <td style='vertical-align:top;'>
-<a href="http://code.google.com/p/backgammonator/">Backgammonator project</a>
+<a href="http://code.google.com/p/backgammonator/" target="_blank">Backgammonator project</a>
 <br/>
-<a href="http://en.wikipedia.org/wiki/Backgammon">Backgammon rules</a>
+<a href="http://en.wikipedia.org/wiki/Backgammon" target="_blank">Backgammon rules</a>
+<br/> 
 <br/>
+protocol tutorial - stefan
 <br/>
-backgammon tutorial
+demo tutorial - andrei
 <br/>
-protocol tutorial
+library tutorial - georgi
 <br/>
-demo tutorial
-<br/>
-library tutorial
+Tournament settings - georgi
 </td>
 </tr>
 </table>
