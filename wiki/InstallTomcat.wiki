@@ -12,3 +12,5 @@
     # Move the MySQL driver to TOMCAT_HOME\common\lib.
   # *It is better if you restart the tomcat service now.*
   # Open http://localhost:8080/...
+
+There is one additional target in the deploy.xml "Clean all" that can be used to delete the TOMCAT_HOME\webapps\ROOT, the lib files and the classes dir if you want to delete all old files and make a clean deploy.
