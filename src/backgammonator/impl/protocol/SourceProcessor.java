@@ -22,7 +22,7 @@ import backgammonator.sample.players.interfacce.SamplePlayer;
 public class SourceProcessor {
 
 	/**
-	 * Compiles the file and process it to executable.
+	 * Compiles the file and processes it to executable.
 	 * 
 	 * @param filePath The absolute path to the file
 	 * @return PlayerImpl
@@ -54,7 +54,6 @@ public class SourceProcessor {
 				compileProcess = Runtime.getRuntime().exec(
 						"javac " + file.getAbsolutePath());
 
-				// TODO optimizing threads! maybe we need threadpool ?
 				// manage streams
 				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
 						.getErrorStream(), "ERROR");
@@ -65,8 +64,10 @@ public class SourceProcessor {
 
 				int exitCode = compileProcess.waitFor();
 				if (exitCode != 0) {
-					Debug.getInstance().error("Compile returned: " + exitCode,
-							Debug.UTILS, null);
+					Debug.getInstance().error(
+							"Compile returned: " + exitCode + "\n"
+									+ errorGobbler.getMessage(), Debug.UTILS,
+							null);
 					return null;
 				}
 				File classFile = new File(file.getAbsolutePath().replace(
@@ -81,11 +82,47 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayerWrapper("java -cp " + classFile.getParent()
-						+ " " + mainClass, classFile.getParentFile().getName());
+				result = new ProtocolPlayerWrapper("java -cp "
+						+ classFile.getParent() + " " + mainClass, classFile
+						.getParentFile().getName());
 			} else {
-				// TODO manage c++ files
+				String executableFileName = file.getAbsolutePath().replace(
+						".c", ".exe");
+				compileProcess = Runtime.getRuntime().exec(
+						"compile.bat " + System.getenv("MinGW_HOME") + "\\bin "
+								+ executableFileName.replace(
+										File.separatorChar, '/')
+								+ " "
+								+ file.getAbsolutePath().replace(
+										File.separatorChar, '/'));
+
+				// manage streams
+				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
+						.getErrorStream(), "ERROR");
+				StreamCatcher outputGobbler = new StreamCatcher(compileProcess
+						.getInputStream(), "OUTPUT");
+				errorGobbler.start();
+				outputGobbler.start();
+
+				int exitCode = compileProcess.waitFor();
+				if (exitCode != 0) {
+					Debug.getInstance().error("Compile returned: " + exitCode,
+							Debug.UTILS, null);
+					return null;
+				}
+				File executableFile = new File(executableFileName);
+				if (!executableFile.exists()) {
+					Debug.getInstance().error(
+							"The compiled file is not found: " + filePath,
+							Debug.UTILS, null);
+					return null;
+				}
+				// manage result
+
+				result = new ProtocolPlayerWrapper(executableFileName,
+						executableFile.getParentFile().getName());
 			}
+
 		} catch (Throwable e) {
 			Debug.getInstance().error("Unexpected exception: " + filePath,
 					Debug.UTILS, e);
@@ -131,10 +168,38 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayerWrapper("java -cp " + classFile.getParent()
-						+ " " + mainClass, classFile.getParentFile().getName());
+				result = new ProtocolPlayerWrapper("java -cp "
+						+ classFile.getParent() + " " + mainClass, classFile
+						.getParentFile().getName());
 			} else {
-				// TODO postponed for now!
+				String executableFileName = file.getAbsolutePath().replace(
+						".c", ".exe");
+				compileProcess = Runtime.getRuntime().exec(
+						"compile.bat " + System.getenv("MinGW_HOME") + "\\bin "
+								+ executableFileName.replace(
+										File.separatorChar, '/')
+								+ " "
+								+ file.getAbsolutePath().replace(
+										File.separatorChar, '/'));
+
+				// manage streams
+				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
+						.getErrorStream(), "ERROR");
+				errorGobbler.start();
+
+				int exitCode = compileProcess.waitFor();
+				if (exitCode != 0) {
+					return "Compilation Error!: \r\n"
+							+ errorGobbler.getMessage();
+				}
+				File executableFile = new File(executableFileName);
+				if (!executableFile.exists()) {
+					return "Error with the compilation!";
+				}
+				// manage result
+
+				result = new ProtocolPlayerWrapper(executableFileName,
+						executableFile.getParentFile().getName());
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error("Unexpected exception: " + filePath,
@@ -142,24 +207,18 @@ public class SourceProcessor {
 			return "Exception:" + e.getMessage();
 		}
 
-//		String samplesPath = "sample/backgammonator/sample/player/protocol/java"
-//				.replace('/', File.separatorChar);
-//		Player player2 = processFile(samplesPath + File.separator
-//				+ "SamplePlayer.java");
-		SamplePlayer samplePlayer =  new SamplePlayer();
+		SamplePlayer samplePlayer = new SamplePlayer();
 		Game game = GameManager.newGame(result, samplePlayer, false);
 		Object sync = new Object();
 
-		String message = "Vefification succeeded successfully! No problem found.";
+		String message = "Validation successful! No problems found.";
 		GameOverStatus status;
 		for (int i = 0; i < 5; i++) {
 			status = game.start();
-			if (status != GameOverStatus.NORMAL && game.getWinner() == samplePlayer) {
+			if (status != GameOverStatus.NORMAL
+					&& game.getWinner() == samplePlayer) {
 				message = "Problems with the implemented protocol. Our test with"
-						+ "sample player indicated: "
-						+ status
-						+ " at try "
-						+ i;
+						+ "sample player indicated: " + status + " at try " + (i + 1);
 				break;
 			}
 		}
@@ -169,15 +228,16 @@ public class SourceProcessor {
 		return message;
 	}
 
-//	public static void main(String[] args) {
-//		String res = validateSource("sample\\backgammonator\\sample\\player\\protocol\\java\\SamplePlayer.java");
-//		System.out.println(res);
-//	}
+	public static void main(String[] args) {
+		System.out.println(System.getenv("MinGW_HOME"));
+//		processFile("D:\\test.c");
+		System.out.println(validateSource("D:\\test.c"));
+	}
 
 	/**
 	 * Cleaning compilation files
 	 * 
-	 * @param deproylemntdir player's implementation dir
+	 * @param deproylemntdir player's implementation directory
 	 */
 	public static void cleanUp(String deproylemntdir) {
 		File dir = new File(deproylemntdir);
@@ -229,7 +289,7 @@ class StreamCatcher extends Thread {
 			BufferedReader br = new BufferedReader(isr);
 			String line = null;
 			while ((line = br.readLine()) != null) {
-//				System.out.println(type + ">" + line);
+				// System.out.println(type + ">" + line);
 				output.append(line + "\r\n");
 			}
 		} catch (IOException ioe) {
