@@ -22,6 +22,8 @@
 		<tstamp />
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build}" />
+		<!-- Create the distribution directory -->
+		<mkdir dir="${lib}" />
 
 		<copy todir="${build}">
 			<fileset dir="../" includes="sample/**/*" />
@@ -36,26 +38,17 @@
 	</target>
 
 	<target name="distLib" depends="compile">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${lib}" />
-
 		<jar jarfile="${lib}/backgammonLibrary.jar" basedir="${build}" excludes="backgammonator/impl/protocol/*
 							backgammonator/impl/game/Main.class" includes="backgammonator/**
 			sample/backgammonator/sample/players/interfacce/**" />
 	</target>
 
 	<target name="distDemo" depends="compile">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${lib}" />
-
 		<jar jarfile="${lib}/backgammonDemo.jar" basedir="${build}" manifest="${src}/meta-inf/manifest.mf" includes="backgammonator/**
 								sample/backgammonator/sample/player/protocol/**" />
 	</target>
 
 	<target name="distSysLib" depends="compile">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${lib}" />
-
 		<jar jarfile="${lib}/backgammonSysLib.jar" basedir="${build}" includes="
 		  backgammonator/lib/tournament/*
           backgammonator/lib/game/*
@@ -64,17 +57,11 @@
 	</target>
 
 	<target name="distWeb" depends="compile">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${lib}" />
-
 		<jar jarfile="${lib}/backgammonWeb.jar" basedir="${build}" includes="
 		  backgammonator/impl/webinterface/*" />
 	</target>
 
 	<target name="distLibFull" depends="compile">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${lib}" />
-
 		<jar jarfile="${lib}/backgammonLibraryFull.jar" basedir="${build}" includes="backgammonator/**
 								sample/backgammonator/sample/player/protocol/**
 								sample/backgammonator/sample/players/interfacce/**

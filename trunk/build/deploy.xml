@@ -4,7 +4,11 @@
 
 	<import file="build.xml" />
 
-	<target name="deploy" depends="distDemo, distLib, distLibFull, distDeploy, clean" />
+	<target name="deploy" depends="distSample, distDemo, distLib, distLibFull, distDeploy, clean" />
+
+	<target name="distSample" depends="compile">
+		<jar jarfile="${lib}/samplePlayers.jar" basedir="${build}" includes="sample/backgammonator/sample/player/protocol/**" />
+	</target>
 
 	<target name="distDeploy" depends="compile">
 		<!-- move MySQL driver -->
@@ -27,6 +31,9 @@
 		<copy todir="${tomcat}/webapps/ROOT/res">
 			<fileset dir="${lib}" includes="backgammonDemo.jar" />
 		</copy>
+		<copy todir="${tomcat}/webapps/ROOT/res">
+			<fileset dir="${lib}" includes="samplePlayers.jar" />
+		</copy>
 
 		<!-- move web.xml -->
 		<copy todir="${tomcat}/webapps/ROOT/WEB-INF">
@@ -46,7 +53,7 @@
 
 	<target name="cleanAll" depends="clean" description="clean up tomcat files and lib jars">
 		<!-- Delete the jars in the lib -->
-		<delete dir="${lib}" includes="backgammon*" />
+		<delete dir="${lib}" includes="backgammon* sample*" />
 
 		<!-- Delete the tomcat files -->
 		<delete dir="${tomcat}/webapps/ROOT" />

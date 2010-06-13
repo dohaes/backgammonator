@@ -7,20 +7,21 @@
 <table>
 <tr>
 <td width='150px' style='vertical-align:top;'>
-<a href="index.jsp">Home</a>
+<a href="/">Home</a>
 <br/>
 <a href="Tutorial.jsp">Tutorials</a>
 <br/>
-<a href="Download.jsp">Downloads</a>
+<br/>
+<a href="res/backgammonLibrary.jar">Library Jar</a>
+<br/>
+<a href="res/backgammonDemo.jar">Demo Jar</a>
+<br/>
+<a href="res/samplePlayers.jar">Sample Players</a>
 <br/>
 <br/>
 <a href="SourceUpload.jsp">Source Upload</a>
 <br/>
 <a href="StartTournament.jsp">Start Tournament</a>
-<br/>
-<a href="home">Contest Home</a>
-<br/>
-<a href="cmhome">Manager Home</a>
 </td>
 <td style='vertical-align:top;'>
 <form method='POST' action='login'>

@@ -112,4 +112,9 @@ public class TournamentConfiguration {
 	public TournamentType getTournamentType() {
 		return type;
 	}
+
+	public void setMoveTimeout(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }

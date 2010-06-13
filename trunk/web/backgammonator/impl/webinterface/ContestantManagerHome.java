@@ -22,9 +22,9 @@ public class ContestantManagerHome extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("Set Contest Settings <br/>");
-		out.println("Manage Registrations <br/>");
 		out.println("Start Tournament <br/>");
 		out.println("View Results <br/>");
+		out.println("Set Contest Settings <br/>");
+		out.println("Manage Registrations <br/>");
 	}
 }

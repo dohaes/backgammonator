@@ -24,6 +24,7 @@ import backgammonator.lib.tournament.TournamentType;
 public final class StartTournamentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3569917850372148040L;
+	private static final String URL = "StartTournament.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -31,6 +32,7 @@ public final class StartTournamentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
 		String type = request.getParameter("type");
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.valueOf(type));
@@ -43,21 +45,21 @@ public final class StartTournamentServlet extends HttpServlet {
 			int tmp = Integer.parseInt(groupsCount);
 			config.setGroupsCount(tmp);
 		} catch (NumberFormatException e) {
-			// todo
+			redirect(out, URL, "Error ! <br/>Error reading Groups Count.");
 		}
 		String gamesCount = request.getParameter("gamescount");
 		try {
 			int tmp = Integer.parseInt(gamesCount);
 			config.setGamesCount(tmp);
 		} catch (NumberFormatException e) {
-			// todo
+			redirect(out, URL, "Error ! <br/>Error reading Games Count.");
 		}
-		String invalidGamePoints = request.getParameter("invalid");
+		String moveTimeout = request.getParameter("timeout");
 		try {
-			int tmp = Integer.parseInt(invalidGamePoints);
-			config.setInvalidGamePoints(tmp);
+			int tmp = Integer.parseInt(moveTimeout);
+			config.setMoveTimeout(tmp * 1000);
 		} catch (NumberFormatException e) {
-			// todo
+			redirect(out, URL, "Error ! <br/>Error reading Move Timeout.");
 		}
 
 		String[] players = request.getParameterValues("players");
@@ -68,13 +70,14 @@ public final class StartTournamentServlet extends HttpServlet {
 		for (int i = 0; i < players.length; i++) {
 			Player p = createPlayer(players[i]);
 			if (p == null) {
-				// todo
+				redirect(out, URL, "Error ! <br/>Error creating player "
+						+ players[i] + ".");
 			}
 			tmp.add(p);
 		}
 		Tournament tournament = TournamentManager.newTournament(tmp);
 		Player winner = tournament.start(config);
-		//todo
+		redirect(out, URL, "Success ! <br/>Winner is " + winner.getName() + ".");
 	}
 
 	private Player createPlayer(String user) {
@@ -92,5 +95,13 @@ public final class StartTournamentServlet extends HttpServlet {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+
+	private static void redirect(PrintWriter out, String link, String message) {
+		out.print("<body><form name='hiddenForm' action='" + link);
+		out.print("' method='POST'><input type='hidden' name='result' value='");
+		out.print(message
+				+ "' ></input> </form> </body><script language='Javascript'>"
+				+ "document.hiddenForm.submit();</script>");
 	}
 }

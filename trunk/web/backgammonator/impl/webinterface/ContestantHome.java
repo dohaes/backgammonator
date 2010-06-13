@@ -22,10 +22,9 @@ public class ContestantHome extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("View Results <br/>");
 		out.println("Upload Player <br/>");
-		out.println("Useful Links, protocols, tutorial <br/>");
-		out.println("Library & Demo Jars and Sample Players <br/>");
+		out.println("View Results <br/>");
+		out.println("contest settings <br/>");
 		out.println("exit <br/>");
 	}
 }

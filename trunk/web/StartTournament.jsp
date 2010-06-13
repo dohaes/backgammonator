@@ -8,14 +8,27 @@
 <table>
 <tr>
 <td width='150px' style='vertical-align:top;'>
-<a href="index.jsp">Home</a>
+<a href="/">Home</a>
 <br/>
 <a href="Tutorial.jsp">Tutorials</a>
 <br/>
-<a href="Download.jsp">Downloads</a>
+<br/>
+<a href="res/backgammonLibrary.jar">Library Jar</a>
+<br/>
+<a href="res/backgammonDemo.jar">Demo Jar</a>
+<br/>
+<a href="res/samplePlayers.jar">Sample Players</a>
+<br/>
+<br/>
+<a href="SourceUpload.jsp">Source Upload</a>
+<br/>
+<a href="StartTournament.jsp">Start Tournament</a>
 </td>
 <td style='vertical-align:top;'>
 
+
+<% String message = request.getParameter("result");
+   if (message != null) out.println(message + "<br/><br/>"); %>
 <form method='POST' action='starttournament'
       name="startform" id="startform">
 <table>
@@ -29,16 +42,15 @@ if (!dir.exists()) {
 String[] players = dir.list();
 for (int i = 0; i < players.length; i++) {
 	out.println("<option value='" + players[i] + "'>" + players[i] + "</option>");
-}
-%>
+} %>
 </select>
 </td>
 <td style='vertical-align:top;'>
 <input type='checkbox' name='logmoves' checked> Log moves</input><br/>
-<input type='checkbox' name='plainrate' checked> Plain rate</input><br/>
+<input type='checkbox' name='plainrate' checked> Use plain rate</input><br/>
 <input type='text' name='groupscount' value='2' size="1"> Groups count</input><br/>
 <input type='text' name='gamescount' value='3' size="1"> Games count</input><br/>
-<input type='text' name='invalid' value='1' size="1"> Invalid game points</input><br/>
+<input type='text' name='timeout' value='3' size="1"> Move timeout (seconds)</input><br/>
 </td>
 </tr>
 </table>
@@ -52,6 +64,8 @@ for (int i = 0; i < players.length; i++) {
         document.startform.startbutton.disabled=true;
         document.startform.submit();" />
 </form>
+
+
 </td>
 </tr>
 </table>
