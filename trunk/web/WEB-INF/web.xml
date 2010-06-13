@@ -20,11 +20,6 @@
 	</servlet>
 	
 	<servlet>
-		<servlet-name>BackgammonatorHome</servlet-name>
-		<servlet-class>backgammonator.impl.webinterface.BackgammonatorHome</servlet-class>
-	</servlet>
-	
-	<servlet>
 		<servlet-name>ContestantHome</servlet-name>
 		<servlet-class>backgammonator.impl.webinterface.ContestantHome</servlet-class>
 	</servlet>
@@ -48,11 +43,6 @@
 	<servlet-mapping>
 		<servlet-name>RegisterationServlet</servlet-name>
 		<url-pattern>/register</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>BackgammonatorHome</servlet-name>
-		<url-pattern>/backgammonator</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
