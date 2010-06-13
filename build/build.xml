@@ -4,7 +4,7 @@
 	<property name="src" location="${project.home}/src" />
 	<property name="lib" location="${project.home}/lib" />
 	<property name="build" location="${project.home}/classes" />
-	<property name="websrc" location="${project.home}/webapps" />
+	<property name="websrc" location="${project.home}/web" />
 	<property name="classpath" location="${lib}/servlet.jar:
 		${lib}/commons-fileupload.jar:
 		${lib}/commons-io.jar" />
