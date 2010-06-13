@@ -1,28 +1,33 @@
 <html>
 <head>
-<title>Backgammonator</title>
+<title>Backgammonator - Tutorial</title>
 </head>
-
 <body>
-<h2>Backgammonator</h2>
-
+<h2>Backgammonator - Tutorial</h2>
+<table>
+<tr>
+<td width='150px' style='vertical-align:top;'>
+<a href="index.jsp">Home</a>
 <br/>
-<a href="SourceUpload.jsp">Source Upload</a>
-<br/>
-<a href="starttournament">Start Tournament</a>
-<br/>
-<a href="Tutorial.jsp">Tutorial</a>
+<a href="Tutorial.jsp">Tutorials</a>
 <br/>
 <a href="Download.jsp">Downloads</a>
-
-<form method='POST' action='login'>
-Username : <input type="textfield" name="username" />
+</td>
+<td style='vertical-align:top;'>
+<a href="http://code.google.com/p/backgammonator/">Backgammonator project</a>
 <br/>
-Password: <input type="password" name="password" />
-<br/><br/>
-<input type="submit" value="Login"/>
-</form>
-<a href="register">Register</a>
-
+<a href="http://en.wikipedia.org/wiki/Backgammon">Backgammon rules</a>
+<br/>
+<br/>
+backgammon tutorial
+<br/>
+protocol tutorial
+<br/>
+demo tutorial
+<br/>
+library tutorial
+</td>
+</tr>
+</table>
 </body>
 </html>

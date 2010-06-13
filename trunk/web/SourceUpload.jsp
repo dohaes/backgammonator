@@ -25,7 +25,7 @@ Programming language:
 <input type="radio" name="language" value="c">C/C++ </input>
 
 <br/><br/>
-<input type="checkbox" name="validate" value="yes">Validate </input>
+<input type="checkbox" name="validate" value="yes" checked>Validate </input>
 
 <br/><br/>
 
