@@ -23,7 +23,7 @@ import backgammonator.util.Debug;
  * communicate input and output to the contestant's program using the process'
  * InputStream and OutputStream.
  */
-final class ProtocolPlayer implements Player {
+final class ProtocolPlayerWrapper implements Player {
 
 	private String command;
 	// TODO should return the name of the registered user that uploaded the
@@ -45,7 +45,7 @@ final class ProtocolPlayer implements Player {
 	 * @param name the name of the player - same as the username of the user who
 	 *            uploaded the source.
 	 */
-	public ProtocolPlayer(String command, String name) {
+	public ProtocolPlayerWrapper(String command, String name) {
 		this.command = command;
 		this.name = name;
 	}
