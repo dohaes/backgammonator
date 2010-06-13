@@ -89,12 +89,8 @@ public class SourceProcessor {
 				String executableFileName = file.getAbsolutePath().replace(
 						".c", ".exe");
 				compileProcess = Runtime.getRuntime().exec(
-						"compile.bat " + System.getenv("MinGW_HOME") + "\\bin "
-								+ executableFileName.replace(
-										File.separatorChar, '/')
-								+ " "
-								+ file.getAbsolutePath().replace(
-										File.separatorChar, '/'));
+						"g++ -Wall -o " + executableFileName + " "
+								+ file.getAbsolutePath());
 
 				// manage streams
 				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
@@ -175,12 +171,8 @@ public class SourceProcessor {
 				String executableFileName = file.getAbsolutePath().replace(
 						".c", ".exe");
 				compileProcess = Runtime.getRuntime().exec(
-						"compile.bat " + System.getenv("MinGW_HOME") + "\\bin "
-								+ executableFileName.replace(
-										File.separatorChar, '/')
-								+ " "
-								+ file.getAbsolutePath().replace(
-										File.separatorChar, '/'));
+						"g++ -Wall -o " + executableFileName + " "
+						+ file.getAbsolutePath());
 
 				// manage streams
 				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
@@ -218,7 +210,10 @@ public class SourceProcessor {
 			if (status != GameOverStatus.NORMAL
 					&& game.getWinner() == samplePlayer) {
 				message = "Problems with the implemented protocol. Our test with"
-						+ "sample player indicated: " + status + " at try " + (i + 1);
+						+ "sample player indicated: "
+						+ status
+						+ " at try "
+						+ (i + 1);
 				break;
 			}
 		}
@@ -230,7 +225,7 @@ public class SourceProcessor {
 
 	public static void main(String[] args) {
 		System.out.println(System.getenv("MinGW_HOME"));
-//		processFile("D:\\test.c");
+		// processFile("D:\\test.c");
 		System.out.println(validateSource("D:\\test.c"));
 	}
 

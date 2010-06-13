@@ -27,9 +27,8 @@ import backgammonator.impl.protocol.SourceProcessor;
 public final class SourceUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6501514760176956574L;
-	private static final String REPOSITORY = "D:" + File.separator
-			+ "repository";
-	private static final String UPLOADS = "D:" + File.separator + "uploads";
+	private static final String REPOSITORY = "repository";
+	private static final String UPLOADS = "uploads";
 	private static final File UPLOADS_DIR = new File(UPLOADS);
 
 	// TODO use user name from the account
