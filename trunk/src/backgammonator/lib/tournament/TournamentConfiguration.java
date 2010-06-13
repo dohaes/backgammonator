@@ -10,17 +10,23 @@ public class TournamentConfiguration {
 	private int groupsCount;
 	private int gamesCount;
 	private int invalidGamePoints;
+	private int moveTimeout;
 
 	/**
-	 * @param type the type.
+	 * Creates default tournament configuration of the given type.
+	 * 
+	 * @param type the type of the tournament.
+	 * @throws TournamentException if the configuration is invalid.
 	 */
-	public TournamentConfiguration(TournamentType type) {
+	public TournamentConfiguration(TournamentType type)
+			throws TournamentException {
 		this.type = type;
 		this.setLogMoves(true);
-		this.setPlainRate(true);
+		this.setUsePlainRate(true);
 		this.setGroupsCount(2);
-		this.setGamesCount(5);
+		this.setGamesCount(3);
 		this.setInvalidGamePoints(1);
+		this.setMoveTimeout(2);
 	}
 
 	/**
@@ -38,26 +44,27 @@ public class TournamentConfiguration {
 	}
 
 	/**
-	 * @param plainRate if it is plane rate.
+	 * @param usePlainRate if it is plane rate.
 	 */
-	public void setPlainRate(boolean plainRate) {
-		this.plainRate = plainRate;
+	public void setUsePlainRate(boolean usePlainRate) {
+		this.plainRate = usePlainRate;
 	}
 
 	/**
 	 * @return if it is plane rate.
 	 */
-	public boolean isPlainRate() {
+	public boolean usePlainRate() {
 		return plainRate;
 	}
 
 	/**
 	 * @param groupsCount the groups count.
+	 * @throws TournamentException if groups count is invalid.
 	 */
-	public void setGroupsCount(int groupsCount) {
-		if (groupsCount <= 1) {
-			throw new IllegalArgumentException(
-					"Groups count must be 2 or more, was : " + groupsCount);
+	public void setGroupsCount(int groupsCount) throws TournamentException {
+		if (groupsCount <= 1 || (groupsCount & (groupsCount - 1)) != 0) {
+			throw new TournamentException(
+					"Groups count must be power of 2, was : " + groupsCount);
 		}
 		this.groupsCount = groupsCount;
 	}
@@ -71,10 +78,11 @@ public class TournamentConfiguration {
 
 	/**
 	 * @param gamesCount the games count.
+	 * @throws TournamentException if games count is invalid.
 	 */
-	public void setGamesCount(int gamesCount) {
+	public void setGamesCount(int gamesCount) throws TournamentException {
 		if (gamesCount <= 0) {
-			throw new IllegalArgumentException(
+			throw new TournamentException(
 					"Games count must be 1 or more, was : " + gamesCount);
 		}
 		this.gamesCount = gamesCount;
@@ -89,11 +97,13 @@ public class TournamentConfiguration {
 
 	/**
 	 * @param invalidGamePoints the points for invalid game.
+	 * @throws TournamentException if invalid game points is invalid.
 	 */
-	public void setInvalidGamePoints(int invalidGamePoints) {
+	public void setInvalidGamePoints(int invalidGamePoints)
+			throws TournamentException {
 		if (invalidGamePoints < 0) {
-			throw new IllegalArgumentException(
-					"Invalid game points must be positive number, was : "
+			throw new TournamentException(
+					"Invalid game points must be a positive number, was : "
 							+ invalidGamePoints);
 		}
 		this.invalidGamePoints = invalidGamePoints;
@@ -113,8 +123,23 @@ public class TournamentConfiguration {
 		return type;
 	}
 
-	public void setMoveTimeout(int i) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * @return the move timeout.
+	 */
+	public int getMoveTimeout() {
+		return moveTimeout;
+	}
+
+	/**
+	 * @param moveTimeout the move timeout.
+	 * @throws TournamentException if move timeout is invalid.
+	 */
+	public void setMoveTimeout(int moveTimeout) throws TournamentException {
+		if (moveTimeout < 0) {
+			throw new TournamentException(
+					"Invalid move timeout must be a positive number, was : "
+							+ moveTimeout);
+		}
+		this.moveTimeout = moveTimeout;
 	}
 }

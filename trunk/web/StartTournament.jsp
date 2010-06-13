@@ -35,7 +35,7 @@
 <tr>
 <td width='150px' style='vertical-align:top;'>
 <select multiple name="players" size="8" style="width:120px;">
-<% File dir = new File("D:/uploads");
+<% File dir = new File("uploads");
 if (!dir.exists()) {
 	dir.mkdir();
 }
@@ -50,7 +50,7 @@ for (int i = 0; i < players.length; i++) {
 <input type='checkbox' name='plainrate' checked> Use plain rate</input><br/>
 <input type='text' name='groupscount' value='2' size="1"> Groups count</input><br/>
 <input type='text' name='gamescount' value='3' size="1"> Games count</input><br/>
-<input type='text' name='timeout' value='3' size="1"> Move timeout (seconds)</input><br/>
+<input type='text' name='timeout' value='2' size="1"> Move timeout (seconds)</input><br/>
 </td>
 </tr>
 </table>

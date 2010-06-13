@@ -8,11 +8,12 @@ import backgammonator.impl.tournament.TournamentManager;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
+import backgammonator.lib.tournament.TournamentException;
 import backgammonator.lib.tournament.TournamentType;
 import backgammonator.sample.players.interfacce.SamplePlayer;
 
 public class TournamentTestCase extends TestCase {
-	public void testBattle() {
+	public void testBattle() throws TournamentException {
 		List<Player> players = new LinkedList<Player>();
 		for (int i = 0; i < 10; i++) {
 			players.add(new SamplePlayer(i));
@@ -20,11 +21,11 @@ public class TournamentTestCase extends TestCase {
 		Tournament tournament = TournamentManager.newTournament(players);
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.BATTLE);
-		Player winner = tournament.start(config);
+		Player winner = tournament.start(config).getWinner();
 		System.out.println(winner.getName());
 	}
 
-	public void testEliminations() {
+	public void testEliminations() throws TournamentException {
 		List<Player> players = new LinkedList<Player>();
 		for (int i = 0; i < 10; i++) {
 			players.add(new SamplePlayer(i));
@@ -32,11 +33,11 @@ public class TournamentTestCase extends TestCase {
 		Tournament tournament = TournamentManager.newTournament(players);
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.ELIMINATIONS);
-		Player winner = tournament.start(config);
+		Player winner = tournament.start(config).getWinner();
 		System.out.println(winner.getName());
 	}
 
-	public void testGroups() {
+	public void testGroups() throws TournamentException {
 		List<Player> players = new LinkedList<Player>();
 		for (int i = 0; i < 10; i++) {
 			players.add(new SamplePlayer(i));
@@ -44,7 +45,7 @@ public class TournamentTestCase extends TestCase {
 		Tournament tournament = TournamentManager.newTournament(players);
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.GROUPS);
-		Player winner = tournament.start(config);
+		Player winner = tournament.start(config).getWinner();
 		System.out.println(winner.getName());
 	}
 }
