@@ -10,4 +10,5 @@
     # Move the web.xml and jsps to TOMCAT_HOME\webapps\ROOT.
     # Move the necessary libs to TOMCAT_HOME\webapps\ROOT.
     # Move the MySQL driver to TOMCAT_HOME\common\lib.
+  # It is better if you restart the tomcat service now.
   # Open http://localhost:8080/...
