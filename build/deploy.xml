@@ -4,7 +4,7 @@
 
 	<import file="build.xml" />
 
-	<target name="deploy" depends="distLibFull, distDeploy, clean" />
+	<target name="deploy" depends="distDemo, distLib, distLibFull, distDeploy, clean" />
 
 	<target name="distDeploy" depends="compile">
 		<!-- move MySQL driver -->
@@ -21,15 +21,26 @@
 		<copy todir="${tomcat}/webapps/ROOT/WEB-INF/lib">
 			<fileset dir="${lib}" includes="backgammonLibraryFull.jar" />
 		</copy>
+		<copy todir="${tomcat}/webapps/ROOT/res">
+			<fileset dir="${lib}" includes="backgammonLibrary.jar" />
+		</copy>
+		<copy todir="${tomcat}/webapps/ROOT/res">
+			<fileset dir="${lib}" includes="backgammonDemo.jar" />
+		</copy>
 
 		<!-- move web.xml -->
 		<copy todir="${tomcat}/webapps/ROOT/WEB-INF">
-			<fileset dir="${websrc}/WEB-INF" includes="*" />
+			<fileset dir="${web}/WEB-INF" includes="*" />
 		</copy>
 
 		<!-- move jsps -->
 		<copy todir="${tomcat}/webapps/ROOT">
-			<fileset dir="${websrc}" includes="*.jsp" />
+			<fileset dir="${web}" includes="*.jsp" />
+		</copy>
+
+		<!-- move res -->
+		<copy todir="${tomcat}/webapps/ROOT/res">
+			<fileset dir="${res}" includes="*" />
 		</copy>
 	</target>
 

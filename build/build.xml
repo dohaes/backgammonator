@@ -3,8 +3,9 @@
 	<property name="project.home" location="../" />
 	<property name="src" location="${project.home}/src" />
 	<property name="lib" location="${project.home}/lib" />
+	<property name="res" location="${project.home}/res" />
+	<property name="web" location="${project.home}/web" />
 	<property name="build" location="${project.home}/classes" />
-	<property name="websrc" location="${project.home}/web" />
 	<property name="classpath" location="${lib}/servlet.jar:
 		${lib}/commons-fileupload.jar:
 		${lib}/commons-io.jar" />
@@ -31,7 +32,7 @@
 	<target name="compile" depends="init">
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="${src}:../sample/backgammonator/sample/players/interfacce/" destdir="${build}" classpath="${lib}/backgammonLibraryFull.jar" />
-		<javac srcdir="${websrc}" destdir="${build}" classpath="${classpath}" />
+		<javac srcdir="${web}" destdir="${build}" classpath="${classpath}" />
 	</target>
 
 	<target name="distLib" depends="compile">
