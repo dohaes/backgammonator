@@ -1,13 +1,90 @@
-#summary One-sentence summary of this page.
+#summary Acceptance criteria scenarios on User Story 19
 
-= Introduction =
+*User Story*
 
-Add your content here.
+As a contest manager<br/>
+I want to adjust the sytem settings<br/>
+so that I can define source uploading and program execution limitations as well as basic system behaviour.<br/>
+
+There is properties file provided named *backgammonator.properties* in the system's root directory. It should be formatted in a way so that it can be loaded in a java.util.Properties object using the load(InputStream) method. The format of the file is as follows:
+
+property_name=property_value
+
+Lines that start with sharp are assumed to be comments. If a property is required by the system and not provided in the backgammonator.properties file then the system uses a default value for it. All properties that are loaded frm the file should be available to the library users through the backgammonator.util.BackgammonatorUtil's variety of get methods.
+
+The following properties could be set in the backgammonator.properties file:
+
+  * backgammonator.debug.enabled
+    Defines if the debug util is enabled or disables.
+    Could take values true or false.
+    The default value used by the system is true.
+
+  * backgammonator.debug.onConsole
+    Defines if the debug messages should be printed on the console or not.
+    Could take values true or false.
+    The default value used by the system is true.
+
+  * backgammonator.debug.inFile
+    Defines if the debug messages should be written in file.
+    Could take values true or false.
+    The default value used by the system is false.
 
 
-= Details =
+  * backgammonator.game.moveTimeout
+    Defines the move timeout in milliseconds.
+    Could take as values positive long numbers.
+    The default value used by the system is 2000.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * backgammonator.game.maxProcesses
+    Defines the maximum number of processes/threads allowed to be started during
+    contestant program execution.
+    Could take as values positive int numbers.
+    The default value used by the system is 10.
+
+  * backgammonator.game.maxMemmoryUsage
+    Defines the maximum size of memory allowed to be used during
+    contestant program execution in bytes.
+    Could take as values positive long numbers.
+    The default value used by the system is 40960 - 40KB.
+
+  * backgammonator.game.loggerOutputDir
+    Defines the output directory for the game logger.
+    Could take as values strings which form a valid file path.
+    The default value used by the system is reports.
+
+
+  * backgammonator.tournament.rate
+    Defines the strategy for scoring the results in the tournament.
+    Could take values plain or special.
+    The default value used by the system plain.
+
+  * backgammonator.tournament.loggerOutputDir
+    Defines the output directory for the tournament logger.
+    Could take as values strings which form a valid file path.
+    The default value used by the system is reports.
+
+
+  * backgammonator.web.uploadDir
+    Defines the root directory for uploaded sources.
+    Could take as values strings which form a valid file path.
+    The default value used by the system is uploads.
+
+  * backgammonator.web.repositoryDir
+    Defines the directory for the file upload lib repository.
+    Could take as values strings which form a valid file path.
+    The default value used by the system is repository.
+
+  * backgammonator.web.uploadMaxSize
+    Defines the maximum size of the source file to be uploaded in bytes.
+    Could take as values positive int numbers.
+    The default value used by the system is 40960 - 40KB.
+
+
+
+*Scenario 1*
+
+  # Navigate to the system's root directory.
+  # Open the backgammonator.properties file.
+  # Configure the properties' values as desired.
+  # Run the system.
+  # The behaviour of the system should reflect the defined configuration.
