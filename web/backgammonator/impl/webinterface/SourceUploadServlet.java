@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.util.BackgammonatorConfig;
 
 /**
  * SourceUploadServlet represents web interface via which contestants can upload
@@ -27,8 +28,14 @@ import backgammonator.impl.protocol.SourceProcessor;
 public final class SourceUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6501514760176956574L;
-	private static final String REPOSITORY = "repository";
-	private static final String UPLOADS = "uploads";
+	private static final int uploadMaxSize = BackgammonatorConfig.getProperty(
+			"backgammonator.web.uploadMaxSize", 40960);
+	private static final String REPOSITORY = BackgammonatorConfig.getProperty(
+			"backgammonator.web.repositoryDir", "repository").replace('/',
+			File.separatorChar);
+	private static final String UPLOADS = BackgammonatorConfig.getProperty(
+			"backgammonator.web.uploadDir", "uploads").replace('/',
+			File.separatorChar);
 	private static final File UPLOADS_DIR = new File(UPLOADS);
 
 	// TODO use user name from the account
@@ -38,10 +45,10 @@ public final class SourceUploadServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings({ "unchecked", "null" })
+	@SuppressWarnings( { "unchecked", "null" })
 	@Override
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response)throws IOException {
+			HttpServletResponse response) throws IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		boolean validate = false;
@@ -55,16 +62,16 @@ public final class SourceUploadServlet extends HttpServlet {
 		}
 		// Parse the HTTP request...
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-		// diskFileItemFactory.setSizeThreshold(40960); // in bytes - 40K
+		// diskFileItemFactory.setSizeThreshold(uploadMaxSize); // in bytes - 40K
 
 		diskFileItemFactory.setRepository(new File(REPOSITORY));
 
 		ServletFileUpload servletFileUpload = new ServletFileUpload(
 				diskFileItemFactory);
-		servletFileUpload.setSizeMax(81920); // in bytes - 80K
+		servletFileUpload.setSizeMax(uploadMaxSize); // in bytes - 40K
 		try {
 			List fileItemsList = servletFileUpload.parseRequest(request);
-			// Process file items... 
+			// Process file items...
 			Iterator iter = fileItemsList.iterator();
 			while (iter.hasNext()) {
 				FileItem fileItem = (FileItem) iter.next();
@@ -93,7 +100,7 @@ public final class SourceUploadServlet extends HttpServlet {
 			afterUpload(out, t.getMessage());
 			return;
 		}
-		
+
 		// process the file
 		if (file == null) {
 			afterUpload(out, "No file specified for upload!");
@@ -109,7 +116,7 @@ public final class SourceUploadServlet extends HttpServlet {
 				afterUpload(out, "Invalid file name!");
 				return;
 			}
-			
+
 			if (!UPLOADS_DIR.exists()) {
 				UPLOADS_DIR.mkdirs();
 			}
@@ -118,14 +125,14 @@ public final class SourceUploadServlet extends HttpServlet {
 				userDir.mkdirs();
 			} else {
 				if (!deleteContents(userDir)) {
-					afterUpload(out, "Cannot delete previously uploaded sources!");
+					afterUpload(out,
+							"Cannot delete previously uploaded sources!");
 					return;
 				}
 			}
 
 			File uploaded = new File(userDir, filename);
 
-			
 			fos = new FileOutputStream(uploaded);
 			is = file.getInputStream();
 			byte[] buff = new byte[24];
@@ -134,9 +141,10 @@ public final class SourceUploadServlet extends HttpServlet {
 				fos.write(buff, 0, len);
 			}
 			fos.flush();
-			
+
 			if (validate) {
-				validationMessage = SourceProcessor.validateSource(uploaded.getAbsolutePath());
+				validationMessage = SourceProcessor.validateSource(uploaded
+						.getAbsolutePath());
 			}
 		} catch (Throwable t) {
 			afterUpload(out, t.getMessage());
@@ -150,8 +158,9 @@ public final class SourceUploadServlet extends HttpServlet {
 				return;
 			}
 		}
-	
-		afterUpload(out, "Upload successful!<br>" + (validate ? "<br/>" + validationMessage + "<br/>" : ""));
+
+		afterUpload(out, "Upload successful!<br>"
+				+ (validate ? "<br/>" + validationMessage + "<br/>" : ""));
 	}
 
 	private boolean deleteContents(File file) {
@@ -175,19 +184,21 @@ public final class SourceUploadServlet extends HttpServlet {
 
 	private boolean verifay(String filename, String expected) {// TODO use regex
 		if (filename == null || filename.length() == 0) return false; // empty
-																		// name
+		// name
 		int first = filename.indexOf('.');
 		int last = filename.lastIndexOf('.');
 		// no or more than one dot
-		if (first != last || first == -1 || last == filename.length()) return false; 
+		if (first != last || first == -1 || last == filename.length()) return false;
 		String actual = filename.substring(last + 1);
 		if (actual.length() == 0 || !actual.equals(expected)) return false;
 		return true;
 	}
-	
+
 	private void afterUpload(PrintWriter out, String message) {
-		out.print("<body><form name='hiddenForm' action='SourceUpload.jsp' method='POST'>"); 
-		out.print("<input type='hidden' name='result' value='" + message + "' ></input> </form> </body>");
+		out
+				.print("<body><form name='hiddenForm' action='SourceUpload.jsp' method='POST'>");
+		out.print("<input type='hidden' name='result' value='" + message
+				+ "' ></input> </form> </body>");
 		out.print("<script language='Javascript'>");
 		out.print("document.hiddenForm.submit();");
 		out.print("</script>");

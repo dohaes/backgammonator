@@ -4,6 +4,7 @@ import backgammonator.lib.game.BackgammonBoard;
 import backgammonator.lib.game.Dice;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.game.PlayerMove;
+import backgammonator.util.BackgammonatorConfig;
 
 /**
  * Sample implementation of the {@link Player} interface. This player is timed
@@ -17,7 +18,7 @@ public class TimedoutMovePlayer extends AbstractSamplePlayer {
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
-		Thread.sleep(2100);
+		Thread.sleep(BackgammonatorConfig.getProperty("backgammonator.game.moveTimeout", 2000) + 200);
 		return null;
 	}
 

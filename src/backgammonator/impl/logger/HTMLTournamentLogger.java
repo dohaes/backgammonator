@@ -13,6 +13,7 @@ import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.logger.TournamentLogger;
 import backgammonator.lib.tournament.TournamentType;
+import backgammonator.util.BackgammonatorConfig;
 import backgammonator.util.Debug;
 
 /**
@@ -26,11 +27,9 @@ public class HTMLTournamentLogger implements TournamentLogger {
 	private String timestamp;
 	private int gameNo;
 
-	private static String outputdir = "reports"; // TODO should be configured
-
-	static {
-		System.setProperty("tournament.logger.outputdir", outputdir);
-	}
+	private static String outputdir = BackgammonatorConfig.getProperty(
+			"backgammonator.tournament.loggerOutputDir", "reports").replace(
+			'/', File.separatorChar);
 
 	/**
 	 * @see TournamentLogger#endTournament(Player)
@@ -97,7 +96,8 @@ public class HTMLTournamentLogger implements TournamentLogger {
 		this.logStringBuffer.append(status.toString());
 		this.logStringBuffer.append("</td><td><a href=\"");
 		this.logStringBuffer.append(game.getFilename());
-		this.logStringBuffer.append("\" target=\"_blank\">View</a></td></tr>\n");
+		this.logStringBuffer
+				.append("\" target=\"_blank\">View</a></td></tr>\n");
 		this.gameNo++;
 	}
 

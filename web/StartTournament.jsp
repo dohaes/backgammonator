@@ -1,4 +1,5 @@
 <%@ page import="java.io.File" %>
+<%@ page import="backgammonator.util.BackgammonatorConfig" %>
 <html>
 <head>
 <title>Backgammonator - Start Tournament</title>
@@ -35,7 +36,8 @@
 <tr>
 <td width='150px' style='vertical-align:top;'>
 <select multiple name="players" size="8" style="width:120px;">
-<% File dir = new File("uploads");
+<% File dir = new File(BackgammonatorConfig.getProperty(
+      "backgammonator.web.uploadDir", "uploads").replace('/', File.separatorChar));
 if (!dir.exists()) {
 	dir.mkdir();
 }

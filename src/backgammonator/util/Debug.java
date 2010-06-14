@@ -14,46 +14,51 @@ public final class Debug {
 	 * Indicates that the debug message is logged from the protocol module.
 	 */
 	public static final int PROTOCOL = 1;
-	
+
 	/**
 	 * Indicates that the debug message is logged from the game logic module.
 	 */
 	public static final int GAME_LOGIC = 2;
-	
+
 	/**
 	 * Indicates that the debug message is logged from the game logger module.
 	 */
 	public static final int GAME_LOGGER = 4;
-	
+
 	/**
-	 * Indicates that the debug message is logged from the tournament logic module.
+	 * Indicates that the debug message is logged from the tournament logic
+	 * module.
 	 */
 	public static final int TOURNAMENT_LOGIC = 5;
-	
+
 	/**
-	 * Indicates that the debug message is logged from the tournament logger module.
+	 * Indicates that the debug message is logged from the tournament logger
+	 * module.
 	 */
 	public static final int TOURNAMENT_LOGGER = 6;
-	
+
 	/**
 	 * Indicates that the debug message is logged from the utils module.
 	 */
 	public static final int UTILS = 7;
-	
+
 	/**
 	 * Indicates that the debug message is logged from the database module.
 	 */
 	public static final int DATABASE = 8;
-	
+
 	/**
 	 * Indicates that the debug message is logged from the web interface module.
 	 */
 	public static final int WEB_INTERFACE = 9;
 
-	private static boolean debugOn = true; // TODO use system prop to configure
-	private static boolean onConsole = true; // TODO use system prop to
-												// configure
-	private static boolean inFile = false; // TODO use system prop to configure
+	private static boolean debugOn = BackgammonatorConfig.getProperty(
+			"backgammonator.debug.enabled", true);
+	private static boolean onConsole = BackgammonatorConfig.getProperty(
+			"backgammonator.debug.onConsole", true);
+
+	private static boolean inFile = BackgammonatorConfig.getProperty(
+			"backgammonator.debug.inFile", false);
 
 	private static PrintStream consoleLog = System.out;
 
@@ -106,7 +111,8 @@ public final class Debug {
 	 */
 	public synchronized void warning(String message, int moduleId, Throwable t) {
 		if (!debugOn) return;
-		String debug = "[WARNING] " + "[" + getModule(moduleId) + "] " + message;
+		String debug = "[WARNING] " + "[" + getModule(moduleId) + "] "
+				+ message;
 		if (onConsole) {
 			consoleLog.println(debug);
 			if (t != null) t.printStackTrace(consoleLog);

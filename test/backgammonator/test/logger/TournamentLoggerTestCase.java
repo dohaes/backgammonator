@@ -4,6 +4,7 @@ import java.io.File;
 
 import backgammonator.impl.logger.TournamentLoggerFactory;
 import backgammonator.lib.logger.TournamentLogger;
+import backgammonator.util.BackgammonatorConfig;
 import junit.framework.TestCase;
 
 /**
@@ -22,7 +23,7 @@ public class TournamentLoggerTestCase extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		String fileName = System.getProperty("tournament.logger.outputdir")
+		String fileName = BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir")
 				+ "\\" + this.tournamentLogger.getFilename();
 		System.out.print(fileName + "\n");
 		File file = new File(fileName);

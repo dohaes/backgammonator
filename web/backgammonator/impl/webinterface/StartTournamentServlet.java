@@ -18,6 +18,7 @@ import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
 import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.lib.tournament.TournamentType;
+import backgammonator.util.BackgammonatorConfig;
 
 /**
  * @author georgi.b.andreev
@@ -89,13 +90,16 @@ public final class StartTournamentServlet extends HttpServlet {
 			redirect(out, URL, message.toString());
 		} catch (Exception e) {
 			redirect(out, URL,
-					"Error ! <br/>Error occured while creating tournament. " + e.getMessage());
+					"Error ! <br/>Error occured while creating tournament. "
+							+ e.getMessage());
 		}
 	}
-	
+
 	private static Player createPlayer(String user) {
 		try {
-			File dir = new File(new File("uploads"), user);
+			File dir = new File(new File(BackgammonatorConfig.getProperty(
+					"backgammonator.web.uploadDir", "uploads").replace('/',
+					File.separatorChar)), user);
 			if (dir.isDirectory()) {
 				String[] java = dir.list(new FilenameFilter() {
 					public boolean accept(File dir, String name) {
