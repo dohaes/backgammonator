@@ -15,69 +15,69 @@ Lines that start with sharp are assumed to be comments. If a property is require
 The following properties could be set in the backgammonator.properties file:
 
   * backgammonator.debug.enabled
-    Defines if the debug util is enabled or disables.
-    Could take values true or false.
-    The default value used by the system is true.
+    Defines if the debug util is enabled or disables.<br/>
+    Could take values true or false.<br/>
+    The default value used by the system is true.<br/>
 
   * backgammonator.debug.onConsole
-    Defines if the debug messages should be printed on the console or not.
-    Could take values true or false.
-    The default value used by the system is true.
+    Defines if the debug messages should be printed on the console or not.<br/>
+    Could take values true or false.<br/>
+    The default value used by the system is true.<br/>
 
   * backgammonator.debug.inFile
-    Defines if the debug messages should be written in file.
-    Could take values true or false.
-    The default value used by the system is false.
+    Defines if the debug messages should be written in file.<br/>
+    Could take values true or false.<br/>
+    The default value used by the system is false.<br/>
 
 
   * backgammonator.game.moveTimeout
-    Defines the move timeout in milliseconds.
-    Could take as values positive long numbers.
-    The default value used by the system is 2000.
+    Defines the move timeout in milliseconds.<br/>
+    Could take as values positive long numbers.<br/>
+    The default value used by the system is 2000.<br/>
 
   * backgammonator.game.maxProcesses
-    Defines the maximum number of processes/threads allowed to be started during
-    contestant program execution.
-    Could take as values positive int numbers.
-    The default value used by the system is 10.
+    Defines the maximum number of processes/threads allowed to be started during<br/>
+    contestant program execution.<br/>
+    Could take as values positive int numbers.<br/>
+    The default value used by the system is 10.<br/>
 
   * backgammonator.game.maxMemmoryUsage
-    Defines the maximum size of memory allowed to be used during
-    contestant program execution in bytes.
-    Could take as values positive long numbers.
-    The default value used by the system is 40960 - 40KB.
+    Defines the maximum size of memory allowed to be used during<br/>
+    contestant program execution in bytes.<br/>
+    Could take as values positive long numbers.<br/>
+    The default value used by the system is 40960 - 40KB.<br/>
 
   * backgammonator.game.loggerOutputDir
-    Defines the output directory for the game logger.
-    Could take as values strings which form a valid file path.
-    The default value used by the system is reports.
+    Defines the output directory for the game logger.<br/>
+    Could take as values strings which form a valid file path.<br/>
+    The default value used by the system is reports.<br/>
 
 
   * backgammonator.tournament.rate
-    Defines the strategy for scoring the results in the tournament.
-    Could take values plain or special.
-    The default value used by the system plain.
+    Defines the strategy for scoring the results in the tournament.<br/>
+    Could take values plain or special.<br/>
+    The default value used by the system plain.<br/>
 
   * backgammonator.tournament.loggerOutputDir
-    Defines the output directory for the tournament logger.
-    Could take as values strings which form a valid file path.
-    The default value used by the system is reports.
+    Defines the output directory for the tournament logger.<br/>
+    Could take as values strings which form a valid file path.<br/>
+    The default value used by the system is reports.<br/>
 
 
   * backgammonator.web.uploadDir
-    Defines the root directory for uploaded sources.
-    Could take as values strings which form a valid file path.
-    The default value used by the system is uploads.
+    Defines the root directory for uploaded sources.<br/>
+    Could take as values strings which form a valid file path.<br/>
+    The default value used by the system is uploads.<br/>
 
   * backgammonator.web.repositoryDir
-    Defines the directory for the file upload lib repository.
-    Could take as values strings which form a valid file path.
-    The default value used by the system is repository.
+    Defines the directory for the file upload lib repository.<br/>
+    Could take as values strings which form a valid file path.<br/>
+    The default value used by the system is repository.<br/>
 
   * backgammonator.web.uploadMaxSize
-    Defines the maximum size of the source file to be uploaded in bytes.
-    Could take as values positive int numbers.
-    The default value used by the system is 40960 - 40KB.
+    Defines the maximum size of the source file to be uploaded in bytes.<br/>
+    Could take as values positive int numbers.<br/>
+    The default value used by the system is 40960 - 40KB.<br/>
 
 
 
