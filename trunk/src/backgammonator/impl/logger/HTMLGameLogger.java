@@ -14,6 +14,7 @@ import backgammonator.lib.game.Player;
 import backgammonator.lib.game.PlayerColor;
 import backgammonator.lib.game.PlayerMove;
 import backgammonator.lib.logger.GameLogger;
+import backgammonator.util.BackgammonatorConfig;
 import backgammonator.util.Debug;
 
 /**
@@ -29,12 +30,13 @@ class HTMLGameLogger implements GameLogger {
 	private String timestamp;
 	private int moveId;
 
-	private static String outputdir = "reports"; // TODO should be configured
+	private static String outputdir = BackgammonatorConfig.getProperty(
+			"backgammonator.game.loggerOutputDir", "reports").replace('/',
+			File.separatorChar);
 
-	static {
-		System.setProperty("game.logger.outputdir", outputdir);
-	}
-
+	/**
+	 * @see GameLogger#startGame(Player, Player)
+	 */
 	@Override
 	public void startGame(Player whitePlayer, Player blackPlayer) {
 

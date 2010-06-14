@@ -8,6 +8,7 @@ import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.game.PlayerMove;
 import backgammonator.lib.logger.GameLogger;
+import backgammonator.util.BackgammonatorConfig;
 import backgammonator.util.Debug;
 
 /**
@@ -20,6 +21,14 @@ import backgammonator.util.Debug;
  * implementation that represent the dice.
  */
 final class GameImpl implements Game {
+
+	/**
+	 * Timeout in milliseconds to wait for a single move. If the time elapses
+	 * and the player has not yet returned a move, the game is over and the
+	 * player loses.
+	 */
+	private static long MOVE_TIMEOUT = BackgammonatorConfig.getProperty(
+			"backgammonator.game.moveTimeout", 2000);
 
 	private Player whitePlayer;
 	private Player blackPlayer;
@@ -107,6 +116,14 @@ final class GameImpl implements Game {
 	@Override
 	public Player getWinner() {
 		return winner;
+	}
+	
+	/**
+	 * @see Game#getMoveTimeout()
+	 */
+	@Override
+	public long getMoveTimeout() {
+		return MOVE_TIMEOUT;
 	}
 
 	private void startNewMoverThread(boolean kill) {

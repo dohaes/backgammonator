@@ -14,6 +14,7 @@ import backgammonator.lib.game.PlayerColor;
 import backgammonator.lib.game.PlayerMove;
 import backgammonator.lib.logger.GameLogger;
 import backgammonator.sample.players.interfacce.SamplePlayer;
+import backgammonator.util.BackgammonatorConfig;
 import junit.framework.TestCase;
 
 /**
@@ -43,7 +44,7 @@ public class GameLoggerTestCase extends TestCase {
 				new DiceImpl(2, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.NORMAL, PlayerColor.BLACK);
 
-		String filename = System.getProperty("game.logger.outputdir")
+		String filename = BackgammonatorConfig.getProperty("backgammonator.game.loggerOutputDir")
 				+ File.separator + this.gameLogger.getFilename();
 		String resultFileContent = "";
 		try {
@@ -74,7 +75,7 @@ public class GameLoggerTestCase extends TestCase {
 				new CheckerMove(15, 2), new CheckerMove(15, 2) }), new DiceImpl(2, 2), true, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.INVALID_MOVE, PlayerColor.WHITE);
 
-		String filename = System.getProperty("game.logger.outputdir") + "\\"
+		String filename = BackgammonatorConfig.getProperty("backgammonator.game.loggerOutputDir") + "\\"
 				+ this.gameLogger.getFilename();
 		String resultFileContent = "";
 		try {
@@ -105,7 +106,7 @@ public class GameLoggerTestCase extends TestCase {
 				new CheckerMove(15, 2), new CheckerMove(15, 2) }), new DiceImpl(2, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.EXCEPTION, PlayerColor.WHITE);
 
-		String filename = System.getProperty("game.logger.outputdir") + "\\"
+		String filename = BackgammonatorConfig.getProperty("backgammonator.game.loggerOutputDir") + "\\"
 				+ this.gameLogger.getFilename();
 		String resultFileContent = "";
 		try {
@@ -130,7 +131,7 @@ public class GameLoggerTestCase extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		String fileName = System.getProperty("game.logger.outputdir") + "\\"
+		String fileName = BackgammonatorConfig.getProperty("backgammonator.game.loggerOutputDir") + "\\"
 				+ this.gameLogger.getFilename();
 		System.out.print(fileName + "\n");
 		File file = new File(fileName);
