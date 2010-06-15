@@ -1,25 +1,17 @@
 package backgammonator.impl.webinterface;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.impl.tournament.TournamentManager;
-import backgammonator.lib.game.Player;
 import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
 import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.lib.tournament.TournamentType;
-import backgammonator.util.BackgammonatorConfig;
 import backgammonator.util.Debug;
 
 /**
@@ -37,8 +29,6 @@ public final class StartTournamentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
-		long start = new Date().getTime();
-
 		try {
 			String type = request.getParameter("type");
 			TournamentConfiguration config = new TournamentConfiguration(
@@ -72,27 +62,14 @@ public final class StartTournamentServlet extends HttpServlet {
 			if (players == null) {
 				players = new String[0];
 			}
-			List<Player> tmp = new ArrayList<Player>(players.length);
-			for (int i = 0; i < players.length; i++) {
-				Player p = createPlayer(players[i]);
-				if (p == null) {
-					redirect(out, URL, "Error ! <br/>Error creating player "
-							+ players[i] + ".");
-					return;
-				}
-				tmp.add(p);
-			}
-			long compile = new Date().getTime() - start;
-			Tournament tournament = TournamentManager.newTournament(tmp);
+			Tournament tournament = TournamentManager.newTournament(players);
 			TournamentResult result = tournament.start(config);
 			StringBuilder message = new StringBuilder("Success ! <br/>");
-			long end = new Date().getTime() - start;
 			for (int i = 0; i < result.getPlayersCount(); i++) {
 				message.append((i + 1)).append(". ").append(
 						result.getPlayer(i).getName()).append(" with ").append(
 						result.getPlayerPoints(i)).append(" points.<br/>");
 			}
-			message.append(compile + " " + end + "<br/>");
 			redirect(out, URL, message.toString());
 		} catch (Exception e) {
 			Debug.getInstance().error("Error creating tournament.",
@@ -100,27 +77,6 @@ public final class StartTournamentServlet extends HttpServlet {
 			redirect(out, URL, "Error ! <br/>Error creating tournament. "
 					+ e.getMessage());
 		}
-	}
-
-	private static Player createPlayer(String user) {
-		try {
-			File dir = new File(new File(BackgammonatorConfig.getProperty(
-					"backgammonator.web.uploadDir", "uploads").replace('/',
-					File.separatorChar)), user);
-			if (dir.isDirectory()) {
-				String[] java = dir.list(new FilenameFilter() {
-					public boolean accept(File dir, String name) {
-						return name.endsWith(".java");
-					}
-				});
-				File j = new File(dir, java[0]);
-				return SourceProcessor.processSource(j.getAbsolutePath());
-			}
-		} catch (Exception e) {
-			Debug.getInstance().error("Error creating player.",
-					Debug.WEB_INTERFACE, e);
-		}
-		return null;
 	}
 
 	private static void redirect(PrintWriter out, String link, String message) {
