@@ -1,8 +1,10 @@
 package backgammonator.impl.game;
 
+import backgammonator.impl.protocol.ProcessingException;
 import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.Player;
+import backgammonator.util.Debug;
 
 /**
  * This class is used to create a new game between two AI players.
@@ -35,8 +37,13 @@ public class GameManager {
 	 *         <code>null</code> if any errors occurs.
 	 */
 	public static Game newGame(String white, String black, boolean logMoves) {
-		return new GameImpl(SourceProcessor.processFile(white), SourceProcessor
-				.processFile(black), logMoves);
+		try {
+			return new GameImpl(SourceProcessor.processSource(white), SourceProcessor
+					.processSource(black), logMoves);
+		} catch (ProcessingException e) {
+			Debug.getInstance().error("Error during source compilation", Debug.GAME_LOGIC, e);
+			return null;
+		}
 	}
 
 }

@@ -24,17 +24,19 @@ public class SourceProcessor {
 	/**
 	 * Compiles the file and processes it to executable.
 	 * 
-	 * @param filePath The absolute path to the file
+	 * @param filePath The absolute path to the file.
 	 * @return PlayerImpl
-	 * @throws IllegalArgumentException when the given file does not exists
+	 * @throws ProcessingException if any errors occur.
 	 */
-	public static Player processFile(String filePath) {
+	public static Player processSource(String filePath)
+			throws ProcessingException {
 		File file = new File(filePath);
 		if (!file.exists()) {
 			Debug.getInstance().error(
 					"The given file is not found: " + filePath, Debug.UTILS,
 					null);
-			return null;
+			throw new ProcessingException(ProcessingException.FILE_NOT_FOUND,
+					"The given file is not found: " + filePath);
 		}
 
 		boolean isJava;
@@ -44,40 +46,55 @@ public class SourceProcessor {
 			Debug.getInstance().error(
 					"The file must ends with .java or .c: " + filePath,
 					Debug.UTILS, null);
-			return null;
+			throw new ProcessingException(
+					ProcessingException.INVALID_EXTENSION,
+					"The file must ends with .java or .c: " + filePath);
 		}
 
 		Player result = null;
 		Process compileProcess = null;
 		try {
 			if (isJava) {
-				compileProcess = Runtime.getRuntime().exec(
-						"javac \"" + file.getAbsolutePath() + "\"");
-
-				// manage streams
-				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
-						.getErrorStream(), "ERROR");
-				StreamCatcher outputGobbler = new StreamCatcher(compileProcess
-						.getInputStream(), "OUTPUT");
-				errorGobbler.start();
-				outputGobbler.start();
-
-				int exitCode = compileProcess.waitFor();
-				if (exitCode != 0) {
-					Debug.getInstance().error(
-							"Compile returned: " + exitCode + "\n"
-									+ errorGobbler.getMessage(), Debug.UTILS,
-							null);
-					return null;
-				}
+				// check if the file has already been compiled
 				File classFile = new File(file.getAbsolutePath().replace(
 						".java", ".class"));
+
 				if (!classFile.exists()) {
-					Debug.getInstance().error(
-							"The compiled file is not found: " + filePath,
-							Debug.UTILS, null);
-					return null;
+					compileProcess = Runtime.getRuntime().exec(
+							"javac \"" + file.getAbsolutePath() + "\"");
+
+					// manage streams
+					StreamCatcher errorGobbler = new StreamCatcher(
+							compileProcess.getErrorStream(), "ERROR");
+					StreamCatcher outputGobbler = new StreamCatcher(
+							compileProcess.getInputStream(), "OUTPUT");
+					errorGobbler.start();
+					outputGobbler.start();
+
+					int exitCode = compileProcess.waitFor();
+					if (exitCode != 0) {
+						Debug.getInstance().error(
+								"Compilation error! Compile returned: "
+										+ exitCode + "\n"
+										+ errorGobbler.getMessage(),
+								Debug.UTILS, null);
+						throw new ProcessingException(
+								ProcessingException.COMPILATION_ERROR,
+								"Compilation error! Compile returned: "
+										+ exitCode + "\n"
+										+ errorGobbler.getMessage());
+					}
+
+					if (!classFile.exists()) {
+						Debug.getInstance().error(
+								"The compiled file is not found: " + filePath,
+								Debug.UTILS, null);
+						throw new ProcessingException(
+								ProcessingException.COMPILED_FILE_NOT_FOUND,
+								"The compiled file is not found: " + filePath);
+					}
 				}
+
 				// manage result
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
@@ -86,43 +103,59 @@ public class SourceProcessor {
 						+ classFile.getParent() + " " + mainClass, classFile
 						.getParentFile().getName());
 			} else {
-				String executableFileName = file.getAbsolutePath().replace(
-						".c", ".exe");
-				compileProcess = Runtime.getRuntime().exec(
-						"g++ -Wall -o " + executableFileName + " "
-								+ file.getAbsolutePath());
 
-				// manage streams
-				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
-						.getErrorStream(), "ERROR");
-				StreamCatcher outputGobbler = new StreamCatcher(compileProcess
-						.getInputStream(), "OUTPUT");
-				errorGobbler.start();
-				outputGobbler.start();
+				File executableFile = new File(file.getAbsolutePath().replace(
+						".c", ".exe"));
 
-				int exitCode = compileProcess.waitFor();
-				if (exitCode != 0) {
-					Debug.getInstance().error("Compile returned: " + exitCode,
-							Debug.UTILS, null);
-					return null;
-				}
-				File executableFile = new File(executableFileName);
+				// check if the executable already exists
 				if (!executableFile.exists()) {
-					Debug.getInstance().error(
-							"The compiled file is not found: " + filePath,
-							Debug.UTILS, null);
-					return null;
-				}
-				// manage result
+					compileProcess = Runtime.getRuntime().exec(
+							"g++ -Wall -o " + executableFile.getAbsolutePath()
+									+ " " + file.getAbsolutePath());
 
-				result = new ProtocolPlayerWrapper(executableFileName,
-						executableFile.getParentFile().getName());
+					// manage streams
+					StreamCatcher errorGobbler = new StreamCatcher(
+							compileProcess.getErrorStream(), "ERROR");
+					StreamCatcher outputGobbler = new StreamCatcher(
+							compileProcess.getInputStream(), "OUTPUT");
+					errorGobbler.start();
+					outputGobbler.start();
+
+					int exitCode = compileProcess.waitFor();
+					if (exitCode != 0) {
+						Debug.getInstance().error(
+								"Compilation error! Compile returned: "
+										+ exitCode + "\n"
+										+ errorGobbler.getMessage(),
+								Debug.UTILS, null);
+						throw new ProcessingException(
+								ProcessingException.COMPILATION_ERROR,
+								"Compilation error! Compile returned: "
+										+ exitCode + "\n"
+										+ errorGobbler.getMessage());
+					}
+
+					if (!executableFile.exists()) {
+						Debug.getInstance().error(
+								"The compiled file is not found: " + filePath,
+								Debug.UTILS, null);
+						throw new ProcessingException(
+								ProcessingException.COMPILED_FILE_NOT_FOUND,
+								"The compiled file is not found: " + filePath);
+					}
+				}
+
+				// manage result
+				result = new ProtocolPlayerWrapper(executableFile
+						.getAbsolutePath(), executableFile.getParentFile()
+						.getName());
 			}
 
 		} catch (Throwable e) {
 			Debug.getInstance().error("Unexpected exception: " + filePath,
 					Debug.UTILS, e);
-			return result;
+			throw new ProcessingException(ProcessingException.UNEXPECTED_ERROR,
+					e.getMessage());
 		}
 		return result;
 	}
@@ -131,76 +164,15 @@ public class SourceProcessor {
 	 * Validate he given file
 	 */
 	public static String validateSource(String filePath) {
-		File file = new File(filePath);
-		boolean isJava;
-		if (file.getName().endsWith(".java")) isJava = true;
-		else if (file.getName().endsWith(".c")) isJava = false;
-		else {
-			return "The file must ends with .java or .c:";
-		}
-
-		Player result = null;
-		Process compileProcess = null;
+		Player toValidate = null;
 		try {
-			if (isJava) {
-				compileProcess = Runtime.getRuntime().exec(
-						"javac \"" + file.getAbsolutePath() + "\"");
-				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
-						.getErrorStream(), "ERROR");
-				errorGobbler.start();
-
-				int exitCode = compileProcess.waitFor();
-				if (exitCode != 0) {
-					return "Compilation Error!: \r\n"
-							+ errorGobbler.getMessage();
-				}
-				File classFile = new File(file.getAbsolutePath().replace(
-						".java", ".class"));
-				if (!classFile.exists()) {
-					return "Error with the compilation!";
-				}
-
-				// manage result
-				String mainClass = classFile.getName();
-				mainClass = mainClass.substring(0, mainClass.indexOf("."));
-
-				result = new ProtocolPlayerWrapper("java -cp "
-						+ classFile.getParent() + " " + mainClass, classFile
-						.getParentFile().getName());
-			} else {
-				String executableFileName = file.getAbsolutePath().replace(
-						".c", ".exe");
-				compileProcess = Runtime.getRuntime().exec(
-						"g++ -Wall -o " + executableFileName + " "
-						+ file.getAbsolutePath());
-
-				// manage streams
-				StreamCatcher errorGobbler = new StreamCatcher(compileProcess
-						.getErrorStream(), "ERROR");
-				errorGobbler.start();
-
-				int exitCode = compileProcess.waitFor();
-				if (exitCode != 0) {
-					return "Compilation Error!: \r\n"
-							+ errorGobbler.getMessage();
-				}
-				File executableFile = new File(executableFileName);
-				if (!executableFile.exists()) {
-					return "Error with the compilation!";
-				}
-				// manage result
-
-				result = new ProtocolPlayerWrapper(executableFileName,
-						executableFile.getParentFile().getName());
-			}
-		} catch (Exception e) {
-			Debug.getInstance().error("Unexpected exception: " + filePath,
-					Debug.UTILS, e);
-			return "Exception:" + e.getMessage();
+			toValidate = processSource(filePath);
+		} catch (ProcessingException pe) {
+			return pe.getMessage();
 		}
 
-		SamplePlayer samplePlayer = new SamplePlayer();
-		Game game = GameManager.newGame(result, samplePlayer, false);
+		Player samplePlayer = new SamplePlayer();
+		Game game = GameManager.newGame(toValidate, samplePlayer, false);
 		Object sync = new Object();
 
 		String message = "Validation successful! No problems found.";

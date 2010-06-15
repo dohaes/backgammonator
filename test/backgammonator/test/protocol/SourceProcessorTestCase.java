@@ -12,10 +12,7 @@ import backgammonator.lib.game.GameOverStatus;
 import junit.framework.TestCase;
 
 /**
- * SourceProcessorTestCase represents...
- * 
- * @author Andrei Penchev
- * @version $Revision: 1.0 $
+ * Tests class {@link SourceProcessor}.
  */
 public class SourceProcessorTestCase extends TestCase {
 
@@ -41,7 +38,7 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return exception in the message
+	 * Test return exception in the message.
 	 */
 	public void testValidateSourceWithExc() {
 		copy("ExceptionPlayer", true);
@@ -50,7 +47,7 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return time out in the message
+	 * Test return time out in the message.
 	 */
 	public void testValidateSourceWithTimeOut() {
 		copy("TimedoutMovePlayer", true);
@@ -59,7 +56,7 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return exception in the message
+	 * Test return exception in the message.
 	 */
 	public void testValidateSourceWithPremature() {
 		copy("PrematureExitPlayer", true);
@@ -68,7 +65,7 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return invalid move in the message
+	 * Test return invalid move in the message.
 	 */
 	public void testValidateSourceWithEmptyMove() {
 		copy("EmptyMovePlayer", true);
@@ -77,7 +74,7 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return invalid move in the message
+	 * Test return invalid move in the message.
 	 */
 	public void testValidateSourceWithInvalidMove() {
 		copy("InvalidMovePlayer", true);
@@ -86,7 +83,7 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return successfully in the message
+	 * Test return successfully in the message.
 	 */
 	public void testValidateSourceWithNormal() {
 		copy("SamplePlayer", true);
@@ -94,7 +91,6 @@ public class SourceProcessorTestCase extends TestCase {
 		assertTrue(res.indexOf("success") != -1);
 	}
 
-	// ////////////////////////UTILITIES//////////////////////////////////////////
 	private void copy(String name1, boolean java) {
 		String dirName1 = testDir.getAbsolutePath() + File.separatorChar
 				+ name1.toLowerCase();
