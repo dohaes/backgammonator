@@ -106,7 +106,7 @@ public final class StartTournamentServlet extends HttpServlet {
 					}
 				});
 				File j = new File(dir, java[0]);
-				return SourceProcessor.processFile(j.getAbsolutePath());
+				return SourceProcessor.processSource(j.getAbsolutePath());
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error("Error creating player.", Debug.WEB_INTERFACE, e);
