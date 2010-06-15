@@ -46,7 +46,7 @@ public class HTMLTournamentLogger implements TournamentLogger {
 		try {
 			File outputDir = new File(outputdir);
 			if (!outputDir.exists()) {
-				outputDir.mkdir();
+				outputDir.mkdirs();
 			}
 			File file = new File(outputDir, this.getFilename());
 			FileWriter fstream = new FileWriter(file);

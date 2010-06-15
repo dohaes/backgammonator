@@ -19,6 +19,7 @@ import backgammonator.lib.tournament.TournamentConfiguration;
 import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.lib.tournament.TournamentType;
 import backgammonator.util.BackgammonatorConfig;
+import backgammonator.util.Debug;
 
 /**
  * @author georgi.b.andreev
@@ -42,28 +43,25 @@ public final class StartTournamentServlet extends HttpServlet {
 					TournamentType.valueOf(type));
 			String logMoves = request.getParameter("logmoves");
 			config.setLogMoves(logMoves != null);
-			String plainRate = request.getParameter("plainrate");
-			config.setUsePlainRate(plainRate != null);
 			String groupsCount = request.getParameter("groupscount");
 			try {
 				int tmp = Integer.parseInt(groupsCount);
 				config.setGroupsCount(tmp);
 			} catch (Exception e) {
-				redirect(out, URL, "Error ! <br/>Error reading Groups Count.");
+				Debug.getInstance().error("Error creating tournament.", Debug.WEB_INTERFACE, e);
+				redirect(out, URL, "Error ! <br/>Error reading Groups Count. "
+						+ e.getMessage());
+				return;
 			}
 			String gamesCount = request.getParameter("gamescount");
 			try {
 				int tmp = Integer.parseInt(gamesCount);
 				config.setGamesCount(tmp);
 			} catch (Exception e) {
-				redirect(out, URL, "Error ! <br/>Error reading Games Count.");
-			}
-			String moveTimeout = request.getParameter("timeout");
-			try {
-				int tmp = Integer.parseInt(moveTimeout);
-				config.setMoveTimeout(tmp * 1000);
-			} catch (Exception e) {
-				redirect(out, URL, "Error ! <br/>Error reading Move Timeout.");
+				Debug.getInstance().error("Error creating tournament.", Debug.WEB_INTERFACE, e);
+				redirect(out, URL, "Error ! <br/>Error reading Games Count. "
+						+ e.getMessage());
+				return;
 			}
 
 			String[] players = request.getParameterValues("players");
@@ -76,6 +74,7 @@ public final class StartTournamentServlet extends HttpServlet {
 				if (p == null) {
 					redirect(out, URL, "Error ! <br/>Error creating player "
 							+ players[i] + ".");
+					return;
 				}
 				tmp.add(p);
 			}
@@ -89,9 +88,9 @@ public final class StartTournamentServlet extends HttpServlet {
 			}
 			redirect(out, URL, message.toString());
 		} catch (Exception e) {
-			redirect(out, URL,
-					"Error ! <br/>Error occured while creating tournament. "
-							+ e.getMessage());
+			Debug.getInstance().error("Error creating tournament.", Debug.WEB_INTERFACE, e);
+			redirect(out, URL, "Error ! <br/>Error creating tournament. "
+					+ e.getMessage());
 		}
 	}
 
@@ -110,6 +109,7 @@ public final class StartTournamentServlet extends HttpServlet {
 				return SourceProcessor.processFile(j.getAbsolutePath());
 			}
 		} catch (Exception e) {
+			Debug.getInstance().error("Error creating player.", Debug.WEB_INTERFACE, e);
 		}
 		return null;
 	}

@@ -53,19 +53,19 @@ class HTMLGameLogger implements GameLogger {
 		try {
 			File outputDir = new File(outputdir);
 			if (!outputDir.exists()) {
-				outputDir.mkdir();
+				outputDir.mkdirs();
 			}
 
 			File gameDir = new File(outputdir + File.separator
 					+ this.getGameDirName());
 			if (!gameDir.exists()) {
-				gameDir.mkdir();
+				gameDir.mkdirs();
 			}
 
 			File movesDir = new File(outputdir + File.separator
 					+ this.getMovesDirName());
 			if (!movesDir.exists()) {
-				movesDir.mkdir();
+				movesDir.mkdirs();
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error("Error creating folders",

@@ -223,6 +223,9 @@ public class SourceProcessor {
 		return message;
 	}
 
+	/**
+	 * @param args args.
+	 */
 	public static void main(String[] args) {
 		System.out.println(System.getenv("MinGW_HOME"));
 		// processFile("D:\\test.c");

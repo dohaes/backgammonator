@@ -8,33 +8,17 @@
 		<servlet-name>StartTournamentServlet</servlet-name>
 		<servlet-class>backgammonator.impl.webinterface.StartTournamentServlet</servlet-class>
 	</servlet>
+        
+        <servlet>
+                <servlet-name>SourceUploadServlet</servlet-name>
+                <servlet-class>backgammonator.impl.webinterface.SourceUploadServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+                <servlet-name>CreateDatabase</servlet-name>
+                <servlet-class>backgammonator.impl.webinterface.CreateDatabase</servlet-class>
+        </servlet>
 	
-	<servlet>
-		<servlet-name>SourceUploadServlet</servlet-name>
-		<servlet-class>backgammonator.impl.webinterface.SourceUploadServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>RegisterationServlet</servlet-name>
-		<servlet-class>backgammonator.impl.webinterface.RegisterationServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>backgammonator.impl.webinterface.LoginServlet</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>ContestantHome</servlet-name>
-		<servlet-class>backgammonator.impl.webinterface.ContestantHome</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>ContestantManagerHome</servlet-name>
-		<servlet-class>backgammonator.impl.webinterface.ContestantManagerHome</servlet-class>
-	</servlet>
-
-
 	<servlet-mapping>
 		<servlet-name>StartTournamentServlet</servlet-name>
 		<url-pattern>/starttournament</url-pattern>
@@ -44,25 +28,10 @@
 		<servlet-name>SourceUploadServlet</servlet-name>
 		<url-pattern>/sourceupload</url-pattern>
 	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>RegisterationServlet</servlet-name>
-		<url-pattern>/register</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/login</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>ContestantHome</servlet-name>
-		<url-pattern>/home</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>ContestantManagerHome</servlet-name>
-		<url-pattern>/cmhome</url-pattern>
-	</servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>CreateDatabase</servlet-name>
+                <url-pattern>/createdb</url-pattern>
+        </servlet-mapping>
 	
 </web-app>

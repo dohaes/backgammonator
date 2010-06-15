@@ -107,7 +107,7 @@ final class GameImpl implements Game {
 	 */
 	@Override
 	public String getFilename() {
-		return logger.getFilename();
+		return logMoves ? logger.getFilename() : "";
 	}
 
 	/**

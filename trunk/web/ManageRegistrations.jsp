@@ -1,9 +1,9 @@
 <html>
 <head>
-<title>Backgammonator - Tutorial</title>
+<title>Backgammonator - Manage Registrations</title>
 </head>
 <body>
-<h2>Backgammonator - Tutorial</h2>
+<h2>Backgammonator - Manage Registrations</h2>
 <table>
   <tr>
     <td width='150px' style='vertical-align: top;'><br />
@@ -12,11 +12,13 @@
     <br />
     <a href="res/backgammonLibrary.jar">Library Jar</a> <br />
     <a href="res/backgammonDemo.jar">Demo Jar</a> <br />
-    <a href="res/samplePlayers.jar">Sample Players</a><br />
+    <a href="res/samplePlayers.jar">Sample Players</a> <br />
+    <br />
+    <a href="StartTournament.jsp">Start Tournament</a><br />
+    <a href="ManageRegistrations.jsp">Manage Registrations</a><br />
     </td>
     <td style='vertical-align: top;'><br />
-    <a href="http://code.google.com/p/backgammonator/" target="_blank">Backgammonator project</a> <br />
-    <a href="http://en.wikipedia.org/wiki/Backgammon" target="_blank">Backgammon rules</a> <br />
+    Manage Registrations<br />
     </td>
   </tr>
 </table>
