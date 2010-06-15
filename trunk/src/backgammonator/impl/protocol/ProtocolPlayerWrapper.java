@@ -28,7 +28,7 @@ final class ProtocolPlayerWrapper implements Player {
 	private String command;
 	// TODO should return the name of the registered user that uploaded the
 	// source
-	private String name = "test user";
+	private String name = "test_user";
 
 	private Process process;
 	private InputStream stdin;
