@@ -12,7 +12,7 @@ import backgammonator.lib.game.PlayerMove;
  * players to Move objects and for creating strings for them from Board objects.
  */
 
-public final class Parser {
+public final class ProtocolParser {
 
 	/**
 	 * Parses the AI player's output string to PlayerMove object.
