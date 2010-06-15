@@ -8,9 +8,9 @@ so that I can explore their source code or run them against my AI players<br/>
 
 *Scenario 1*
 
-  # Download the backgammonlibrary.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonlibrary.jar&can=2&q=#makechanges here]
-  # The backgammonlibrary.jar contains entry with sources of sample implementations of the Player interface which can be explored.
+  # Download the backgammonLibrary.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonLibrary.jar&can=2&q=#makechanges here] or the latest version from the Bakcgammonator web site.
+  # The backgammonlibrary.jar contains entry "samples" with sources of sample implementations of the Player interface which can be explored.
 
 *Scenario 2*
-  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q= here]
-  # The library contains entry with sources of sample implementations of players, which play through the Backgammon protocol.
+  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here] or the latest version from the Bakcgammonator web site.
+  # The library contains entry "samples" with sources of sample implementations of players, which play through the Backgammonator protocol.
