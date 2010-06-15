@@ -16,6 +16,7 @@
     <br />
     <a href="SourceUpload.jsp">Source Upload</a> <br />
     <a href="StartTournament.jsp">Start Tournament</a><br />
+    <a href="ViewReports.jsp">View Reports</a><br />
     </td>
     <td style='vertical-align: top;'><br />
     <form method='POST' action='login'>
