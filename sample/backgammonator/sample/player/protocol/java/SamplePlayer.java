@@ -39,6 +39,7 @@ public class SamplePlayer {
 		readInput();
 		while (status == 0) {
 			System.out.println(getMove());
+			System.out.flush();
 			readInput();
 		}
 

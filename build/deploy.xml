@@ -49,6 +49,11 @@
 		<copy todir="${tomcat}/webapps/ROOT/res">
 			<fileset dir="${res}" includes="*" />
 		</copy>
+
+		<!-- move properties -->
+		<copy todir="${tomcat}">
+			<fileset dir="${project.home}" includes="*.properties" />
+		</copy>
 	</target>
 
 	<target name="cleanAll" depends="clean" description="clean up tomcat files and lib jars">

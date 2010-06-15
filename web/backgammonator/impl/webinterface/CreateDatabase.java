@@ -32,19 +32,36 @@ public final class CreateDatabase extends HttpServlet {
 					"jdbc:mysql://localhost:3306", "root", "root");
 			Statement theStatement = theConnection.createStatement();
 
-			theStatement.execute("DROP DATABASE Backgammonator");
+			try {
+				theStatement.execute("DROP DATABASE Backgammonator");
+			} catch (Exception e) {
+			}
 			theStatement.execute("CREATE DATABASE Backgammonator");
+			theStatement.execute("USE Backgammonator");
 			theStatement.execute("CREATE TABLE Account ( "
-					+ "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, user varchar(32) NOT NULL UNIQUE,"
-					+ "pass varchar(32) NOT NULL, first varchar(32), "
-					+ "LastName varchar(32) )");
+					+ "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+					+ "user varchar(32) NOT NULL UNIQUE,"
+					+ "isadmin bool NOT NULL," + "pass varchar(32) NOT NULL, "
+					+ "first varchar(32), " + "last varchar(32) )");
+			theStatement
+					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+							+ "VALUES ('georgi', 'andreev', 1, 'georgi', 'andreev')");
+			theStatement
+					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+							+ "VALUES ('andrei', 'penchev', 1, 'andrei', 'penchev')");
+			theStatement
+					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+							+ "VALUES ('stefan', 'tsvyatkov', 0, 'stefan', 'tsvyatkov')");
+			theStatement
+					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+							+ "VALUES ('elena', 'gramatova', 0, 'elena', 'gramatova')");
 
 			// get current data
 			ResultSet theResult = theStatement
-					.executeQuery("select * from Backgammonator.Account");
+					.executeQuery("SELECT * FROM Account");
 			while (theResult.next()) {
-				int s = theResult.getFetchSize();
-				for (int i = 0; i < s; i++) {
+				int s = theResult.getMetaData().getColumnCount();
+				for (int i = 1; i <= s; i++) {
 					out.println(theResult.getString(i) + " ");
 				}
 				out.println("<br/>");

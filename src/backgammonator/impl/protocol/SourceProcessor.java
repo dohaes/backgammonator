@@ -99,8 +99,8 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayerWrapper("java -cp "
-						+ classFile.getParent() + " " + mainClass, classFile
+				result = new ProtocolPlayerWrapper("java -cp \""
+						+ classFile.getParent() + "\" " + mainClass, classFile
 						.getParentFile().getName());
 			} else {
 

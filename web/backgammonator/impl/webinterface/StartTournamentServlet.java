@@ -5,6 +5,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
@@ -36,6 +37,7 @@ public final class StartTournamentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
+		long start = new Date().getTime();
 
 		try {
 			String type = request.getParameter("type");
@@ -48,7 +50,8 @@ public final class StartTournamentServlet extends HttpServlet {
 				int tmp = Integer.parseInt(groupsCount);
 				config.setGroupsCount(tmp);
 			} catch (Exception e) {
-				Debug.getInstance().error("Error creating tournament.", Debug.WEB_INTERFACE, e);
+				Debug.getInstance().error("Error creating tournament.",
+						Debug.WEB_INTERFACE, e);
 				redirect(out, URL, "Error ! <br/>Error reading Groups Count. "
 						+ e.getMessage());
 				return;
@@ -58,7 +61,8 @@ public final class StartTournamentServlet extends HttpServlet {
 				int tmp = Integer.parseInt(gamesCount);
 				config.setGamesCount(tmp);
 			} catch (Exception e) {
-				Debug.getInstance().error("Error creating tournament.", Debug.WEB_INTERFACE, e);
+				Debug.getInstance().error("Error creating tournament.",
+						Debug.WEB_INTERFACE, e);
 				redirect(out, URL, "Error ! <br/>Error reading Games Count. "
 						+ e.getMessage());
 				return;
@@ -78,17 +82,21 @@ public final class StartTournamentServlet extends HttpServlet {
 				}
 				tmp.add(p);
 			}
+			long compile = new Date().getTime() - start;
 			Tournament tournament = TournamentManager.newTournament(tmp);
 			TournamentResult result = tournament.start(config);
 			StringBuilder message = new StringBuilder("Success ! <br/>");
+			long end = new Date().getTime() - start;
 			for (int i = 0; i < result.getPlayersCount(); i++) {
 				message.append((i + 1)).append(". ").append(
 						result.getPlayer(i).getName()).append(" with ").append(
 						result.getPlayerPoints(i)).append(" points.<br/>");
 			}
+			message.append(compile + " " + end + "<br/>");
 			redirect(out, URL, message.toString());
 		} catch (Exception e) {
-			Debug.getInstance().error("Error creating tournament.", Debug.WEB_INTERFACE, e);
+			Debug.getInstance().error("Error creating tournament.",
+					Debug.WEB_INTERFACE, e);
 			redirect(out, URL, "Error ! <br/>Error creating tournament. "
 					+ e.getMessage());
 		}
@@ -109,7 +117,8 @@ public final class StartTournamentServlet extends HttpServlet {
 				return SourceProcessor.processSource(j.getAbsolutePath());
 			}
 		} catch (Exception e) {
-			Debug.getInstance().error("Error creating player.", Debug.WEB_INTERFACE, e);
+			Debug.getInstance().error("Error creating player.",
+					Debug.WEB_INTERFACE, e);
 		}
 		return null;
 	}

@@ -62,7 +62,8 @@ final class ProtocolPlayerWrapper implements Player {
 		stdout.flush();
 
 		try {
-			return ProtocolParser.getMove(scanner.nextLine());
+			String nextLine = scanner.nextLine();
+			return ProtocolParser.getMove(nextLine);
 		} catch (NoSuchElementException nse) {
 			// the process has unexpectedly died
 			// pipe is being closed and streams are empty
