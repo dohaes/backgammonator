@@ -118,14 +118,6 @@ final class GameImpl implements Game {
 		return winner;
 	}
 	
-	/**
-	 * @see Game#getMoveTimeout()
-	 */
-	@Override
-	public long getMoveTimeout() {
-		return MOVE_TIMEOUT;
-	}
-
 	private void startNewMoverThread(boolean kill) {
 		if (kill) {
 			mover.stop();

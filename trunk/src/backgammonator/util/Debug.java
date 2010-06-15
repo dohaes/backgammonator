@@ -63,14 +63,20 @@ public final class Debug {
 	private static PrintStream consoleLog = System.out;
 
 	private static PrintStream fileLog = null;
-	private static File logFile = new File("log.txt");
+	private static File logFile = new File(BackgammonatorConfig.getProperty(
+			"backgammonator.debug.file", "log.txt"));
 
 	private static Debug instance = null;
 
 	private Debug() {
-		if (logFile.exists()) logFile.delete();
 		try {
-			if (inFile) fileLog = new PrintStream(logFile);
+			if (inFile) {
+				if (logFile.exists()) {
+					logFile.delete();
+				}
+				logFile.getParentFile().mkdirs();
+				fileLog = new PrintStream(logFile);
+			}
 		} catch (FileNotFoundException e) {
 			System.out
 					.println("[ERROR] [Utils] Cannot initialize log file. Log in file will be disabled.");
@@ -99,6 +105,7 @@ public final class Debug {
 		}
 		if (inFile) {
 			fileLog.println(debug);
+			fileLog.flush();
 		}
 	}
 
@@ -120,6 +127,7 @@ public final class Debug {
 		if (inFile) {
 			fileLog.println(debug);
 			if (t != null) t.printStackTrace(fileLog);
+			fileLog.flush();
 		}
 	}
 
@@ -140,6 +148,7 @@ public final class Debug {
 		if (inFile) {
 			fileLog.println(debug);
 			if (t != null) t.printStackTrace(fileLog);
+			fileLog.flush();
 		}
 	}
 

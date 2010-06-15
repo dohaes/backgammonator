@@ -31,11 +31,4 @@ public interface Game {
 	 *         not over.
 	 */
 	String getFilename();
-	
-	/**
-	 * Returns the timeout in milliseconds to wait for a single move. If the time elapses
-	 * and the player has not yet returned a move, the game is over and the
-	 * player loses.
-	 */
-	long getMoveTimeout();
 }

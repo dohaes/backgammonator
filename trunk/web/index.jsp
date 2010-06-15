@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <td>&nbsp;</td>
-        <td><input type="submit" value="Login" /> <a href="register">Register</a></td>
+        <td><input type="submit" value="Login" /> <a href="Register.jsp">Register</a></td>
       </tr>
     </table>
     </form>
