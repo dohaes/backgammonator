@@ -14,6 +14,7 @@ import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
 import backgammonator.lib.tournament.TournamentException;
 import backgammonator.lib.tournament.TournamentResult;
+import backgammonator.util.BackgammonatorConfig;
 
 /**
  * @author georgi.b.andreev
@@ -22,6 +23,12 @@ public class TournamentImpl implements Tournament {
 
 	private List<Player> players;
 	private Random randomGenerator = new Random();
+
+	private static final boolean usePlainRate = !"special"
+			.equals(BackgammonatorConfig
+					.getProperty("backgammonator.tournament.rate"));
+	private static final int invalidGamePoints = BackgammonatorConfig
+			.getProperty("backgammonator.tournament.invalid.game.points", 1);
 
 	TournamentImpl(List<Player> players) throws TournamentException {
 		if (players == null || players.size() < 2) {
@@ -98,20 +105,22 @@ public class TournamentImpl implements Tournament {
 			}
 			List<Player> group = remove(players, p);
 			TournamentResult result = runGroup(group, config, logger);
-			for (int j = 1; j < result.getPlayersCount(); j++) {
-				list.add(result.getPlayer(i), result.getPlayerPoints(i));
+			for (int j = result.getPlayersCount() - 1; j >= 1; j--) {
+				list.addFirst(result.getPlayer(j), result.getPlayerPoints(j));
 			}
 			winners.add(result.getWinner());
 		}
 		list.sort();
 		TournamentResultImpl result = runEliminations(winners, config, logger);
-		result.add(list);
+		result.addFirst(list, 3 * config.getGamesCount() * (size / groups + 1));
 		return result;
 	}
 
 	private TournamentResultImpl runEliminations(List<Player> players,
-			TournamentConfiguration config, TournamentLogger logger) throws TournamentException {
+			TournamentConfiguration config, TournamentLogger logger)
+			throws TournamentException {
 		TournamentResultImpl result = new TournamentResultImpl();
+		int rounds = 0;
 		while (players.size() > 1) {
 			List<Player> winners = new LinkedList<Player>();
 			List<Player> losers = new LinkedList<Player>();
@@ -127,11 +136,11 @@ public class TournamentImpl implements Tournament {
 				if (points[0] >= points[1]) {
 					winners.add(first);
 					losers.add(second);
-					list.add(second, points[1]);
+					list.addFirst(second, points[1]);
 				} else {
 					winners.add(second);
 					losers.add(first);
-					list.add(first, points[0]);
+					list.addFirst(first, points[0]);
 				}
 			}
 			if (players.size() == 1) {
@@ -139,9 +148,10 @@ public class TournamentImpl implements Tournament {
 			}
 			players = winners;
 			list.sort();
-			result.add(list);
+			result.addFirst(list, 3 * config.getGamesCount() * rounds);
+			rounds++;
 		}
-		result.add(players.get(0), 0);
+		result.addFirst(players.get(0), 3 * config.getGamesCount() * rounds);
 		return result;
 	}
 
@@ -159,7 +169,7 @@ public class TournamentImpl implements Tournament {
 
 		TournamentResultImpl result = new TournamentResultImpl();
 		for (int i = 0; i < players.size(); i++) {
-			result.add(players.get(i), points[i]);
+			result.addFirst(players.get(i), points[i]);
 		}
 		result.sort();
 		return result;
@@ -182,23 +192,22 @@ public class TournamentImpl implements Tournament {
 				status = game.start();
 				logger.logGame(second, first, game, status);
 			}
-			points[game.getWinner() == first ? 0 : 1] += getPoints(status,
-					config);
+			points[game.getWinner() == first ? 0 : 1] += getPoints(status);
 		}
 
 		return points;
 	}
 
-	private int getPoints(GameOverStatus status, TournamentConfiguration config) {
+	private int getPoints(GameOverStatus status) {
 		switch (status) {
 		case EXCEPTION:
-			return config.getInvalidGamePoints();
+			return invalidGamePoints;
 		case INVALID_MOVE:
-			return config.getInvalidGamePoints();
+			return invalidGamePoints;
 		case DOUBLE:
-			return config.usePlainRate() ? 1 : 2;
+			return usePlainRate ? 1 : 2;
 		case TRIPLE:
-			return config.usePlainRate() ? 1 : 3;
+			return usePlainRate ? 1 : 3;
 		default:
 			return 1;
 		}

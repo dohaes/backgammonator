@@ -53,14 +53,14 @@ public class TournamentResultImpl implements TournamentResult {
 		return getPlayer(0);
 	}
 
-	void add(TournamentResultImpl list) throws TournamentException {
-		for (int i = 0; i < list.getPlayersCount(); i++) {
+	void addFirst(TournamentResultImpl list, int p) throws TournamentException {
+		for (int i = list.getPlayersCount() - 1; i >= 0; i--) {
 			players.addFirst(list.getPlayer(i));
-			points.addFirst(list.getPlayerPoints(i));
+			points.addFirst(list.getPlayerPoints(i) + p);
 		}
 	}
 
-	void add(Player player, int p) {
+	void addFirst(Player player, int p) {
 		players.addFirst(player);
 		points.addFirst(p);
 	}
@@ -90,7 +90,7 @@ public class TournamentResultImpl implements TournamentResult {
 		}
 
 		public int compareTo(Couple c) {
-			return points < c.points ? 1 : points > c.points ? -1 : 0;
+			return points < c.points ? -1 : points > c.points ? 1 : 0;
 		}
 	}
 }

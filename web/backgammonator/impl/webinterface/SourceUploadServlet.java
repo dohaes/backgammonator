@@ -45,7 +45,7 @@ public final class SourceUploadServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings( { "unchecked", "null" })
+	@SuppressWarnings( { "unchecked" })
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
