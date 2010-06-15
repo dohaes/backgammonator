@@ -57,12 +57,12 @@ final class ProtocolPlayerWrapper implements Player {
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
 		if (!inited) init();
-		stdout.write(Parser.getBoardConfiguration(board, dice, false, null)
+		stdout.write(ProtocolParser.getBoardConfiguration(board, dice, false, null)
 				.getBytes());
 		stdout.flush();
 
 		try {
-			return Parser.getMove(scanner.nextLine());
+			return ProtocolParser.getMove(scanner.nextLine());
 		} catch (NoSuchElementException nse) {
 			// the process has unexpectedly died
 			// pipe is being closed and streams are empty
@@ -86,7 +86,7 @@ final class ProtocolPlayerWrapper implements Player {
 		try {
 			try {
 				if (!inited) init();
-				stdout.write(Parser.getBoardConfiguration(board, null, wins,
+				stdout.write(ProtocolParser.getBoardConfiguration(board, null, wins,
 						status).getBytes());
 				stdout.flush();
 			} catch (Throwable ioe) {
