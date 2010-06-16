@@ -15,8 +15,11 @@
     <a href="res/samplePlayers.jar">Sample Players</a> <br />
     <br />
     <a href="SourceUpload.jsp">Source Upload</a> <br />
+    <a href="ViewReports.jsp">View Reports</a> <br />
+    <br />
     <a href="StartTournament.jsp">Start Tournament</a><br />
-    <a href="ViewReports.jsp">View Reports</a><br />
+    <a href="ManageReports.jsp">View Reports</a><br />
+    <a href="ManageRegistrations.jsp">Manage Registrations</a><br />
     </td>
     <td style='vertical-align: top;'><br />
     <form method='POST' action='login'>
