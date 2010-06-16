@@ -46,10 +46,10 @@
           			}
           %>
         </select></td>
-        <td style='vertical-align: top;'><input type='checkbox' name='logmoves' checked>
-        Log moves</input><br />
-        <input type='text' name='groupscount' value='2' size="1"> Groups count</input><br />
-        <input type='text' name='gamescount' value='3' size="1"> Games count</input><br />
+        <td style='vertical-align: top;'><input type='checkbox' name='logmoves'> Log
+        moves</input><br />
+        <input type='text' name='groupscount' value='1' size="1"> Groups count</input><br />
+        <input type='text' name='gamescount' value='1' size="1"> Games count</input><br />
         </td>
       </tr>
     </table>
