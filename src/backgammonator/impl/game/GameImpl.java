@@ -146,6 +146,7 @@ final class GameImpl implements Game {
 				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 				mover.stop();
+				board.switchPlayer();
 				winner = other;
 				return GameOverStatus.EXCEPTION;
 			}
@@ -160,6 +161,7 @@ final class GameImpl implements Game {
 				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
 				mover.stop();
+				board.switchPlayer();
 				winner = other;
 				return GameOverStatus.TIMEDOUT;
 			}
@@ -175,6 +177,7 @@ final class GameImpl implements Game {
 				board.switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.INVALID_MOVE);
 				mover.stop();
+				board.switchPlayer();
 				winner = other;
 				invalid = true;
 			}
@@ -190,6 +193,7 @@ final class GameImpl implements Game {
 				board.switchPlayer();
 				mover.gameOver(other, false, GameOverStatus.NORMAL);
 				mover.stop();
+				board.switchPlayer();
 				winner = currentPlayer;
 				return GameOverStatus.NORMAL;
 			}
@@ -201,6 +205,7 @@ final class GameImpl implements Game {
 			board.switchPlayer();
 			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 			mover.stop();
+			board.switchPlayer();
 			winner = other;
 			return GameOverStatus.EXCEPTION;
 		}
