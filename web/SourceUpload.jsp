@@ -9,10 +9,7 @@
     <td width='150px' style='vertical-align: top;'><br />
     <a href="/">Home</a> <br />
     <a href="Tutorial.jsp">Tutorials</a> <br />
-    <br />
-    <a href="res/backgammonLibrary.jar">Library Jar</a> <br />
-    <a href="res/backgammonDemo.jar">Demo Jar</a> <br />
-    <a href="res/samplePlayers.jar">Sample Players</a> <br />
+    <a href="res/backgammonatorLibrary.jar">Library Jar</a> <br />
     <br />
     <a href="SourceUpload.jsp">Source Upload</a> <br />
     <a href="ViewReports.jsp">View Reports</a> <br />
