@@ -45,6 +45,45 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		validator = new MoveValidator(this);
 	}
 
+	/**
+	 * Creates board from the given parameters.
+	 * 
+	 * @param count the number of checkers on a point.
+	 * @param possesion the color of checkers on a point.
+	 * @param hits_mine the number of my hits.
+	 * @param hits_opponent the number of the opponent hits.
+	 * @param bornoff_mine the number of my born-offs.
+	 * @param bornoff_opponent the number of the opponent born-offs.
+	 */
+	public BackgammonBoardImpl(int[] count, int[] possesion, int hits_mine,
+			int hits_opponent, int bornoff_mine, int bornoff_opponent) {
+		movesThatHit = new ArrayList<CheckerMove>(4);
+		board = new PointImpl[BOARD_SIZE];
+		currentColor = PlayerColor.WHITE;
+		for (int i = 0; i < count.length; i++) {
+			board[i] = new PointImpl();
+			board[i].updatePoint(count[i], possesion[i] == 0 ? currentColor
+					: currentColor.opposite());
+		}
+		board[HIT_WHITE] = new PointImpl();
+		board[HIT_WHITE].updatePoint(
+				currentColor == PlayerColor.WHITE ? hits_mine : hits_opponent,
+				currentColor);
+		board[HIT_BLACK] = new PointImpl();
+		board[HIT_BLACK].updatePoint(
+				currentColor == PlayerColor.WHITE ? hits_opponent : hits_mine,
+				currentColor);
+		board[BORN_WHITE] = new PointImpl();
+		board[BORN_WHITE].updatePoint(
+				currentColor == PlayerColor.WHITE ? bornoff_mine
+						: bornoff_opponent, currentColor);
+		board[BORN_BLACK] = new PointImpl();
+		board[BORN_BLACK].updatePoint(
+				currentColor == PlayerColor.WHITE ? bornoff_opponent
+						: bornoff_mine, currentColor);
+		validator = new MoveValidator(this);
+	}
+
 	void reset() {
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			board[i].updatePoint(0, PlayerColor.WHITE);
@@ -57,7 +96,6 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		board[7].updatePoint(3, PlayerColor.WHITE);
 		board[5].updatePoint(5, PlayerColor.WHITE);
 		board[0].updatePoint(2, PlayerColor.BLACK);
-		// FIXME: Current color should be white!
 		currentColor = PlayerColor.BLACK;
 
 	}

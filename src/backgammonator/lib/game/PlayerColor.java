@@ -25,7 +25,6 @@ public enum PlayerColor {
 	/**
 	 * @see Object#toString()
 	 */
-	@Override
 	public String toString() {
 		return this == WHITE ? "white" : "black";
 	}
