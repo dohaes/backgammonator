@@ -11,10 +11,10 @@
 		${lib}/commons-fileupload.jar:
 		${lib}/commons-io.jar" />
 
-	<target name="build" depends="distLib, distWeb, distLibFull" description="builds all jars"/>
+	<target name="build" depends="distLib, distWeb, distCore, clean" description="builds all jars"/>
 	<target name="lib" depends="distLib" />
 	<target name="web" depends="distWeb" />
-	<target name="libfull" depends="distLibFull" />
+	<target name="libfull" depends="distCore" />
 
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -38,7 +38,6 @@
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="${src}:${sample}/backgammonator/sample/player/interfacce/"
 			   destdir="${build}"
-			   classpath="${lib}/backgammonatorLibraryFull.jar"
 			   debug="true"
 			   debuglevel="lines, vars, and source"/>
 		
@@ -49,6 +48,7 @@
 			   debuglevel="lines, vars, and source"/>
 	</target>
 
+	<!-- user library for local game tests -->
 	<target name="distLib" depends="compile">
 		<jar jarfile="${lib}/backgammonatorLibrary.jar"
 			 basedir="${build}"
@@ -63,19 +63,21 @@
 			           backgammonator/impl/game/Main.class
 			
 			           sample/backgammonator/sample/player/protocol/**
-			           sample/backgammonator/sample/player/interfacce/*.java
+			           sample/backgammonator/sample/player/interfacce/**
 					   backgammonator.properties" />
 		
 	</target>
 
+	<!-- web interface classes to deploy in tomcat -->
 	<target name="distWeb" depends="compile">
 		<jar jarfile="${lib}/backgammonatorWeb.jar"
 			 basedir="${build}"
 			 includes="backgammonator/impl/webinterface/*" />
 	</target>
-
-	<target name="distLibFull" depends="compile">
-		<jar jarfile="${lib}/backgammonatorLibraryFull.jar"
+	
+    <!-- core library to deploy in tomcat -->
+	<target name="distCore" depends="compile">
+		<jar jarfile="${lib}/backgammonatorCore.jar"
 			 basedir="${build}"
 			 includes="backgammonator/lib/game/**
 					   backgammonator/lib/logger/**
@@ -86,8 +88,8 @@
 		               backgammonator/impl/tournament/**
 					   backgammonator/util/**
 	
-                       sample/backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
-			           sample/backgammonator/sample/player/interfacce/SamplePlayer.class" />
+                       backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
+			           backgammonator/sample/player/interfacce/SamplePlayer.class" />
 		
 	</target>
 
