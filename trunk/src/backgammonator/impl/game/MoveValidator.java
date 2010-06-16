@@ -118,8 +118,8 @@ public final class MoveValidator {
 		PlayerColor color = board.getCurrentPlayerColor();
 
 		if (board.getHits(color) > 0) {
-			return board.getPoint(die).getCount() > 1
-					&& board.getPoint(die).getColor() == color;
+			return board.getPoint(25 - die).getCount() > 1
+					&& board.getPoint(25 - die).getColor() != color;
 		}
 
 		boolean isBearingOff = true;
