@@ -1,0 +1,6 @@
+SOA
+
+ # UI desktop web ...
+ # Processes
+ # Services web services jms enterprise java beans (2 or more)
+ # DB / other
