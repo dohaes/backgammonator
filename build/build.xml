@@ -2,6 +2,7 @@
 	<!-- set global properties for this build -->
 	<property name="project.home" location="../" />
 	<property name="src" location="${project.home}/src" />
+	<property name="sample" location="${project.home}/sample" />
 	<property name="lib" location="${project.home}/lib" />
 	<property name="res" location="${project.home}/res" />
 	<property name="web" location="${project.home}/web" />
@@ -10,10 +11,8 @@
 		${lib}/commons-fileupload.jar:
 		${lib}/commons-io.jar" />
 
-	<target name="build" depends="distLib, distDemo, distSysLib, distWeb, distLibFull, clean" description="builds all jars"/>
+	<target name="build" depends="distLib, distWeb, distLibFull" description="builds all jars"/>
 	<target name="lib" depends="distLib" />
-	<target name="demo" depends="distDemo" />
-	<target name="syslib" depends="distSysLib" />
 	<target name="web" depends="distWeb" />
 	<target name="libfull" depends="distLibFull" />
 
@@ -26,46 +25,70 @@
 		<mkdir dir="${lib}" />
 
 		<copy todir="${build}">
-			<fileset dir="../" includes="sample/**/*" />
+			<fileset dir="${project.home}" includes="sample/**/*" />
+		</copy>
+		
+		<copy todir="${build}">
+			<fileset dir="${project.home}" includes="backgammonator.properties" />
 		</copy>
 
 	</target>
 
 	<target name="compile" depends="init">
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac srcdir="${src}:../sample/backgammonator/sample/players/interfacce/" destdir="${build}" classpath="${lib}/backgammonLibraryFull.jar" debug="true" debuglevel="lines, vars, and source"/>
-		<javac srcdir="${web}" destdir="${build}" classpath="${classpath}" debug="true" debuglevel="lines, vars, and source"/>
+		<javac srcdir="${src}:${sample}/backgammonator/sample/player/interfacce/"
+			   destdir="${build}"
+			   classpath="${lib}/backgammonatorLibraryFull.jar"
+			   debug="true"
+			   debuglevel="lines, vars, and source"/>
+		
+		<javac srcdir="${web}"
+			   destdir="${build}"
+			   classpath="${classpath}"
+			   debug="true"
+			   debuglevel="lines, vars, and source"/>
 	</target>
 
 	<target name="distLib" depends="compile">
-		<jar jarfile="${lib}/backgammonLibrary.jar" basedir="${build}" excludes="backgammonator/impl/protocol/*
-							backgammonator/impl/game/Main.class" includes="backgammonator/**
-			sample/backgammonator/sample/players/interfacce/**" />
-	</target>
-
-	<target name="distDemo" depends="compile">
-		<jar jarfile="${lib}/backgammonDemo.jar" basedir="${build}" manifest="${src}/meta-inf/manifest.mf" includes="backgammonator/**
-								sample/backgammonator/sample/player/protocol/**" />
-	</target>
-
-	<target name="distSysLib" depends="compile">
-		<jar jarfile="${lib}/backgammonSysLib.jar" basedir="${build}" includes="
-		  backgammonator/lib/tournament/*
-          backgammonator/lib/game/*
-          backgammonator/lib/logger/*
-		  backgammonator/util/*" />
+		<jar jarfile="${lib}/backgammonatorLibrary.jar"
+			 basedir="${build}"
+			 manifest="${src}/meta-inf/manifest.mf"
+			 includes="backgammonator/lib/game/**
+					   backgammonator/lib/logger/GameLogger.class
+					   backgammonator/impl/game/**
+			           backgammonator/impl/logger/*GameLogger*
+			           backgammonator/impl/protocol/**
+					   backgammonator/util/**
+			
+			           backgammonator/impl/game/Main.class
+			
+			           sample/backgammonator/sample/player/protocol/**
+			           sample/backgammonator/sample/player/interfacce/*.java
+					   backgammonator.properties" />
+		
 	</target>
 
 	<target name="distWeb" depends="compile">
-		<jar jarfile="${lib}/backgammonWeb.jar" basedir="${build}" includes="
-		  backgammonator/impl/webinterface/*" />
+		<jar jarfile="${lib}/backgammonatorWeb.jar"
+			 basedir="${build}"
+			 includes="backgammonator/impl/webinterface/*" />
 	</target>
 
 	<target name="distLibFull" depends="compile">
-		<jar jarfile="${lib}/backgammonLibraryFull.jar" basedir="${build}" includes="backgammonator/**
-								sample/backgammonator/sample/player/protocol/**
-								sample/backgammonator/sample/players/interfacce/**
-								" excludes="backgammonator/impl/game/Main.class" />
+		<jar jarfile="${lib}/backgammonatorLibraryFull.jar"
+			 basedir="${build}"
+			 includes="backgammonator/lib/game/**
+					   backgammonator/lib/logger/**
+		               backgammonator/lib/tournament/**
+				       backgammonator/impl/game/**
+					   backgammonator/impl/logger/**
+					   backgammonator/impl/protocol/**
+		               backgammonator/impl/tournament/**
+					   backgammonator/util/**
+	
+                       sample/backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
+			           sample/backgammonator/sample/player/interfacce/SamplePlayer.class" />
+		
 	</target>
 
 	<target name="clean" description="clean up">

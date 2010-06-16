@@ -12,7 +12,7 @@ import backgammonator.lib.game.Game;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
 import backgammonator.util.Debug;
-import backgammonator.sample.players.interfacce.SamplePlayer;
+import backgammonator.sample.player.interfacce.SamplePlayer;
 
 /**
  * Processing the uploaded source files to executables. It should support

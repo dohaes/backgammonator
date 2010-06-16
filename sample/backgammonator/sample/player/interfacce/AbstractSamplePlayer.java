@@ -1,4 +1,4 @@
-package backgammonator.sample.players.interfacce;
+package backgammonator.sample.player.interfacce;
 
 import backgammonator.lib.game.BackgammonBoard;
 import backgammonator.lib.game.GameOverStatus;

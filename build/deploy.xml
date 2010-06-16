@@ -4,7 +4,7 @@
 
 	<import file="build.xml" />
 
-	<target name="deploy" depends="distSample, distDemo, distLib, distLibFull, distDeploy, clean" />
+	<target name="deploy" depends="distSample, distLib, distLibFull, distDeploy, clean" />
 
 	<target name="distSample" depends="compile">
 		<jar jarfile="${lib}/samplePlayers.jar" basedir="${build}" includes="sample/backgammonator/sample/player/protocol/**" />
