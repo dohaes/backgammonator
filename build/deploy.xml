@@ -4,11 +4,7 @@
 
 	<import file="build.xml" />
 
-	<target name="deploy" depends="distSample, distLib, distLibFull, distDeploy, clean" />
-
-	<target name="distSample" depends="compile">
-		<jar jarfile="${lib}/samplePlayers.jar" basedir="${build}" includes="sample/backgammonator/sample/player/protocol/**" />
-	</target>
+	<target name="deploy" depends="distLib, distWeb, distCore, distDeploy, clean" />
 
 	<target name="distDeploy" depends="compile">
 		<!-- move MySQL driver -->
@@ -23,16 +19,13 @@
 
 		<!-- move backgammonator library -->
 		<copy todir="${tomcat}/webapps/ROOT/WEB-INF/lib">
-			<fileset dir="${lib}" includes="backgammonLibraryFull.jar" />
+			<fileset dir="${lib}" includes="backgammonatorCore.jar" />
+		</copy>
+		<copy todir="${tomcat}/webapps/ROOT/WEB-INF/lib">
+			<fileset dir="${lib}" includes="backgammonatorWeb.jar" />
 		</copy>
 		<copy todir="${tomcat}/webapps/ROOT/res">
-			<fileset dir="${lib}" includes="backgammonLibrary.jar" />
-		</copy>
-		<copy todir="${tomcat}/webapps/ROOT/res">
-			<fileset dir="${lib}" includes="backgammonDemo.jar" />
-		</copy>
-		<copy todir="${tomcat}/webapps/ROOT/res">
-			<fileset dir="${lib}" includes="samplePlayers.jar" />
+			<fileset dir="${lib}" includes="backgammonatorLibrary.jar" />
 		</copy>
 
 		<!-- move web.xml -->
@@ -51,16 +44,18 @@
 		</copy>
 
 		<!-- move properties -->
-		<copy todir="${tomcat}">
-			<fileset dir="${project.home}" includes="*.properties" />
-		</copy>
+		<copy file="${project.home}/tomcat.properties" tofile="${tomcat}/backgammonator.properties"/>
+
 	</target>
 
 	<target name="cleanAll" depends="clean" description="clean up tomcat files and lib jars">
 		<!-- Delete the jars in the lib -->
-		<delete dir="${lib}" includes="backgammon* sample*" />
+		<delete dir="${lib}" includes="backgammonator*" />
+
+		<!-- Delete the jars in the lib -->
+		<delete dir="${tomcat}" includes="backgammonator.properties*" />
 
 		<!-- Delete the tomcat files -->
-		<delete dir="${tomcat}/webapps/ROOT" />
+		<delete dir="${tomcat}/webapps" />
 	</target>
 </project>

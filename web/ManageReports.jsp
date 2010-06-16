@@ -18,7 +18,7 @@
     <a href="res/samplePlayers.jar">Sample Players</a> <br />
     <br />
     <a href="StartTournament.jsp">Start Tournament</a><br />
-    <a href="ManageReports.jsp">View Reports</a><br />
+    <a href="ManageReports.jsp">Manage Reports</a><br />
     <a href="ManageRegistrations.jsp">Manage Registrations</a><br />
     </td>
     <td style='vertical-align: top;'><br />
@@ -28,7 +28,7 @@
         {
             out.println(message + "<br/><br/>");
         }
-        File dir = new File(BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir",
+        File dir = new File(BackgammonatorConfig.getProperty("backgammonator.logger.outputDir",
                                                              "reports"));
         if (!dir.exists())
         {
@@ -41,14 +41,14 @@
                 return name.endsWith(".html");
             }
         });
-        String url = BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir",
+        String url = BackgammonatorConfig.getProperty("backgammonator.web.reports",
                                                       "reports").replaceAll("\\\\", "/");
         out.println("<table>");
         for (int i = 0; i < tournaments.length; i++)
         {
             out.println("<tr><td> <a href='" + url + "/" + tournaments[i] + "' target='_blank'> "
-                        + tournaments[i] + " </a> </td><td> <a href='reports?tid=" + tournaments[i]
-                        + "&op=delete'> delete </a> </td></tr> ");
+                        + tournaments[i] + " </a> </td><td width='20px'>&nbsp;</td><td> <a href='reports?tid=" + tournaments[i]
+                        + "'> delete </a> </td></tr> ");
         }
         out.println("</table>");
     %>

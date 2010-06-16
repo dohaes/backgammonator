@@ -22,7 +22,7 @@
     </td>
     <td style='vertical-align: top;'><br />
     <%
-        File dir = new File(BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir",
+        File dir = new File(BackgammonatorConfig.getProperty("backgammonator.logger.outputDir",
                                                              "reports"));
         if (!dir.exists())
         {
@@ -35,7 +35,7 @@
                 return name.endsWith(".html");
             }
         });
-        String url = BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir",
+        String url = BackgammonatorConfig.getProperty("backgammonator.web.reports",
                                                       "reports").replaceAll("\\\\", "/");
         out.println("<table>");
         for (int i = 0; i < tournaments.length; i++)
