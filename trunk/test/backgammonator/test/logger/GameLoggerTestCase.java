@@ -13,7 +13,7 @@ import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.PlayerColor;
 import backgammonator.lib.game.PlayerMove;
 import backgammonator.lib.logger.GameLogger;
-import backgammonator.sample.players.interfacce.SamplePlayer;
+import backgammonator.sample.player.interfacce.SamplePlayer;
 import backgammonator.util.BackgammonatorConfig;
 import junit.framework.TestCase;
 

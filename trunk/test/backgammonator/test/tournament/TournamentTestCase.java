@@ -11,7 +11,7 @@ import backgammonator.lib.tournament.TournamentConfiguration;
 import backgammonator.lib.tournament.TournamentException;
 import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.lib.tournament.TournamentType;
-import backgammonator.sample.players.interfacce.SamplePlayer;
+import backgammonator.sample.player.interfacce.SamplePlayer;
 
 /**
  * @author georgi.b.andreev
