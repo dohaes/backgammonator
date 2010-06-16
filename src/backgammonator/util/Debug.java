@@ -64,7 +64,8 @@ public final class Debug {
 
 	private static PrintStream fileLog = null;
 	private static File logFile = new File(BackgammonatorConfig.getProperty(
-			"backgammonator.debug.file", "log.txt"));
+			"backgammonator.debug.file", "log.txt").replace('/',
+			File.separatorChar));
 
 	private static Debug instance = null;
 
@@ -74,7 +75,7 @@ public final class Debug {
 				if (logFile.exists()) {
 					logFile.delete();
 				}
-				logFile.getParentFile().mkdirs();
+				logFile.mkdirs();
 				fileLog = new PrintStream(logFile);
 			}
 		} catch (FileNotFoundException e) {
