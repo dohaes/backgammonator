@@ -28,7 +28,7 @@ public class HTMLTournamentLogger implements TournamentLogger {
 	private int gameNo;
 
 	private static String outputdir = BackgammonatorConfig.getProperty(
-			"backgammonator.tournament.loggerOutputDir", "reports").replace(
+			"backgammonator.logger.outputDir", "reports").replace(
 			'/', File.separatorChar);
 
 	/**

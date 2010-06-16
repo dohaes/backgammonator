@@ -21,11 +21,11 @@ public class ConfigurationTestCase extends TestCase {
         assertEquals(4000, BackgammonatorConfig.getProperty("backgammonator.game.moveTimeout", 1000));
 		assertEquals(20, BackgammonatorConfig.getProperty("backgammonator.game.maxProcesses", 30));
 		assertEquals(1024, BackgammonatorConfig.getProperty("backgammonator.game.maxMemmoryUsage", 200));
-		assertEquals("reports_test", BackgammonatorConfig.getProperty("backgammonator.game.loggerOutputDir"));
+		assertEquals("reports_test", BackgammonatorConfig.getProperty("backgammonator.logger.outputDir"));
 		
 		//test tournament configuration
 		assertEquals("special", BackgammonatorConfig.getProperty("backgammonator.tournament.rate"));
-		assertEquals("reports_test", BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir"));
+		assertEquals("reports_test", BackgammonatorConfig.getProperty("backgammonator.logger.outputDir"));
 		
 		//test web configuration
 		assertEquals("uploads_test", BackgammonatorConfig.getProperty("backgammonator.web.uploadDir"));

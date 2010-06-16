@@ -17,7 +17,7 @@
     <a href="res/samplePlayers.jar">Sample Players</a> <br />
     <br />
     <a href="StartTournament.jsp">Start Tournament</a><br />
-    <a href="ManageReports.jsp">View Reports</a><br />
+    <a href="ManageReports.jsp">Manage Reports</a><br />
     <a href="ManageRegistrations.jsp">Manage Registrations</a><br />
     </td>
     <td style='vertical-align: top;'><br />
@@ -48,7 +48,7 @@
         </select></td>
         <td style='vertical-align: top;'><input type='checkbox' name='logmoves'> Log
         moves</input><br />
-        <input type='text' name='groupscount' value='1' size="1"> Groups count</input><br />
+        <input type='text' name='groupscount' value='2' size="1"> Groups count</input><br />
         <input type='text' name='gamescount' value='1' size="1"> Games count</input><br />
         </td>
       </tr>

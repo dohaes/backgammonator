@@ -23,7 +23,7 @@ public class TournamentLoggerTestCase extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		String fileName = BackgammonatorConfig.getProperty("backgammonator.tournament.loggerOutputDir")
+		String fileName = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir")
 				+ "\\" + this.tournamentLogger.getFilename();
 		System.out.print(fileName + "\n");
 		File file = new File(fileName);

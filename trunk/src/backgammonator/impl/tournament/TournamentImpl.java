@@ -112,7 +112,7 @@ public class TournamentImpl implements Tournament {
 		}
 		list.sort();
 		TournamentResultImpl result = runEliminations(winners, config, logger);
-		result.addFirst(list, 3 * config.getGamesCount() * (size / groups + 1));
+		list.addFirst(result, 3 * config.getGamesCount() * (size / groups + 1));
 		return result;
 	}
 
