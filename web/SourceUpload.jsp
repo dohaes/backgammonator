@@ -15,6 +15,7 @@
     <a href="res/samplePlayers.jar">Sample Players</a> <br />
     <br />
     <a href="SourceUpload.jsp">Source Upload</a> <br />
+    <a href="ViewReports.jsp">View Reports</a> <br />
     </td>
     <td style='vertical-align: top;'><br />
     <%

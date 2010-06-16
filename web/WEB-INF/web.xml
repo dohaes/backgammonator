@@ -15,6 +15,11 @@
         </servlet>
         
         <servlet>
+                <servlet-name>ReportsServlet</servlet-name>
+                <servlet-class>backgammonator.impl.webinterface.ReportsServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
                 <servlet-name>CreateDatabase</servlet-name>
                 <servlet-class>backgammonator.impl.webinterface.CreateDatabase</servlet-class>
         </servlet>
@@ -28,6 +33,11 @@
 		<servlet-name>SourceUploadServlet</servlet-name>
 		<url-pattern>/sourceupload</url-pattern>
 	</servlet-mapping>
+        
+        <servlet-mapping>
+                <servlet-name>ReportsServlet</servlet-name>
+                <url-pattern>/reports</url-pattern>
+        </servlet-mapping>
         
         <servlet-mapping>
                 <servlet-name>CreateDatabase</servlet-name>

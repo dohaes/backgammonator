@@ -79,7 +79,7 @@ public final class StartTournamentServlet extends HttpServlet {
 		}
 	}
 
-	private static void redirect(PrintWriter out, String link, String message) {
+	static void redirect(PrintWriter out, String link, String message) {
 		out.print("<body><form name='hiddenForm' action='" + link);
 		out.print("' method='POST'><input type='hidden' name='result' value='");
 		out.print(message
