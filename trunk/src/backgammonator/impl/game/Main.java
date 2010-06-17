@@ -21,8 +21,9 @@ public class Main {
 	public static void main(String[] args) {
 		if (args.length < 2 || args.length > 4) {
 			System.out
-					.println("Usage : java -jar backgammonatorLibrary.jar "
-							+ "<full_path_to_player1> <full_path_to_player2> [<number_of_games>] [clean]");
+					.println("Usage : java -jar full_path_to_backgammonatorLibrary.jar "
+							+ "<full_path_to_player1> <full_path_to_player2> "
+							+ "[<number_of_games>] [clean]");
 			return;
 		}
 
@@ -50,7 +51,7 @@ public class Main {
 		}
 
 		Game game = GameManager.newGame(args[0], args[1], true);
-		
+
 		for (int i = 0; i < runs; i++) {
 			game.start();
 		}
