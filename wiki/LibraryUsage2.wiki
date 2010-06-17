@@ -30,7 +30,7 @@ The backgammonatorLiblary.jar will not be able to process C/C++ files unless you
   #Set a new environment variable MinGW_HOME to point to the MinGW base directory.
   #Run the setEnv.bat which can be found in the backgammonatorLibrary.jar. This will set the following additional environment variables:
 
-      * Path=%MinGW_HOME%\bin;%Path%
+       * Path=%MinGW_HOME%\bin;%Path%
        * C_INCLUDEDE_PATH=%MinGW_HOME%\include
-     * CPLUS_INCLUDE_PATH =%MinGW_HOME%\include\c++\3.4.5;%MinGW_HOME%\include\c++\3.4.5\mingw32;%MinGW_HOME%\include\c++\3.4.5\backward;%MinGW_HOME%\include
-      * LIBRARY_PATH = %MinGW_HOME%\lib
+       * CPLUS_INCLUDE_PATH =%MinGW_HOME%\include\c++\3.4.5;%MinGW_HOME%\include\c++\3.4.5\mingw32;%MinGW_HOME%\include\c++\3.4.5\backward;%MinGW_HOME%\include
+       * LIBRARY_PATH = %MinGW_HOME%\lib
