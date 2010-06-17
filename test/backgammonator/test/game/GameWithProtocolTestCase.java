@@ -264,6 +264,7 @@ public class GameWithProtocolTestCase extends TestCase {
 //		testDeadlockInMove(false);
 //	}
 	
+	@SuppressWarnings("unused") //TODO remove
 	private void testDeadlockInMove(boolean java) { //FIXME 
 		try {
 			copy("DeadlockInMovePlayer", "SamplePlayer", java);
