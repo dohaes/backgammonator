@@ -2,7 +2,7 @@
 
 The *backgammonatorLibrary.jar* is also an executable jar file which can be run in the console. It makes an exact simulation of the bahaviour of the system as if the files given as arguments are uploaded on teh system and about to process. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
-  # Download the backgammonatorLibrary.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here] or download the latest version from the Backgammonator web site. If you have checked out the Backgammonator project then you can simply call the "distLib" target of the build.xml provided. 
+  # Download the backgammonatorLibrary.jar from http://code.google.com/p/backgammonator/downloads/list here] or download the latest version from the Backgammonator web site. If you have checked out the Backgammonator project then you can simply call the "distLib" target of the build.xml provided. 
   # Install JDK 1.5 or heigher on your computer.
   # Open the command window.
   # Make sure that the JAVA_HOME environment variable is set to point to the directory with your java installation.
@@ -25,7 +25,7 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
 ====Note====
 The backgammonatorLiblary.jar will not be able to process C/C++ files unless you provide g++ compiler on the system path. If you want to run the demo under Windows you should do the following first:
 
-  #Download MinGW from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here]
+  #Download MinGW from [http://code.google.com/p/backgammonator/downloads/list here]
   #Run the installation and follow the instructions. Make sure you mark g++ compiler for installation.
   #Set a new environment variable MinGW_HOME to point to the MinGW base directory.
   #Run the setEnv.bat which can be found in the backgammonatorLibrary.jar. This will set the following additional environment variables:
