@@ -5,6 +5,7 @@
 	<property name="sample" location="${project.home}/sample" />
 	<property name="lib" location="${project.home}/lib" />
 	<property name="res" location="${project.home}/res" />
+	<property name="bin" location="${project.home}/bin" />
 	<property name="web" location="${project.home}/web" />
 	<property name="build" location="${project.home}/classes" />
 	<property name="classpath" location="${lib}/servlet.jar:
@@ -30,6 +31,10 @@
 		
 		<copy todir="${build}">
 			<fileset dir="${project.home}" includes="backgammonator.properties" />
+		</copy>
+		
+		<copy todir="${build}">
+			<fileset dir="${project.home}/bin" includes="setEnv.bat" />
 		</copy>
 
 	</target>
@@ -64,7 +69,9 @@
 			
 			           sample/backgammonator/sample/player/protocol/**
 			           sample/backgammonator/sample/player/interfacce/**
-					   backgammonator.properties" />
+			
+					   backgammonator.properties
+			           setEnv.bat" />
 		
 	</target>
 
