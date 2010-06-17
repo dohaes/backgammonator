@@ -22,6 +22,9 @@ public final class BackgammonatorConfig {
 			// file if found in the root directory
 			try {
 				properties.load(new FileInputStream(propertiesFile));
+				System.out.println("[INFO] [Utils] "
+						+ "Properties loaded successfully from file "
+						+ propertiesFile.getAbsolutePath());
 			} catch (FileNotFoundException ignore) {
 				// cannot happen
 			} catch (IOException e) {
@@ -41,6 +44,9 @@ public final class BackgammonatorConfig {
 			// demo or in the class path of a Java project
 			URL properiesURL = BackgammonatorConfig.class
 					.getResource("/backgammonator.properties");
+			System.out.println("[INFO] [Utils] "
+					+ "Properties loaded successfully from entry "
+					+ properiesURL);
 			if (properiesURL != null) {
 				try {
 					properties.load(properiesURL.openStream());
