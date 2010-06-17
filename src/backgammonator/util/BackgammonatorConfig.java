@@ -13,9 +13,45 @@ import java.util.Properties;
 public final class BackgammonatorConfig {
 
 	private static Properties properties = new Properties();
-	private static boolean propertiesInited = false;
-	private static boolean propertiesFileNotFound = false;
 	private static File propertiesFile = new File("backgammonator.properties");
+
+	static {
+		// load the properties
+		if (propertiesFile.exists()) {
+			// try to load the properties from the
+			// file if found in the root directory
+			try {
+				properties.load(new FileInputStream(propertiesFile));
+			} catch (FileNotFoundException ignore) {
+				// cannot happen
+			} catch (IOException e) {
+				System.out.println("[ERROR] [Utils] "
+						+ "Error while reading properties file:");
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("[WARNING] [Utils] "
+					+ "Cannot find backgammonator.properties "
+					+ "in the current directory");
+			// try to load the properties if the file is not found in the
+			// current
+			// directory but maybe it can be placed in some library jar on the
+			// class path -> in case of using the backgammonatorLibrary.jar as
+			// demo or in the class path of a Java project
+			URL properiesURL = BackgammonatorConfig.class
+					.getResource("/backgammonator.properties");
+			if (properiesURL != null) {
+				try {
+					properties.load(properiesURL.openStream());
+				} catch (IOException e) {
+					System.out.println("[ERROR] [Utils] "
+							+ "Error while reading properties file:");
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	/**
 	 * Gets the system property associated with the given key.
@@ -27,38 +63,6 @@ public final class BackgammonatorConfig {
 	 *         no value associated with the given key.
 	 */
 	public static String getProperty(String key, String alternative) {
-		if (!propertiesInited && !propertiesFileNotFound) {
-			if (!propertiesFile.exists()) {
-				propertiesFileNotFound = true;
-				Debug.getInstance().warning("Properties file not found",
-						Debug.UTILS, null);
-				// try to find the file as resource from some jar on the class
-				// path
-				URL properies = BackgammonatorConfig.class
-						.getResource("/backgammonator.properties");
-				System.out.println("========== properies : " + properies);
-				if (properies != null) try {
-					properties.load(properies.openStream());
-				} catch (IOException e) {
-					Debug.getInstance().warning(
-							"Error while reading properties file", Debug.UTILS,
-							e);
-				}
-				propertiesInited = true;
-				return alternative;
-			}
-		} else {// properties file exists
-			try {
-				properties.load(new FileInputStream(propertiesFile));
-			} catch (FileNotFoundException e) {
-				Debug.getInstance().warning("Properties file not found",
-						Debug.UTILS, e);
-			} catch (IOException e) {
-				Debug.getInstance().warning(
-						"Error while reading properties file", Debug.UTILS, e);
-			}
-			propertiesInited = true;
-		}
 		return properties.size() == 0 ? alternative : properties
 				.getProperty(key);
 	}
