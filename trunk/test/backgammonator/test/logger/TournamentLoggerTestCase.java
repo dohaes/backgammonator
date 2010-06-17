@@ -14,6 +14,10 @@ public class TournamentLoggerTestCase extends TestCase {
 
 	private TournamentLogger tournamentLogger;
 
+	
+	/**
+	 * @see junit.framework.TestCase#setUp()
+	 */
 	@Override
 	protected void setUp() throws Exception {
 		this.tournamentLogger = TournamentLoggerFactory
@@ -21,6 +25,9 @@ public class TournamentLoggerTestCase extends TestCase {
 		super.setUp();
 	}
 
+	/**
+	 * @see junit.framework.TestCase#tearDown()
+	 */
 	@Override
 	protected void tearDown() throws Exception {
 		String fileName = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir")
