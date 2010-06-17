@@ -10,7 +10,7 @@ so that I can test my AI players locally and view the results<br/>
 
 The *backgammonatorLibrary.jar* can be used in standard Java projects as part of the class path. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
-  # Download the backgammonatorLibrary.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonLibrary.jar&can=2&q=#makechanges here] or download the latest version from the Backgammonator web site. If you have checked out the Backgammonator project then you can simply call the "distLib" target of the build.xml provided. 
+  # Download the backgammonatorLibrary.jar from [http://code.google.com/p/backgammonator/downloads/list here] or download the latest version from the Backgammonator web site. If you have checked out the Backgammonator project then you can simply call the "distLib" target of the build.xml provided. 
   # Make a new general Java project in your IDE
   # Place the backgammonlibrary.jar on the project's class path.
   # Create a new class which implements interface backgammonator.lib.game.Player. The backgammonlibrary.jar contains sample implementations of the Player interface which can be explored.
