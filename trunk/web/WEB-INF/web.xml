@@ -8,40 +8,50 @@
 		<servlet-name>StartTournamentServlet</servlet-name>
 		<servlet-class>backgammonator.impl.webinterface.StartTournamentServlet</servlet-class>
 	</servlet>
-        
-        <servlet>
-                <servlet-name>SourceUploadServlet</servlet-name>
-                <servlet-class>backgammonator.impl.webinterface.SourceUploadServlet</servlet-class>
-        </servlet>
-        
-        <servlet>
-                <servlet-name>ReportsServlet</servlet-name>
-                <servlet-class>backgammonator.impl.webinterface.ReportsServlet</servlet-class>
-        </servlet>
-        
-        <servlet>
-                <servlet-name>CreateDatabase</servlet-name>
-                <servlet-class>backgammonator.impl.webinterface.tmp.CreateDatabase</servlet-class>
-        </servlet>
+
+	<servlet>
+		<servlet-name>SourceUploadServlet</servlet-name>
+		<servlet-class>backgammonator.impl.webinterface.SourceUploadServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ReportsServlet</servlet-name>
+		<servlet-class>backgammonator.impl.webinterface.ReportsServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CreateDatabase</servlet-name>
+		<servlet-class>backgammonator.impl.webinterface.tmp.CreateDatabase</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-class>backgammonator.impl.webinterface.RegisterServlet</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>StartTournamentServlet</servlet-name>
 		<url-pattern>/starttournament</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>SourceUploadServlet</servlet-name>
 		<url-pattern>/sourceupload</url-pattern>
 	</servlet-mapping>
-        
-        <servlet-mapping>
-                <servlet-name>ReportsServlet</servlet-name>
-                <url-pattern>/reports</url-pattern>
-        </servlet-mapping>
-        
-        <servlet-mapping>
-                <servlet-name>CreateDatabase</servlet-name>
-                <url-pattern>/createdb</url-pattern>
-        </servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ReportsServlet</servlet-name>
+		<url-pattern>/reports</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CreateDatabase</servlet-name>
+		<url-pattern>/createdb</url-pattern>
+	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>RegisterServlet</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
 </web-app>
