@@ -83,6 +83,9 @@ class HTMLGameLogger implements GameLogger {
 				.append("</h3>\n<table border=\"1\"><tr><td rowspan=2><b>#</b></td><td rowspan=2><b>Player</b></td><td rowspan=2><b>Die 1</b></td><td rowspan=2><b>Die 2</b></td><td colspan=2><b>Checker Move 1</b></td><td colspan=2><b>Checker Move 2</b></td><td rowspan=2><b>Hit checkers</b></td><td rowspan=2><b>Born off checkers</b></td><td rowspan=2><b>Details</b></td></tr><tr><td><b>Start point</b></td><td><b>Move length</b></td><td><b>Start point</b></td><td><b>Move length</b></td></tr>\n");
 	}
 
+	/**
+	 * @see GameLogger#endGame(GameOverStatus, PlayerColor)
+	 */
 	@Override
 	public void endGame(GameOverStatus status, PlayerColor winner) {
 
@@ -156,6 +159,9 @@ class HTMLGameLogger implements GameLogger {
 
 	}
 
+	/**
+	 * @see GameLogger#logMove(PlayerMove, Dice, boolean, BackgammonBoard)
+	 */
 	@Override
 	public void logMove(PlayerMove move, Dice dice, boolean invalid,
 			BackgammonBoard board) {
@@ -315,11 +321,17 @@ class HTMLGameLogger implements GameLogger {
 		this.moveId++;
 	}
 
+	/**
+	 * @see GameLogger#getFilename()
+	 */
 	@Override
 	public String getFilename() {
 		return this.getGameDirName() + File.separator + "index.html";
 	}
 
+	/**
+	 * @see GameLogger#getGameTimestamp()
+	 */
 	@Override
 	public String getGameTimestamp() {
 		return this.timestamp;
