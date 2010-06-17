@@ -112,7 +112,7 @@ public final class SourceUploadServlet extends HttpServlet {
 		String validationMessage = null;
 
 		try {
-			if (!verifay(filename, expected)) {
+			if (!verify(filename, expected)) {
 				afterUpload(out, "Invalid file name!");
 				return;
 			}
@@ -182,7 +182,7 @@ public final class SourceUploadServlet extends HttpServlet {
 		return file.delete();
 	}
 
-	private boolean verifay(String filename, String expected) {// TODO use regex
+	private boolean verify(String filename, String expected) {// TODO use regex
 		if (filename == null || filename.length() == 0) return false; // empty
 		// name
 		int first = filename.indexOf('.');
