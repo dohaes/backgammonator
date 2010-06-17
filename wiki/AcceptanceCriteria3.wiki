@@ -46,7 +46,7 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
 ====Note====
 The backgammonatorLiblary.jar will not be able to process C/C++ files unless you provide g++ compiler on the system path. If you want to run the demo under Windows you should do the following first:
 
-  #Download MinGW from [http://code.google.com/p/backgammonator/downloads/list here]
+  #Download MinGW-5.1.6.exe from [http://code.google.com/p/backgammonator/downloads/list here]
   #Run the installation and follow the instructions. Make sure you mark g++ compiler for installation.
   #Set a new environment variable MinGW_HOME to point to the MinGW base directory.
   #Run the setEnv.bat which can be found in the backgammonatorLibrary.jar. This will set the following additional environment variables:
