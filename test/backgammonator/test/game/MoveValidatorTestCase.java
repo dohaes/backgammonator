@@ -11,8 +11,12 @@ import backgammonator.test.util.TestUtil;
 /**
  * Tests class {@link MoveValidator}
  */
+@SuppressWarnings("unused") //TODO remove
 public class MoveValidatorTestCase extends TestCase {
 
+	/**
+	 * Tests validation of valid moves.
+	 */
 	public void testValidMoves() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		SamplePlayer player = new SamplePlayer();
@@ -25,7 +29,10 @@ public class MoveValidatorTestCase extends TestCase {
 		}
 	}
 
-	public void testInvalidMovesDices() throws Exception {
+	/**
+	 * Tests validation of invalid moves for the given dice.
+	 */
+	public void testInvalidMovesDice() throws Exception {
 		BackgammonBoardImpl board = new BackgammonBoardImpl();
 		SamplePlayer player = new SamplePlayer();
 		DiceImpl dice = new DiceImpl();
@@ -38,15 +45,27 @@ public class MoveValidatorTestCase extends TestCase {
 		}
 	}
 
+	/**
+	 * Tests validation of invalid points in the given moves.
+	 */
 	public void testInvalidMovesPoints() throws Exception {
 	}
 
+	/**
+	 * Tests validation of invalid hits in the given moves.
+	 */
 	public void testInvalidMovesHits() throws Exception {
 	}
 
+	/**
+	 * Tests validation of invalid bearoffs in the given moves.
+	 */
 	public void testInvalidMovesBearOffs() throws Exception {
 	}
 
+	/**
+	 * Tests validation of invalid moves.
+	 */
 	public void testInvalidMovesNoValidMoves() throws Exception {
 	}
 
