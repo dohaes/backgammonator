@@ -17,7 +17,10 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
   source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. The last two parameters are optional. If "clean" is found on the command line (it should be specified after the number of runs if present) the demo will delete the compiled files after the games are executed. If number_of_runs is specified then the game inited with the given sources as players will be executed number_of_runs times. If number_of_runs does not represent a well formatted integer then the game will be executed only once. In the backgammonatorLibrary.jar there are sample implementations of the communication protocol that can be explored and used as exaples.
 
   Exaple call:
-  java -jar D:/backgammonatorLibrary.jar D:/MyJavaPlayer.java D:/MyCpalyer.c 10 clean
+  java -jar /home/backgammonatorLibrary.jar /home/MyJavaPlayer.java /home/MyCpalyer.c 10 clean
 
   # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
+
+ *Note!* The backgammonatorLiblary.jar will not be able to process C/C++ files
+         unless you run it under linux.
