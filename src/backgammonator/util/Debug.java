@@ -51,6 +51,11 @@ public final class Debug {
 	 * Indicates that the debug message is logged from the web interface module.
 	 */
 	public static final int WEB_INTERFACE = 9;
+	
+	/**
+	 * Indicates that the debug message is logged from the demo jar.
+	 */
+	public static final int DEMO = 10;
 
 	private static boolean debugOn = BackgammonatorConfig.getProperty(
 			"backgammonator.debug.enabled", true);
@@ -190,6 +195,9 @@ public final class Debug {
 			break;
 		case WEB_INTERFACE:
 			res = "Web Interface";
+			break;
+		case DEMO:
+			res = "Backgammonator Demo";
 			break;
 		default:
 			res = "Not Specified";
