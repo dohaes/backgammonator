@@ -9,5 +9,5 @@
 	<classpathentry kind="lib" path="lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io.jar"/>
 	<classpathentry kind="lib" path="lib/servlet.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="compile"/>
 </classpath>
