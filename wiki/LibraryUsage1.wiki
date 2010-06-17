@@ -1,4 +1,4 @@
-#summary A manual on how to use the backgammonlibrary.jar.
+#summary A manual on how to use the backgammonatorLibrary.jar.
 
 The *backgammonatorLibrary.jar* can be used in standard Java projects as part of the class path. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
