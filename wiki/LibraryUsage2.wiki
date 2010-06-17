@@ -22,5 +22,4 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
   # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
 
-  Note! The backgammonatorLiblary.jar will not be able to process C/C++ files
-         unless you run it under linux.
+Note! The backgammonatorLiblary.jar will not be able to process C/C++ files unless you run it under linux.
