@@ -207,19 +207,20 @@ public class SourceProcessor {
 	/**
 	 * Cleaning compilation files
 	 * 
-	 * @param deproylemntdir player's implementation directory
+	 * @param deploymentdir player's implementation directory
 	 */
-	public static void cleanUp(String deproylemntdir) {
-		File dir = new File(deproylemntdir);
+	public static void cleanUp(String deploymentdir) {
+		File dir = new File(deploymentdir);
 		if (!dir.exists() || !dir.isDirectory()) {
 			Debug.getInstance().error(
-					"The given dir is not correct: " + deproylemntdir,
+					"The given dir is not correct: " + deploymentdir,
 					Debug.UTILS, null);
 		}
 
 		File[] allFiles = dir.listFiles();
 		for (int i = 0; i < allFiles.length; i++) {
-			if (allFiles[i].getName().endsWith(".class")) {
+			if (allFiles[i].getName().endsWith(".class")
+					|| allFiles[i].getName().endsWith(".exe")) {
 				allFiles[i].delete();
 			}
 		}
