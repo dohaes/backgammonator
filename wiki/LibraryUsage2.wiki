@@ -22,9 +22,9 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
   # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
 
-Note! The backgammonatorLiblary.jar will not be able to process C/C++ files unless you provide g++ command oh the system path.
+====Note====
+The backgammonatorLiblary.jar will not be able to process C/C++ files unless you provide g++ command oh the system path. If you want to run the demo under Windows you should do the following first:
 
-If you want to run the demo under Windows you should do the following first:
   #Download MinGW from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here]
   #Run the installation and follow the instructions. Make sure you mark g++ compiler for installation.
   #Set a new environment variable MinGW_HOME to point to the MinGW base directory.
