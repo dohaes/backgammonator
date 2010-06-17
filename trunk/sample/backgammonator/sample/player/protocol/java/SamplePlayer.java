@@ -46,7 +46,6 @@ public class SamplePlayer {
 	}
 
 	private void readInput() {
-
 		// read the board configuration
 		for (int i = 1; i <= 24; i++) {
 			count[i] = scanner.nextInt();

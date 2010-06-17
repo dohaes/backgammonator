@@ -21,7 +21,7 @@
         
         <servlet>
                 <servlet-name>CreateDatabase</servlet-name>
-                <servlet-class>backgammonator.impl.webinterface.CreateDatabase</servlet-class>
+                <servlet-class>backgammonator.impl.webinterface.tmp.CreateDatabase</servlet-class>
         </servlet>
 	
 	<servlet-mapping>

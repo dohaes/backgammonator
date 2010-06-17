@@ -1,4 +1,4 @@
-package backgammonator.impl.webinterface;
+package backgammonator.impl.webinterface.tmp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
