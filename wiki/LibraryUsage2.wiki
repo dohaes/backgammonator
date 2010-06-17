@@ -1,18 +1,24 @@
-#summary A manual on how to use the backgammonDemo.jar.
+#summary A manual on how to use the backgammonatorLibrary.jar.
 
-The *backgammonDemo.jar* is an executable jar file which can be run in the console. It makes an exact simulation of the bahaviour of the system as if the files given as arguments are uploaded on teh system and about to process. Users which wish to use the Backgammonator Library in this case should follow the steps below:
+The *backgammonatorLibrary.jar* is also an executable jar file which can be run in the console. It makes an exact simulation of the bahaviour of the system as if the files given as arguments are uploaded on teh system and about to process. Users which wish to use the Backgammonator Library in this case should follow the steps below:
 
-  # Download the backgammonDemo.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here] or download the latest version from the Backgammonator web site. If you have checked out the Backgammonator project then you can simply call the "distDemo" target of the build.xml provided. 
+  # Download the backgammonatorLibrary.jar from [http://code.google.com/p/backgammonator/downloads/detail?name=backgammonDemo.jar&can=2&q=#makechanges here] or download the latest version from the Backgammonator web site. If you have checked out the Backgammonator project then you can simply call the "distLib" target of the build.xml provided. 
   # Install JDK 1.5 or heigher on your computer.
   # Open the command window.
   # Make sure that the JAVA_HOME environment variable is set to point to the directory with your java installation.
   # Add JAVA_HOME/bin to the path
   # Start the executable jar by running the following command:
 
-  java -jar full_path_to_backgammonDemo.jar full_path_to_source1 full_path_to_source2
+  java -jar full_path_to_backgammonatorLibrary.jar 
+  (continued) full_path_to_source1 full_path_to_source2
+  (continued) [number_of_runs] [clean]
 
   Here full_path_to_source1 and full_path_to_source2 are the absolute paths ot the two 
-  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. In the backgammonDemo.jar there are sample implementations of the communication protocol that can be explored and used as exaples.
+  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. Logs of the executed game will appear in the execution's directory. The last two parameters are optional. If "clean" is found on the command line (it should be specified after the number of runs if present) the demo will delete the compiled files after the games are executed. If number_of_runs is specified then the game inited with the given sources as players will be executed number_of_runs times. If number_of_runs does not represent a well formatted integer then the game will be executed only once. In the backgammonatorLibrary.jar there are sample implementations of the communication protocol that can be explored and used as exaples.
+
+Exaple call:
+
+  java -jar D:/backgammonatorLibrary.jar D:/MyJavaPlayer.java D:/MyCpalyer.c 10 clean
 
   # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
