@@ -115,7 +115,7 @@ final class AccountImpl implements Account {
 		if (email == null) {
 			throw new NullPointerException("Given email is null!");
 		}
-		
+
 		this.email = email;
 		updateMask |= EMAIL;
 	}
@@ -128,7 +128,7 @@ final class AccountImpl implements Account {
 		if (firstName == null) {
 			throw new NullPointerException("Given first name is null!");
 		}
-		
+
 		this.firstName = firstName;
 		updateMask |= FIRST;
 	}
@@ -141,7 +141,7 @@ final class AccountImpl implements Account {
 		if (lastName == null) {
 			throw new NullPointerException("Given last name is null!");
 		}
-		
+
 		this.lastName = lastName;
 		updateMask |= LAST;
 	}
@@ -154,7 +154,7 @@ final class AccountImpl implements Account {
 		if (password == null) {
 			throw new NullPointerException("Given password is null!");
 		}
-		
+
 		this.password = password;
 		updateMask |= PASSWORD;
 	}
@@ -177,39 +177,43 @@ final class AccountImpl implements Account {
 				if ((updateMask & UPDATE) == 0) return; // nothing to update
 
 				if ((updateMask & PASSWORD) != 0) {
-					statement.executeUpdate("UPDATE Account SET password="
-							+ password + " WHERE username=" + username);
+					statement.executeUpdate("UPDATE Account SET password='"
+							+ password + "'" + " WHERE username='" + username
+							+ "'");
 				}
 				if ((updateMask & FIRST) != 0) {
-					statement.executeUpdate("UPDATE Account SET first="
-							+ firstName + " WHERE username=" + username);
+					statement.executeUpdate("UPDATE Account SET first='"
+							+ firstName + "'" + " WHERE username='" + username
+							+ "'");
 				}
 				if ((updateMask & LAST) != 0) {
-					statement.executeUpdate("UPDATE Account SET last="
-							+ lastName + " WHERE username=" + username);
+					statement.executeUpdate("UPDATE Account SET last='"
+							+ lastName + "'" + " WHERE username='" + username
+							+ "'");
 				}
 				if ((updateMask & EMAIL) != 0) {
-					statement.executeUpdate("UPDATE Account SET email=" + email
-							+ " WHERE username=" + username);
+					statement.executeUpdate("UPDATE Account SET email='"
+							+ email + "'" + " WHERE username='" + username
+							+ "'");
 				}
 			} else {
 				// create new account in the data base
 				StringBuffer keys = new StringBuffer(
 						"(username, password, isadmin");
-				StringBuffer values = new StringBuffer("(" + username + ", "
-						+ password + "false");
+				StringBuffer values = new StringBuffer("('" + username + "', "
+						+ "'" + password + "', '0'");
 
 				if ((updateMask & FIRST) != 0) {
 					keys.append(", first");
-					values.append(", " + firstName);
+					values.append(", '" + firstName + "'");
 				}
 				if ((updateMask & LAST) != 0) {
 					keys.append(", last");
-					values.append(", " + lastName);
+					values.append(", '" + lastName + "'");
 				}
 				if ((updateMask & EMAIL) != 0) {
 					keys.append(", email");
-					values.append(", " + email);
+					values.append(", '" + email + "'");
 				}
 
 				keys.append(')');
@@ -251,8 +255,8 @@ final class AccountImpl implements Account {
 		try {
 
 			statement = connection.createStatement();
-			statement.executeUpdate("DELETE FROM Account WHERE username="
-					+ username);
+			statement.executeUpdate("DELETE FROM Account WHERE username='"
+					+ username + "'");
 
 		} catch (SQLException e) {
 			Debug.getInstance().error("Unexpected Exception was thrown",

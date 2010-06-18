@@ -37,6 +37,7 @@ public class DBManagementTestCase extends TestCase {
 		Account testAccount = AccountsManager.getAccount("testcreate");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
+		assertFalse(testAccount.isAdmin());
 
 		assertEquals("testcreate", testAccount.getUsername());
 		
@@ -66,7 +67,8 @@ public class DBManagementTestCase extends TestCase {
 		Account testAccount = AccountsManager.getAccount("testupdate");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
-
+		assertFalse(testAccount.isAdmin());
+		
 		assertEquals("testupdate", testAccount.getUsername());
 		
 		testAccount.setPassword("password");
@@ -91,7 +93,7 @@ public class DBManagementTestCase extends TestCase {
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
-		assertEquals("testcreate", testAccount.getUsername());
+		assertEquals("testupdate", testAccount.getUsername());
 		assertEquals("password2", testAccount.getPassword());
 		assertEquals("firstName2", testAccount.getFirstName());
 		assertEquals("lastName2", testAccount.getLastname());
@@ -105,6 +107,7 @@ public class DBManagementTestCase extends TestCase {
 		Account testAccount = AccountsManager.getAccount("testdelete");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
+		assertFalse(testAccount.isAdmin());
 		
 		try {
 			testAccount.delete();
@@ -121,7 +124,7 @@ public class DBManagementTestCase extends TestCase {
 		testAccount.setEmail("email");
 		
 		testAccount.store();
-		testAccount = AccountsManager.getAccount("testupdate");
+		testAccount = AccountsManager.getAccount("testdelete");
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
