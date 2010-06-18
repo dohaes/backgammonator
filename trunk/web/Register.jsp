@@ -19,7 +19,7 @@
 	</tr>
 	<tr>
 		<td width='100px'>Username :</td>
-		<td><input type="textfield" name="username" /></td>
+		<td><input type="text" name="username" /></td>
 	</tr>
 	<tr>
 		<td>Password :</td>
@@ -27,15 +27,15 @@
 	</tr>
 	<tr>
 		<td>Email :</td>
-		<td><input type="textfield" name="email" /></td>
+		<td><input type="text" name="email" /></td>
 	</tr>
 	<tr>
 		<td>First Name :</td>
-		<td><input type="textfield" name="firstname" /></td>
+		<td><input type="text" name="firstname" /></td>
 	</tr>
 	<tr>
 		<td>Last Name :</td>
-		<td><input type="textfield" name="lastname" /></td>
+		<td><input type="text" name="lastname" /></td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -45,13 +45,13 @@
         document.startform.submit();" />
 		</td>
 	</tr>
-	<%
-		String message = request.getParameter("result");
-		if (message != null) {
-			out.println(message);
-		}
-	%>
 </table>
 </form>
+<%
+	String message = request.getParameter("result");
+	if (message != null) {
+		out.println(message);
+	}
+%>
 </body>
 </html>
