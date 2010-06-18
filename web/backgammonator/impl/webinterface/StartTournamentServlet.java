@@ -1,17 +1,20 @@
 package backgammonator.impl.webinterface;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
 
 import backgammonator.impl.tournament.TournamentManager;
 import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentConfiguration;
 import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.lib.tournament.TournamentType;
+import backgammonator.util.BackgammonatorConfig;
 import backgammonator.util.Debug;
 
 /**
@@ -42,8 +45,9 @@ public final class StartTournamentServlet extends HttpServlet {
 			} catch (Exception e) {
 				Debug.getInstance().error("Error creating tournament.",
 						Debug.WEB_INTERFACE, e);
-				Util.redirect(out, URL, "Error ! <br/>Error reading Groups Count. "
-						+ e.getMessage());
+				Util.redirect(out, URL,
+						"Error ! <br/>Error reading Groups Count. "
+								+ e.getMessage());
 				return;
 			}
 			String gamesCount = request.getParameter("gamescount");
@@ -53,8 +57,9 @@ public final class StartTournamentServlet extends HttpServlet {
 			} catch (Exception e) {
 				Debug.getInstance().error("Error creating tournament.",
 						Debug.WEB_INTERFACE, e);
-				Util.redirect(out, URL, "Error ! <br/>Error reading Games Count. "
-						+ e.getMessage());
+				Util.redirect(out, URL,
+						"Error ! <br/>Error reading Games Count. "
+								+ e.getMessage());
 				return;
 			}
 
@@ -76,6 +81,26 @@ public final class StartTournamentServlet extends HttpServlet {
 					Debug.WEB_INTERFACE, e);
 			Util.redirect(out, URL, "Error ! <br/>Error creating tournament. "
 					+ e.getMessage());
+		}
+	}
+
+	/**
+	 * Prints all players in an option form.
+	 * 
+	 * @param out the output stream.
+	 * @throws IOException if an IO error occurs.
+	 */
+	public static void printPlayers(JspWriter out) throws IOException {
+		File dir = new File(BackgammonatorConfig.getProperty(
+				"backgammonator.web.uploadDir", "uploads").replace('/',
+				File.separatorChar));
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		String[] players = dir.list();
+		for (int i = 0; i < players.length; i++) {
+			out.println("<option value='" + players[i] + "'>" + players[i]
+					+ "</option>");
 		}
 	}
 }
