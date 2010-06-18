@@ -1,11 +1,16 @@
 package backgammonator.impl.webinterface;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import backgammonator.util.BackgammonatorConfig;
 
 /**
  * @author georgi.b.andreev
@@ -29,5 +34,48 @@ public final class ReportsServlet extends HttpServlet {
 		// TODO delete specified tournament
 
 		StartTournamentServlet.redirect(out, URL, "Delete successfull!");
+	}
+
+	/**
+	 * Print the available reports.
+	 * 
+	 * @param request the http request.
+	 * @param out the output stream.
+	 * @param manage if there should be management of the reports available.
+	 */
+	public static void printReports(ServletRequest request, PrintWriter out,
+			boolean manage) {
+		String message = request.getParameter("result");
+		if (message != null) {
+			out.println(message + "<br/><br/>");
+		}
+		File dir = new File(BackgammonatorConfig.getProperty(
+				"backgammonator.logger.outputDir", "reports"));
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		String[] tournaments = dir.list(new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".html");
+			}
+		});
+		if (tournaments.length == 0) {
+			out.println("No reports available.");
+		}
+		String url = BackgammonatorConfig.getProperty(
+				"backgammonator.web.reports", "reports")
+				.replaceAll("\\\\", "/");
+		out.println("<table>");
+		for (int i = 0; i < tournaments.length; i++) {
+			out.println("<tr><td> <a href='" + url + "/" + tournaments[i]
+					+ "' target='_blank'> " + tournaments[i] + " </a> </td>");
+			if (manage) {
+				out.println("<td width='20px'>&nbsp;</td><td>"
+						+ "<a href='reports?tid=" + tournaments[i]
+						+ "'> delete </a> </td>");
+			}
+			out.println("</tr>");
+		}
+		out.println("</table>");
 	}
 }

@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io.jar"/>
 	<classpathentry kind="lib" path="lib/servlet.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector.jar"/>
 	<classpathentry kind="output" path="compile"/>
 </classpath>

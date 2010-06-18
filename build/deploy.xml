@@ -58,7 +58,10 @@
 		<delete dir="${lib}" includes="backgammonator*" />
 
 		<!-- Delete the jars in the lib -->
-		<delete dir="${tomcat}" includes="backgammonator.properties*" />
+		<delete dir="${tomcat}" includes="*.bat" />
+
+		<!-- Delete the jars in the lib -->
+		<delete dir="${tomcat}" includes="*.properties" />
 
 		<!-- Delete the tomcat files -->
 		<delete dir="${tomcat}/webapps" />
