@@ -32,6 +32,9 @@
                 return name.endsWith(".html");
             }
         });
+        if (tournaments.length == 0) {
+        	out.println("No reports available.");
+        }
         String url = BackgammonatorConfig.getProperty("backgammonator.web.reports",
                                                       "reports").replaceAll("\\\\", "/");
         out.println("<table>");
