@@ -42,6 +42,7 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
 
   # A game log will be crated using the deafult HTML logger when the game is over. HTML file containing the result of the game will appear in the current directory.
   # After the game is over you can view the resutls as described above.
+  # If you run a game which produces game log then you need to extract the /res entry form the backgammonatorLibrary.jar in the current directory (which you run the demo from) in order to view the detailed log of each move.
 
 ====Note====
 The backgammonatorLiblary.jar will not be able to process C/C++ files unless you provide g++ compiler on the system path. If you want to run the demo under Windows you should do the following first:
