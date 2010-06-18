@@ -22,7 +22,7 @@ public final class AccountsManager {
 	 * @throws IllegalStateException if database access error occurs.
 	 */
 	public static Account getAccount(String username) {
-		Connection connection = DBUtils.getDBConnection();
+		Connection connection = DBManager.getDBConnection();
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}

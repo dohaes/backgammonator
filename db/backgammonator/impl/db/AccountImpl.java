@@ -148,7 +148,7 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void store() {
-		Connection connection = DBUtils.getDBConnection();
+		Connection connection = DBManager.getDBConnection();
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}
@@ -224,7 +224,7 @@ final class AccountImpl implements Account {
 	public void delete() {
 		if (!exists) throw new IllegalStateException("Account for user "
 				+ username + " does not exist!");
-		Connection connection = DBUtils.getDBConnection();
+		Connection connection = DBManager.getDBConnection();
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}
