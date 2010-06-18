@@ -125,7 +125,7 @@ final class AccountImpl implements Account {
 	 * @see Account#store()
 	 */
 	@Override
-	public boolean store() {
+	public void store() {
 		// TODO implement
 		if (exists) {
 			// edit the existing account
@@ -134,20 +134,18 @@ final class AccountImpl implements Account {
 			// .....
 			this.exists = false;
 		}
-		return false;
 	}
 
 	/**
 	 * @see Account#delete()
 	 */
 	@Override
-	public boolean delete() {
+	public void delete() {
 		if (!exists) throw new IllegalStateException("Account for user "
 				+ username + " does not exist!");
 		// TODO implement
 		// ......
 		this.exists = false;
-		return false;
 	}
 
 	/**
