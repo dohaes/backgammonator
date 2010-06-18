@@ -1,6 +1,7 @@
 package backgammonator.impl.webinterface;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -40,13 +41,14 @@ public final class LoginServlet extends HttpServlet {
 			}
 
 			Account acount = AccountsManager.getAccount(user);
-			if (!acount.exists() || acount.getPassword().equals(MD5(pass))) {
-				afterSucLogin(out, "Successful login");
+			if (acount.exists() && acount.getPassword().equals(MD5(pass))) {
+				if (!acount.isAdmin()) afterSucLogin(out, "Successful login");
+				else afterSucLoginAdmin(out, "Successful login");
 			} else {
 				unSuccLogin(out, "Username/Password mismatch!");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			unSuccLogin(out, "Exception!");
 		}
 	}
 
@@ -63,6 +65,16 @@ public final class LoginServlet extends HttpServlet {
 	private void afterSucLogin(PrintWriter out, String message) {
 		out
 				.print("<body><form name='hiddenForm' action='sourceupload.jsp' method='POST'>");
+		out.print("<input type='hidden' name='result' value='" + message
+				+ "' ></input> </form> </body>");
+		out.print("<script language='Javascript'>");
+		out.print("document.hiddenForm.submit();");
+		out.print("</script>");
+	}
+
+	private void afterSucLoginAdmin(PrintWriter out, String message) {
+		out
+				.print("<body><form name='hiddenForm' action='StartTournament.jsp' method='POST'>");
 		out.print("<input type='hidden' name='result' value='" + message
 				+ "' ></input> </form> </body>");
 		out.print("<script language='Javascript'>");

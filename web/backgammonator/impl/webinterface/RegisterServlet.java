@@ -1,6 +1,7 @@
 package backgammonator.impl.webinterface;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -60,7 +61,7 @@ public final class RegisterServlet extends HttpServlet {
 				}
 			}
 		} catch (Exception e) {
-			afterRegister(out, "!Exception while registering!");
+			afterRegister(out, "Exception while registering!");
 		}
 
 	}
