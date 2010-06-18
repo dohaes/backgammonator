@@ -40,22 +40,22 @@ public final class CreateDatabase extends HttpServlet {
 			theStatement.execute("USE Backgammonator");
 			theStatement.execute("CREATE TABLE Account ( "
 					+ "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-					+ "user varchar(32) NOT NULL UNIQUE, "
-					+ "pass varchar(32) NOT NULL, "
+					+ "username varchar(32) NOT NULL UNIQUE, "
+					+ "password varchar(32) NOT NULL, "
 					+ "email varchar(64) NOT NULL, "
 					+ "isadmin bool NOT NULL, " + "first varchar(32), "
 					+ "last varchar(32))");
 			theStatement
-					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+					.execute("INSERT INTO Account (username, password, isadmin, first, last) "
 							+ "VALUES ('georgi', 'andreev', 1, 'georgi', 'andreev')");
 			theStatement
-					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+					.execute("INSERT INTO Account (username, password, isadmin, first, last) "
 							+ "VALUES ('andrei', 'penchev', 1, 'andrei', 'penchev')");
 			theStatement
-					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+					.execute("INSERT INTO Account (username, password, isadmin, first, last) "
 							+ "VALUES ('stefan', 'tsvyatkov', 0, 'stefan', 'tsvyatkov')");
 			theStatement
-					.execute("INSERT INTO Account (user, pass, isadmin, first, last) "
+					.execute("INSERT INTO Account (username, password, isadmin, first, last) "
 							+ "VALUES ('elena', 'gramatova', 0, 'elena', 'gramatova')");
 
 			// get current data
