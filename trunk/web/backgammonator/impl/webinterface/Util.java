@@ -2,7 +2,6 @@ package backgammonator.impl.webinterface;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpRetryException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
@@ -13,15 +12,17 @@ import javax.servlet.jsp.JspWriter;
 public class Util {
 
 	/**
-	 * 
+	 * Home, login and register pages.
 	 */
 	public static final int HOME = 0;
+
 	/**
-	 * 
+	 * Administrator pages.
 	 */
 	public static final int ADMIN = 1;
+
 	/**
-	 * 
+	 * User pages.
 	 */
 	public static final int USER = 2;
 
@@ -57,6 +58,16 @@ public class Util {
 				+ "-align:" + " top;'><a href='/'>Home</a><br />"
 				+ "<a href='Tutorial.jsp'>Tutorials</a><br />"
 				+ "<a href='res/backgammonatorLibrary.jar'>Library Jar</a>");
+		if (type == ADMIN) {
+			out.print("<br /><br /><a href='StartTournament.jsp'>Start "
+					+ "Tournament</a><br /><a href='ManageReports.jsp'>"
+					+ "Manage Reports</a><br /><a href='ManageRegistrations"
+					+ ".jsp'>Manage Registrations</a>");
+
+		} else if (type == USER) {
+			out.print("<br /><br /><a href='SourceUpload.jsp'>Source Upload"
+					+ "</a><br /><a href='ViewReports.jsp'>View Reports</a>");
+		}
 		out.println("</td><td style='vertical-align: top;'>");
 	}
 
