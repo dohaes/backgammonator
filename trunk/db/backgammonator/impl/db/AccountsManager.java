@@ -32,7 +32,7 @@ public final class AccountsManager {
 			statement = connection.createStatement();
 			result = statement
 					.executeQuery("SELECT * FROM Account WHERE username="
-							+ username);
+							+ "'" + username + "'");
 			
 			if (!result.next()) {
 				// we have no record for this username in the database
@@ -40,7 +40,7 @@ public final class AccountsManager {
 			}
 			// so we have record in the database
 			return new AccountImpl(username, result.getString("password"),
-					result.getString("firs"), result.getString("last"), result
+					result.getString("first"), result.getString("last"), result
 							.getString("email"), result.getBoolean("isadmin"));
 		} catch (SQLException e) {
 			Debug.getInstance().error("Unexpected Exception was thrown",
