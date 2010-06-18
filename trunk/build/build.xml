@@ -7,10 +7,12 @@
 	<property name="res" location="${project.home}/res" />
 	<property name="bin" location="${project.home}/bin" />
 	<property name="web" location="${project.home}/web" />
+	<property name="db" location="${project.home}/db" />
 	<property name="build" location="${project.home}/classes" />
 	<property name="classpath" location="${lib}/servlet.jar:
 		${lib}/commons-fileupload.jar:
-		${lib}/commons-io.jar" />
+		${lib}/commons-io.jar:
+		${lib}/mysql-connector.jar" />
 
 	<target name="build" depends="distLib, distWeb, distCore, clean" description="builds all jars"/>
 	<target name="lib" depends="distLib" />
@@ -46,7 +48,15 @@
 			   debug="true"
 			   debuglevel="lines, vars, and source"/>
 		
+		<!-- Compile the java code from ${web} into ${build} -->
 		<javac srcdir="${web}"
+			   destdir="${build}"
+			   classpath="${classpath}"
+			   debug="true"
+			   debuglevel="lines, vars, and source"/>
+		
+		<!-- Compile the java code from ${db} into ${build} -->
+		<javac srcdir="${db}"
 			   destdir="${build}"
 			   classpath="${classpath}"
 			   debug="true"
@@ -71,7 +81,11 @@
 			           sample/backgammonator/sample/player/interfacce/**
 			
 					   backgammonator.properties
-			           setEnv.bat" />
+			           setEnv.bat" >
+		
+		    <zipfileset dir="${res}" prefix="res"/>
+			
+		</jar>
 		
 	</target>
 
@@ -89,10 +103,12 @@
 			 includes="backgammonator/lib/game/**
 					   backgammonator/lib/logger/**
 		               backgammonator/lib/tournament/**
+			           backgammonator/lib/db/**
 				       backgammonator/impl/game/**
 					   backgammonator/impl/logger/**
 					   backgammonator/impl/protocol/**
 		               backgammonator/impl/tournament/**
+			           backgammonator/impl/db/**
 					   backgammonator/util/**
 	
                        backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
