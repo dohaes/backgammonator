@@ -1,3 +1,4 @@
+<%@ page import="backgammonator.impl.webinterface.Util"%>
 <html>
 <head>
 <title>Backgammonator - Home</title>
