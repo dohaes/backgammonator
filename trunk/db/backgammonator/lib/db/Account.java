@@ -32,21 +32,29 @@ public interface Account {
 
 	/**
 	 * Sets the password for this account. The password should be MD5 encoded.
+	 * 
+	 * @throws NullPointerException if <code>password</code> is null
 	 */
 	void setPassword(String password);
 
 	/**
 	 * Sets the first name for this account.
+	 * 
+	 * @throws NullPointerException if <code>password</code> is null
 	 */
 	void setFirstName(String firstName);
 
 	/**
 	 * Sets the last name for this account.
+	 * 
+	 * @throws NullPointerException if <code>password</code> is null
 	 */
 	void setLastname(String lastName);
 
 	/**
-	 * Sets the email for this account.
+	 * Sets the email for this account. The email is expected to be valid.
+	 * 
+	 * @throws NullPointerException if <code>password</code> is null
 	 */
 	void setEmail(String email);
 

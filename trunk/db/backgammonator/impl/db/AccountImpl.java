@@ -112,6 +112,10 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void setEmail(String email) {
+		if (email == null) {
+			throw new NullPointerException("Given email is null!");
+		}
+		
 		this.email = email;
 		updateMask |= EMAIL;
 	}
@@ -121,6 +125,10 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void setFirstName(String firstName) {
+		if (firstName == null) {
+			throw new NullPointerException("Given first name is null!");
+		}
+		
 		this.firstName = firstName;
 		updateMask |= FIRST;
 	}
@@ -130,6 +138,10 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void setLastname(String lastName) {
+		if (lastName == null) {
+			throw new NullPointerException("Given last name is null!");
+		}
+		
 		this.lastName = lastName;
 		updateMask |= LAST;
 	}
@@ -139,6 +151,10 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void setPassword(String password) {
+		if (password == null) {
+			throw new NullPointerException("Given password is null!");
+		}
+		
 		this.password = password;
 		updateMask |= PASSWORD;
 	}
@@ -159,7 +175,7 @@ final class AccountImpl implements Account {
 			if (exists) {
 				// edit the existing account
 				if ((updateMask & UPDATE) == 0) return; // nothing to update
-				
+
 				if ((updateMask & PASSWORD) != 0) {
 					statement.executeUpdate("UPDATE Account SET password="
 							+ password + " WHERE username=" + username);
@@ -173,14 +189,16 @@ final class AccountImpl implements Account {
 							+ lastName + " WHERE username=" + username);
 				}
 				if ((updateMask & EMAIL) != 0) {
-					statement.executeUpdate("UPDATE Account SET email="
-							+ email + " WHERE username=" + username);
+					statement.executeUpdate("UPDATE Account SET email=" + email
+							+ " WHERE username=" + username);
 				}
 			} else {
 				// create new account in the data base
-				StringBuffer keys = new StringBuffer("(username, password, isadmin");
-				StringBuffer values = new StringBuffer("(" + username + ", " + password + "false");
-				
+				StringBuffer keys = new StringBuffer(
+						"(username, password, isadmin");
+				StringBuffer values = new StringBuffer("(" + username + ", "
+						+ password + "false");
+
 				if ((updateMask & FIRST) != 0) {
 					keys.append(", first");
 					values.append(", " + firstName);
@@ -193,11 +211,12 @@ final class AccountImpl implements Account {
 					keys.append(", email");
 					values.append(", " + email);
 				}
-				
+
 				keys.append(')');
 				values.append(')');
-				
-				statement.executeUpdate("INSERT INTO Account " + keys.toString() + " VALUES " + values.toString());
+
+				statement.executeUpdate("INSERT INTO Account "
+						+ keys.toString() + " VALUES " + values.toString());
 				this.exists = true;
 			}
 
@@ -230,16 +249,17 @@ final class AccountImpl implements Account {
 		}
 		Statement statement = null;
 		try {
-			
+
 			statement = connection.createStatement();
-			statement.executeUpdate("DELETE FROM Account WHERE username=" + username);
-			
+			statement.executeUpdate("DELETE FROM Account WHERE username="
+					+ username);
+
 		} catch (SQLException e) {
 			Debug.getInstance().error("Unexpected Exception was thrown",
 					Debug.DATABASE, e);
 			throw new IllegalStateException(e.getMessage());
 		} finally {
-			this.exists = false; //mark as deleted anyway
+			this.exists = false; // mark as deleted anyway
 			try {
 				if (statement != null) statement.close();
 				connection.close();
