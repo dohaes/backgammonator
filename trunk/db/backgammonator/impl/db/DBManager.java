@@ -11,6 +11,11 @@ import backgammonator.util.Debug;
  * Manages basic actions on the Backgammonator database.
  */
 public final class DBManager {
+	
+	/**
+	 * Default name for the backgammonator system database.
+	 */
+	public final static String BACKGAMMONATOR_DB = "Backgammonator";
 
 	/**
 	 * Makes connection to the database. Always close the retrieved connection
@@ -19,10 +24,12 @@ public final class DBManager {
 	 * @return the {@link Connection} object or <code>null</code> if the
 	 *         database is not available.
 	 */
-	public static Connection getDBConnection() {
+	public static Connection getDBConnection(String name) {
+		Connection connection = null;
+		Statement statement = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection connection = DriverManager.getConnection(
+			connection = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306", "root", "root");
 			if (connection.isClosed()) {
 				Debug.getInstance().error(
@@ -30,13 +37,30 @@ public final class DBManager {
 						Debug.DATABASE, null);
 				return null;
 			}
+			statement = connection.createStatement();
+			statement.execute("USE " + name);
 			return connection;
 		} catch (Throwable t) {
 			Debug.getInstance().error("Error connecting to database",
 					Debug.DATABASE, t);
+			if (connection != null) try {
+				if (!connection.isClosed()) connection.close();
+			} catch (SQLException ignored) {}
 			return null;
+		} finally {
+			if (statement != null) try {
+				statement.close();
+			} catch (SQLException ignored) {}
 		}
 
+	}
+	
+	/**
+	 * Connects to the default data base using {@link #BACKGAMMONATOR_DB} as name.
+	 * @see #getDBConnection(String)
+	 */
+	public static Connection getDBConnection() {
+		return getDBConnection(BACKGAMMONATOR_DB);
 	}
 
 	/**
@@ -53,10 +77,10 @@ public final class DBManager {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
-			statement.execute("DROP DATABASE " + name);
-			statement.execute("CREATE DATABASE " + name);
+			statement.executeUpdate("DROP DATABASE " + name);
+			statement.executeUpdate("CREATE DATABASE " + name);
 			statement.execute("USE " + name);
-			statement.execute("CREATE TABLE Account ( "
+			statement.executeUpdate("CREATE TABLE Account ( "
 					+ "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
 					+ "username varchar(32) NOT NULL UNIQUE, "
 					+ "password varchar(32) NOT NULL, "
@@ -76,6 +100,14 @@ public final class DBManager {
 						Debug.DATABASE, e);
 			}
 		}
+	}
+	
+	/**
+	 * Creates the default data base using {@link #BACKGAMMONATOR_DB} as name.
+	 * @see #createDB(String)
+	 */
+	public static void createDB() {
+		
 	}
 	
 	/**
@@ -106,6 +138,14 @@ public final class DBManager {
 						Debug.DATABASE, e);
 			}
 		}
+	}
+	
+	/**
+	 * Drops the default data base using {@link #BACKGAMMONATOR_DB} as name.
+	 * @see #dropDB(String)
+	 */
+	public static void dropDB() {
+		
 	}
 
 }
