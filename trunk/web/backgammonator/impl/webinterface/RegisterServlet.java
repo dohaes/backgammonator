@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,48 +32,49 @@ public final class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
-		res.setContentType("text/html");
 		PrintWriter out = res.getWriter();
-		String user = (String) req.getAttribute("username");
-		String pass = (String) req.getAttribute("password");
-		String email = (String) req.getAttribute("email");
-		String first = (String) req.getAttribute("first");
-		String last = (String) req.getAttribute("last");
-		System.out.println("last: " + last);
-		if (user == null && pass == null && first == null && last == null) {
-			afterUpload(out, "Missing field!");
-		} else if (!validateMail(email)) {
-			afterUpload(out, "Email is not correct");
-		} else {
-			Account account = AccountsManager.getAccount(user);
-			if (account.exists()) {
-				afterUpload(out, "Username is not free!");
+		res.setContentType("text/html");
+		try {
+			String user = req.getParameter("username");
+			String pass = req.getParameter("password");
+			String email = req.getParameter("email");
+			String first = req.getParameter("firstname");
+			String last = req.getParameter("lastname");
+			if ("".equals(user) || "".equals(pass) || "".equals(first)
+					|| "".equals(last)) {
+				afterRegister(out, "Missing field!");
+			} else if (!validateMail(email)) {
+				afterRegister(out, "Email is not correct");
 			} else {
-				account.setEmail(email);
-				account.setFirstName(first);
-				account.setLastname(last);
-				account.setPassword(MD5(pass));
-				account.store();
-				afterUpload(out, "Registration completed successfully!");
+				Account account = AccountsManager.getAccount(user);
+				if (account.exists()) {
+					afterRegister(out, "Username is not free!");
+				} else {
+					String md5Pass = MD5(pass);
+					account.setEmail(email);
+					account.setFirstName(first);
+					account.setLastname(last);
+					account.setPassword(md5Pass);
+					account.store();
+					afterRegister(out, "Registration completed successfully!");
+				}
 			}
+		} catch (Exception e) {
+			afterRegister(out, "!Exception while registering!");
 		}
 
 	}
 
-	private static String MD5(String pass) {
+	private static String MD5(String pass) throws NoSuchAlgorithmException {
 		MessageDigest m = null;
-		try {
-			m = MessageDigest.getInstance("MD5");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		m = MessageDigest.getInstance("MD5");
 		byte[] data = pass.getBytes();
 		m.update(data, 0, data.length);
 		BigInteger i = new BigInteger(1, m.digest());
 		return String.format("%1$032X", i);
 	}
 
-	private void afterUpload(PrintWriter out, String message) {
+	private void afterRegister(PrintWriter out, String message) {
 		out
 				.print("<body><form name='hiddenForm' action='Register.jsp' method='POST'>");
 		out.print("<input type='hidden' name='result' value='" + message
