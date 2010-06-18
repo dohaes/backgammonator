@@ -8,7 +8,7 @@ import java.sql.Statement;
 import backgammonator.util.Debug;
 
 /**
- * Manages connecting to the Backgammonator database.
+ * Manages basic actions on the Backgammonator database.
  */
 public final class DBManager {
 
@@ -42,7 +42,7 @@ public final class DBManager {
 	/**
 	 * Creates the Backgammonator database.
 	 * 
-	 * @param name of the database name
+	 * @param name the name of the database name.
 	 * @throws IllegalStateException if database access error occurs.
 	 */
 	public static void createDB(String name) {
@@ -63,6 +63,36 @@ public final class DBManager {
 					+ "email varchar(64) NOT NULL, "
 					+ "isadmin bool NOT NULL, " + "first varchar(32), "
 					+ "last varchar(32))");
+		} catch (SQLException e) {
+			Debug.getInstance().error("Unexpected Exception was thrown",
+					Debug.DATABASE, e);
+			throw new IllegalStateException(e.getMessage());
+		} finally {
+			try {
+				if (statement != null) statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				Debug.getInstance().error("Error closing connection",
+						Debug.DATABASE, e);
+			}
+		}
+	}
+	
+	/**
+	 * Drops the Backgammonator database.
+	 * 
+	 * @param name of the database name.
+	 * @throws IllegalStateException if database access error occurs.
+	 */
+	public static void dropDB(String name) {
+		Connection connection = DBManager.getDBConnection();
+		if (connection == null) {
+			throw new IllegalStateException("Cannot connect to DB!");
+		}
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.execute("DROP DATABASE " + name);
 		} catch (SQLException e) {
 			Debug.getInstance().error("Unexpected Exception was thrown",
 					Debug.DATABASE, e);
