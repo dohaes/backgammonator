@@ -8,7 +8,7 @@ import backgammonator.util.Debug;
 /**
  * Manages connecting to the Backgammonator database.
  */
-public final class DBUtils {
+final class DBUtils {
 
 	/**
 	 * Makes connection to the database.
