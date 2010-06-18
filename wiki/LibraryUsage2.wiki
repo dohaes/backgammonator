@@ -10,11 +10,10 @@ The *backgammonatorLibrary.jar* is also an executable jar file which can be run 
   # Start the executable jar by running the following command:
 
   java -jar full_path_to_backgammonatorLibrary.jar 
-  (continued) full_path_to_source1 full_path_to_source2
-  (continued) [number_of_runs] [clean]
+  (continued) full_path_to_source1 full_path_to_source2 [number_of_runs]
 
   Here full_path_to_source1 and full_path_to_source2 are the absolute paths ot the two 
-  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. The last two parameters are optional. If "clean" is found on the command line (it should be specified after the number of runs if present) the demo will delete the compiled files after the games are executed. If number_of_runs is specified then the game inited with the given sources as players will be executed number_of_runs times. If number_of_runs does not represent a well formatted integer then the game will be executed only once. In the backgammonatorLibrary.jar there are sample implementations of the communication protocol that can be explored and used as exaples.
+  source files which represent your players. These files should be C/C++ files (which is not yet supported) or Java source files without a package declaration that implement the scepicied communication protocol. These files will be processed and compiled and a game will be startet between the players that will be constucted with them. If any errors occure during this process they will be printed on the console. The last parameter is optional. If number_of_runs is specified then the game inited with the given sources as players will be executed number_of_runs times. If number_of_runs does not represent a well formatted integer then the game will be executed only once. In the backgammonatorLibrary.jar there are sample implementations of the communication protocol that can be explored and used as exaples.
 
   Exaple call:
   java -jar /home/backgammonatorLibrary.jar /home/MyJavaPlayer.java /home/MyCpalyer.c 10 clean
