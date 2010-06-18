@@ -5,10 +5,10 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
 
 import backgammonator.util.BackgammonatorConfig;
 
@@ -33,7 +33,7 @@ public final class ReportsServlet extends HttpServlet {
 
 		// TODO delete specified tournament
 
-		StartTournamentServlet.redirect(out, URL, "Delete successfull!");
+		Util.redirect(out, URL, "Delete successfull!");
 	}
 
 	/**
@@ -42,9 +42,10 @@ public final class ReportsServlet extends HttpServlet {
 	 * @param request the http request.
 	 * @param out the output stream.
 	 * @param manage if there should be management of the reports available.
+	 * @throws IOException if IO an error occurs.
 	 */
-	public static void printReports(ServletRequest request, PrintWriter out,
-			boolean manage) {
+	public static void printReports(HttpServletRequest request, JspWriter out,
+			boolean manage) throws IOException {
 		String message = request.getParameter("result");
 		if (message != null) {
 			out.println(message + "<br/><br/>");
