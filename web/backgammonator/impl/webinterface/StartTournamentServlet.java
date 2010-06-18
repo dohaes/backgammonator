@@ -42,7 +42,7 @@ public final class StartTournamentServlet extends HttpServlet {
 			} catch (Exception e) {
 				Debug.getInstance().error("Error creating tournament.",
 						Debug.WEB_INTERFACE, e);
-				redirect(out, URL, "Error ! <br/>Error reading Groups Count. "
+				Util.redirect(out, URL, "Error ! <br/>Error reading Groups Count. "
 						+ e.getMessage());
 				return;
 			}
@@ -53,7 +53,7 @@ public final class StartTournamentServlet extends HttpServlet {
 			} catch (Exception e) {
 				Debug.getInstance().error("Error creating tournament.",
 						Debug.WEB_INTERFACE, e);
-				redirect(out, URL, "Error ! <br/>Error reading Games Count. "
+				Util.redirect(out, URL, "Error ! <br/>Error reading Games Count. "
 						+ e.getMessage());
 				return;
 			}
@@ -70,20 +70,12 @@ public final class StartTournamentServlet extends HttpServlet {
 						result.getPlayer(i).getName()).append(" with ").append(
 						result.getPlayerPoints(i)).append(" points.<br/>");
 			}
-			redirect(out, URL, message.toString());
+			Util.redirect(out, URL, message.toString());
 		} catch (Exception e) {
 			Debug.getInstance().error("Error creating tournament.",
 					Debug.WEB_INTERFACE, e);
-			redirect(out, URL, "Error ! <br/>Error creating tournament. "
+			Util.redirect(out, URL, "Error ! <br/>Error creating tournament. "
 					+ e.getMessage());
 		}
-	}
-
-	static void redirect(PrintWriter out, String link, String message) {
-		out.print("<body><form name='hiddenForm' action='" + link);
-		out.print("' method='POST'><input type='hidden' name='result' value='");
-		out.print(message
-				+ "' ></input> </form> </body><script language='Javascript'>"
-				+ "document.hiddenForm.submit();</script>");
 	}
 }
