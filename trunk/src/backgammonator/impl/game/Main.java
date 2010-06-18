@@ -27,35 +27,22 @@ public class Main {
 	 * @param args the two absolute paths to that source files
 	 */
 	public static void main(String[] args) {
-		if (args.length < 2 || args.length > 4) {
+		if (args.length < 2 || args.length > 3) {
 			System.out
 					.println("Usage : java -jar full_path_to_backgammonatorLibrary.jar "
 							+ "<full_path_to_player1> <full_path_to_player2> "
-							+ "[<number_of_games>] [clean]");
+							+ "[<number_of_games>]");
 			return;
 		}
 
-		boolean clean = false;
 		int runs = 1;
 
-		if (args.length == 3) {
-			if (args[2].equals("clean")) clean = true;
-			else try {
-				runs = Integer.parseInt(args[2]);
-			} catch (NumberFormatException nfe) {
-				Debug.getInstance().error(
-						"Error parsing number of runs : " + args[2],
-						Debug.DEMO, nfe);
-			}
-		} else if (args.length == 4) {
-			if (args[3].equals("clean")) clean = true;
-			try {
-				runs = Integer.parseInt(args[2]);
-			} catch (NumberFormatException nfe) {
-				Debug.getInstance().error(
-						"Error parsing number of runs : " + args[2],
-						Debug.DEMO, nfe);
-			}
+		if (args.length == 3) try {
+			runs = Integer.parseInt(args[2]);
+		} catch (NumberFormatException nfe) {
+			Debug.getInstance().error(
+					"Error parsing number of runs : " + args[2], Debug.DEMO,
+					nfe);
 		}
 
 		// check if the given files exist before copying
@@ -86,11 +73,10 @@ public class Main {
 			game.start();
 		}
 
-		if (clean) {
-			if (!clean()) {
-				Debug.getInstance().error("Error while cleaning up",
-						Debug.DEMO, null);
-			}
+		//clean
+		if (!clean()) {
+			Debug.getInstance().error("Error while cleaning up",
+					Debug.DEMO, null);
 		}
 	}
 
