@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ public final class RegisterServlet extends HttpServlet {
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
+			throws IOException {
 		// TODO if it is registered!
 		System.out.println("12do postfffffffff!");
 		System.err.println("12do postsddgdfffffffffffffffffff!");
