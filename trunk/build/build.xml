@@ -48,6 +48,13 @@
 			   debug="true"
 			   debuglevel="lines, vars, and source"/>
 		
+		<!-- Compile the java code from ${db} into ${build} -->
+		<javac srcdir="${db}"
+			   destdir="${build}"
+			   classpath="${classpath}"
+			   debug="true"
+			   debuglevel="lines, vars, and source"/>
+		
 		<!-- Compile the java code from ${web} into ${build} -->
 		<javac srcdir="${web}"
 			   destdir="${build}"
@@ -55,12 +62,6 @@
 			   debug="true"
 			   debuglevel="lines, vars, and source"/>
 		
-		<!-- Compile the java code from ${db} into ${build} -->
-		<javac srcdir="${db}"
-			   destdir="${build}"
-			   classpath="${classpath}"
-			   debug="true"
-			   debuglevel="lines, vars, and source"/>
 	</target>
 
 	<!-- user library for local game tests -->
