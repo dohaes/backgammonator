@@ -1,6 +1,11 @@
 package backgammonator.impl.db;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import backgammonator.lib.db.Account;
+import backgammonator.util.Debug;
 
 /**
  * Implementation of the {@link Account} interface.
@@ -17,12 +22,25 @@ final class AccountImpl implements Account {
 	private String email;
 
 	/**
+	 * Mask to keep track of which are the the fields to update when
+	 * {@link Account#store()} method is called.
+	 */
+	private int updateMask = 0;
+
+	private static final int PASSWORD = 8; // first bit
+	private static final int FIRST = 4; // second bit
+	private static final int LAST = 2; // third bit
+	private static final int EMAIL = 1; // fourth bit
+
+	private static final int UPDATE = PASSWORD | FIRST | LAST | EMAIL;
+
+	/**
 	 * Constructs new Account object corresponding to a non existing account.
 	 */
 	AccountImpl(String username) {
 		this.username = username;
 		this.isAdmin = false;
-		//mark this account as not found in the database
+		// mark this account as not found in the database
 		this.exists = false;
 	}
 
@@ -37,7 +55,7 @@ final class AccountImpl implements Account {
 		this.lastName = lastName;
 		this.email = email;
 		this.isAdmin = isAdmin;
-		//mark this account as found in the database
+		// mark this account as found in the database
 		this.exists = true;
 	}
 
@@ -95,6 +113,7 @@ final class AccountImpl implements Account {
 	@Override
 	public void setEmail(String email) {
 		this.email = email;
+		updateMask |= EMAIL;
 	}
 
 	/**
@@ -103,6 +122,7 @@ final class AccountImpl implements Account {
 	@Override
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+		updateMask |= FIRST;
 	}
 
 	/**
@@ -111,6 +131,7 @@ final class AccountImpl implements Account {
 	@Override
 	public void setLastname(String lastName) {
 		this.lastName = lastName;
+		updateMask |= LAST;
 	}
 
 	/**
@@ -119,6 +140,7 @@ final class AccountImpl implements Account {
 	@Override
 	public void setPassword(String password) {
 		this.password = password;
+		updateMask |= PASSWORD;
 	}
 
 	/**
@@ -126,13 +148,72 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void store() {
-		// TODO implement
-		if (exists) {
-			// edit the existing account
-		} else {
-			// create new account in the data base
-			// .....
-			this.exists = false;
+		Connection connection = DBUtils.getDBConnection();
+		if (connection == null) {
+			throw new IllegalStateException("Cannot connect to DB!");
+		}
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+
+			if (exists) {
+				// edit the existing account
+				if ((updateMask & UPDATE) == 0) return; // nothing to update
+				
+				if ((updateMask & PASSWORD) != 0) {
+					statement.executeUpdate("UPDATE Account SET password="
+							+ password + " WHERE username=" + username);
+				}
+				if ((updateMask & FIRST) != 0) {
+					statement.executeUpdate("UPDATE Account SET first="
+							+ firstName + " WHERE username=" + username);
+				}
+				if ((updateMask & LAST) != 0) {
+					statement.executeUpdate("UPDATE Account SET last="
+							+ lastName + " WHERE username=" + username);
+				}
+				if ((updateMask & EMAIL) != 0) {
+					statement.executeUpdate("UPDATE Account SET email="
+							+ email + " WHERE username=" + username);
+				}
+			} else {
+				// create new account in the data base
+				StringBuffer keys = new StringBuffer("(username, password, isadmin");
+				StringBuffer values = new StringBuffer("(" + username + ", " + password + "false");
+				
+				if ((updateMask & FIRST) != 0) {
+					keys.append(", first");
+					values.append(", " + firstName);
+				}
+				if ((updateMask & LAST) != 0) {
+					keys.append(", last");
+					values.append(", " + lastName);
+				}
+				if ((updateMask & EMAIL) != 0) {
+					keys.append(", email");
+					values.append(", " + email);
+				}
+				
+				keys.append(')');
+				values.append(')');
+				
+				statement.executeUpdate("INSERT INTO Account " + keys.toString() + " VALUES " + values.toString());
+				this.exists = true;
+			}
+
+		} catch (SQLException e) {
+			Debug.getInstance().error("Unexpected Exception was thrown",
+					Debug.DATABASE, e);
+			throw new IllegalStateException(e.getMessage());
+		} finally {
+			updateMask = 0; // reset the mask
+			try {
+				if (statement != null) statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				Debug.getInstance().error("Error closing connection",
+						Debug.DATABASE, e);
+			}
 		}
 	}
 
@@ -143,9 +224,30 @@ final class AccountImpl implements Account {
 	public void delete() {
 		if (!exists) throw new IllegalStateException("Account for user "
 				+ username + " does not exist!");
-		// TODO implement
-		// ......
-		this.exists = false;
+		Connection connection = DBUtils.getDBConnection();
+		if (connection == null) {
+			throw new IllegalStateException("Cannot connect to DB!");
+		}
+		Statement statement = null;
+		try {
+			
+			statement = connection.createStatement();
+			statement.executeUpdate("DELETE FROM Account WHERE username=" + username);
+			
+		} catch (SQLException e) {
+			Debug.getInstance().error("Unexpected Exception was thrown",
+					Debug.DATABASE, e);
+			throw new IllegalStateException(e.getMessage());
+		} finally {
+			this.exists = false; //mark as deleted anyway
+			try {
+				if (statement != null) statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				Debug.getInstance().error("Error closing connection",
+						Debug.DATABASE, e);
+			}
+		}
 	}
 
 	/**
