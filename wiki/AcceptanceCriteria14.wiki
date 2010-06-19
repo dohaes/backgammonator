@@ -1,0 +1,13 @@
+#summary Acceptance criteria scenarios on User Story 14
+
+*User Story*
+
+As a contestant manager<br/>
+I want to log in the system<br/>
+so that I am authenticated and I have privileges to configure and run tournaments<br/>
+
+*Scenario 1*
+
+  # Go to the main page<br/>
+  # Fill correct admin user & password<br/>
+  # Logging as admin must be seccessfull and "Start Tournament" page must be shown<br/>
