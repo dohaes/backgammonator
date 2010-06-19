@@ -7,7 +7,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
+
+import backgammonator.lib.db.Account;
 
 /**
  * @author georgi.b.andreev
@@ -53,8 +56,9 @@ public class Util {
 	 * @param type the type of the page.
 	 * @throws IOException if an IO error occurs.
 	 */
-	public static void printHeader(JspWriter out, String title, int type)
-			throws IOException {
+	public static void printHeader(HttpServletRequest request, JspWriter out,
+			String title, int type) throws IOException {
+		Account user = getCurrentUser(request);
 		out.print("<html><head><title>Backgammonator - " + title
 				+ "</title></head><body><h2>Backgammonator - " + title
 				+ "</h2><table><tr><td width='150px' style='vertical"
@@ -72,6 +76,15 @@ public class Util {
 					+ "</a><br /><a href='ViewReports.jsp'>View Reports</a>");
 		}
 		out.println("</td><td style='vertical-align: top;'>");
+	}
+
+	private static Account getCurrentUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Object account = session.getValue("user");
+		if (!(account instanceof Account)) {
+			return null;
+		}
+		return (Account) account;
 	}
 
 	/**

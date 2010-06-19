@@ -1,5 +1,5 @@
 <%@ page import="backgammonator.impl.webinterface.Util"%>
-<% Util.printHeader(out, "Home", Util.HOME); %>
+<% Util.printHeader(request, out, "Home", Util.HOME); %>
 <% Util.printMessage(request, out); %>
 <form method='POST' action='login'>
 <table>
