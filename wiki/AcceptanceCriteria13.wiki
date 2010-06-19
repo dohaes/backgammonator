@@ -6,3 +6,8 @@ Scenario 1
 1. Go to the main page
 2. Fill incorrect user or password
 3. Logging must be unseccessfull - information about that must be given
+
+Scenario 2
+1. Go to the main page
+2. Fill correct user or password
+3. Logging must be seccessfull and "Source Upload" page must be shown
