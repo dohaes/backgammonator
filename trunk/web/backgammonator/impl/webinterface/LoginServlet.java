@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import backgammonator.impl.db.AccountsManager;
 import backgammonator.lib.db.Account;
@@ -19,9 +20,6 @@ import backgammonator.lib.db.Account;
  */
 public final class LoginServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9174306858493853786L;
 
 	/**
@@ -42,13 +40,17 @@ public final class LoginServlet extends HttpServlet {
 
 			Account acount = AccountsManager.getAccount(user);
 			if (acount.exists() && acount.getPassword().equals(MD5(pass))) {
-				if (!acount.isAdmin()) afterSucLogin(out, "Successful login");
+				HttpSession session = req.getSession();
+				session.putValue("username", user);
+				if (!acount.isAdmin()) afterSucLogin(out, "Hello " + user);
 				else afterSucLoginAdmin(out, "Successful login");
 			} else {
 				unSuccLogin(out, "Username/Password mismatch!");
 			}
+
 		} catch (Exception e) {
 			unSuccLogin(out, "Exception!");
+			e.printStackTrace();
 		}
 	}
 
@@ -64,7 +66,7 @@ public final class LoginServlet extends HttpServlet {
 
 	private void afterSucLogin(PrintWriter out, String message) {
 		out
-				.print("<body><form name='hiddenForm' action='sourceupload.jsp' method='POST'>");
+				.print("<body><form name='hiddenForm' action='SourceUpload.jsp' method='POST'>");
 		out.print("<input type='hidden' name='result' value='" + message
 				+ "' ></input> </form> </body>");
 		out.print("<script language='Javascript'>");
