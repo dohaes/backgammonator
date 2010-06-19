@@ -110,7 +110,8 @@ public class SourceProcessor {
 				// check if the executable already exists
 				if (!executableFile.exists()) {
 					compileProcess = Runtime.getRuntime().exec(
-							"g++ -Wall -o " + "\"" + executableFile.getAbsolutePath()
+							"g++ -Wall -o " + "\""
+									+ executableFile.getAbsolutePath()
 									+ "\" \"" + file.getAbsolutePath() + "\"");
 
 					// manage streams
@@ -146,9 +147,9 @@ public class SourceProcessor {
 				}
 
 				// manage result
-				result = new ProtocolPlayerWrapper("\"" + executableFile
-						.getAbsolutePath() + "\"", executableFile.getParentFile()
-						.getName());
+				result = new ProtocolPlayerWrapper("\""
+						+ executableFile.getAbsolutePath() + "\"",
+						executableFile.getParentFile().getName());
 			}
 
 		} catch (Throwable e) {
