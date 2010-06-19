@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.lib.db.Account;
 import backgammonator.util.BackgammonatorConfig;
 
 /**
@@ -37,9 +38,6 @@ public final class SourceUploadServlet extends HttpServlet {
 			"backgammonator.web.uploadDir", "uploads").replace('/',
 			File.separatorChar);
 	private static final File UPLOADS_DIR = new File(UPLOADS);
-
-	// TODO use user name from the account
-	private volatile int index = 0;
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -120,7 +118,10 @@ public final class SourceUploadServlet extends HttpServlet {
 			if (!UPLOADS_DIR.exists()) {
 				UPLOADS_DIR.mkdirs();
 			}
-			File userDir = new File(UPLOADS_DIR, "user" + (index++)); // TODO
+			
+			Account user = (Account) request.getSession(true).getValue("user");
+			
+			File userDir = new File(UPLOADS_DIR, user.getUsername());
 			if (!userDir.exists()) {
 				userDir.mkdirs();
 			} else {
