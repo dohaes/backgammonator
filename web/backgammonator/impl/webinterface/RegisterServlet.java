@@ -22,9 +22,6 @@ import backgammonator.lib.db.Account;
  */
 public final class RegisterServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9174306858493853786L;
 
 	/**
@@ -62,6 +59,7 @@ public final class RegisterServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 			afterRegister(out, "Exception while registering!");
+			e.printStackTrace();
 		}
 
 	}
