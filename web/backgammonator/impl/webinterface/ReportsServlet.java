@@ -23,26 +23,25 @@ public final class ReportsServlet extends HttpServlet {
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
-		PrintWriter out = response.getWriter();
-		if (!Util.checkCredentials(out, Util.getCurrentUser(request),
-				Util.ADMIN)) {
+		PrintWriter out = res.getWriter();
+		if (!Util.checkCredentials(out, Util.getCurrentUser(req), Util.ADMIN)) {
 			return;
 		}
 		// String tournamentId = (String) request.getAttribute("tid");
-		Util.redirect(out, Util.MANAGE_REPORTS, "Delete successfull!");
+		Util.redirect(out, Util.MANAGE_REPORTS, "Delete successfull.");
 	}
 
 	/**
 	 * Print the available reports.
 	 * 
-	 * @param request the http request.
+	 * @param req the http request.
 	 * @param out the output stream.
 	 * @param manage if there should be management of the reports available.
 	 * @throws IOException if IO an error occurs.
 	 */
-	public static void printReports(HttpServletRequest request, JspWriter out,
+	public static void printReports(HttpServletRequest req, JspWriter out,
 			boolean manage) throws IOException {
 		File dir = new File(BackgammonatorConfig.getProperty(
 				"backgammonator.logger.outputDir", "reports"));

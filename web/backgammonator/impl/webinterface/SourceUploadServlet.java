@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -29,6 +27,7 @@ import backgammonator.util.BackgammonatorConfig;
 public final class SourceUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6501514760176956574L;
+
 	private static final int uploadMaxSize = BackgammonatorConfig.getProperty(
 			"backgammonator.web.uploadMaxSize", 40960);
 	private static final String REPOSITORY = BackgammonatorConfig.getProperty(
@@ -44,36 +43,35 @@ public final class SourceUploadServlet extends HttpServlet {
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	@SuppressWarnings( { "unchecked" })
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		PrintWriter out = response.getWriter();
-		Account user = Util.getCurrentUser(request);
-		if (!Util.checkCredentials(out, user, Util.USER)) {
-			return;
-		}
-
-		boolean validate = false;
-		String expected = null;
-		FileItem file = null;
-
-		if (!ServletFileUpload.isMultipartContent(request)) {
-			// invalid content type
-			afterUpload(out, "Invalit content type!");
-			return;
-		}
-		// Parse the HTTP request...
-		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-		// diskFileItemFactory.setSizeThreshold(uploadMaxSize); // in bytes -
-		// 40K
-
-		diskFileItemFactory.setRepository(new File(REPOSITORY));
-
-		ServletFileUpload servletFileUpload = new ServletFileUpload(
-				diskFileItemFactory);
-		servletFileUpload.setSizeMax(uploadMaxSize); // in bytes - 40K
+	protected void doPost(HttpServletRequest req, HttpServletResponse res)
+			throws IOException {
+		PrintWriter out = res.getWriter();
 		try {
-			List fileItemsList = servletFileUpload.parseRequest(request);
+			Account user = Util.getCurrentUser(req);
+			if (!Util.checkCredentials(out, user, Util.USER)) {
+				return;
+			}
+
+			boolean validate = false;
+			String expected = null;
+			FileItem file = null;
+
+			if (!ServletFileUpload.isMultipartContent(req)) {
+				// invalid content type
+				Util.redirect(out, Util.USER_HOME, "Invalid content type!");
+				return;
+			}
+			// Parse the HTTP request...
+			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+			// diskFileItemFactory.setSizeThreshold(uploadMaxSize); in bytes -
+			// 40K
+
+			diskFileItemFactory.setRepository(new File(REPOSITORY));
+
+			ServletFileUpload servletFileUpload = new ServletFileUpload(
+					diskFileItemFactory);
+			servletFileUpload.setSizeMax(uploadMaxSize); // in bytes - 40K
+			List fileItemsList = servletFileUpload.parseRequest(req);
 			// Process file items...
 			Iterator iter = fileItemsList.iterator();
 			while (iter.hasNext()) {
@@ -92,84 +90,76 @@ public final class SourceUploadServlet extends HttpServlet {
 					file = fileItem;
 				}
 			}
-		} catch (SizeLimitExceededException slee) {
-			// The size of the HTTP request body exceeds the limit
-			afterUpload(out, slee.getMessage());
-			return;
-		} catch (FileUploadException fue) {
-			afterUpload(out, fue.getMessage());
-			return;
-		} catch (Throwable t) {
-			afterUpload(out, t.getMessage());
-			return;
-		}
 
-		// process the file
-		if (file == null) {
-			afterUpload(out, "No file specified for upload!");
-			return;
-		}
-		FileOutputStream fos = null;
-		InputStream is = null;
-		String filename = file.getName();
-		String validationMessage = null;
-
-		try {
-			if (!verify(filename, expected)) {
-				afterUpload(out, "Invalid file name!");
+			// process the file
+			if (file == null) {
+				Util.redirect(out, Util.USER_HOME,
+						"No file specified for upload!");
 				return;
 			}
+			FileOutputStream fos = null;
+			InputStream is = null;
+			String filename = file.getName();
+			String validationMessage = null;
 
-			if (!UPLOADS_DIR.exists()) {
-				UPLOADS_DIR.mkdirs();
-			}
-
-			File userDir = new File(UPLOADS_DIR, user.getUsername());
-			if (!userDir.exists()) {
-				userDir.mkdirs();
-			} else {
-				if (!deleteContents(userDir)) {
-					afterUpload(out,
-							"Cannot delete previously uploaded sources!");
+			try {
+				if (!verify(filename, expected)) {
+					Util.redirect(out, Util.USER_HOME, "Invalid file name!");
 					return;
+				}
+
+				if (!UPLOADS_DIR.exists()) {
+					UPLOADS_DIR.mkdirs();
+				}
+
+				File userDir = new File(UPLOADS_DIR, user.getUsername());
+				if (!userDir.exists()) {
+					userDir.mkdirs();
+				} else {
+					if (!deleteContents(userDir)) {
+						Util.redirect(out, Util.USER_HOME,
+								"Cannot delete previously uploaded sources!");
+						return;
+					}
+				}
+
+				File uploaded = new File(userDir, filename);
+
+				fos = new FileOutputStream(uploaded);
+				is = file.getInputStream();
+				byte[] buff = new byte[24];
+				int len = 0;
+				while ((len = is.read(buff, 0, 24)) != -1) {
+					fos.write(buff, 0, len);
+				}
+				fos.flush();
+
+				if (validate) {
+					validationMessage = SourceProcessor.validateSource(uploaded
+							.getAbsolutePath());
+				}
+			} finally {
+				if (fos != null) {
+					fos.close();
+				}
+				if (is != null) {
+					is.close();
 				}
 			}
 
-			File uploaded = new File(userDir, filename);
+			Util.redirect(out, Util.USER_HOME, "Upload successful."
+					+ (validate ? "<br />" + validationMessage : ""));
+		} catch (Exception e) {
+			Util.redirect(out, Util.USER_HOME, e.getMessage());
 
-			fos = new FileOutputStream(uploaded);
-			is = file.getInputStream();
-			byte[] buff = new byte[24];
-			int len = 0;
-			while ((len = is.read(buff, 0, 24)) != -1) {
-				fos.write(buff, 0, len);
-			}
-			fos.flush();
-
-			if (validate) {
-				validationMessage = SourceProcessor.validateSource(uploaded
-						.getAbsolutePath());
-			}
-		} catch (Throwable t) {
-			afterUpload(out, t.getMessage());
-			return;
-		} finally {
-			try {
-				if (fos != null) fos.close();
-				if (is != null) is.close();
-			} catch (IOException ioe) {
-				afterUpload(out, ioe.getMessage());
-				return;
-			}
 		}
-
-		afterUpload(out, "Upload successful!<br>"
-				+ (validate ? "<br/>" + validationMessage + "<br/>" : ""));
 	}
 
 	private boolean deleteContents(File file) {
 		File[] files = file.listFiles();
-		if (files == null || files.length == 0) return true;
+		if (files == null || files.length == 0) {
+			return true;
+		}
 		for (int i = 0; i < files.length; i++) {
 			delete(files[i]);
 		}
@@ -177,34 +167,34 @@ public final class SourceUploadServlet extends HttpServlet {
 	}
 
 	private boolean delete(File file) {
-		if (file.isFile()) return file.delete();
+		if (file.isFile()) {
+			return file.delete();
+		}
 		File[] files = file.listFiles();
-		if (files == null || files.length == 0) return file.delete();
+		if (files == null || files.length == 0) {
+			return file.delete();
+		}
 		for (int i = 0; i < files.length; i++) {
 			delete(files[i]);
 		}
 		return file.delete();
 	}
 
-	private boolean verify(String filename, String expected) {// TODO use regex
-		if (filename == null || filename.length() == 0) return false; // empty
-		// name
+	private boolean verify(String filename, String expected) {
+		// TODO use regex
+		if (filename == null || filename.length() == 0) {
+			return false; // empty name
+		}
 		int first = filename.indexOf('.');
 		int last = filename.lastIndexOf('.');
 		// no or more than one dot
-		if (first != last || first == -1 || last == filename.length()) return false;
+		if (first != last || first == -1 || last == filename.length()) {
+			return false;
+		}
 		String actual = filename.substring(last + 1);
-		if (actual.length() == 0 || !actual.equals(expected)) return false;
+		if (actual.length() == 0 || !actual.equals(expected)) {
+			return false;
+		}
 		return true;
-	}
-
-	private void afterUpload(PrintWriter out, String message) {
-		out
-				.print("<body><form name='hiddenForm' action='SourceUpload.jsp' method='POST'>");
-		out.print("<input type='hidden' name='result' value='" + message
-				+ "' ></input> </form> </body>");
-		out.print("<script language='Javascript'>");
-		out.print("document.hiddenForm.submit();");
-		out.print("</script>");
 	}
 }

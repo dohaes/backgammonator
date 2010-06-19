@@ -36,7 +36,7 @@ public final class RegisterServlet extends HttpServlet {
 		if ("".equals(user) || "".equals(pass)) {
 			Util.redirect(out, Util.REGISTER, "Missing field!");
 		} else if (!validateMail(email)) {
-			Util.redirect(out, Util.REGISTER, "Email is not correct");
+			Util.redirect(out, Util.REGISTER, "Email is not correct!");
 		} else {
 			Account account = AccountsManager.getAccount(user);
 			if (account.exists()) {
@@ -50,7 +50,7 @@ public final class RegisterServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.putValue("user", account);
 				Util.redirect(out, Util.USER_HOME,
-						"Registration completed successfully!");
+						"Registration completed successfully.");
 			}
 		}
 	}

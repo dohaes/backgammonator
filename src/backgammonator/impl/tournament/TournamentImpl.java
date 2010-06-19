@@ -32,7 +32,7 @@ public class TournamentImpl implements Tournament {
 
 	TournamentImpl(List<Player> players) throws TournamentException {
 		if (players == null || players.size() < 2) {
-			throw new TournamentException("Players must be more than 2.");
+			throw new TournamentException("Players must be at least 2.");
 		}
 		this.players = new LinkedList<Player>(players);
 	}

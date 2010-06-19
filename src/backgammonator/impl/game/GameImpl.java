@@ -64,7 +64,7 @@ final class GameImpl implements Game {
 	/**
 	 * @see Game#start()
 	 */
-	@Override
+	@SuppressWarnings("null")
 	public GameOverStatus start() {
 		if (running) throw new IllegalStateException("Game is not over");
 		running = true;
@@ -80,18 +80,15 @@ final class GameImpl implements Game {
 			startNewMoverThread(false);
 
 			while (true) {
-				board.switchPlayer();
 				status = makeMove(whitePlayer, blackPlayer);
 				if (status != null) break;
-				board.switchPlayer();
 				status = makeMove(blackPlayer, whitePlayer);
 				if (status != null) break;
 			}
 
-			if (logMoves) logger.endGame(status,
-					status == GameOverStatus.NORMAL ? board
-							.getCurrentPlayerColor() : board
-							.getCurrentPlayerColor().opposite());
+			if (logMoves) logger.endGame(status, status.isNormal() ? board
+					.getCurrentPlayerColor() : board.getCurrentPlayerColor()
+					.opposite());
 			return status;
 
 		} finally {
@@ -117,7 +114,7 @@ final class GameImpl implements Game {
 	public Player getWinner() {
 		return winner;
 	}
-	
+
 	private void startNewMoverThread(boolean kill) {
 		if (kill) {
 			mover.stop();
@@ -133,8 +130,9 @@ final class GameImpl implements Game {
 	 * Return the end game status if the game is over, on null otherwise
 	 */
 	private GameOverStatus makeMove(Player currentPlayer, Player other) {
-
+		board.switchPlayer();
 		dice.generateNext();
+
 		try {
 			mover.makeMove(currentPlayer);
 			if (throwable != null) {
@@ -189,13 +187,14 @@ final class GameImpl implements Game {
 			if (invalid) return GameOverStatus.INVALID_MOVE;
 
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				mover.gameOver(currentPlayer, true, GameOverStatus.NORMAL);
+				GameOverStatus status = board.getWinStatus();
+				mover.gameOver(currentPlayer, true, status);
 				board.switchPlayer();
-				mover.gameOver(other, false, GameOverStatus.NORMAL);
+				mover.gameOver(other, false, status);
 				mover.stop();
 				board.switchPlayer();
 				winner = currentPlayer;
-				return GameOverStatus.NORMAL;
+				return status;
 			}
 		} catch (Exception e) {
 			Debug.getInstance().error(

@@ -25,7 +25,6 @@ public class ConfigurationTestCase extends TestCase {
 		
 		//test tournament configuration
 		assertEquals("special", BackgammonatorConfig.getProperty("backgammonator.tournament.rate"));
-		assertEquals("reports_test", BackgammonatorConfig.getProperty("backgammonator.logger.outputDir"));
 		
 		//test web configuration
 		assertEquals("uploads_test", BackgammonatorConfig.getProperty("backgammonator.web.uploadDir"));

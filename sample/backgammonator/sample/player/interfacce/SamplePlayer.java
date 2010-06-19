@@ -14,12 +14,13 @@ import backgammonator.lib.game.Point;
 public class SamplePlayer extends AbstractSamplePlayer {
 
 	private static int ID = 0;
-	private int id = ID++;
+	private int id;
 
 	/**
 	 * Constructs new instance of the class.
 	 */
 	public SamplePlayer() {
+		this.id = ID++;
 	}
 
 	/**
@@ -32,7 +33,6 @@ public class SamplePlayer extends AbstractSamplePlayer {
 	/**
 	 * @see Player#getMove(BackgammonBoard, Dice)
 	 */
-	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) {
 		// System.out.println("Dice: (" + dice.getDie1() + ", " + dice.getDie2()
 		// + ")");
@@ -80,10 +80,7 @@ public class SamplePlayer extends AbstractSamplePlayer {
 final class InternalBoard {
 	private int[] pos;
 
-	// private String color;
-
 	public InternalBoard(BackgammonBoard board) {
-		// color = board.getCurrentPlayerColor().toString();
 		pos = new int[26];
 		pos[25] = board.getHits(board.getCurrentPlayerColor());
 		pos[0] = board.getBornOff(board.getCurrentPlayerColor());
@@ -102,8 +99,6 @@ final class InternalBoard {
 	}
 
 	public void move(int point, int die) {
-		// System.out.println(color + " (" + point + ", " + die + ")");
-		// System.out.println("Before: " + this);
 		pos[point]--;
 		int end = point - die;
 		if (end < 0) {
@@ -114,28 +109,5 @@ final class InternalBoard {
 		} else {
 			pos[end]++;
 		}
-		// System.out.println("After:  " + this + "\n");
-	}
-
-	public String toString() {
-		StringBuilder s = new StringBuilder(100);
-		s.append("Hit[").append(pos[25]).append("] ");
-		s.append("BornOff[").append(pos[0]).append("]\n");
-		for (int i = 13; i <= 18; i++) {
-			s.append((pos[i] >= 0 ? " " : "") + pos[i]).append(" ");
-		}
-		s.append(" || ");
-		for (int i = 19; i <= 24; i++) {
-			s.append((pos[i] >= 0 ? " " : "") + pos[i]).append(" ");
-		}
-		s.append("\n");
-		for (int i = 12; i >= 7; i--) {
-			s.append((pos[i] >= 0 ? " " : "") + pos[i]).append(" ");
-		}
-		s.append(" || ");
-		for (int i = 6; i >= 1; i--) {
-			s.append((pos[i] >= 0 ? " " : "") + pos[i]).append(" ");
-		}
-		return s.toString();
 	}
 }
