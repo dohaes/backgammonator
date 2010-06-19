@@ -41,7 +41,7 @@ public final class LoginServlet extends HttpServlet {
 			Account acount = AccountsManager.getAccount(user);
 			if (acount.exists() && acount.getPassword().equals(MD5(pass))) {
 				HttpSession session = req.getSession();
-				session.putValue("username", user);
+				session.putValue("username", acount);
 				if (!acount.isAdmin()) afterSucLogin(out, "Hello " + user);
 				else afterSucLoginAdmin(out, "Successful login");
 			} else {
