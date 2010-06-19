@@ -1,5 +1,4 @@
 #summary Acceptance criteria scenarios on User Story 13
-#labels AcceptancecriteriascenariosonUserStory8
 
 *User Story*
 
