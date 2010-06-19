@@ -44,10 +44,6 @@ public final class ReportsServlet extends HttpServlet {
 	 */
 	public static void printReports(HttpServletRequest request, JspWriter out,
 			boolean manage) throws IOException {
-		String message = request.getParameter("result");
-		if (message != null) {
-			out.println(message + "<br/><br/>");
-		}
 		File dir = new File(BackgammonatorConfig.getProperty(
 				"backgammonator.logger.outputDir", "reports"));
 		if (!dir.exists()) {
@@ -64,7 +60,7 @@ public final class ReportsServlet extends HttpServlet {
 		String url = BackgammonatorConfig.getProperty(
 				"backgammonator.web.reports", "reports")
 				.replaceAll("\\\\", "/");
-		out.println("<table>");
+		out.println("<table class='internal'>");
 		for (int i = 0; i < tournaments.length; i++) {
 			out.println("<tr><td> <a href='" + url + "/" + tournaments[i]
 					+ "' target='_blank'> " + tournaments[i] + " </a> </td>");
