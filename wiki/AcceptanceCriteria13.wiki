@@ -7,7 +7,7 @@ As a contestant<br/>
 I want to log in to the system<br/>
 so that I am authenticated and I have privileges to upload sources<br/>
 
-Scenario 1
+Scenario 1<br/>
 1. Go to the main page<br/>
 2. Fill incorrect user or password<br/>
 3. Logging must be unseccessfull - information about that must be given<br/>
