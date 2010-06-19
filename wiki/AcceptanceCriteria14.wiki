@@ -1,13 +1,41 @@
-#summary Acceptance criteria scenarios on User Story 14
+#summary Acceptance criteria scenarios on User Story 15
 
 *User Story*
 
-As a contestant manager<br/>
-I want to log in the system<br/>
-so that I am authenticated and I have privileges to configure and run tournaments<br/>
+As contestant<br/>
+I want to register into the system<br/>
+so that I can log in<br/>
+
+The needed information about every user is:<br/>
+username,<br/>
+password,<br/>
+email,<br/>
+first name(optional)<br/>
+last name(optional)<br/>
 
 *Scenario 1*
 
-  # Go to the main page<br/>
-  # Fill correct admin user & password<br/>
-  # Logging as admin must be seccessfull and "Start Tournament" page must be shown<br/>
+  # Go to the "register" page<br/>
+  # There must be five textfields - username, password, email, first name, last name<br/>
+
+*Scenario 2*
+
+  # Go to the "register" page<br/>
+  # Fill all fields exept one<br/>
+  # Press "register" button<br/>
+  # Registration must be unsuccessfull - information about blank field must be given<br/>
+
+*Scenario 3*
+
+  # Go to the "register" page<br/>
+  # Fill all fields. For "email" field type incorrect email (e.g. asd@  , asd@sdfsd)<br/>
+  # Press "register" button<br/>
+  # Registration must be unsuccessfull - information about the incorrect email must be given<br/>
+
+
+*Scenario 4*
+
+  # Go to the "register" page<br/>
+  # Fill all fields with correct data.<br/>
+  # Press "register" button<br/>
+  # Registration must be successfull - information about the successful registration must be given<br/>
