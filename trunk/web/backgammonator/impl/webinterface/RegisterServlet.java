@@ -20,7 +20,6 @@ import backgammonator.lib.db.Account;
 public final class RegisterServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 9174306858493853786L;
-	private static final String URL = "Register.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -29,36 +28,30 @@ public final class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
-		res.setContentType("text/html");
-		try {
-			String user = req.getParameter("username");
-			String pass = req.getParameter("password");
-			String email = req.getParameter("email");
-			String first = req.getParameter("firstname");
-			String last = req.getParameter("lastname");
-			if ("".equals(user) || "".equals(pass)) {
-				Util.redirect(out, URL, "Missing field!");
-			} else if (!validateMail(email)) {
-				Util.redirect(out, URL, "Email is not correct");
+		String user = req.getParameter("username");
+		String pass = req.getParameter("password");
+		String email = req.getParameter("email");
+		String first = req.getParameter("firstname");
+		String last = req.getParameter("lastname");
+		if ("".equals(user) || "".equals(pass)) {
+			Util.redirect(out, Util.REGISTER, "Missing field!");
+		} else if (!validateMail(email)) {
+			Util.redirect(out, Util.REGISTER, "Email is not correct");
+		} else {
+			Account account = AccountsManager.getAccount(user);
+			if (account.exists()) {
+				Util.redirect(out, Util.REGISTER, "Username is not free!");
 			} else {
-				Account account = AccountsManager.getAccount(user);
-				if (account.exists()) {
-					Util.redirect(out, URL, "Username is not free!");
-				} else {
-					account.setEmail(email);
-					account.setFirstName(first);
-					account.setLastname(last);
-					account.setPassword(Util.MD5(pass));
-					account.store();
-					HttpSession session = req.getSession();
-					session.putValue("user", account);
-					Util.redirect(out, "SourceUpload.jsp",
-							"Registration completed successfully!");
-				}
+				account.setEmail(email);
+				account.setFirstName(first);
+				account.setLastname(last);
+				account.setPassword(Util.MD5(pass));
+				account.store();
+				HttpSession session = req.getSession();
+				session.putValue("user", account);
+				Util.redirect(out, Util.USER_HOME,
+						"Registration completed successfully!");
 			}
-		} catch (Exception e) {
-			Util.redirect(out, URL, "Exception while registering!");
-			e.printStackTrace();
 		}
 	}
 

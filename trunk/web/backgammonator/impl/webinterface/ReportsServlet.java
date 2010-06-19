@@ -18,7 +18,6 @@ import backgammonator.util.BackgammonatorConfig;
 public final class ReportsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7345160614448725636L;
-	private static final String URL = "ManageReports.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
@@ -27,13 +26,12 @@ public final class ReportsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		PrintWriter out = response.getWriter();
-
-		@SuppressWarnings("unused")
-		String tournamentId = (String) request.getAttribute("tid");
-
-		// TODO delete specified tournament
-
-		Util.redirect(out, URL, "Delete successfull!");
+		if (!Util.checkCredentials(out, Util.getCurrentUser(request),
+				Util.ADMIN)) {
+			return;
+		}
+		// String tournamentId = (String) request.getAttribute("tid");
+		Util.redirect(out, Util.MANAGE_REPORTS, "Delete successfull!");
 	}
 
 	/**

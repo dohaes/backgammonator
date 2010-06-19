@@ -1,7 +1,6 @@
 <%@ page import="backgammonator.impl.webinterface.Util"%>
 <%@ page import="backgammonator.impl.webinterface.StartTournamentServlet"%>
-<% Util.printHeader(request, out, "Start Tournament"); %>
-<% Util.printMessage(request, out); %>
+<% Util.printHeader(request, out, "Start Tournament", Util.ADMIN); %>
 <form method='POST' action='starttournament' name="startform" id="startform">
 <table>
   <tr>

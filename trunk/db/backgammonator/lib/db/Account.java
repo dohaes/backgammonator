@@ -23,7 +23,7 @@ public interface Account {
 	/**
 	 * Gets the last name for this account.
 	 */
-	String getLastname();
+	String getLastName();
 
 	/**
 	 * Gets the email for this account.

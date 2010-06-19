@@ -84,10 +84,10 @@ final class AccountImpl implements Account {
 	}
 
 	/**
-	 * @see Account#getLastname()
+	 * @see Account#getLastName()
 	 */
 	@Override
-	public String getLastname() {
+	public String getLastName() {
 		return lastName;
 	}
 

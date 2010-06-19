@@ -23,7 +23,6 @@ import backgammonator.util.Debug;
 public final class StartTournamentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3569917850372148040L;
-	private static final String URL = "StartTournament.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -32,6 +31,10 @@ public final class StartTournamentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
+		if (!Util.checkCredentials(out, Util.getCurrentUser(request),
+				Util.ADMIN)) {
+			return;
+		}
 		try {
 			String type = request.getParameter("type");
 			TournamentConfiguration config = new TournamentConfiguration(
@@ -45,8 +48,8 @@ public final class StartTournamentServlet extends HttpServlet {
 			} catch (Exception e) {
 				Debug.getInstance().error("Error creating tournament.",
 						Debug.WEB_INTERFACE, e);
-				Util.redirect(out, URL,
-						"Error ! <br/>Error reading Groups Count. "
+				Util.redirect(out, Util.START_TOURNAMENT,
+						"Error!<br/>Error reading Groups Count. "
 								+ e.getMessage());
 				return;
 			}
@@ -57,8 +60,8 @@ public final class StartTournamentServlet extends HttpServlet {
 			} catch (Exception e) {
 				Debug.getInstance().error("Error creating tournament.",
 						Debug.WEB_INTERFACE, e);
-				Util.redirect(out, URL,
-						"Error ! <br/>Error reading Games Count. "
+				Util.redirect(out, Util.START_TOURNAMENT,
+						"Error!<br/>Error reading Games Count. "
 								+ e.getMessage());
 				return;
 			}
@@ -75,12 +78,12 @@ public final class StartTournamentServlet extends HttpServlet {
 						result.getPlayer(i).getName()).append(" with ").append(
 						result.getPlayerPoints(i)).append(" points.<br/>");
 			}
-			Util.redirect(out, URL, message.toString());
+			Util.redirect(out, Util.START_TOURNAMENT, message.toString());
 		} catch (Exception e) {
 			Debug.getInstance().error("Error creating tournament.",
 					Debug.WEB_INTERFACE, e);
-			Util.redirect(out, URL, "Error ! <br/>Error creating tournament. "
-					+ e.getMessage());
+			Util.redirect(out, Util.START_TOURNAMENT,
+					"Error!<br/>Error creating tournament. " + e.getMessage());
 		}
 	}
 
