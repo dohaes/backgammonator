@@ -36,8 +36,7 @@ public final class RegisterServlet extends HttpServlet {
 			String email = req.getParameter("email");
 			String first = req.getParameter("firstname");
 			String last = req.getParameter("lastname");
-			if ("".equals(user) || "".equals(pass) || "".equals(first)
-					|| "".equals(last)) {
+			if ("".equals(user) || "".equals(pass)) {
 				Util.redirect(out, URL, "Missing field!");
 			} else if (!validateMail(email)) {
 				Util.redirect(out, URL, "Email is not correct");

@@ -51,13 +51,13 @@ public class Util {
 	/**
 	 * Prints the header of a regular jsp.
 	 * 
+	 * @param request the Http request.
 	 * @param out the output stream.
 	 * @param title the title of the pages.
-	 * @param type the type of the page.
 	 * @throws IOException if an IO error occurs.
 	 */
 	public static void printHeader(HttpServletRequest request, JspWriter out,
-			String title, int type) throws IOException {
+			String title) throws IOException {
 		Account user = getCurrentUser(request);
 		out.print("<html><head><title>Backgammonator - " + title
 				+ "</title></head><body><h2>Backgammonator - " + title
@@ -65,13 +65,13 @@ public class Util {
 				+ "-align:" + " top;'><a href='/'>Home</a><br />"
 				+ "<a href='Tutorial.jsp'>Tutorials</a><br />"
 				+ "<a href='res/backgammonatorLibrary.jar'>Library Jar</a>");
-		if (type == ADMIN) {
+		if (user != null && user.isAdmin()) {
 			out.print("<br /><br /><a href='StartTournament.jsp'>Start "
 					+ "Tournament</a><br /><a href='ManageReports.jsp'>"
 					+ "Manage Reports</a><br /><a href='ManageRegistrations"
 					+ ".jsp'>Manage Registrations</a>");
-
-		} else if (type == USER) {
+		}
+		if (user != null && !user.isAdmin()) {
 			out.print("<br /><br /><a href='SourceUpload.jsp'>Source Upload"
 					+ "</a><br /><a href='ViewReports.jsp'>View Reports</a>");
 		}
