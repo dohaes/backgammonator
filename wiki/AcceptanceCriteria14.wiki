@@ -21,7 +21,7 @@ last name(optional)<br/>
 *Scenario 2*
 
   # Go to the "register" page<br/>
-  # Fill all fields exept one<br/>
+  # Fill all fields except username<br/>
   # Press "register" button<br/>
   # Registration must be unsuccessfull - information about blank field must be given<br/>
 
