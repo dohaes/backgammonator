@@ -1,5 +1,5 @@
 <%@ page import="backgammonator.impl.webinterface.Util"%>
-<% Util.printHeader(out, "Source Upload", Util.USER); %>
+<% Util.printHeader(request, out, "Source Upload", Util.USER); %>
 <% Util.printMessage(request, out); %>
 <form method='POST' enctype='multipart/form-data' action='sourceupload' name="submitform"
   id="submitform">File to upload: <input type="file" name="filename" /> <br />

@@ -19,8 +19,8 @@ import backgammonator.lib.db.Account;
  */
 public final class RegisterServlet extends HttpServlet {
 
-	private static final String URL = "Register.jsp";
 	private static final long serialVersionUID = 9174306858493853786L;
+	private static final String URL = "Register.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,

@@ -1,5 +1,5 @@
 <%@ page import="backgammonator.impl.webinterface.Util"%>
-<% Util.printHeader(out, "Register", Util.HOME);
+<% Util.printHeader(request, out, "Register", Util.HOME);
    Util.printMessage(request, out); %>
 <form method='POST' action="register" name="registerform" id="registerform">
 <table>

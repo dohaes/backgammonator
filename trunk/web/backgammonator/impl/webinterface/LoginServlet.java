@@ -17,6 +17,7 @@ import backgammonator.lib.db.Account;
 public final class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 9174306858493853786L;
+	private static final String URL = "index.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -31,10 +32,10 @@ public final class LoginServlet extends HttpServlet {
 			String pass = Util.MD5(req.getParameter("password"));
 
 			if ("".equals(pass)) {
-				Util.redirect(out, "index.jsp", "Password is missing!");
+				Util.redirect(out, URL, "Password is missing!");
 			}
 			if ("".equals(user)) {
-				Util.redirect(out, "index.jsp", "Username is missing!");
+				Util.redirect(out, URL, "Username is missing!");
 			}
 
 			Account account = AccountsManager.getAccount(user);
@@ -48,11 +49,11 @@ public final class LoginServlet extends HttpServlet {
 							"Successful login.");
 				}
 			} else {
-				Util.redirect(out, "index.jsp", "Username/Password mismatch!");
+				Util.redirect(out, URL, "Username/Password mismatch!");
 			}
 
 		} catch (Exception e) {
-			Util.redirect(out, "index.jsp", "Exception occured!");
+			Util.redirect(out, URL, "Exception occured!");
 			e.printStackTrace();
 		}
 	}
