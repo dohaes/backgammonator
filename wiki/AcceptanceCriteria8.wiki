@@ -6,29 +6,10 @@ As a contest manager<br/>
 I want the system to provide me with a web interface<br/>
 so that I can configure and run a tournament via it<br/>
 
-*Scenario 1*
-
-  # Navigate to the tournament configuration page.
-  # Select the radio button for GROUPS.
-  # A tournament of type GROUPS should be executed...
-  # Do that
-  # Do that
-  # Do that
-
-*Scenario 2*
-
-  # Navigate to the tournament configuration page.
-  # Select the radio button for BATTLE.
-  # A tournament of type BATTLE should be executed...
-  # Do that
-  # Do that
-  # Do that
-
-*Scenario 3*
-
-  # Navigate to the tournament configuration page.
-  # Select the radio button for ELIMINATIONS.
-  # A tournament of type ELIMINATIONS should be executed...
-  # Do that
-  # Do that
-  # Do that
+ # The system must provide a web interface for configuring a tournament.
+ # It should be accessible only for the contest managers, the contestants must not be able to load this page and execute any tournament.
+ # The web interface must provide tools to select players out of all registered contestants.
+ # It must provide tools to execute all different types of contests for the selected players.
+ # The web interface must also allow configuration of the tournament settings.
+ # The web interface must have a button for starting a tournament.
+ # After starting the tournament and executing it, the web interface must display information of how it has finished.
