@@ -1,5 +1,8 @@
 package backgammonator.impl.db;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -92,7 +95,7 @@ public final class DBManager {
 			}
 			statement.executeUpdate("CREATE DATABASE " + name);
 			statement.execute("USE " + name);
-			currentDB = name; //set the current database
+			currentDB = name; // set the current database
 			statement.executeUpdate("CREATE TABLE Account ( "
 					+ "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
 					+ "username varchar(32) NOT NULL UNIQUE, "
@@ -102,7 +105,9 @@ public final class DBManager {
 					+ "last varchar(32))");
 			statement
 					.execute("INSERT INTO Account (username, password, isadmin, email, first, last) "
-							+ "VALUES ('admin', 'admin', 1, 'admin@admin', 'admin', 'admin')");
+							+ "VALUES ('admin', '"
+							+ MD5("admin")
+							+ "', 1, 'admin@admin', 'admin', 'admin')");
 		} catch (SQLException e) {
 			Debug.getInstance().error("Unexpected Exception was thrown",
 					Debug.DATABASE, e);
@@ -115,6 +120,19 @@ public final class DBManager {
 				Debug.getInstance().error("Error closing connection",
 						Debug.DATABASE, e);
 			}
+		}
+	}
+
+	private static String MD5(String pass) {
+		try {
+			MessageDigest m = null;
+			m = MessageDigest.getInstance("MD5");
+			byte[] data = pass.getBytes();
+			m.update(data, 0, data.length);
+			BigInteger i = new BigInteger(1, m.digest());
+			return String.format("%1$032X", i);
+		} catch (NoSuchAlgorithmException e) {
+			return pass;
 		}
 	}
 

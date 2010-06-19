@@ -37,7 +37,7 @@ public final class StartTournamentServlet extends HttpServlet {
 			TournamentConfiguration config = new TournamentConfiguration(
 					TournamentType.valueOf(type));
 			String logMoves = request.getParameter("logmoves");
-			config.setLogMoves(logMoves != null);
+			config.setLogTournament(logMoves != null);
 			String groupsCount = request.getParameter("groupscount");
 			try {
 				int tmp = Integer.parseInt(groupsCount);

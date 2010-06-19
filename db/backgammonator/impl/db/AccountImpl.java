@@ -281,5 +281,4 @@ final class AccountImpl implements Account {
 	public boolean isAdmin() {
 		return isAdmin;
 	}
-
 }
