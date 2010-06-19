@@ -17,7 +17,6 @@ import backgammonator.lib.db.Account;
 public final class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 9174306858493853786L;
-	private static final String URL = "index.jsp";
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -26,35 +25,25 @@ public final class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
-		res.setContentType("text/html");
-		try {
-			String user = req.getParameter("username");
-			String pass = Util.MD5(req.getParameter("password"));
-
-			if ("".equals(pass)) {
-				Util.redirect(out, URL, "Password is missing!");
-			}
-			if ("".equals(user)) {
-				Util.redirect(out, URL, "Username is missing!");
-			}
-
-			Account account = AccountsManager.getAccount(user);
-			if (account.exists() && account.getPassword().equals(pass)) {
-				HttpSession session = req.getSession();
-				session.putValue("user", account);
-				if (!account.isAdmin()) {
-					Util.redirect(out, "SourceUpload.jsp", "Successful login.");
-				} else {
-					Util.redirect(out, "StartTournament.jsp",
-							"Successful login.");
-				}
+		String user = req.getParameter("username");
+		String pass = Util.MD5(req.getParameter("password"));
+		if ("".equals(pass)) {
+			Util.redirect(out, Util.LOGIN_HOME, "Password is missing!");
+		}
+		if ("".equals(user)) {
+			Util.redirect(out, Util.LOGIN_HOME, "Username is missing!");
+		}
+		Account account = AccountsManager.getAccount(user);
+		if (account.exists() && account.getPassword().equals(pass)) {
+			HttpSession session = req.getSession();
+			session.putValue("user", account);
+			if (!account.isAdmin()) {
+				Util.redirect(out, Util.USER_HOME, "Successful login.");
 			} else {
-				Util.redirect(out, URL, "Username/Password mismatch!");
+				Util.redirect(out, Util.ADMIN_HOME, "Successful login.");
 			}
-
-		} catch (Exception e) {
-			Util.redirect(out, URL, "Exception occured!");
-			e.printStackTrace();
+		} else {
+			Util.redirect(out, Util.LOGIN_HOME, "Username/Password mismatch!");
 		}
 	}
 }

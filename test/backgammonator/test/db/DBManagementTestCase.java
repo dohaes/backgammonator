@@ -55,7 +55,7 @@ public class DBManagementTestCase extends TestCase {
 		assertEquals("testcreate", testAccount.getUsername());
 		assertEquals("password", testAccount.getPassword());
 		assertEquals("firstName", testAccount.getFirstName());
-		assertEquals("lastName", testAccount.getLastname());
+		assertEquals("lastName", testAccount.getLastName());
 		assertEquals("email", testAccount.getEmail());
 
 	}
@@ -96,7 +96,7 @@ public class DBManagementTestCase extends TestCase {
 		assertEquals("testupdate", testAccount.getUsername());
 		assertEquals("password2", testAccount.getPassword());
 		assertEquals("firstName2", testAccount.getFirstName());
-		assertEquals("lastName2", testAccount.getLastname());
+		assertEquals("lastName2", testAccount.getLastName());
 		assertEquals("email2", testAccount.getEmail());
 	}
 

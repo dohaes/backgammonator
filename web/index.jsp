@@ -1,6 +1,5 @@
 <%@ page import="backgammonator.impl.webinterface.Util"%>
-<% Util.printHeader(request, out, "Home"); %>
-<% Util.printMessage(request, out); %>
+<% Util.printHeader(request, out, "Login", Util.HOME); %>
 <form method='POST' action='login'>
 <table>
 	<tr>
@@ -18,9 +17,5 @@
 	</tr>
 </table>
 </form>
-<br />
-TODO : remove this
-<br />
-<br />
-<a href="CreateDB.jsp">Create DB</a>
+TODO remove : <a href="CreateDB.jsp">Create DB</a>
 <% Util.printFooter(out); %>

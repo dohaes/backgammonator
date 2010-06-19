@@ -47,8 +47,12 @@ public final class SourceUploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		Account user = Util.getCurrentUser(request);
+		if (!Util.checkCredentials(out, user, Util.USER)) {
+			return;
+		}
+
 		boolean validate = false;
 		String expected = null;
 		FileItem file = null;
@@ -60,7 +64,8 @@ public final class SourceUploadServlet extends HttpServlet {
 		}
 		// Parse the HTTP request...
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-		// diskFileItemFactory.setSizeThreshold(uploadMaxSize); // in bytes - 40K
+		// diskFileItemFactory.setSizeThreshold(uploadMaxSize); // in bytes -
+		// 40K
 
 		diskFileItemFactory.setRepository(new File(REPOSITORY));
 
@@ -118,9 +123,7 @@ public final class SourceUploadServlet extends HttpServlet {
 			if (!UPLOADS_DIR.exists()) {
 				UPLOADS_DIR.mkdirs();
 			}
-			
-			Account user = (Account) request.getSession(true).getValue("user");
-			
+
 			File userDir = new File(UPLOADS_DIR, user.getUsername());
 			if (!userDir.exists()) {
 				userDir.mkdirs();

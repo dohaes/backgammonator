@@ -42,7 +42,7 @@ public class TournamentConfiguration {
 	 * @throws TournamentException if groups count is invalid.
 	 */
 	public void setGroupsCount(int groupsCount) throws TournamentException {
-		if (groupsCount <= 1 || (groupsCount & (groupsCount - 1)) != 0) {
+		if (groupsCount < 1 || (groupsCount & (groupsCount - 1)) != 0) {
 			throw new TournamentException(
 					"Groups count must be power of 2, was : " + groupsCount);
 		}
