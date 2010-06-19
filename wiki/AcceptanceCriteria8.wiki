@@ -8,5 +8,27 @@ so that I can configure and run a tournament via it<br/>
 
 *Scenario 1*
 
-  # Do this
+  # Navigate to the tournament configuration page.
+  # Select the radio button for GROUPS.
+  # A tournament of type GROUPS should be executed...
+  # Do that
+  # Do that
+  # Do that
+
+*Scenario 2*
+
+  # Navigate to the tournament configuration page.
+  # Select the radio button for BATTLE.
+  # A tournament of type BATTLE should be executed...
+  # Do that
+  # Do that
+  # Do that
+
+*Scenario 3*
+
+  # Navigate to the tournament configuration page.
+  # Select the radio button for ELIMINATIONS.
+  # A tournament of type ELIMINATIONS should be executed...
+  # Do that
+  # Do that
   # Do that
