@@ -8,12 +8,12 @@ so that I am authenticated and I have privileges to upload sources<br/>
 
 *Scenario 1*
 
-1. Go to the main page<br/>
-2. Fill incorrect user or password<br/>
-3. Logging must be unseccessfull - information about that must be given<br/>
+  # Go to the main page<br/>
+  # Fill incorrect user or password<br/>
+  # Logging must be unseccessfull - information about that must be given<br/>
 
 *Scenario 2*
 
-1. Go to the main page<br/>
-2. Fill correct user or password<br/>
-3. Logging must be seccessfull and "Source Upload" page must be shown<br/>
+  # Go to the main page<br/>
+  # Fill correct user or password<br/>
+  # Logging must be seccessfull and "Source Upload" page must be shown<br/>
