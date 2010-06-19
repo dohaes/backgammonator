@@ -1,42 +1,44 @@
 body
 {
-background-image: url('background.jpg');
+	background-image: url('background.jpg');
 }
 
 table.main
 {
-font-family: "Calibri";
-margin-left: auto;
-margin-right: auto;
-width: 800px;
-font-size: 20px;
-font-weight: bold;
+	font-family: "Calibri";
+	font-size: 20px;
+	font-weight: bold;
+	
+	margin-left: auto;
+	margin-right: auto;
+	width: 800px;
 }
 
 table.internal
 {
-font-size: 20px;
-font-weight: bold;
+	font-family: "Calibri";
+	font-size: 20px;
+	font-weight: bold;
 }
 
 h1.header
 {
-color: #003399;
-text-align: center;
+	color: #003399;
+	text-align: center;
 }
 
 .button
 {
-width: 100px;
+	width: 100px;
 }
 
 .message
 {
-color: #003399;
+	color: #003399;
 }
 
 a
 {
-color: #003399;
-text-decoration: none;
+	color: #003399;
+	text-decoration: none;
 }

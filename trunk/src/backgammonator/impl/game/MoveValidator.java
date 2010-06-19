@@ -99,7 +99,8 @@ public final class MoveValidator {
 				.isReenterHitChecker()));
 	}
 
-	private boolean isBearingOffValid(CheckerMove move) { // TODO
+	private boolean isBearingOffValid(CheckerMove move) {
+		// TODO
 		if (move.isBearingOff()) {
 			for (int i = Constants.MAX_DIE + 1; i <= Constants.POINTS_COUNT; i++) {
 				if (board.getPoint(i).getCount() > 0
@@ -138,7 +139,8 @@ public final class MoveValidator {
 
 		for (int i = die + 1; i <= Constants.MAX_DIE; i++) {
 			if (board.getPoint(i).getCount() > 0
-					&& board.getPoint(i).getColor() == color) {// TODO
+					&& board.getPoint(i).getColor() == color) {
+				// TODO
 				return false;
 			}
 		}

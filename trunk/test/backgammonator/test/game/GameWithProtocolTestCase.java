@@ -302,6 +302,7 @@ public class GameWithProtocolTestCase extends TestCase {
 //		testNormal(false);
 //	}
 	
+	@SuppressWarnings("null")
 	private void testNormal(boolean java) {
 		try {
 			copy("SamplePlayer", "SamplePlayer", java);
@@ -315,7 +316,7 @@ public class GameWithProtocolTestCase extends TestCase {
 			}
 
 			assertNotNull(status);
-			assertEquals(GameOverStatus.NORMAL, status);
+			assertTrue(status.isNormal());
 			assertTrue("sampleplayer1".equals(game.getWinner().getName())
 					|| "sampleplayer2".equals(game.getWinner().getName()));
 

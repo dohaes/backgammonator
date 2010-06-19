@@ -11,7 +11,6 @@ import backgammonator.test.util.TestUtil;
 /**
  * Tests class {@link MoveValidator}
  */
-@SuppressWarnings("unused") //TODO remove
 public class MoveValidatorTestCase extends TestCase {
 
 	/**
@@ -48,25 +47,29 @@ public class MoveValidatorTestCase extends TestCase {
 	/**
 	 * Tests validation of invalid points in the given moves.
 	 */
-	public void testInvalidMovesPoints() throws Exception {
+	public void testInvalidMovesPoints() {
+		// TODO
 	}
 
 	/**
 	 * Tests validation of invalid hits in the given moves.
 	 */
-	public void testInvalidMovesHits() throws Exception {
+	public void testInvalidMovesHits() {
+		// TODO
 	}
 
 	/**
 	 * Tests validation of invalid bearoffs in the given moves.
 	 */
-	public void testInvalidMovesBearOffs() throws Exception {
+	public void testInvalidMovesBearOffs() {
+		// TODO
 	}
 
 	/**
 	 * Tests validation of invalid moves.
 	 */
-	public void testInvalidMovesNoValidMoves() throws Exception {
+	public void testInvalidMovesNoValidMoves() {
+		// TODO
 	}
 
 }

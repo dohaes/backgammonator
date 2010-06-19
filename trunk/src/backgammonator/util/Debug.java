@@ -75,6 +75,7 @@ public final class Debug {
 	private static Debug instance = null;
 
 	private Debug() {
+		if (!debugOn) return;
 		try {
 			if (inFile) {
 				if (logFile.exists()) {

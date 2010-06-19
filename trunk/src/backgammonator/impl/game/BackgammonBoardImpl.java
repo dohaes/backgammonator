@@ -149,7 +149,7 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 			return GameOverStatus.EXCEPTION;
 		}
 		if (getBornOff(currentColor.opposite()) == 0) {
-			for (int i = 1; i <= Constants.MAX_DIE; i++) {
+			for (int i = 1; i <= 6; i++) {
 				if (getPoint0(i).getColor() == currentColor.opposite()
 						&& getPoint0(i).getCount() > 0) {
 					return GameOverStatus.TRIPLE;

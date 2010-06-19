@@ -178,6 +178,7 @@ public class GameWithInterfaceTestCase extends TestCase {
 	/**
 	 * Tests in case of normal execution of the game.
 	 */
+	@SuppressWarnings("null")
 	public void testNormal() {
 		AbstractSamplePlayer normal1 = new SamplePlayer();
 		AbstractSamplePlayer normal2 = new SamplePlayer();
@@ -192,11 +193,11 @@ public class GameWithInterfaceTestCase extends TestCase {
 		}
 
 		assertNotNull(status);
-		assertEquals(GameOverStatus.NORMAL, status);
+		assertTrue(status.isNormal());
 		GameOverStatus status1 = normal1.getStatus(), status2 = normal2
 				.getStatus();
-		assertEquals(GameOverStatus.NORMAL, status1);
-		assertEquals(GameOverStatus.NORMAL, status2);
+		assertTrue(status1.isNormal());
+		assertTrue(status2.isNormal());
 		if (normal1.wins()) {
 			assertEquals(normal1, game.getWinner());
 			assertFalse(normal2.wins());

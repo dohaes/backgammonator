@@ -3,7 +3,7 @@ package backgammonator.lib.game;
 /**
  * Enumeration to represent the status of the game when it is over.
  */
-public enum GameOverStatus { // TODO
+public enum GameOverStatus {
 	/**
 	 * Indicates that the game has finished normally.
 	 */
@@ -70,5 +70,12 @@ public enum GameOverStatus { // TODO
 		}
 
 		return resultString;
+	}
+
+	/**
+	 * @return if the game over status is normal.
+	 */
+	public boolean isNormal() {
+		return this == NORMAL || this == DOUBLE || this == TRIPLE;
 	}
 }
