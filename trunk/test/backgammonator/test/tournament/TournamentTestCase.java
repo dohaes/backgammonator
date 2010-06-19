@@ -30,7 +30,7 @@ public class TournamentTestCase extends TestCase {
 		Tournament tournament = TournamentManager.newTournament(players);
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.BATTLE);
-		config.setLogMoves(false);
+		config.setLogTournament(false);
 		config.setGamesCount(5);
 		TournamentResult result = tournament.start(config);
 
@@ -57,7 +57,7 @@ public class TournamentTestCase extends TestCase {
 		Tournament tournament = TournamentManager.newTournament(players);
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.ELIMINATIONS);
-		config.setLogMoves(false);
+		config.setLogTournament(false);
 		config.setGamesCount(5);
 		TournamentResult result = tournament.start(config);
 
@@ -84,7 +84,7 @@ public class TournamentTestCase extends TestCase {
 		Tournament tournament = TournamentManager.newTournament(players);
 		TournamentConfiguration config = new TournamentConfiguration(
 				TournamentType.GROUPS);
-		config.setLogMoves(false);
+		config.setLogTournament(false);
 		config.setGamesCount(5);
 		config.setGroupsCount(8);
 		TournamentResult result = tournament.start(config);

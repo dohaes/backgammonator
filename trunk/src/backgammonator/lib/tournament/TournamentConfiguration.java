@@ -1,12 +1,11 @@
 package backgammonator.lib.tournament;
 
-
 /**
  * @author georgi.b.andreev
  */
 public class TournamentConfiguration {
 	private TournamentType type;
-	private boolean logMoves;
+	private boolean logTournament;
 	private int groupsCount;
 	private int gamesCount;
 
@@ -19,23 +18,23 @@ public class TournamentConfiguration {
 	public TournamentConfiguration(TournamentType type)
 			throws TournamentException {
 		this.type = type;
-		this.setLogMoves(true);
+		this.setLogTournament(true);
 		this.setGroupsCount(2);
 		this.setGamesCount(3);
 	}
 
 	/**
-	 * @param logMoves if logging should be activated.
+	 * @param logTorunament if logging should be activated.
 	 */
-	public void setLogMoves(boolean logMoves) {
-		this.logMoves = logMoves;
+	public void setLogTournament(boolean logTorunament) {
+		this.logTournament = logTorunament;
 	}
 
 	/**
 	 * @return if logging should be activated.
 	 */
-	public boolean isLogMoves() {
-		return logMoves;
+	public boolean isLogTournament() {
+		return logTournament;
 	}
 
 	/**

@@ -1,11 +1,7 @@
 package backgammonator.impl.webinterface;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +12,7 @@ import backgammonator.impl.db.AccountsManager;
 import backgammonator.lib.db.Account;
 
 /**
- * Login represents the servlet with which contestants login into the system
+ * Login represents the servlet with which contestants login into the system.
  */
 public final class LoginServlet extends HttpServlet {
 
@@ -32,64 +28,32 @@ public final class LoginServlet extends HttpServlet {
 		res.setContentType("text/html");
 		try {
 			String user = req.getParameter("username");
-			String pass = req.getParameter("password");
+			String pass = Util.MD5(req.getParameter("password"));
 
-			if ("".equals(user) || "".equals(pass)) {
-				unSuccLogin(out, "Please enter your username and password!");
+			if ("".equals(pass)) {
+				Util.redirect(out, "index.jsp", "Password is missing!");
+			}
+			if ("".equals(user)) {
+				Util.redirect(out, "index.jsp", "Username is missing!");
 			}
 
-			Account acount = AccountsManager.getAccount(user);
-			if (acount.exists() && acount.getPassword().equals(MD5(pass))) {
+			Account account = AccountsManager.getAccount(user);
+			if (account.exists() && account.getPassword().equals(pass)) {
 				HttpSession session = req.getSession();
-				session.putValue("username", acount);
-				if (!acount.isAdmin()) afterSucLogin(out, "Hello " + user);
-				else afterSucLoginAdmin(out, "Successful login");
+				session.putValue("user", account);
+				if (!account.isAdmin()) {
+					Util.redirect(out, "SourceUpload.jsp", "Successful login.");
+				} else {
+					Util.redirect(out, "StartTournament.jsp",
+							"Successful login.");
+				}
 			} else {
-				unSuccLogin(out, "Username/Password mismatch!");
+				Util.redirect(out, "index.jsp", "Username/Password mismatch!");
 			}
 
 		} catch (Exception e) {
-			unSuccLogin(out, "Exception!");
+			Util.redirect(out, "index.jsp", "Exception occured!");
 			e.printStackTrace();
 		}
-	}
-
-	private void unSuccLogin(PrintWriter out, String message) {
-		out
-				.print("<body><form name='hiddenForm' action='index.jsp' method='POST'>");
-		out.print("<input type='hidden' name='result' value='" + message
-				+ "' ></input> </form> </body>");
-		out.print("<script language='Javascript'>");
-		out.print("document.hiddenForm.submit();");
-		out.print("</script>");
-	}
-
-	private void afterSucLogin(PrintWriter out, String message) {
-		out
-				.print("<body><form name='hiddenForm' action='SourceUpload.jsp' method='POST'>");
-		out.print("<input type='hidden' name='result' value='" + message
-				+ "' ></input> </form> </body>");
-		out.print("<script language='Javascript'>");
-		out.print("document.hiddenForm.submit();");
-		out.print("</script>");
-	}
-
-	private void afterSucLoginAdmin(PrintWriter out, String message) {
-		out
-				.print("<body><form name='hiddenForm' action='StartTournament.jsp' method='POST'>");
-		out.print("<input type='hidden' name='result' value='" + message
-				+ "' ></input> </form> </body>");
-		out.print("<script language='Javascript'>");
-		out.print("document.hiddenForm.submit();");
-		out.print("</script>");
-	}
-
-	private static String MD5(String pass) throws NoSuchAlgorithmException {
-		MessageDigest m = null;
-		m = MessageDigest.getInstance("MD5");
-		byte[] data = pass.getBytes();
-		m.update(data, 0, data.length);
-		BigInteger i = new BigInteger(1, m.digest());
-		return String.format("%1$032X", i);
 	}
 }

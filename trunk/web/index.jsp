@@ -19,12 +19,8 @@
 </table>
 </form>
 <br />
-TODO: remove this when user management is ready.
+TODO : remove this
 <br />
-<a href="SourceUpload.jsp">Source Upload</a> <br />
-<a href="ViewReports.jsp">View Reports</a> <br />
 <br />
-<a href="StartTournament.jsp">Start Tournament</a><br />
-<a href="ManageReports.jsp">Manage Reports</a><br />
-<a href="ManageRegistrations.jsp">Manage Registrations</a><br />
+<a href="CreateDB.jsp">Create DB</a>
 <% Util.printFooter(out); %>

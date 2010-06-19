@@ -46,9 +46,12 @@ public class TournamentImpl implements Tournament {
 			throw new TournamentException("Config must not be null.");
 		}
 		List<Player> players = new LinkedList<Player>(this.players);
-		TournamentLogger logger = TournamentLoggerFactory
-				.getLogger(TournamentLoggerFactory.HTML);
-		logger.startTournament(players, config.getTournamentType());
+		TournamentLogger logger = null;
+		if (config.isLogTournament()) {
+			logger = TournamentLoggerFactory
+					.getLogger(TournamentLoggerFactory.HTML);
+			logger.startTournament(players, config.getTournamentType());
+		}
 		TournamentResult result = null;
 		switch (config.getTournamentType()) {
 		case ELIMINATIONS:
@@ -63,7 +66,9 @@ public class TournamentImpl implements Tournament {
 		default:
 			throw new TournamentException("Invalid tournament type.");
 		}
-		logger.endTournament(result.getWinner());
+		if (logger != null) {
+			logger.endTournament(result.getWinner());
+		}
 		return result;
 	}
 
@@ -184,13 +189,19 @@ public class TournamentImpl implements Tournament {
 
 		for (int i = 0; i < config.getGamesCount(); i++) {
 			if (ran = !ran) {
-				game = GameManager.newGame(first, second, config.isLogMoves());
+				game = GameManager.newGame(first, second, config
+						.isLogTournament());
 				status = game.start();
-				logger.logGame(first, second, game, status);
+				if (config.isLogTournament()) {
+					logger.logGame(first, second, game, status);
+				}
 			} else {
-				game = GameManager.newGame(second, first, config.isLogMoves());
+				game = GameManager.newGame(second, first, config
+						.isLogTournament());
 				status = game.start();
-				logger.logGame(second, first, game, status);
+				if (config.isLogTournament()) {
+					logger.logGame(second, first, game, status);
+				}
 			}
 			points[game.getWinner() == first ? 0 : 1] += getPoints(status);
 		}
