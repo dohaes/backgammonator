@@ -1,13 +1,18 @@
-As a contestant
-I want to log in to the system
-so that I am authenticated and I have privileges to upload sources
+#summary Acceptance criteria scenarios on User Story 4
+#labels AcceptancecriteriascenariosonUserStory8
+
+*User Story*
+
+As a contestant<br/>
+I want to log in to the system<br/>
+so that I am authenticated and I have privileges to upload sources<br/>
 
 Scenario 1
-1. Go to the main page
-2. Fill incorrect user or password
-3. Logging must be unseccessfull - information about that must be given
+1. Go to the main page<br/>
+2. Fill incorrect user or password<br/>
+3. Logging must be unseccessfull - information about that must be given<br/>
 
-Scenario 2
-1. Go to the main page
-2. Fill correct user or password
-3. Logging must be seccessfull and "Source Upload" page must be shown
+Scenario 2<br/>
+1. Go to the main page<br/>
+2. Fill correct user or password<br/>
+3. Logging must be seccessfull and "Source Upload" page must be shown<br/>
