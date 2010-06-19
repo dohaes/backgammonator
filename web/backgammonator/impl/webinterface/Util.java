@@ -55,36 +55,40 @@ public class Util {
 		if (!checkCredentials(new PrintWriter(out), user, type)) {
 			return;
 		}
-		out.print("<html><head><title>Backgammonator - " + title
-				+ "</title></head><body><h2>Backgammonator - " + title
-				+ "</h2><table><tr><td width='150px' style='vertical"
-				+ "-align:" + " top;'>");
+		out.print("<html><head><link href='style.css' rel='stylesheet'"
+				+ "type='text/css'><title>Backgammonator - " + title
+				+ "</title></head><body><table class='main'><tr>"
+				+ "<td colspan='5'><h1 class='header'>Backgammonator - "
+				+ title + "</h1></td></tr><tr><td width='40px'>&nbsp;</td>"
+				+ "<td width='200px' style='vertical" + "-align:" + " top;'>");
 
 		if (user != null && user.isAdmin()) {
 			out.print("<a href='StartTournament.jsp'>Start Tournament</a>"
 					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>"
 					+ "<br /><a href='ManageRegistrations.jsp'>"
-					+ "Manage Registrations</a><br /><br />");
+					+ "Manage Registrations</a>");
 		}
 		if (user != null && !user.isAdmin()) {
 			out.print("<a href='SourceUpload.jsp'>Source Upload</a><br />"
-					+ "<a href='ViewReports.jsp'>View Reports</a><br /><br />");
+					+ "<a href='ViewReports.jsp'>View Reports</a>");
 		}
 
 		if (user == null) {
-			out.print("<a href='/'>Login</a><br />");
+			out.print("<a href='/'>Login</a><br />"
+					+ "<a href='Register.jsp'>Register</a>");
 		}
-		out.print("<a href='Tutorial.jsp'>Tutorial</a><br />"
+		out.print("<br /><br /><a href='Tutorial.jsp'>Tutorial</a><br />"
 				+ "<a href='res/backgammonatorLibrary.jar'>Library Jar</a>");
 		if (user != null) {
 			out.print("<br /><br />" + user.getUsername()
-					+ "<br /><a href='logout'>exit</a><br />");
+					+ "<br /><a href='logout'>logout</a><br />");
 
 		}
-		out.println("</td><td style='vertical-align: top;'>");
+		out.println("</td><td width='20px'>&nbsp;</td>"
+				+ "<td style='vertical-align: top;'>");
 		String message = request.getParameter("result");
 		if (message != null) {
-			out.println(message + "<br/><br/>");
+			out.println("<b class='message'>" + message + "</b><br/><br/>");
 		}
 	}
 
@@ -95,7 +99,9 @@ public class Util {
 	 * @throws IOException if an IO error occurs.
 	 */
 	public static void printFooter(JspWriter out) throws IOException {
-		out.print("</td></tr></table></body></html>");
+		out.print("</td><td width='40px'>&nbsp;</td></tr>"
+				+ "<tr height='50px'><td colspan='5'>&nbsp;</td>"
+				+ "</tr></table></body></html>");
 	}
 
 	/**

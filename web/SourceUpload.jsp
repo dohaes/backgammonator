@@ -8,7 +8,7 @@ Programming language: <input type="radio" name="language" value="java" checked>J
 <br />
 <input type="checkbox" name="validate" value="yes" checked>Validate </input> <br />
 <br />
-<input type="submit" value="Upload" name="submitbutton"
+<input class='button' type="submit" value="Upload" name="submitbutton"
     onclick="document.submitform.submitbutton.value='Processing...';
     document.submitform.submitbutton.disabled=true;
     document.submitform.submit();" />

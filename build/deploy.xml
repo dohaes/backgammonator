@@ -35,7 +35,7 @@
 
 		<!-- move jsps -->
 		<copy todir="${tomcat}/webapps/ROOT">
-			<fileset dir="${web}" includes="*.jsp" />
+			<fileset dir="${web}" includes="*.jsp *.css *.jpg *.gif" />
 		</copy>
 
 		<!-- move res -->

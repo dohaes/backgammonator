@@ -24,6 +24,6 @@ public final class LogoutServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		session.removeValue("user");
-		Util.redirect(out, Util.LOGIN_HOME, "Successfully logged out.");
+		Util.redirect(out, Util.LOGIN_HOME, "Successful logout.");
 	}
 }
