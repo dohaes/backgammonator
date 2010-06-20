@@ -21,6 +21,13 @@ import backgammonator.sample.player.interfacce.SamplePlayer;
  */
 public class SourceProcessor {
 
+	private static boolean windows = false;
+
+	static {
+		String osname = System.getProperty("os.name");
+		windows = osname != null && osname.toLowerCase().startsWith("win");
+	}
+
 	/**
 	 * Compiles the file and processes it to executable.
 	 * 
@@ -61,7 +68,8 @@ public class SourceProcessor {
 
 				if (!classFile.exists()) {
 					compileProcess = Runtime.getRuntime().exec(
-							"javac \"" + file.getAbsolutePath() + "\"");
+							windows ? "javac " + "\"" + file.getAbsolutePath()
+									+ "\"" : "javac " + file.getAbsolutePath());
 
 					// manage streams
 					StreamCatcher errorGobbler = new StreamCatcher(
@@ -99,9 +107,11 @@ public class SourceProcessor {
 				String mainClass = classFile.getName();
 				mainClass = mainClass.substring(0, mainClass.indexOf("."));
 
-				result = new ProtocolPlayerWrapper("java -cp \""
-						+ classFile.getParent() + "\" " + mainClass, classFile
-						.getParentFile().getName());
+				result = new ProtocolPlayerWrapper(
+						(windows ? "java -cp " + "\"" + classFile.getParent()
+								+ "\" " + mainClass : "java -cp "
+								+ classFile.getParent() + " " + mainClass),
+						classFile.getParentFile().getName());
 			} else {
 
 				File executableFile = new File(file.getAbsolutePath().replace(
@@ -110,9 +120,12 @@ public class SourceProcessor {
 				// check if the executable already exists
 				if (!executableFile.exists()) {
 					compileProcess = Runtime.getRuntime().exec(
-							"g++ -Wall -o " + "\""
+							windows ? "g++ -Wall -o " + "\""
 									+ executableFile.getAbsolutePath()
-									+ "\" \"" + file.getAbsolutePath() + "\"");
+									+ "\" \"" + file.getAbsolutePath() + "\""
+									: "g++ -Wall -o "
+											+ executableFile.getAbsolutePath()
+											+ " " + file.getAbsolutePath());
 
 					// manage streams
 					StreamCatcher errorGobbler = new StreamCatcher(
@@ -147,9 +160,10 @@ public class SourceProcessor {
 				}
 
 				// manage result
-				result = new ProtocolPlayerWrapper("\""
-						+ executableFile.getAbsolutePath() + "\"",
-						executableFile.getParentFile().getName());
+				result = new ProtocolPlayerWrapper((windows ? "\""
+						+ executableFile.getAbsolutePath() + "\""
+						: executableFile.getAbsolutePath()), executableFile
+						.getParentFile().getName());
 			}
 
 		} catch (Throwable e) {
