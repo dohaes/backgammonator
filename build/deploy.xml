@@ -7,6 +7,10 @@
 	<target name="deploy" depends="distLib, distWeb, distCore, distDeploy, clean" />
 
 	<target name="distDeploy" depends="compile">
+		<mkdir dir="${tomcat}/common/lib" />
+		<mkdir dir="${tomcat}/webapps/ROOT/WEB-INF/lib" />
+		<mkdir dir="${tomcat}/webapps/ROOT/res" />
+		
 		<!-- move MySQL driver -->
 		<copy todir="${tomcat}/common/lib">
 			<fileset dir="${lib}" includes="mysql-connector.jar" />
