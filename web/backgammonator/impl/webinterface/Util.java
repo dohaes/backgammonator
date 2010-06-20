@@ -70,7 +70,8 @@ public class Util {
 		}
 		if (user != null && !user.isAdmin()) {
 			out.print("<a href='SourceUpload.jsp'>Source Upload</a><br />"
-					+ "<a href='ViewReports.jsp'>View Reports</a>");
+					+ "<a href='ViewReports.jsp'>View Reports</a><br />"
+			+ "<a href='download'>Download Source</a>");
 		}
 
 		if (user == null) {

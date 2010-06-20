@@ -34,6 +34,11 @@
 		<servlet-class>backgammonator.impl.webinterface.LogoutServlet</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>DownloadPlayer</servlet-name>
+		<servlet-class>backgammonator.impl.webinterface.DownloadPlayer</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>StartTournamentServlet</servlet-name>
 		<url-pattern>/starttournament</url-pattern>
@@ -62,6 +67,11 @@
 	<servlet-mapping>
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DownloadPlayer</servlet-name>
+		<url-pattern>/download</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
