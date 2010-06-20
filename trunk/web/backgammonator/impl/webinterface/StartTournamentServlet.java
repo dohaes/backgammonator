@@ -27,7 +27,7 @@ import backgammonator.util.BackgammonatorConfig;
 public final class StartTournamentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3569917850372148040L;
-	private static final File UPLOAD_DIR = new File(BackgammonatorConfig
+	static final File UPLOAD_DIR = new File(BackgammonatorConfig
 			.getProperty("backgammonator.web.uploadDir", "uploads").replace(
 					'/', File.separatorChar));
 
@@ -119,7 +119,7 @@ public final class StartTournamentServlet extends HttpServlet {
 			if (userDir.isDirectory()) {
 				String[] java = userDir.list(new FilenameFilter() {
 					public boolean accept(File dir, String name) {
-						return name.endsWith(".java");
+						return name.endsWith(".java") || name.endsWith(".c");
 					}
 				});
 				File j = new File(userDir, java[0]);
