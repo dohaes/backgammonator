@@ -113,7 +113,8 @@
 					   backgammonator/util/**
 	
                        backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
-			           backgammonator/sample/player/interfacce/SamplePlayer.class" />
+			           backgammonator/sample/player/interfacce/SamplePlayer.class
+			           backgammonator/sample/player/interfacce/InternalBoard.class" />
 		
 	</target>
 
