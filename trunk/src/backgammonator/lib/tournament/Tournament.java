@@ -2,7 +2,7 @@ package backgammonator.lib.tournament;
 
 
 /**
- * @author georgi.b.andreev
+ * Realizes starts a tournament realizing the tournaments schemas.
  */
 public interface Tournament {
 

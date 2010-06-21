@@ -13,7 +13,7 @@ import javax.servlet.jsp.JspWriter;
 import backgammonator.util.BackgammonatorConfig;
 
 /**
- * @author georgi.b.andreev
+ * Represents the reports.
  */
 public final class ReportsServlet extends HttpServlet {
 

@@ -14,11 +14,13 @@ import backgammonator.lib.tournament.TournamentType;
 import backgammonator.sample.player.interfacce.SamplePlayer;
 
 /**
- * @author georgi.b.andreev
+ * Tests the tournament execution.
  */
 public class TournamentTestCase extends TestCase {
 
 	/**
+	 * Tests battle.
+	 * 
 	 * @throws TournamentException if an error occurs.
 	 */
 	public void testBattle() throws TournamentException {
@@ -46,6 +48,8 @@ public class TournamentTestCase extends TestCase {
 	}
 
 	/**
+	 * Tests eliminations.
+	 * 
 	 * @throws TournamentException if an error occurs.
 	 */
 	public void testEliminations() throws TournamentException {
@@ -73,6 +77,8 @@ public class TournamentTestCase extends TestCase {
 	}
 
 	/**
+	 * Tests groups.
+	 * 
 	 * @throws TournamentException if an error occurs.
 	 */
 	public void testGroups() throws TournamentException {

@@ -22,7 +22,7 @@ import backgammonator.lib.tournament.TournamentType;
 import backgammonator.util.BackgammonatorConfig;
 
 /**
- * @author georgi.b.andreev
+ * Servlet to start a toutnament.
  */
 public final class StartTournamentServlet extends HttpServlet {
 

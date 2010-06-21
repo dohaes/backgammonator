@@ -1,7 +1,8 @@
 package backgammonator.lib.tournament;
 
 /**
- * @author georgi.b.andreev
+ * Represents the initial configuration of the tournaments. Describes tournament
+ * type, number of games or groups.
  */
 public class TournamentConfiguration {
 	private TournamentType type;

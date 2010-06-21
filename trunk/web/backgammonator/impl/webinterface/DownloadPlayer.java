@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import backgammonator.lib.db.Account;
 
 /**
- * @author georgi.b.andreev
+ * Used to download the uploaded sources.
  */
 public final class DownloadPlayer extends HttpServlet {
 

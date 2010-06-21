@@ -17,7 +17,7 @@ import backgammonator.lib.tournament.TournamentResult;
 import backgammonator.util.BackgammonatorConfig;
 
 /**
- * @author georgi.b.andreev
+ * Represents implementation of the {@link Tournament} interface.
  */
 public class TournamentImpl implements Tournament {
 
