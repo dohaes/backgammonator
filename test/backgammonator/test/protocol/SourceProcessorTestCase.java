@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import backgammonator.impl.protocol.ProcessingException;
 import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.lib.game.GameOverStatus;
+import backgammonator.lib.game.Player;
 import junit.framework.TestCase;
 
 /**
@@ -18,7 +20,7 @@ public class SourceProcessorTestCase extends TestCase {
 
 	/** path to java samples **/
 	private static String samplesJava = "sample/backgammonator/sample/player/protocol/java";
-	private static String samplesC = "sample/backgammonator/sample/player/protocol/c";
+	private static String samplesCPP = "sample/backgammonator/sample/player/protocol/cpp";
 	private static File testDir = new File("testGameWithProtocol");
 	private String fileName1;
 
@@ -38,57 +40,217 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	/**
-	 * Test return exception in the message.
+	 * Tests processing source with compilation error.
+	 * The test player is implemented in Java.
 	 */
-	public void testValidateSourceWithExc() {
-		copy("ExceptionPlayer", true);
+	public void testProcessSourceCompilationErrorJava() {
+		testProcessSourceCompilationError(true);
+	}
+
+	/**
+	 * Tests processing source with compilation error.
+	 * The test player is implemented in C++.
+	 */
+	public void testProcessSourceCompilationErrorCPP() {
+		testProcessSourceCompilationError(false);
+	}
+
+	private void testProcessSourceCompilationError(boolean java) {
+		copy("CompilationErrorPlayer", java);
+		try {
+			SourceProcessor.processSource(fileName1);
+			fail("Excpected ProcessingException to be thrown");
+		} catch (ProcessingException e) {
+			// OK
+		} catch (Throwable t) {
+			fail("Unexpected exception was thrown : " + t.getMessage());
+		}
+	}
+
+	/**
+	 * Tests processing source which compilation is successful
+	 * The test player is implemented in Java.
+	 */
+	public void testProcessSourceCompilationSuccessfulJava() {
+		testProcessSourceCompilationSuccessful(true);
+	}
+	
+	/**
+	 * Tests processing source which compilation is successful
+	 * The test player is implemented in C++.
+	 */
+	public void testProcessSourceCompilationSuccessfulCPP() {
+		testProcessSourceCompilationSuccessful(false);
+	}
+	
+	private void testProcessSourceCompilationSuccessful(boolean java) {
+		copy("SamplePlayer", java);
+		Player processed = null;
+		try {
+			processed = SourceProcessor.processSource(fileName1);
+		} catch (Throwable t) {
+			fail("Unexcpected exception was thrown : " + t.getMessage());
+		}
+		assertNotNull(processed);
+	}
+
+	/**
+	 * Tests return compilation error in the message.
+	 * The test player is implemented in Java.
+	 */
+	public void testValidateSourceWithCompilationErrorJava() {
+		testValidateSourceWithCompilationError(true);
+	}
+	
+	/**
+	 * Tests return compilation error in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithCompilationErrorCPP() {
+		testValidateSourceWithCompilationError(false);
+	}
+	
+	private void testValidateSourceWithCompilationError(boolean java) {
+		copy("CompilationErrorPlayer", java);
 		String res = SourceProcessor.validateSource(fileName1);
+		assertTrue(res.startsWith("Compilation error!"));
+	}
+
+	/**
+	 * Tests return exception in the message.
+	 * The test player is implemented in Java.
+	 */
+	public void testValidateSourceWithExceptionJava() {
+		testValidateSourceWithException(true);
+	}
+	
+	/**
+	 * Tests return exception in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithExceptionCPP() {
+		testValidateSourceWithException(false);
+	}
+	
+	private void testValidateSourceWithException(boolean java) {
+		copy("ExceptionPlayer", java);
+		String res = SourceProcessor.validateSource(fileName1);
+		assertTrue(res.startsWith("Problems with the implemented protocol!"));
 		assertTrue(res.indexOf(GameOverStatus.EXCEPTION.toString()) != -1);
 	}
 
 	/**
-	 * Test return time out in the message.
+	 * Tests return time out in the message.
+	 * The test player is implemented in Java.
 	 */
-	public void testValidateSourceWithTimeOut() {
-		copy("TimedoutMovePlayer", true);
+	public void testValidateSourceWithTimeOutJava() {
+		testValidateSourceWithTimeOut(true);
+	}
+	
+	/**
+	 * Tests return time out in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithTimeOutCPP() {
+		testValidateSourceWithTimeOut(false);
+	}
+	
+	private void testValidateSourceWithTimeOut(boolean java) {
+		copy("TimedoutMovePlayer", java);
 		String res = SourceProcessor.validateSource(fileName1);
+		assertTrue(res.startsWith("Problems with the implemented protocol!"));
 		assertTrue(res.indexOf(GameOverStatus.TIMEDOUT.toString()) != -1);
 	}
 
 	/**
-	 * Test return exception in the message.
+	 * Tests return exception in the message.
+	 * The test player is implemented in Java.
 	 */
-	public void testValidateSourceWithPremature() {
-		copy("PrematureExitPlayer", true);
+	public void testValidateSourceWithPrematureExitJava() {
+		testValidateSourceWithPrematureExit(true);
+	}
+	
+	/**
+	 * Tests return exception in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithPrematureExitCPP() {
+		testValidateSourceWithPrematureExit(false);
+	}
+	
+	private void testValidateSourceWithPrematureExit(boolean java) {
+		copy("PrematureExitPlayer", java);
 		String res = SourceProcessor.validateSource(fileName1);
+		assertTrue(res.startsWith("Problems with the implemented protocol!"));
 		assertTrue(res.indexOf(GameOverStatus.EXCEPTION.toString()) != -1);
 	}
 
 	/**
-	 * Test return invalid move in the message.
+	 * Tests return invalid move in the message.
+	 * The test player is implemented in Java.
 	 */
-	public void testValidateSourceWithEmptyMove() {
-		copy("EmptyMovePlayer", true);
+	public void testValidateSourceWithEmptyMoveJava() {
+		testValidateSourceWithEmptyMove(true);
+	}
+	
+	/**
+	 * Tests return invalid move in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithEmptyMoveCPP() {
+		testValidateSourceWithEmptyMove(false);
+	}
+	
+	private void testValidateSourceWithEmptyMove(boolean java) {
+		copy("EmptyMovePlayer", java);
 		String res = SourceProcessor.validateSource(fileName1);
+		assertTrue(res.startsWith("Problems with the implemented protocol!"));
 		assertTrue(res.indexOf(GameOverStatus.INVALID_MOVE.toString()) != -1);
 	}
 
 	/**
-	 * Test return invalid move in the message.
+	 * Tests return invalid move in the message.
+	 * The test player is implemented in Java.
 	 */
-	public void testValidateSourceWithInvalidMove() {
-		copy("InvalidMovePlayer", true);
+	public void testValidateSourceWithInvalidMoveJava() {
+		testValidateSourceWithInvalidMove(true);
+	}
+	
+	/**
+	 * Tests return invalid move in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithInvalidMoveCPP() {
+		testValidateSourceWithInvalidMove(false);
+	}
+	
+	private void testValidateSourceWithInvalidMove(boolean java) {
+		copy("InvalidMovePlayer", java);
 		String res = SourceProcessor.validateSource(fileName1);
+		assertTrue(res.startsWith("Problems with the implemented protocol!"));
 		assertTrue(res.indexOf(GameOverStatus.INVALID_MOVE.toString()) != -1);
 	}
 
 	/**
-	 * Test return successfully in the message.
+	 * Tests return successfully in the message.
+	 * The test player is implemented in Java.
 	 */
-	public void testValidateSourceWithNormal() {
-		copy("SamplePlayer", true);
+	public void testValidateSourceWithNormalJava() {
+		testValidateSourceWithNormal(true);
+	}
+	
+	/**
+	 * Tests return successfully in the message.
+	 * The test player is implemented in C++.
+	 */
+	public void testValidateSourceWithNormalCPP() {
+		testValidateSourceWithNormal(false);
+	}
+	
+	private void testValidateSourceWithNormal(boolean java) {
+		copy("SamplePlayer", java);
 		String res = SourceProcessor.validateSource(fileName1);
-		assertTrue(res.indexOf("success") != -1);
+		assertTrue(res.startsWith("Validation successful!"));
 	}
 
 	private void copy(String name1, boolean java) {
@@ -99,13 +261,13 @@ public class SourceProcessorTestCase extends TestCase {
 		dir1.mkdirs();
 
 		fileName1 = dir1.getAbsolutePath() + File.separatorChar + name1
-				+ ".java";
+				+ (java ? ".java" : ".cpp");
 
-		String samplesPath = new File((java ? samplesJava : samplesC).replace(
+		String samplesPath = new File((java ? samplesJava : samplesCPP).replace(
 				'/', File.separatorChar)).getAbsolutePath();
 		try {
 			copyFile(samplesPath + File.separatorChar + name1
-					+ (java ? ".java" : ".c"), fileName1);
+					+ (java ? ".java" : ".cpp"), fileName1);
 		} catch (IOException e) {
 			fail("Unexpected exception while cpopying files : "
 					+ e.getMessage());
@@ -121,6 +283,7 @@ public class SourceProcessorTestCase extends TestCase {
 		try {
 			while ((line = fr.readLine()) != null) {
 				if (line.startsWith("package")) continue;
+				if (line.startsWith("//")) line = line.substring(2);
 				fw.write(line + "\n");
 			}
 		} finally {
@@ -132,8 +295,14 @@ public class SourceProcessorTestCase extends TestCase {
 	}
 
 	private void cleanup() {
-		if (testDir.exists()) assertTrue("Could not delete files",
-				delete(testDir));
+		if (testDir.exists()) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ignored) {
+			}
+			assertTrue("Could not delete files", delete(testDir));
+		}
+
 	}
 
 	private boolean delete(File file) {
