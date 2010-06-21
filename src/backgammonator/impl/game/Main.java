@@ -15,12 +15,11 @@ import backgammonator.util.Debug;
  */
 public class Main {
 
-	private static File whiteBase = new File("player1"); // first player base
-	// directory
-	private static File blackBase = new File("player2"); // second player base
-
-	// directory
-
+	 // first player base directory
+	private static File whiteBase = new File("player1");
+	// second player base directory
+	private static File blackBase = new File("player2"); 
+	
 	/**
 	 * Main method for testing two backgammon players
 	 * 
