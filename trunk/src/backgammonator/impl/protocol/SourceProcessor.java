@@ -116,7 +116,7 @@ public class SourceProcessor {
 				String executableFileName = file.getAbsolutePath();
 				int dot = executableFileName.lastIndexOf('.');
 				executableFileName = executableFileName.substring(0, dot) + ".exe";
-				File executableFile = new File(file.getAbsolutePath());
+				File executableFile = new File(executableFileName);
 
 				// check if the executable already exists
 				if (!executableFile.exists()) {
