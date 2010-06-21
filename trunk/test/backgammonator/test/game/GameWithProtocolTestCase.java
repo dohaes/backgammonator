@@ -36,7 +36,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of time out while getting move from player.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testTimedoutMoveCPP() {
 		testTimedoutMove(false);
@@ -73,7 +73,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of exception while getting move from player.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testExceptionInMoveCPP() {
 		testExceptionInMove(false);
@@ -110,7 +110,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of premature process exit.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testPrematureProcessExitCPP() {
 		testPrematureProcessExit(false);
@@ -147,7 +147,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of empty string returned by player.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testEmptyStringReturnedCPP() {
 		testEmptyStringReturned(false);
@@ -184,7 +184,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of invalid move returned by player.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testInvalidMoveReturnedCPP() {
 		testInvalidMoveReturned(false);
@@ -221,7 +221,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of endless loop while getting move from player.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testEndlessLoopInMoveReturnedCPP() {
 		testEndlessLoopInMoveReturned(false);
@@ -258,7 +258,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of deadlock while getting move from player.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 //	public void testDeadlockInMoveC() { 
 //		testDeadlockInMove(false);
@@ -296,7 +296,7 @@ public class GameWithProtocolTestCase extends TestCase {
 	
 	/**
 	 * Tests in case of normal execution of the game.
-	 * The test player is implemented in C/C++.
+	 * The test player is implemented in C++.
 	 */
 	public void testNormalC() {
 		testNormal(false);
