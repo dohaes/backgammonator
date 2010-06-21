@@ -140,8 +140,8 @@ final class ProtocolPlayerWrapper implements Player {
 	protected void finalize() {
 
 		try {
-			stdin.close();
-			stdout.close();
+			if (stdin != null) stdin.close();
+			if (stdout != null) stdout.close();
 
 		} catch (Throwable t) {
 			Debug.getInstance().error("Error finalizing player : " + this,
