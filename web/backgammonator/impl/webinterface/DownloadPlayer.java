@@ -40,7 +40,8 @@ public final class DownloadPlayer extends HttpServlet {
 		if (userDir.exists() && userDir.isDirectory()) {
 			String[] java = userDir.list(new FilenameFilter() {
 				public boolean accept(File dir, String name) {
-					return name.endsWith(".java") || name.endsWith(".c");
+					return name.endsWith(".java") || name.endsWith(".c")
+							|| name.endsWith(".cpp");
 				}
 			});
 			if (java != null && java.length > 0) {
