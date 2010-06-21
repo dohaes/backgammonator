@@ -84,7 +84,7 @@ public class GameLoggerTestCase extends TestCase {
 				new CheckerMove(15, 2), new CheckerMove(15, 2) }), new DiceImpl(2, 2), true, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.INVALID_MOVE, PlayerColor.WHITE);
 
-		String filename = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir") + "\\"
+		String filename = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir") + File.separator
 				+ this.gameLogger.getFilename();
 		String resultFileContent = "";
 		try {
@@ -118,7 +118,7 @@ public class GameLoggerTestCase extends TestCase {
 				new CheckerMove(15, 2), new CheckerMove(15, 2) }), new DiceImpl(2, 2), false, new BackgammonBoardImpl());
 		this.gameLogger.endGame(GameOverStatus.EXCEPTION, PlayerColor.WHITE);
 
-		String filename = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir") + "\\"
+		String filename = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir") + File.separator
 				+ this.gameLogger.getFilename();
 		String resultFileContent = "";
 		try {
@@ -146,7 +146,7 @@ public class GameLoggerTestCase extends TestCase {
 	 */
 	@Override
 	protected void tearDown() throws Exception {
-		String fileName = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir") + "\\"
+		String fileName = BackgammonatorConfig.getProperty("backgammonator.logger.outputDir") + File.separator
 				+ this.gameLogger.getFilename();
 		System.out.print(fileName + "\n");
 		File file = new File(fileName);
