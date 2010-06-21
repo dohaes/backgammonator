@@ -48,14 +48,14 @@ public class SourceProcessor {
 
 		boolean isJava;
 		if (file.getName().endsWith(".java")) isJava = true;
-		else if (file.getName().endsWith(".c")) isJava = false;
+		else if (file.getName().endsWith(".c") || file.getName().endsWith(".cpp")) isJava = false;
 		else {
 			Debug.getInstance().error(
-					"The file must ends with .java or .c: " + filePath,
+					"The file must ends with .java or .c/.cpp: " + filePath,
 					Debug.UTILS, null);
 			throw new ProcessingException(
 					ProcessingException.INVALID_EXTENSION,
-					"The file must ends with .java or .c: " + filePath);
+					"The file must ends with .java or .c/.cpp: " + filePath);
 		}
 
 		Player result = null;
@@ -113,9 +113,10 @@ public class SourceProcessor {
 								+ classFile.getParent() + " " + mainClass),
 						classFile.getParentFile().getName());
 			} else {
-
-				File executableFile = new File(file.getAbsolutePath().replace(
-						".c", ".exe"));
+				String executableFileName = file.getAbsolutePath();
+				int dot = executableFileName.lastIndexOf('.');
+				executableFileName = executableFileName.substring(0, dot) + ".exe";
+				File executableFile = new File(file.getAbsolutePath());
 
 				// check if the executable already exists
 				if (!executableFile.exists()) {
@@ -207,15 +208,6 @@ public class SourceProcessor {
 			sync.notifyAll();
 		}
 		return message;
-	}
-
-	/**
-	 * @param args args.
-	 */
-	public static void main(String[] args) {
-		System.out.println(System.getenv("MinGW_HOME"));
-		// processFile("D:\\test.c");
-		System.out.println(validateSource("D:\\test.c"));
 	}
 
 	/**
