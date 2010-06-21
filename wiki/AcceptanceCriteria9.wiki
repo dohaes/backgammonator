@@ -12,13 +12,13 @@ The web interface should have:
  * checkbox to select weather the uploaded source to be processed and validated.
  * submit button to upload the file
 
-As convension files which contain Java source code must have .java extensions and files with C/C++ code must have .c extensions.
+As convension files which contain Java source code must have .java extensions and files with C/C++ code must have .c/.cpp extensions.
 The submit button should be inactive while the sources are being processed.
 
 *Scenario 1*
 
   # Nvigate to the source upload page
-  # Select a file which extension is .java, nor .c
+  # Select a file which extension is not .java, .c or .cpp
   # Check Java or C/C++ programming language.
   # Leave the validate ckechbox unchecked.
   # Upload the file.
