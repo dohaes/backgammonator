@@ -1,19 +1,17 @@
 #include<iostream>
 
-using namespace std;
-
 int count[25], possesion[25], temp_board[26];
 int hits_mine, hits_opponent, bornoff_mine, bornoff_opponent, die1, die2, status;
 
 void readInput() {
 	for (int i = 1; i < 25; i++) {
-		cin >> count[i];
-		cin >> possesion[i];
+		std::cin >> count[i];
+		std::cin >> possesion[i];
 	}
 
-	cin >> hits_mine >> hits_opponent >> bornoff_mine >> bornoff_opponent;
-	cin >> die1 >> die2;
-	cin >> status;
+	std::cin >> hits_mine >> hits_opponent >> bornoff_mine >> bornoff_opponent;
+	std::cin >> die1 >> die2;
+	std::cin >> status;
 }
 
 void doMove(int point, int die) {
@@ -33,7 +31,7 @@ bool findMove(int die) {
 	if (temp_board[25] > 0) {
 		if (temp_board[25 - die] >= -1) {
 			doMove(25, die);
-			cout << "25 " << die;
+			std::cout << "25 " << die;
 			return true;
 		}
 	} else {
@@ -41,7 +39,7 @@ bool findMove(int die) {
 			if (temp_board[i] > 0 && temp_board[(i - die < 0) ? 0 : i - die]
 					>= -1) {
 				doMove(i, die);
-				cout << i << " " << die;
+				std::cout << i << " " << die;
 				return true;
 			}
 		}
@@ -57,30 +55,30 @@ void makeMove() {
 	}
 	if (!findMove(die1)) {
 		if (!findMove(die2)) {
-			cout << "0 " << die2;
+			std::cout << "0 " << die2;
 		}
-		cout << " ";
+		std::cout << " ";
 		if (!findMove(die1)) {
-			cout << "0 " << die1;
+			std::cout << "0 " << die1;
 		}
 	} else {
-		cout << " ";
+		std::cout << " ";
 		if (!findMove(die2)) {
-			cout << "0 " << die2;
+			std::cout << "0 " << die2;
 		}
 	}
 
 	if (die1 == die2) {
-		cout << " ";
+		std::cout << " ";
 		if (!findMove(die1)) {
-			cout << "0 " << die1;
+			std::cout << "0 " << die1;
 		}
-		cout << " ";
+		std::cout << " ";
 		if (!findMove(die1)) {
-			cout << "0 " << die1;
+			std::cout << "0 " << die1;
 		}
 	}
-	cout << "\n";
+	std::cout << "\n";
 }
 
 int main() {
