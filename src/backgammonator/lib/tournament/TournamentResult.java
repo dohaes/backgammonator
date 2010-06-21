@@ -3,7 +3,7 @@ package backgammonator.lib.tournament;
 import backgammonator.lib.game.Player;
 
 /**
- * @author georgi.b.andreev
+ * Represents the tournament results.
  */
 public interface TournamentResult {
 

@@ -13,7 +13,7 @@ import javax.servlet.jsp.JspWriter;
 import backgammonator.lib.db.Account;
 
 /**
- * @author georgi.b.andreev
+ * Holds utility methods.
  */
 public class Util {
 

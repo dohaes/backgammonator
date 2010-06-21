@@ -7,7 +7,7 @@ import backgammonator.lib.tournament.Tournament;
 import backgammonator.lib.tournament.TournamentException;
 
 /**
- * @author georgi.b.andreev
+ * This class is used to create new tournaments.
  */
 public class TournamentManager {
 

@@ -8,7 +8,7 @@ import backgammonator.lib.tournament.TournamentException;
 import backgammonator.lib.tournament.TournamentResult;
 
 /**
- * @author georgi.b.andreev
+ * Represents th eresult form the tournament.
  */
 public class TournamentResultImpl implements TournamentResult {
 

@@ -1,7 +1,7 @@
 package backgammonator.lib.tournament;
 
 /**
- * @author georgi.b.andreev
+ * Represents the tournament type.
  */
 public enum TournamentType {
 	/**
