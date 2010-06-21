@@ -71,7 +71,7 @@ public class Util {
 		if (user != null && !user.isAdmin()) {
 			out.print("<a href='SourceUpload.jsp'>Source Upload</a><br />"
 					+ "<a href='ViewReports.jsp'>View Reports</a><br />"
-			+ "<a href='download'>Download Source</a>");
+					+ "<a href='download'>Download Source</a>");
 		}
 
 		if (user == null) {
@@ -79,6 +79,7 @@ public class Util {
 					+ "<a href='Register.jsp'>Register</a>");
 		}
 		out.print("<br /><br /><a href='Tutorial.jsp'>Tutorial</a><br />"
+				+ "<a href='Protocol.jsp'>Protocol</a><br />"
 				+ "<a href='res/backgammonatorLibrary.jar'>Library Jar</a>");
 		if (user != null) {
 			out.print("<br /><br />" + user.getUsername()
