@@ -48,7 +48,8 @@ public class SourceProcessor {
 
 		boolean isJava;
 		if (file.getName().endsWith(".java")) isJava = true;
-		else if (file.getName().endsWith(".c") || file.getName().endsWith(".cpp")) isJava = false;
+		else if (file.getName().endsWith(".c")
+				|| file.getName().endsWith(".cpp")) isJava = false;
 		else {
 			Debug.getInstance().error(
 					"The file must ends with .java or .c/.cpp: " + filePath,
@@ -115,7 +116,8 @@ public class SourceProcessor {
 			} else {
 				String executableFileName = file.getAbsolutePath();
 				int dot = executableFileName.lastIndexOf('.');
-				executableFileName = executableFileName.substring(0, dot) + ".exe";
+				executableFileName = executableFileName.substring(0, dot)
+						+ ".exe";
 				File executableFile = new File(executableFileName);
 
 				// check if the executable already exists
@@ -177,7 +179,9 @@ public class SourceProcessor {
 	}
 
 	/**
-	 * Validate the given file
+	 * Validates the given file.
+	 * 
+	 * @param filePath the full path to the file.
 	 */
 	public static String validateSource(String filePath) {
 		Player toValidate = null;
