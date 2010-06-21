@@ -82,6 +82,7 @@ public class DBManagementTestCase extends TestCase {
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
+		//test update all fields
 		testAccount.setPassword("password2");
 		testAccount.setFirstName("firstName2");
 		testAccount.setLastname("lastName2");
@@ -98,6 +99,22 @@ public class DBManagementTestCase extends TestCase {
 		assertEquals("firstName2", testAccount.getFirstName());
 		assertEquals("lastName2", testAccount.getLastName());
 		assertEquals("email2", testAccount.getEmail());
+		
+		//test update some fields
+		testAccount.setPassword("password3");
+		testAccount.setEmail("email3");
+
+		testAccount.store();
+		
+		testAccount = AccountsManager.getAccount("testupdate");
+		assertNotNull(testAccount);
+		assertTrue(testAccount.exists());
+		
+		assertEquals("testupdate", testAccount.getUsername());
+		assertEquals("password3", testAccount.getPassword());
+		assertEquals("firstName2", testAccount.getFirstName());
+		assertEquals("lastName2", testAccount.getLastName());
+		assertEquals("email3", testAccount.getEmail());
 	}
 
 	/**
