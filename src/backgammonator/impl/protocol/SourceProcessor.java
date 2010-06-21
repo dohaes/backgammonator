@@ -200,7 +200,7 @@ public class SourceProcessor {
 		for (int i = 0; i < 5; i++) {
 			status = game.start();
 			if (!status.isNormal() && game.getWinner() == samplePlayer) {
-				message = "Problems with the implemented protocol. Our test with"
+				message = "Problems with the implemented protocol! Our test with"
 						+ "sample player indicated: "
 						+ status
 						+ " at try "
