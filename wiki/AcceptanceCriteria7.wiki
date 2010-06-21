@@ -9,7 +9,7 @@ so that I can be aware if there are any errors<br/>
 
 The validation of the uploaded sources is optional and has the following steps:
  * the uploaded sources are comliped
- * five games are run between the AI player that they represent and a sample player so that the protocol implementation is checked.
+ * three games are run between the AI player that they represent and a sample player so that the protocol implementation is checked.
  * the results are shown to the contestant which uploaded the source 
 
 
