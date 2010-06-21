@@ -177,7 +177,7 @@ public class SourceProcessor {
 	}
 
 	/**
-	 * Validate he given file
+	 * Validate the given file
 	 */
 	public static String validateSource(String filePath) {
 		Player toValidate = null;
