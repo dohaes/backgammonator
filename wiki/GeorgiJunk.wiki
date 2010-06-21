@@ -1,0 +1,11 @@
+delete reports <br/>
+manage registrations - view delete download <br/>
+edit personal info <br/>
+create installation scripts <br/>
+tutorial <br/>
+messages <br/>
+ <br/>
+core validator <br/>
+ <br/>
+new processes for each game? <br/>
+servlet background? <br/>
