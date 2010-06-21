@@ -16,5 +16,4 @@
 	</tr>
 </table>
 </form>
-TODO remove : <a href="CreateDB.jsp">Create DB</a>
 <% Util.printFooter(out); %>
