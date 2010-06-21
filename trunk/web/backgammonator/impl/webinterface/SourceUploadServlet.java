@@ -53,7 +53,7 @@ public final class SourceUploadServlet extends HttpServlet {
 			}
 
 			boolean validate = false;
-			String expected = null;
+			boolean java = false;
 			FileItem file = null;
 
 			if (!ServletFileUpload.isMultipartContent(req)) {
@@ -81,7 +81,7 @@ public final class SourceUploadServlet extends HttpServlet {
 					// form field
 					String fieldName = fileItem.getFieldName();
 					if (fieldName.equals("language")) {
-						expected = fileItem.getString();
+						if ("java".equals(fileItem.getString())) java = true;
 					} else if (fieldName.equals("validate")) {
 						validate = true;
 					}
@@ -103,7 +103,7 @@ public final class SourceUploadServlet extends HttpServlet {
 			String validationMessage = null;
 
 			try {
-				if (!verify(filename, expected)) {
+				if (!verify(filename, java)) {
 					Util.redirect(out, Util.USER_HOME, "Invalid file name!");
 					return;
 				}
@@ -180,7 +180,7 @@ public final class SourceUploadServlet extends HttpServlet {
 		return file.delete();
 	}
 
-	private boolean verify(String filename, String expected) {
+	private boolean verify(String filename, boolean java) {
 		// TODO use regex
 		if (filename == null || filename.length() == 0) {
 			return false; // empty name
@@ -192,9 +192,12 @@ public final class SourceUploadServlet extends HttpServlet {
 			return false;
 		}
 		String actual = filename.substring(last + 1);
-		if (actual.length() == 0 || !actual.equals(expected)) {
-			return false;
+		if (actual.length() == 0) return false;
+		if (java) {
+			if (actual.equals("java")) return true;
+		} else {
+			if (actual.equals("c") || actual.equals("cpp")) return true;
 		}
-		return true;
+		return false;
 	}
 }
