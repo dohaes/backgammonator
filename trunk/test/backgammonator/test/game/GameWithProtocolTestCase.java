@@ -19,9 +19,9 @@ import junit.framework.TestCase;
  */
 public class GameWithProtocolTestCase extends TestCase {
 
-	private static File testDir = new File("testGameWithProtocol");
+	private static File testDir = new File("D:\\testGameWithProtocol");
 	private static String samplesJava = "sample/backgammonator/sample/player/protocol/java";
-	private static String samplesC = "sample/backgammonator/sample/player/protocol/c";
+	private static String samplesCPP = "sample/backgammonator/sample/player/protocol/cpp";
 
 	private String fileName1;
 	private String fileName2;
@@ -38,9 +38,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of time out while getting move from player.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testTimedoutMoveC() { //TODO
-//		testTimedoutMove(false);
-//	}
+	public void testTimedoutMoveCPP() {
+		testTimedoutMove(false);
+	}
 	
 	private void testTimedoutMove(boolean java) {
 		try {
@@ -75,9 +75,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of exception while getting move from player.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testExceptionInMoveC() { //TODO
-//		testExceptionInMove(false);
-//	}
+	public void testExceptionInMoveCPP() {
+		testExceptionInMove(false);
+	}
 	
 	private void testExceptionInMove(boolean java) {
 		try {
@@ -112,9 +112,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of premature process exit.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testPrematureProcessExitC() { //TODO
-//		testPrematureProcessExit(false);
-//	}
+	public void testPrematureProcessExitCPP() {
+		testPrematureProcessExit(false);
+	}
 	
 	private void testPrematureProcessExit(boolean java) {
 		try {
@@ -149,9 +149,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of empty string returned by player.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testEmptyStringReturnedC() { //TODO
-//		testEmptyStringReturned(false);
-//	}
+	public void testEmptyStringReturnedCPP() {
+		testEmptyStringReturned(false);
+	}
 	
 	private void testEmptyStringReturned(boolean java) {
 		try {
@@ -186,9 +186,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of invalid move returned by player.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testInvalidMoveReturnedC() { //TODO
-//		testInvalidMoveReturned(false);
-//	}
+	public void testInvalidMoveReturnedCPP() {
+		testInvalidMoveReturned(false);
+	}
 	
 	private void testInvalidMoveReturned(boolean java) {
 		try {
@@ -223,9 +223,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of endless loop while getting move from player.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testEndlessLoopInMoveReturnedC() { //TODO
-//		testEndlessLoopInMoveReturned(false);
-//	}
+	public void testEndlessLoopInMoveReturnedCPP() {
+		testEndlessLoopInMoveReturned(false);
+	}
 	
 	private void testEndlessLoopInMoveReturned(boolean java) {
 		try {
@@ -265,7 +265,7 @@ public class GameWithProtocolTestCase extends TestCase {
 //	}
 	
 	@SuppressWarnings("unused") //TODO remove
-	private void testDeadlockInMove(boolean java) { //FIXME 
+	private void testDeadlockInMove(boolean java) {
 		try {
 			copy("DeadlockInMovePlayer", "SamplePlayer", java);
 			Game game = GameManager.newGame(fileName1, fileName2, false);
@@ -298,9 +298,9 @@ public class GameWithProtocolTestCase extends TestCase {
 	 * Tests in case of normal execution of the game.
 	 * The test player is implemented in C/C++.
 	 */
-//	public void testNormalC() { //TODO
-//		testNormal(false);
-//	}
+	public void testNormalC() {
+		testNormal(false);
+	}
 	
 	@SuppressWarnings("null")
 	private void testNormal(boolean java) {
@@ -339,16 +339,16 @@ public class GameWithProtocolTestCase extends TestCase {
 		dir2.mkdirs();
 
 		fileName1 = dir1.getAbsolutePath() + File.separatorChar + name1
-				+ ".java";
+				+ (java ? ".java" : ".cpp");
 		fileName2 = dir2.getAbsolutePath() + File.separatorChar + name2
-				+ ".java";
+				+ (java ? ".java" : ".cpp");
 
-		String samplesPath = new File((java ? samplesJava : samplesC).replace('/', File.separatorChar))
+		String samplesPath = new File((java ? samplesJava : samplesCPP).replace('/', File.separatorChar))
 				.getAbsolutePath();
 		try {
-			copyFile(samplesPath + File.separatorChar + name1 + (java ? ".java" : ".c"),
+			copyFile(samplesPath + File.separatorChar + name1 + (java ? ".java" : ".cpp"),
 					fileName1);
-			copyFile(samplesPath + File.separatorChar + name2 + (java ? ".java" : ".c"),
+			copyFile(samplesPath + File.separatorChar + name2 + (java ? ".java" : ".cpp"),
 					fileName2);
 		} catch (IOException e) {
 			fail("Unexpected exception while cpopying files : "
@@ -358,7 +358,6 @@ public class GameWithProtocolTestCase extends TestCase {
 	}
 
 	private void copyFile(String from, String to) throws IOException {
-		
 		BufferedReader fr = new BufferedReader(new FileReader(new File(from)));
 		BufferedWriter fw = new BufferedWriter(new FileWriter(new File(to)));
 		String line = null;
@@ -376,8 +375,14 @@ public class GameWithProtocolTestCase extends TestCase {
 	}
 
 	private void cleanup() {
-		if (testDir.exists()) assertTrue("Could not delete files",
-				delete(testDir));
+		if (testDir.exists()) {
+			//wait a while so the files descriptors are freed
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException ignored) { }
+			assertTrue("Could not delete files", delete(testDir));
+		}
+				
 	}
 
 	private boolean delete(File file) {
