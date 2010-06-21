@@ -17,8 +17,8 @@ The validation of the uploaded sources is optional and has the following steps:
 
   # Navigate to the source upload page.
   # Check the validate checkbox.
-  # Select from the sample payers SamplePlayer.java.
-  # Select Java programming language.
+  # Select from the sample payers SamplePlayer.java or SamplePlayer.cpp.
+  # Select the appropriate programming language.
   # Click on "Upload".
   # The submit button should be disabled.
   # Message for successfull upload and validation should be displayed and you will be redirected to the source upload page.
@@ -27,8 +27,8 @@ The validation of the uploaded sources is optional and has the following steps:
 
   # Navigate to the source upload page.
   # Check the validate checkbox.
-  # Select from the sample payers ExceptionPlayer.java.
-  # Select Java programming language.
+  # Select from the sample payers ExceptionPlayer.java or ExceptionPlayer.cpp.
+  # Select the appropriate programming language.
   # Click on "Upload".
   # The submit button should be disabled.
   # Message for successfull upload and exception in move while validating should be displayed and you will be redirected to the source upload page.
@@ -38,8 +38,8 @@ The validation of the uploaded sources is optional and has the following steps:
 
   # Navigate to the source upload page.
   # Check the validate checkbox.
-  # Select from the sample payers InvalidMovePlayer.java.
-  # Select Java programming language.
+  # Select from the sample payers InvalidMovePlayer.java or InvalidMovePlayer.cpp.
+  # Select the appropriate programming language.
   # Click on "Upload".
   # The submit button should be disabled.
   # Message for successfull upload and invalid move while validating should be displayed and you will be redirected to the source upload page.
@@ -48,8 +48,8 @@ The validation of the uploaded sources is optional and has the following steps:
 
   # Navigate to the source upload page.
   # Check the validate checkbox.
-  # Select from the sample payers TimedoutMovePlayer.java.
-  # Select Java programming language.
+  # Select from the sample payers TimedoutMovePlayer.java or TimedoutMovePlayer.cpp.
+  # Select the appropriate programming language.
   # Click on "Upload".
   # The submit button should be disabled.
   # Message for successfull upload and timeout in move while validating should be displayed and you will be redirected to the source upload page.
