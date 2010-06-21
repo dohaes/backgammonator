@@ -15,9 +15,9 @@ import backgammonator.util.Debug;
  */
 public class Main {
 
-	private static File whiteBase = new File("white"); // first player base
+	private static File whiteBase = new File("player1"); // first player base
 	// directory
-	private static File blackBase = new File("black"); // second player base
+	private static File blackBase = new File("player2"); // second player base
 
 	// directory
 
