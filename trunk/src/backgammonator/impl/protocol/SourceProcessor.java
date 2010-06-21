@@ -197,7 +197,7 @@ public class SourceProcessor {
 
 		String message = "Validation successful! No problems found.";
 		GameOverStatus status;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 3; i++) {
 			status = game.start();
 			if (!status.isNormal() && game.getWinner() == samplePlayer) {
 				message = "Problems with the implemented protocol! Our test with"
