@@ -153,7 +153,7 @@ public class ProtocolParserTestCase extends TestCase {
 				new BackgammonBoardImpl(), new DiceImpl(4, 3), false, null);
 		assertEquals(
 				resultString,
-				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 4 3 0");
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 4 3 0 ");
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class ProtocolParserTestCase extends TestCase {
 				GameOverStatus.INVALID_MOVE);
 		assertEquals(
 				resultString,
-				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 11");
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 11 ");
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class ProtocolParserTestCase extends TestCase {
 						GameOverStatus.EXCEPTION);
 		assertEquals(
 				resultString,
-				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 4");
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 4 ");
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class ProtocolParserTestCase extends TestCase {
 				new BackgammonBoardImpl(), null, true, GameOverStatus.TIMEDOUT);
 		assertEquals(
 				resultString,
-				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 6");
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 6 ");
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class ProtocolParserTestCase extends TestCase {
 				new BackgammonBoardImpl(), null, true, GameOverStatus.DOUBLE);
 		assertEquals(
 				resultString,
-				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 2");
+				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 2 ");
 	}
 
 }
