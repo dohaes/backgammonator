@@ -8,5 +8,4 @@ so that I can implement my AI player in Java.<br/>
 
 *Scenario 1*
 
-  # Do this
-  # Do that
+  # Verify that the system provides options for processing, compiling, validating end executing Java sources.
