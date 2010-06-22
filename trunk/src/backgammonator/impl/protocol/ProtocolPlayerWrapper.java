@@ -32,6 +32,7 @@ final class ProtocolPlayerWrapper implements Player {
 
 	private Process process;
 	private InputStream stdin;
+	private InputStream stderr;
 	private OutputStream stdout;
 
 	private boolean inited = false;
@@ -57,8 +58,8 @@ final class ProtocolPlayerWrapper implements Player {
 	public PlayerMove getMove(BackgammonBoard board, Dice dice)
 			throws Exception {
 		if (!inited) init();
-		stdout.write(ProtocolParser.getBoardConfiguration(board, dice, false, null)
-				.getBytes());
+		stdout.write(ProtocolParser.getBoardConfiguration(board, dice, false,
+				null).getBytes());
 		stdout.flush();
 
 		try {
@@ -70,9 +71,9 @@ final class ProtocolPlayerWrapper implements Player {
 			throw new IllegalStateException("Process for player " + name
 					+ " has been unexpectedly terminated", nse);
 		} catch (IllegalArgumentException iae) {
-			//invalid move
-			//the parser cannot parse the returned string
-			//the move is not formatted according to the protocol
+			// invalid move
+			// the parser cannot parse the returned string
+			// the move is not formatted according to the protocol
 			return null;
 		}
 	}
@@ -87,8 +88,8 @@ final class ProtocolPlayerWrapper implements Player {
 		try {
 			try {
 				if (!inited) init();
-				stdout.write(ProtocolParser.getBoardConfiguration(board, null, wins,
-						status).getBytes());
+				stdout.write(ProtocolParser.getBoardConfiguration(board, null,
+						wins, status).getBytes());
 				stdout.flush();
 			} catch (Throwable ioe) {
 				Debug.getInstance().error(
@@ -142,6 +143,7 @@ final class ProtocolPlayerWrapper implements Player {
 		try {
 			if (stdin != null) stdin.close();
 			if (stdout != null) stdout.close();
+			if (stderr != null) stderr.close();
 
 		} catch (Throwable t) {
 			Debug.getInstance().error("Error finalizing player : " + this,
@@ -153,7 +155,7 @@ final class ProtocolPlayerWrapper implements Player {
 		String line = null;
 		// clean stderr
 		BufferedReader cleaner = new BufferedReader(new InputStreamReader(
-				process.getErrorStream()));
+				stderr));
 		try {
 			while ((line = cleaner.readLine()) != null) {
 				System.out.println("	[" + name + "] [stderr] " + line);
@@ -164,7 +166,7 @@ final class ProtocolPlayerWrapper implements Player {
 		} finally {
 			try {
 				cleaner.close();
-				process.getErrorStream().close();
+				stderr.close();
 			} catch (IOException e) {
 				Debug.getInstance().error("Exception while closing stream",
 						Debug.GAME_LOGIC, e);
@@ -194,6 +196,7 @@ final class ProtocolPlayerWrapper implements Player {
 		process = Runtime.getRuntime().exec(command);
 		stdin = process.getInputStream();
 		stdout = process.getOutputStream();
+		stderr = process.getErrorStream();
 		scanner = new Scanner(stdin);
 
 		inited = true;
