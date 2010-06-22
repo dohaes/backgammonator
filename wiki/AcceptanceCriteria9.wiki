@@ -11,6 +11,7 @@ The web interface should have:
  * radio buttons to select the programming language : Java or C/C++
  * checkbox to select weather the uploaded source to be processed and validated.
  * submit button to upload the file
+ * information about the JVM and g++ compiler that will be used in the processing
 
 As convension files which contain Java source code must have .java extensions and files with C/C++ code must have .c/.cpp extensions.
 The submit button should be inactive while the sources are being processed.
