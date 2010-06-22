@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 
 import backgammonator.lib.db.Account;
+import backgammonator.util.StreamParser;
 
 /**
  * Holds utility methods.
@@ -122,6 +123,9 @@ public class Util {
 				+ "document.hiddenForm.submit();</script>");
 	}
 
+	/**
+	 * Encodes the given string using md5.
+	 */
 	static String MD5(String pass) {
 		try {
 			MessageDigest m = null;
@@ -135,6 +139,9 @@ public class Util {
 		}
 	}
 
+	/**
+	 * Retrieves the current session user.
+	 */
 	static Account getCurrentUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Object account = session.getValue("user");
@@ -144,6 +151,9 @@ public class Util {
 		return (Account) account;
 	}
 
+	/**
+	 * Checks the credentials of the given user.
+	 */
 	static boolean checkCredentials(PrintWriter out, Account user, int type) {
 		if ((user == null && (type == USER || type == ADMIN))
 				|| (user != null && user.isAdmin() && type == USER)
@@ -161,5 +171,55 @@ public class Util {
 			return false;
 		}
 		return true;
+	}
+	
+	static String gccVersion = null;
+	static String jvmVersion = null;
+	
+	/**
+	 * Initializes the JVM and g++ compiler versions.
+	 */
+	static {
+		try {
+			//initialize g++ compiler version
+			Process gccv = Runtime.getRuntime().exec("g++ --version");
+			StreamParser sp = new StreamParser(gccv.getInputStream());
+			sp.start();
+			gccv.waitFor();
+			gccVersion = sp.getMessage();
+			
+			//initialize JVM version
+			//first try the standard input stream
+			Process jvmv = Runtime.getRuntime().exec("java -version");
+			sp = new StreamParser(jvmv.getInputStream());
+			sp.start();
+			jvmv.waitFor();
+			jvmVersion = sp.getMessage();
+			
+			//try the standard error stream
+			if ("".equals(jvmVersion)) {
+				jvmv = Runtime.getRuntime().exec("java -version");
+				sp = new StreamParser(jvmv.getErrorStream());
+				sp.start();
+				jvmv.waitFor();
+				jvmVersion = sp.getMessage();
+			}
+		} catch (Throwable ignored) {
+			ignored.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Retrieves the version of the used g++ compiler.
+	 */
+	static String getGCCVersion() {
+		return gccVersion;
+	}
+	
+	/**
+	 * Retrieves the version of the used JVM.
+	 */
+	static String getJVMVersion() {
+		return jvmVersion;
 	}
 }
