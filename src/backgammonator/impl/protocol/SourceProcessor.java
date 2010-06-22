@@ -193,7 +193,6 @@ public class SourceProcessor {
 
 		Player samplePlayer = new SamplePlayer();
 		Game game = GameManager.newGame(toValidate, samplePlayer, false);
-		Object sync = new Object();
 
 		String message = "Validation successful! No problems found.";
 		GameOverStatus status;
@@ -207,9 +206,6 @@ public class SourceProcessor {
 						+ (i + 1);
 				break;
 			}
-		}
-		synchronized (sync) {
-			sync.notifyAll();
 		}
 		return message;
 	}
