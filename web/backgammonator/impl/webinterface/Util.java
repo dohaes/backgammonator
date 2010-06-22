@@ -172,34 +172,48 @@ public class Util {
 		}
 		return true;
 	}
-	
-	static String gccVersion = null;
-	static String jvmVersion = null;
-	
+
+	private static String os = null;
+	private static String gccVersion = null;
+	private static String jvmVersion = null;
+
 	/**
-	 * Initializes the JVM and g++ compiler versions.
+	 * Identifies the environment.
 	 */
 	static {
+		// identify the operation system
+		os = System.getProperty("os.name");
+
+		// identify g++ compiler version
 		try {
-			//initialize g++ compiler version
 			Process gccv = Runtime.getRuntime().exec("g++ --version");
 			StreamParser sp = new StreamParser(gccv.getInputStream());
 			sp.start();
 			gccv.waitFor();
 			gccVersion = sp.getMessage();
-			
-			//initialize JVM version
-			//first try the standard input stream
+		} catch (Throwable ignored) {
+			//FIXME should be initialized with the process!
+			gccVersion = "g++ (GCC) 3.4.5 (mingw-vista special r3)\n"
+					+ "Copyright (C) 2004 Free Software Foundation, Inc.";
+			ignored.printStackTrace();
+		}
+
+		// identify JVM version
+		try {
+			// first try the standard input stream
 			Process jvmv = Runtime.getRuntime().exec("java -version");
-			sp = new StreamParser(jvmv.getInputStream());
+			StreamParser sp = new StreamParser(jvmv.getInputStream());
 			sp.start();
 			jvmv.waitFor();
 			jvmVersion = sp.getMessage();
-			
-			//try the standard error stream
+		} catch (Throwable ignored) {
+			ignored.printStackTrace();
+		}
+		try {
+			// try the standard error stream
 			if ("".equals(jvmVersion)) {
-				jvmv = Runtime.getRuntime().exec("java -version");
-				sp = new StreamParser(jvmv.getErrorStream());
+				Process jvmv = Runtime.getRuntime().exec("java -version");
+				StreamParser sp = new StreamParser(jvmv.getErrorStream());
 				sp.start();
 				jvmv.waitFor();
 				jvmVersion = sp.getMessage();
@@ -208,18 +222,25 @@ public class Util {
 			ignored.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Retrieves the version of the used g++ compiler.
 	 */
 	static String getGCCVersion() {
 		return gccVersion;
 	}
-	
+
 	/**
 	 * Retrieves the version of the used JVM.
 	 */
 	static String getJVMVersion() {
 		return jvmVersion;
+	}
+
+	/**
+	 * Retrieves the OS.
+	 */
+	static String getOS() {
+		return os;
 	}
 }
