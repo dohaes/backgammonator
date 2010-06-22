@@ -1,11 +1,10 @@
-delete reports <br/>
-manage registrations - view delete download <br/>
-edit personal info <br/>
-create installation scripts <br/>
-tutorial <br/>
-messages <br/>
- <br/>
-core validator <br/>
- <br/>
-new processes for each game? <br/>
-servlet background? <br/>
+ # Delete reports
+ # Manage registrations - view delete download
+ # Edit personal info
+ # Improve tutorial
+ # Installation scripts
+ # Messages from contestants to administrator
+ # Improve core validator + tests
+ # Improve sample player
+ # Game speed - new processes for each game, protocol
+ # Servlet background, wrong page redirect
