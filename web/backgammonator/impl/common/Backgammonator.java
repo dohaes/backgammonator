@@ -10,9 +10,8 @@ public final class Backgammonator {
 
 	private final static long UPLOAD_TIMEOUT = 10000;
 
-	private static int waiting = 0;
+	private static int uploadsInProgress = 0;
 	private static boolean uploadBlocked = false;
-	private static boolean tournamentBlocked = false;
 
 	private static Object synch = new Object();
 
@@ -20,23 +19,37 @@ public final class Backgammonator {
 	 * Locks the access to the uploads directory. If an upload is in process
 	 * then the start of the tournament is postponed some seconds until the
 	 * upload is finished. Called when a tournament is started.
+	 * 
+	 * @return <code>true</code> if the upload have been locked successfully or
+	 *         have already been locked and <code>false</code> if any error
+	 *         occurs while waiting for the uploads in progress to finish
 	 */
-	public static void blockUpload() {
+	public static boolean blockUpload() {
 		synchronized (synch) {
-			if (tournamentBlocked) {
+			// block the upload to indicate that there is request to start a
+			// tournament
+			uploadBlocked = true;
+			// wait for the uploads in progress to finish
+			while (uploadsInProgress > 0) {
+				Debug.getInstance().info(
+						"Waiting for uploads in progress to finish "
+								+ "before starting the tournament...",
+						Debug.WEB_INTERFACE);
 				try {
-					waiting++;
 					synch.wait(UPLOAD_TIMEOUT);
 				} catch (InterruptedException ie) {
 					Debug.getInstance().warning("Error while waiting",
 							Debug.WEB_INTERFACE, ie);
-					tournamentBlocked = false;
+					return false;
 				}
-				waiting--;
 			}
-			// tournament is unblocked
-			// block the upload
-			uploadBlocked = true;
+			// check if all uploads in progress have successfully finished
+			if (uploadsInProgress > 0) {
+				uploadsInProgress = 0;
+				return false;
+			}
+			uploadsInProgress = 0;
+			return true;
 		}
 	}
 
@@ -46,9 +59,7 @@ public final class Backgammonator {
 	 */
 	public static void unblockUpload() {
 		synchronized (synch) {
-			// unblock the upload and notify the tournament to start
 			uploadBlocked = false;
-			if (waiting > 0) synch.notifyAll();
 		}
 	}
 
@@ -61,8 +72,10 @@ public final class Backgammonator {
 	 */
 	public static boolean blockToutnament() {
 		synchronized (synch) {
+			// if the upload has been blocked meanwhile then the current
+			// thread will not proceed with the upload
 			if (uploadBlocked) return false;
-			if (!tournamentBlocked) tournamentBlocked = true;
+			uploadsInProgress++;
 			return true;
 		}
 	}
@@ -72,10 +85,10 @@ public final class Backgammonator {
 	 */
 	public static void unblockTournament() {
 		synchronized (synch) {
-			if (tournamentBlocked) {
-				// unblock the tournament
-				tournamentBlocked = false;
-			}
+			uploadsInProgress--;
+			// if there is a request to start a tournament then notify the
+			// tournament to start if there are no more uploads in progress
+			if (uploadBlocked && uploadsInProgress <= 0) synch.notifyAll();
 		}
 	}
 
@@ -89,6 +102,5 @@ public final class Backgammonator {
 		synchronized (synch) {
 			return uploadBlocked;
 		}
-
 	}
 }
