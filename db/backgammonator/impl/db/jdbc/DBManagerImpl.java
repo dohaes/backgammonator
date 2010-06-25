@@ -1,4 +1,4 @@
-package backgammonator.impl.db;
+package backgammonator.impl.db.jdbc;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -8,18 +8,30 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import backgammonator.lib.db.AccountsManager;
+import backgammonator.lib.db.DBManager;
 import backgammonator.util.Debug;
 
 /**
  * Manages basic actions on the Backgammonator database.
+ * 
+ * @see DBManager
  */
-public final class DBManager {
+public final class DBManagerImpl implements DBManager {
+
+	private static String currentDB = BACKGAMMONATOR_DB;
+
+	private static DBManager instance = new DBManagerImpl();
+
+	private DBManagerImpl() {
+	}
 
 	/**
-	 * Default name for the backgammonator system database.
+	 * Retrieves the instance of the {@link DBManager} implementation.
 	 */
-	public final static String BACKGAMMONATOR_DB = "backgammonator";
-	private static String currentDB = BACKGAMMONATOR_DB;
+	public static DBManager getInstance() {
+		return instance;
+	}
 
 	/**
 	 * Makes connection to the MySQL server and selects the specified data base.
@@ -28,7 +40,7 @@ public final class DBManager {
 	 * @return the {@link Connection} object or <code>null</code> if the
 	 *         database is not available.
 	 */
-	public static Connection getDBConnection(String name, boolean select) {
+	static Connection getDBConnection(String name, boolean select) {
 		Connection connection = null;
 		Statement statement = null;
 		try {
@@ -69,7 +81,7 @@ public final class DBManager {
 	 * 
 	 * @see #getDBConnection(String, boolean)
 	 */
-	public static Connection getDBConnection() {
+	static Connection getDBConnection() {
 		return getDBConnection(currentDB, true);
 	}
 
@@ -79,8 +91,8 @@ public final class DBManager {
 	 * @param name the name of the database name.
 	 * @throws IllegalStateException if database access error occurs.
 	 */
-	public static void createDB(String name) {
-		Connection connection = DBManager.getDBConnection(name, false);
+	public void createDB(String name) {
+		Connection connection = getDBConnection(name, false);
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}
@@ -141,7 +153,7 @@ public final class DBManager {
 	 * 
 	 * @see #createDB(String)
 	 */
-	public static void createDB() {
+	public void createDB() {
 		createDB(BACKGAMMONATOR_DB);
 	}
 
@@ -151,8 +163,8 @@ public final class DBManager {
 	 * @param name of the database name.
 	 * @throws IllegalStateException if database access error occurs.
 	 */
-	public static void dropDB(String name) {
-		Connection connection = DBManager.getDBConnection(name, false);
+	public void dropDB(String name) {
+		Connection connection = getDBConnection(name, false);
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}
@@ -180,8 +192,16 @@ public final class DBManager {
 	 * 
 	 * @see #dropDB(String)
 	 */
-	public static void dropDB() {
+	public void dropDB() {
 		dropDB(currentDB);
+	}
+
+	/**
+	 * @see DBManager#getAccountsManager()
+	 */
+	@Override
+	public AccountsManager getAccountsManager() {
+		return AccountsManagerImpl.getInstance();
 	}
 
 }

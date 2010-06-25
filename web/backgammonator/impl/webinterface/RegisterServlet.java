@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import backgammonator.impl.db.AccountsManager;
+import backgammonator.impl.db.DB;
 import backgammonator.lib.db.Account;
 
 /**
@@ -38,7 +38,7 @@ public final class RegisterServlet extends HttpServlet {
 		} else if (!validateMail(email)) {
 			Util.redirect(out, Util.REGISTER, "Email is not correct!");
 		} else {
-			Account account = AccountsManager.getAccount(user);
+			Account account = DB.getDBManager().getAccountsManager().getAccount(user);
 			if (account.exists()) {
 				Util.redirect(out, Util.REGISTER, "Username is not free!");
 			} else {

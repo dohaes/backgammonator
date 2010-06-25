@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import backgammonator.impl.db.AccountsManager;
+import backgammonator.impl.db.DB;
 import backgammonator.lib.db.Account;
 
 /**
@@ -33,7 +33,7 @@ public final class LoginServlet extends HttpServlet {
 		if ("".equals(user)) {
 			Util.redirect(out, Util.LOGIN_HOME, "Username is missing!");
 		}
-		Account account = AccountsManager.getAccount(user);
+		Account account = DB.getDBManager().getAccountsManager().getAccount(user);
 		if (account.exists() && account.getPassword().equals(pass)) {
 			HttpSession session = req.getSession();
 			session.putValue("user", account);
