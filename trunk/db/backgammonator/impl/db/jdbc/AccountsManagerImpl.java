@@ -1,4 +1,4 @@
-package backgammonator.impl.db;
+package backgammonator.impl.db.jdbc;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -6,12 +6,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import backgammonator.lib.db.Account;
+import backgammonator.lib.db.AccountsManager;
 import backgammonator.util.Debug;
 
 /**
  * Accesses user accounts data stored in the database.
+ * 
+ * @see AccountsManager
  */
-public final class AccountsManager {
+public final class AccountsManagerImpl implements AccountsManager {
+
+	private static AccountsManager instance = new AccountsManagerImpl();
+
+	private AccountsManagerImpl() {
+	}
+
+	/**
+	 * Retrieves the {@link AccountsManager} implementation instance.
+	 */
+	public static AccountsManager getInstance() {
+		return instance;
+	}
 
 	/**
 	 * Gets an {@link Account} object for the specified username. If there is no
@@ -21,8 +36,8 @@ public final class AccountsManager {
 	 * 
 	 * @throws IllegalStateException if database access error occurs.
 	 */
-	public static Account getAccount(String username) {
-		Connection connection = DBManager.getDBConnection();
+	public Account getAccount(String username) {
+		Connection connection = DBManagerImpl.getDBConnection();
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}
@@ -31,9 +46,9 @@ public final class AccountsManager {
 		try {
 			statement = connection.createStatement();
 			result = statement
-					.executeQuery("SELECT * FROM Account WHERE username="
-							+ "'" + username + "'");
-			
+					.executeQuery("SELECT * FROM Account WHERE username=" + "'"
+							+ username + "'");
+
 			if (!result.next()) {
 				// we have no record for this username in the database
 				return new AccountImpl(username);

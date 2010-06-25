@@ -1,14 +1,16 @@
 package backgammonator.test.db;
 
-import backgammonator.impl.db.AccountsManager;
-import backgammonator.impl.db.DBManager;
+import backgammonator.impl.db.DB;
 import backgammonator.lib.db.Account;
+import backgammonator.lib.db.AccountsManager;
 import junit.framework.TestCase;
 
 /**
  * Test the API for manipulating the user accounts.
  */
 public class DBManagementTestCase extends TestCase {
+	
+	private AccountsManager accountsManager;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
@@ -16,7 +18,8 @@ public class DBManagementTestCase extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		// create the database
-		DBManager.createDB("BackgammonatorTEST");
+		DB.getDBManager().createDB("BackgammonatorTEST");
+		accountsManager = DB.getDBManager().getAccountsManager();
 		super.setUp();
 	}
 
@@ -26,7 +29,7 @@ public class DBManagementTestCase extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		// drop the database
-		DBManager.createDB("BackgammonatorTEST");
+		DB.getDBManager().createDB("BackgammonatorTEST");
 		super.tearDown();
 	}
 
@@ -34,7 +37,7 @@ public class DBManagementTestCase extends TestCase {
 	 * Tests creating of user accounts.
 	 */
 	public void testCreatingAccount() {
-		Account testAccount = AccountsManager.getAccount("testcreate");
+		Account testAccount = accountsManager.getAccount("testcreate");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
 		assertFalse(testAccount.isAdmin());
@@ -48,7 +51,7 @@ public class DBManagementTestCase extends TestCase {
 
 		testAccount.store();
 
-		testAccount = AccountsManager.getAccount("testcreate");
+		testAccount = accountsManager.getAccount("testcreate");
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 
@@ -64,7 +67,7 @@ public class DBManagementTestCase extends TestCase {
 	 * Tests updating of user accounts.
 	 */
 	public void testUpdatingAccount() {
-		Account testAccount = AccountsManager.getAccount("testupdate");
+		Account testAccount = accountsManager.getAccount("testupdate");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
 		assertFalse(testAccount.isAdmin());
@@ -78,7 +81,7 @@ public class DBManagementTestCase extends TestCase {
 
 		testAccount.store();
 		
-		testAccount = AccountsManager.getAccount("testupdate");
+		testAccount = accountsManager.getAccount("testupdate");
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
@@ -90,7 +93,7 @@ public class DBManagementTestCase extends TestCase {
 
 		testAccount.store();
 		
-		testAccount = AccountsManager.getAccount("testupdate");
+		testAccount = accountsManager.getAccount("testupdate");
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
@@ -106,7 +109,7 @@ public class DBManagementTestCase extends TestCase {
 
 		testAccount.store();
 		
-		testAccount = AccountsManager.getAccount("testupdate");
+		testAccount = accountsManager.getAccount("testupdate");
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
@@ -121,7 +124,7 @@ public class DBManagementTestCase extends TestCase {
 	 * Tests deleting of user accounts.
 	 */
 	public void testDeletingAccount() {
-		Account testAccount = AccountsManager.getAccount("testdelete");
+		Account testAccount = accountsManager.getAccount("testdelete");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
 		assertFalse(testAccount.isAdmin());
@@ -141,7 +144,7 @@ public class DBManagementTestCase extends TestCase {
 		testAccount.setEmail("email");
 		
 		testAccount.store();
-		testAccount = AccountsManager.getAccount("testdelete");
+		testAccount = accountsManager.getAccount("testdelete");
 		assertNotNull(testAccount);
 		assertTrue(testAccount.exists());
 		
@@ -153,7 +156,7 @@ public class DBManagementTestCase extends TestCase {
 		
 		assertFalse(testAccount.exists());
 		//check in the db
-		testAccount = AccountsManager.getAccount("testdelete");
+		testAccount = accountsManager.getAccount("testdelete");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
 		
@@ -163,7 +166,7 @@ public class DBManagementTestCase extends TestCase {
 	 * Tests setting null values.
 	 */
 	public void testNullValues() {
-		Account testAccount = AccountsManager.getAccount("testuser");
+		Account testAccount = accountsManager.getAccount("testuser");
 		assertNotNull(testAccount);
 		assertFalse(testAccount.exists());
 

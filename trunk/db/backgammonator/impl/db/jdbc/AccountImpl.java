@@ -1,4 +1,4 @@
-package backgammonator.impl.db;
+package backgammonator.impl.db.jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -164,7 +164,7 @@ final class AccountImpl implements Account {
 	 */
 	@Override
 	public void store() {
-		Connection connection = DBManager.getDBConnection();
+		Connection connection = DBManagerImpl.getDBConnection();
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}
@@ -247,7 +247,7 @@ final class AccountImpl implements Account {
 	public void delete() {
 		if (!exists) throw new IllegalStateException("Account for user "
 				+ username + " does not exist!");
-		Connection connection = DBManager.getDBConnection();
+		Connection connection = DBManagerImpl.getDBConnection();
 		if (connection == null) {
 			throw new IllegalStateException("Cannot connect to DB!");
 		}

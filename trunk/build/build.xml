@@ -110,6 +110,7 @@
 					   backgammonator/impl/protocol/**
 		               backgammonator/impl/tournament/**
 			           backgammonator/impl/db/**
+			           backgammonator/impl/db/jdbc/**
 					   backgammonator/util/**
 	
                        backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
