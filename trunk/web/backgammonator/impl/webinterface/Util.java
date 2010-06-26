@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 
+import backgammonator.impl.common.Backgammonator;
 import backgammonator.lib.db.Account;
 import backgammonator.util.StreamParser;
 
@@ -52,6 +53,23 @@ public class Util {
 	 */
 	public static void printHeader(HttpServletRequest request, JspWriter out,
 			String title, int type) throws IOException {
+		printHeaderCkeckUpload(request, out, title, type, false);
+	}
+
+	/**
+	 * Prints the header of a regular jsp.
+	 * 
+	 * @param request the Http request.
+	 * @param out the output stream.
+	 * @param title the title of the pages.
+	 * @param type the type of the page.
+	 * @param checkUpload shows if a check should be performed if the source
+	 *            upload is blocked or nor.
+	 * @throws IOException if an IO error occurs.
+	 */
+	public static void printHeaderCkeckUpload(HttpServletRequest request,
+			JspWriter out, String title, int type, boolean checkUpload)
+			throws IOException {
 		Account user = getCurrentUser(request);
 		if (!checkCredentials(new PrintWriter(out), user, type)) {
 			return;
@@ -92,7 +110,15 @@ public class Util {
 		String message = request.getParameter("result");
 		if (message != null) {
 			out.println("<b class='message'>" + message + "</b><br/><br/>");
+		} else if (checkUpload) {
+			if (Backgammonator.isUploadBlocked()) {
+				out.println("<b class='message'>"
+						+ "Cannot upload source files "
+						+ "because a tournament is executing!"
+						+ "</b><br/><br/>");
+			}
 		}
+
 	}
 
 	/**
@@ -192,7 +218,7 @@ public class Util {
 			gccv.waitFor();
 			gccVersion = sp.getMessage();
 		} catch (Throwable ignored) {
-			//FIXME should be initialized with the process!
+			// FIXME should be initialized with the process!
 			gccVersion = "g++ (GCC) 3.4.5 (mingw-vista special r3)\n"
 					+ "Copyright (C) 2004 Free Software Foundation, Inc.";
 			ignored.printStackTrace();

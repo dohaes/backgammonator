@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 
+import backgammonator.impl.common.Backgammonator;
 import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.impl.tournament.TournamentManager;
 import backgammonator.lib.game.Player;
@@ -41,7 +42,13 @@ public final class StartTournamentServlet extends HttpServlet {
 		if (!Util.checkCredentials(out, Util.getCurrentUser(req), Util.ADMIN)) {
 			return;
 		}
+		boolean canBlockUpload = Backgammonator.blockUpload();
 		try {
+			if (!canBlockUpload) {
+				Util.redirect(out, Util.ADMIN_HOME,
+						"Error occured while trying to start tournament!");
+				return;
+			}
 			String type = req.getParameter("type");
 			TournamentConfiguration config = new TournamentConfiguration(
 					TournamentType.valueOf(type));
@@ -110,6 +117,10 @@ public final class StartTournamentServlet extends HttpServlet {
 			Util.redirect(out, Util.START_TOURNAMENT, message.toString());
 		} catch (Exception e) {
 			Util.redirect(out, Util.START_TOURNAMENT, e.getMessage());
+		} finally {
+			if (canBlockUpload) {
+				Backgammonator.unblockUpload();
+			}
 		}
 	}
 

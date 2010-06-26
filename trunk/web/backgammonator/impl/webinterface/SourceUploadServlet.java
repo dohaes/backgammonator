@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import backgammonator.impl.common.Backgammonator;
 import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.lib.db.Account;
 import backgammonator.util.BackgammonatorConfig;
@@ -46,12 +47,18 @@ public final class SourceUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		
+		Account user = Util.getCurrentUser(req);
+		if (!Util.checkCredentials(out, user, Util.USER)) {
+			return;
+		}
+		boolean canBlockTournament = Backgammonator.blockToutnament();
 		try {
-			Account user = Util.getCurrentUser(req);
-			if (!Util.checkCredentials(out, user, Util.USER)) {
+			if (!canBlockTournament) {
+				Util.redirect(out, Util.USER_HOME, "Cannot upload file!"
+						+ "<br />A tournament has just started!");
 				return;
 			}
-
 			boolean validate = false;
 			boolean java = false;
 			FileItem file = null;
@@ -152,6 +159,10 @@ public final class SourceUploadServlet extends HttpServlet {
 		} catch (Exception e) {
 			Util.redirect(out, Util.USER_HOME, e.getMessage());
 
+		} finally {
+			if (canBlockTournament) {
+				Backgammonator.unblockTournament();
+			}
 		}
 	}
 
