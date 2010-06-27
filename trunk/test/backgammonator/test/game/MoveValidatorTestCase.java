@@ -43,33 +43,4 @@ public class MoveValidatorTestCase extends TestCase {
 					move, dice));
 		}
 	}
-
-	/**
-	 * Tests validation of invalid points in the given moves.
-	 */
-	public void testInvalidMovesPoints() {
-		// TODO
-	}
-
-	/**
-	 * Tests validation of invalid hits in the given moves.
-	 */
-	public void testInvalidMovesHits() {
-		// TODO
-	}
-
-	/**
-	 * Tests validation of invalid bearoffs in the given moves.
-	 */
-	public void testInvalidMovesBearOffs() {
-		// TODO
-	}
-
-	/**
-	 * Tests validation of invalid moves.
-	 */
-	public void testInvalidMovesNoValidMoves() {
-		// TODO
-	}
-
 }

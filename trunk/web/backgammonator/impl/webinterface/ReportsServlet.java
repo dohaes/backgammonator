@@ -63,9 +63,7 @@ public final class ReportsServlet extends HttpServlet {
 			out.println("<tr><td> <a href='" + url + "/" + tournaments[i]
 					+ "' target='_blank'> " + tournaments[i] + " </a> </td>");
 			if (manage) {
-				out.println("<td width='20px'>&nbsp;</td><td>"
-						+ "<a href='reports?tid=" + tournaments[i]
-						+ "'> delete </a> </td>");
+				out.println("<td width='20px'>&nbsp;</td><td>&nbsp;</td>");
 			}
 			out.println("</tr>");
 		}

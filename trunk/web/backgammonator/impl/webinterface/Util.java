@@ -92,9 +92,7 @@ public class Util {
 
 		if (user != null && user.isAdmin()) {
 			out.print("<a href='StartTournament.jsp'>Start Tournament</a>"
-					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>"
-					+ "<br /><a href='ManageRegistrations.jsp'>"
-					+ "Manage Registrations</a>");
+					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>");
 		}
 		if (user != null && !user.isAdmin()) {
 			out.print("<a href='SourceUpload.jsp'>Source Upload</a><br />"
