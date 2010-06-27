@@ -252,21 +252,21 @@ public class Util {
 	/**
 	 * Retrieves the version of the used g++ compiler.
 	 */
-	static String getGCCVersion() {
+	public static String getGCCVersion() {
 		return gccVersion;
 	}
 
 	/**
 	 * Retrieves the version of the used JVM.
 	 */
-	static String getJVMVersion() {
+	public static String getJVMVersion() {
 		return jvmVersion;
 	}
 
 	/**
 	 * Retrieves the OS.
 	 */
-	static String getOS() {
+	public static String getOS() {
 		return os;
 	}
 }
