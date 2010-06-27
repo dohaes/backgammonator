@@ -39,6 +39,7 @@ public final class StartTournamentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Start Tournament", Util.ADMIN);
 		if (!Util.checkCredentials(out, Util.getCurrentUser(req), Util.ADMIN)) {
 			return;
 		}
@@ -122,6 +123,7 @@ public final class StartTournamentServlet extends HttpServlet {
 				Backgammonator.unblockUpload();
 			}
 		}
+		Util.printFooter(out);
 	}
 
 	private static Player createPlayer(String user) {
