@@ -25,6 +25,7 @@ public final class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Login", Util.HOME);
 		String user = req.getParameter("username");
 		String pass = Util.MD5(req.getParameter("password"));
 		if ("".equals(pass)) {
@@ -45,5 +46,6 @@ public final class LoginServlet extends HttpServlet {
 		} else {
 			Util.redirect(out, Util.LOGIN_HOME, "Username/Password mismatch!");
 		}
+		Util.printFooter(out);
 	}
 }

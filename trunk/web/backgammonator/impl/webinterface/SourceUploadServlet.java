@@ -47,6 +47,7 @@ public final class SourceUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Source Upload", Util.USER);
 		
 		Account user = Util.getCurrentUser(req);
 		if (!Util.checkCredentials(out, user, Util.USER)) {
@@ -164,6 +165,7 @@ public final class SourceUploadServlet extends HttpServlet {
 				Backgammonator.unblockTournament();
 			}
 		}
+		Util.printFooter(out);
 	}
 
 	private boolean deleteContents(File file) {

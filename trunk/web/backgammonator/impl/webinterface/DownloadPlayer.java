@@ -30,6 +30,7 @@ public final class DownloadPlayer extends HttpServlet {
 			throws IOException {
 		ServletOutputStream output = res.getOutputStream();
 		PrintWriter out = new PrintWriter(output);
+		Util.printHeader(req, out, "Download Player", Util.USER);
 
 		Account user = Util.getCurrentUser(req);
 		if (!Util.checkCredentials(out, user, Util.USER)) {
@@ -54,6 +55,7 @@ public final class DownloadPlayer extends HttpServlet {
 		}
 
 		Util.redirect(out, Util.USER_HOME, "No source available!");
+		Util.printFooter(out);
 	}
 
 	private void downloadFile(HttpServletResponse res,

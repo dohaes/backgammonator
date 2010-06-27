@@ -26,11 +26,10 @@ public final class ReportsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
-		if (!Util.checkCredentials(out, Util.getCurrentUser(req), Util.ADMIN)) {
-			return;
-		}
+		Util.printHeader(req, out, "Delete Reports", Util.ADMIN);
 		// String tournamentId = (String) request.getAttribute("tid");
 		Util.redirect(out, Util.MANAGE_REPORTS, "Delete successfull.");
+		Util.printFooter(out);
 	}
 
 	/**

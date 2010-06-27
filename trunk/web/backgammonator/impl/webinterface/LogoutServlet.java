@@ -22,8 +22,10 @@ public final class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Logout", Util.HOME);
 		HttpSession session = req.getSession();
 		session.removeValue("user");
 		Util.redirect(out, Util.LOGIN_HOME, "Successful logout.");
+		Util.printFooter(out);
 	}
 }

@@ -28,6 +28,7 @@ public final class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Register", Util.HOME);
 		String user = req.getParameter("username");
 		String pass = req.getParameter("password");
 		String email = req.getParameter("email");
@@ -53,6 +54,7 @@ public final class RegisterServlet extends HttpServlet {
 						"Registration completed successfully.");
 			}
 		}
+		Util.printFooter(out);
 	}
 
 	private boolean validateMail(String email) {

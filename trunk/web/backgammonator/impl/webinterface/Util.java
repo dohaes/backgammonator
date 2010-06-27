@@ -1,6 +1,5 @@
 package backgammonator.impl.webinterface;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -49,11 +48,23 @@ public class Util {
 	 * @param out the output stream.
 	 * @param title the title of the pages.
 	 * @param type the type of the page.
-	 * @throws IOException if an IO error occurs.
 	 */
 	public static void printHeader(HttpServletRequest request, JspWriter out,
-			String title, int type) throws IOException {
-		printHeaderCkeckUpload(request, out, title, type, false);
+			String title, int type) {
+		printHeader(request, new PrintWriter(out), title, type, false);
+	}
+
+	/**
+	 * Prints the header of a regular jsp.
+	 * 
+	 * @param request the Http request.
+	 * @param out the output stream.
+	 * @param title the title of the pages.
+	 * @param type the type of the page.
+	 */
+	public static void printHeader(HttpServletRequest request, PrintWriter out,
+			String title, int type) {
+		printHeader(request, out, title, type, false);
 	}
 
 	/**
@@ -65,13 +76,11 @@ public class Util {
 	 * @param type the type of the page.
 	 * @param checkUpload shows if a check should be performed if the source
 	 *            upload is blocked or nor.
-	 * @throws IOException if an IO error occurs.
 	 */
-	public static void printHeaderCkeckUpload(HttpServletRequest request,
-			JspWriter out, String title, int type, boolean checkUpload)
-			throws IOException {
+	public static void printHeader(HttpServletRequest request, PrintWriter out,
+			String title, int type, boolean checkUpload) {
 		Account user = getCurrentUser(request);
-		if (!checkCredentials(new PrintWriter(out), user, type)) {
+		if (!checkCredentials(out, user, type)) {
 			return;
 		}
 		out.print("<html><head><link href='style.css' rel='stylesheet'"
@@ -118,16 +127,23 @@ public class Util {
 						+ "</b><br/><br/>");
 			}
 		}
-
 	}
 
 	/**
 	 * Prints the footer of a regular jsp.
 	 * 
 	 * @param out the output stream.
-	 * @throws IOException if an IO error occurs.
 	 */
-	public static void printFooter(JspWriter out) throws IOException {
+	public static void printFooter(JspWriter out) {
+		printFooter(new PrintWriter(out));
+	}
+
+	/**
+	 * Prints the footer of a regular jsp.
+	 * 
+	 * @param out the output stream.
+	 */
+	public static void printFooter(PrintWriter out) {
 		out.print("</td><td width='40px'>&nbsp;</td></tr>"
 				+ "<tr height='50px'><td colspan='5'>&nbsp;</td>"
 				+ "</tr></table></body></html>");
@@ -142,11 +158,12 @@ public class Util {
 	 * @param message the value of the result parameter.
 	 */
 	static void redirect(PrintWriter out, String link, String message) {
-		out.print("<body><form name='hiddenForm' action='" + link);
+		out.print("<form name='hiddenForm' action='" + link);
 		out.print("' method='POST'><input type='hidden' name='result' value='");
-		out.print(message
-				+ "' ></input> </form> </body><script language='Javascript'>"
-				+ "document.hiddenForm.submit();</script>");
+		out.print(message + "' ></input> </form> ");
+		printFooter(out);
+		out.print("<script language='Javascript'>document."
+				+ "hiddenForm.submit();</script>");
 	}
 
 	/**
