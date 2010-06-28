@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import backgammonator.lib.db.Account;
 import backgammonator.lib.db.AccountsManager;
@@ -71,6 +72,15 @@ public final class AccountsManagerImpl implements AccountsManager {
 						Debug.DATABASE, e);
 			}
 		}
+	}
+
+	/**
+	 * @see AccountsManager#getAllAccounts()
+	 */
+	@Override
+	public List<Account> getAllAccounts() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
