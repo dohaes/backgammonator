@@ -38,6 +38,7 @@ public class Util {
 	static final String LOGIN_HOME = "index.jsp";
 	static final String REGISTER = "Register.jsp";
 	static final String MANAGE_REPORTS = "ManageReports.jsp";
+	static final String MANAGE_REGISTRATIONS = "ManageRegistrations.jsp";
 	static final String START_TOURNAMENT = "StartTournament.jsp";
 	static final String SOURCE_UPLOAD = "SourceUpload.jsp";
 
@@ -92,7 +93,9 @@ public class Util {
 
 		if (user != null && user.isAdmin()) {
 			out.print("<a href='StartTournament.jsp'>Start Tournament</a>"
-					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>");
+					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>"
+					+ "<br /><a href='ManageRegistrations.jsp'>Manage Registrations</a>"
+					);
 		}
 		if (user != null && !user.isAdmin()) {
 			out.print("<a href='SourceUpload.jsp'>Source Upload</a><br />"
