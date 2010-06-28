@@ -11,6 +11,10 @@
 	<td><input type="password" name="password" /></td>
 </tr>
 <tr>
+	<td>Re-enter the password</td>
+	<td><input type="password" name="password1" /></td>
+</tr>
+<tr>
 	<td>Email </td>
 	<td><input type="text" name="email" /></td>
 </tr>
