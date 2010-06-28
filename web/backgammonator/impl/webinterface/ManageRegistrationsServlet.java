@@ -1,8 +1,8 @@
 package backgammonator.impl.webinterface;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +22,7 @@ import backgammonator.lib.db.AccountsManager;
 public final class ManageRegistrationsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 9174306858493853786L;
-	static AccountsManager accMan;
+	private static AccountsManager accMan;
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -30,18 +30,22 @@ public final class ManageRegistrationsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
-		System.out.println("1");
 		PrintWriter out = res.getWriter();
 		if (accMan == null) accMan = DB.getDBManager().getAccountsManager();
-		System.out.println("2");
 		try {
-			System.out.println("3");
 			String[] players = req.getParameterValues("registrations");
 			Account account = null;
-			System.out.println("4:" + players.length);
 			for (int i = 0; i < players.length; i++) {
+				File f = new File(Util.UPLOAD_DIR + File.separator + players[i]);
+				if (!deleteDirectory(f)) {
+					Util.redirect(out, Util.MANAGE_REGISTRATIONS,
+							"Registrations was not deleted successfully,"
+									+ " beause the file could not b deleted: "
+									+ f.getAbsolutePath());
+					return;
+				}
 				account = accMan.getAccount(players[i]);
-				if(account != null) account.delete();
+				if (account != null) account.delete();
 			}
 			Util.redirect(out, Util.MANAGE_REGISTRATIONS,
 					"Registrations deleted successfully.");
@@ -71,4 +75,19 @@ public final class ManageRegistrationsServlet extends HttpServlet {
 					+ account.getUsername() + "</option>");
 		}
 	}
+
+	private boolean deleteDirectory(File path) {
+		if (path.exists()) {
+			File[] files = path.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				if (files[i].isDirectory()) {
+					deleteDirectory(files[i]);
+				} else {
+					files[i].delete();
+				}
+			}
+		}
+		return (path.delete());
+	}
+
 }
