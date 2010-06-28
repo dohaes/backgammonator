@@ -1,5 +1,6 @@
 package backgammonator.impl.webinterface;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -11,6 +12,7 @@ import javax.servlet.jsp.JspWriter;
 
 import backgammonator.impl.common.Backgammonator;
 import backgammonator.lib.db.Account;
+import backgammonator.util.BackgammonatorConfig;
 import backgammonator.util.StreamParser;
 
 /**
@@ -41,6 +43,9 @@ public class Util {
 	static final String MANAGE_REGISTRATIONS = "ManageRegistrations.jsp";
 	static final String START_TOURNAMENT = "StartTournament.jsp";
 	static final String SOURCE_UPLOAD = "SourceUpload.jsp";
+	static final File UPLOAD_DIR = new File(BackgammonatorConfig.getProperty(
+			"backgammonator.web.uploadDir", "uploads").replace('/',
+			File.separatorChar));
 
 	/**
 	 * Prints the header of a regular jsp.

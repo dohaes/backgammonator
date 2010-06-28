@@ -4,7 +4,7 @@
 <%
 	Util.printHeader(request, out, "Manage Registrations", Util.ADMIN);
 %>
-<form method='POST' action='starttournament' name="startform"
+<form method='POST' action='manageregistrations' name="manageform"
 	id="startform">
 <table class='internal'>
 	<tr>
@@ -20,9 +20,9 @@
 </table>
 <br />
 <input class='button' type="submit" value="Delete" name="submitbutton"
-	onclick="document.startform.submitbutton.value='Processing...';
-    document.startform.submitbutton.disabled=true;
-    document.startform.submit();" />
+	onclick="document.manageform.submitbutton.value='Processing...';
+    document.manageform.submitbutton.disabled=true;
+    document.manageform.submit();" />
 </form>
 <%
 	Util.printFooter(out);
