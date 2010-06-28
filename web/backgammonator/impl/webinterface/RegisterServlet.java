@@ -31,15 +31,20 @@ public final class RegisterServlet extends HttpServlet {
 		Util.printHeader(req, out, "Register", Util.HOME);
 		String user = req.getParameter("username");
 		String pass = req.getParameter("password");
+		String pass1 = req.getParameter("password1");
 		String email = req.getParameter("email");
 		String first = req.getParameter("firstname");
 		String last = req.getParameter("lastname");
 		if ("".equals(user) || "".equals(pass)) {
 			Util.redirect(out, Util.REGISTER, "Missing field!");
+		} else if (pass != null && !pass.equals(pass1)) {
+			Util.redirect(out, Util.REGISTER,
+					"Different password in the two fields!");
 		} else if (!validateMail(email)) {
 			Util.redirect(out, Util.REGISTER, "Email is not correct!");
 		} else {
-			Account account = DB.getDBManager().getAccountsManager().getAccount(user);
+			Account account = DB.getDBManager().getAccountsManager()
+					.getAccount(user);
 			if (account.exists()) {
 				Util.redirect(out, Util.REGISTER, "Username is not free!");
 			} else {
