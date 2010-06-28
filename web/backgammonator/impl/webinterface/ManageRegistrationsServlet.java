@@ -71,8 +71,9 @@ public final class ManageRegistrationsServlet extends HttpServlet {
 		Account account;
 		while (iter.hasNext()) {
 			account = iter.next();
-			out.println("<option value='" + account.getUsername() + "'>"
-					+ account.getUsername() + "</option>");
+			if (!account.isAdmin()) out.println("<option value='"
+					+ account.getUsername() + "'>" + account.getUsername()
+					+ "</option>");
 		}
 	}
 
