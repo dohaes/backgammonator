@@ -1,4 +1,5 @@
 #summary Acceptance criteria scenarios on User Story 20
+#labels AcceptanceCriteria20
 
 *User Story*
 
