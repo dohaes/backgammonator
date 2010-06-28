@@ -1,0 +1,21 @@
+#summary Acceptance criteria scenarios on User Story 20
+
+*User Story*
+
+As contest manager<br/>
+I want to delete registrations<br/>
+so that I can remove contestants' accounts<br/>
+
+*Scenario 1*
+
+  # Register some users
+  # Log as admin
+  # Go to "Manage Registration" page
+  # Select one account. Delete it and check if it is deleted properly
+
+*Scenario 2*
+
+  # Register some users
+  # Log as admin
+  # Go to "Manage Registration" page
+  # Select more than one account. Delete them and check if they are deleted properly
