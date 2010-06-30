@@ -81,7 +81,7 @@ public final class Debug {
 				if (logFile.exists()) {
 					logFile.delete();
 				}
-				logFile.mkdirs();
+				logFile.getParentFile().mkdirs();
 				fileLog = new PrintStream(logFile);
 			}
 		} catch (FileNotFoundException e) {
