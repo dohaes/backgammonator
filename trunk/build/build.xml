@@ -12,6 +12,7 @@
 	<property name="classpath" location="${lib}/servlet.jar:
 		${lib}/commons-fileupload.jar:
 		${lib}/commons-io.jar:
+		${lib}/log4j-1.2.16.jar:
 		${lib}/mysql-connector.jar" />
 
 	<target name="build" depends="distLib, distWeb, distCore, clean" description="builds all jars"/>
@@ -45,6 +46,7 @@
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="${src}:${sample}/backgammonator/sample/player/interfacce/"
 			   destdir="${build}"
+			   classpath="${classpath}"
 			   debug="true"
 			   debuglevel="lines, vars, and source"/>
 		
