@@ -41,9 +41,8 @@ public final class ManageRegistrationsServlet extends HttpServlet {
 				if (f.exists()) {
 					if (!deleteDirectory(f)) {
 						Util.redirect(out,Util.MANAGE_REGISTRATIONS,
-										"Registrations was not deleted successfully,"
-												+ " beause the file could not b deleted: "
-												+ f.getAbsolutePath());
+										"Registrations were not deleted successfully. File: "
+												+ f.getAbsolutePath() + " cannot be deleted!");
 						return;
 					}
 				}
