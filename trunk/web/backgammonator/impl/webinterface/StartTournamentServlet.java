@@ -93,11 +93,13 @@ public final class StartTournamentServlet extends HttpServlet {
 				if (tmp.size() == 0) {
 					Util.redirect(out, Util.START_TOURNAMENT,
 							"All players have been disqualified!");
+					return;
 				}
 				if (tmp.size() == 1) {
 					Util.redirect(out, Util.START_TOURNAMENT, "Winner is "
 							+ tmp.get(0).getName()
 							+ ". All other have been disqualified!");
+					return;
 				}
 			}
 			Tournament tournament = TournamentManager.newTournament(tmp);
@@ -123,7 +125,6 @@ public final class StartTournamentServlet extends HttpServlet {
 				Backgammonator.unblockUpload();
 			}
 		}
-		Util.printFooter(out);
 	}
 
 	private static Player createPlayer(String user) {
