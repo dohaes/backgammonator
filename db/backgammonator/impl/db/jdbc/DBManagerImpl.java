@@ -112,7 +112,7 @@ public final class DBManagerImpl implements DBManager {
 					+ "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
 					+ "username varchar(32) NOT NULL UNIQUE, "
 					+ "password varchar(32) NOT NULL, "
-					+ "email varchar(64) NOT NULL, "
+					+ "email varchar(64) NOT NULL UNIQUE, "
 					+ "isadmin bool NOT NULL, " + "first varchar(32), "
 					+ "last varchar(32))");
 			statement
