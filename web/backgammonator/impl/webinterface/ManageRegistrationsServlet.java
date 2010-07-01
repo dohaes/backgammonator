@@ -31,18 +31,21 @@ public final class ManageRegistrationsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Manage Registrations", Util.ADMIN);
 		if (accMan == null) accMan = DB.getDBManager().getAccountsManager();
 		try {
 			String[] players = req.getParameterValues("registrations");
 			Account account = null;
 			for (int i = 0; i < players.length; i++) {
 				File f = new File(Util.UPLOAD_DIR + File.separator + players[i]);
-				if (!deleteDirectory(f)) {
-					Util.redirect(out, Util.MANAGE_REGISTRATIONS,
-							"Registrations was not deleted successfully,"
-									+ " beause the file could not b deleted: "
-									+ f.getAbsolutePath());
-					return;
+				if (f.exists()) {
+					if (!deleteDirectory(f)) {
+						Util.redirect(out,Util.MANAGE_REGISTRATIONS,
+										"Registrations was not deleted successfully,"
+												+ " beause the file could not b deleted: "
+												+ f.getAbsolutePath());
+						return;
+					}
 				}
 				account = accMan.getAccount(players[i]);
 				if (account != null) account.delete();
@@ -78,17 +81,15 @@ public final class ManageRegistrationsServlet extends HttpServlet {
 	}
 
 	private boolean deleteDirectory(File path) {
-		if (path.exists()) {
-			File[] files = path.listFiles();
-			for (int i = 0; i < files.length; i++) {
-				if (files[i].isDirectory()) {
-					deleteDirectory(files[i]);
-				} else {
-					files[i].delete();
-				}
+		File[] files = path.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isDirectory()) {
+				deleteDirectory(files[i]);
+			} else {
+				files[i].delete();
 			}
 		}
-		return (path.delete());
+		return path.delete();
 	}
 
 }
