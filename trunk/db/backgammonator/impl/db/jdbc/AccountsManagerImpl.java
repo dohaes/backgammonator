@@ -115,4 +115,43 @@ public final class AccountsManagerImpl implements AccountsManager {
 		}
 	}
 
+	/**
+	 * @see AccountsManager#isUnique(String)
+	 */
+	@Override
+	public boolean isUnique(String email) {
+		Connection connection = DBManagerImpl.getDBConnection();
+		if (connection == null) {
+			throw new IllegalStateException("Cannot connect to DB!");
+		}
+		Statement statement = null;
+		ResultSet result = null;
+		try {
+			statement = connection.createStatement();
+			result = statement
+					.executeQuery("SELECT * FROM Account WHERE email=" + "'"
+							+ email + "'");
+
+			if (!result.next()) {
+				// we have no record for this email in the database
+				return true;
+			}
+			// so we have record in the database with this email
+			return false;
+		} catch (SQLException e) {
+			Debug.getInstance().error("Unexpected Exception was thrown",
+					Debug.DATABASE, e);
+			throw new IllegalStateException(e.getMessage());
+		} finally {
+			try {
+				if (result != null) result.close();
+				if (statement != null) statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				Debug.getInstance().error("Error closing connection",
+						Debug.DATABASE, e);
+			}
+		}
+	}
+
 }
