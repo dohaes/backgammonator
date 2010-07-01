@@ -11,6 +11,6 @@
 	<classpathentry kind="lib" path="lib/commons-io.jar"/>
 	<classpathentry kind="lib" path="lib/servlet.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector.jar"/>
-	<classpathentry kind="lib" path="D:/workspace/Backgammonator/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="output" path="compile"/>
 </classpath>
