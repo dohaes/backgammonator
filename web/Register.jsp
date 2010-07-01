@@ -11,7 +11,7 @@
 	<td><input type="password" name="password" /></td>
 </tr>
 <tr>
-	<td>Re-enter the password</td>
+	<td>Retype password</td>
 	<td><input type="password" name="password1" /></td>
 </tr>
 <tr>

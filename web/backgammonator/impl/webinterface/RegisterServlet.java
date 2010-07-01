@@ -47,6 +47,8 @@ public final class RegisterServlet extends HttpServlet {
 					.getAccount(user);
 			if (account.exists()) {
 				Util.redirect(out, Util.REGISTER, "Username is not free!");
+			} else if (!DB.getDBManager().getAccountsManager().isUnique(email)){
+				Util.redirect(out, Util.REGISTER, "Email already registered!");
 			} else {
 				account.setEmail(email);
 				account.setFirstName(first);
