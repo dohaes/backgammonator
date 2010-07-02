@@ -72,6 +72,7 @@
 			 basedir="${build}"
 			 manifest="${src}/meta-inf/manifest.mf"
 			 includes="backgammonator/lib/game/**
+					   backgammonator/lib/protocol/**
 					   backgammonator/lib/logger/GameLogger.class
 					   backgammonator/impl/game/**
 			           backgammonator/impl/logger/*GameLogger*
@@ -106,7 +107,8 @@
 			 includes="backgammonator/lib/game/**
 					   backgammonator/lib/logger/**
 		               backgammonator/lib/tournament/**
-			           backgammonator/lib/db/**
+	           		   backgammonator/lib/db/**
+	           		   backgammonator/lib/protocol/**
 				       backgammonator/impl/game/**
 					   backgammonator/impl/logger/**
 					   backgammonator/impl/protocol/**
@@ -119,7 +121,6 @@
                        backgammonator/sample/player/interfacce/AbstractSamplePlayer.class
 			           backgammonator/sample/player/interfacce/SamplePlayer.class
 			           backgammonator/sample/player/interfacce/InternalBoard.class" />
-		
 	</target>
 
 	<target name="clean" description="clean up">
