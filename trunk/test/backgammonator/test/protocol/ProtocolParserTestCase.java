@@ -2,13 +2,14 @@ package backgammonator.test.protocol;
 
 import backgammonator.impl.game.BackgammonBoardImpl;
 import backgammonator.impl.game.DiceImpl;
-import backgammonator.impl.protocol.ProtocolParser;
+import backgammonator.impl.protocol.ProtocolManager;
+import backgammonator.impl.protocol.ProtocolParserImpl;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.PlayerMove;
 import junit.framework.TestCase;
 
 /**
- * Tests class {@link ProtocolParser}.
+ * Tests class {@link ProtocolParserImpl}.
  */
 
 public class ProtocolParserTestCase extends TestCase {
@@ -17,7 +18,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting standard moves.
 	 */
 	public void testGetMoveStandardMoves() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("11 3 7 6");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"11 3 7 6");
 
 		assertFalse(resultPlayerMove.isDouble());
 
@@ -36,7 +38,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting unavailable and reentered checker move.
 	 */
 	public void testGetMoveReenterCheckerAndStandardMove() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("25 5 20 6");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"25 5 20 6");
 
 		assertFalse(resultPlayerMove.isDouble());
 
@@ -54,7 +57,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting reenter checker moves.
 	 */
 	public void testGetMoveReenterCheckers() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("25 5 25 2");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"25 5 25 2");
 
 		assertFalse(resultPlayerMove.isDouble());
 
@@ -71,7 +75,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting unavailable checker moves.
 	 */
 	public void testGetMoveUnavailableMoves() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("0 5 0 6");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"0 5 0 6");
 
 		assertFalse(resultPlayerMove.isDouble());
 
@@ -88,7 +93,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting standard and unavailable checker moves.
 	 */
 	public void testGetMoveStandartMoveAndUnavailableMove() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("20 5 0 6");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"20 5 0 6");
 
 		assertFalse(resultPlayerMove.isDouble());
 
@@ -106,7 +112,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting reenter checker moves and unavailable moves.
 	 */
 	public void testGetMoveReenterCheckerAndUnavailableMove() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("25 5 0 1");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"25 5 0 1");
 
 		assertFalse(resultPlayerMove.isDouble());
 
@@ -123,7 +130,8 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting double checker moves.
 	 */
 	public void testGetMoveDoubleAssortie() {
-		PlayerMove resultPlayerMove = ProtocolParser.getMove("25 6 25 6 7 6 0 6");
+		PlayerMove resultPlayerMove = ProtocolManager.getParser().getMove(
+				"25 6 25 6 7 6 0 6");
 
 		assertTrue(resultPlayerMove.isDouble());
 
@@ -149,8 +157,9 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting board configuration.
 	 */
 	public void testGetBoardConfigurationInGame() {
-		String resultString = ProtocolParser.getBoardConfiguration(
-				new BackgammonBoardImpl(), new DiceImpl(4, 3), false, null);
+		String resultString = ProtocolManager.getParser()
+				.getBoardConfiguration(new BackgammonBoardImpl(),
+						new DiceImpl(4, 3), false, null);
 		assertEquals(
 				resultString,
 				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 4 3 0 ");
@@ -160,9 +169,9 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting board configuration with invalid move for game over status.
 	 */
 	public void testGetBoardConfigurationInvalidMove() {
-		String resultString = ProtocolParser.getBoardConfiguration(
-				new BackgammonBoardImpl(), null, false,
-				GameOverStatus.INVALID_MOVE);
+		String resultString = ProtocolManager.getParser()
+				.getBoardConfiguration(new BackgammonBoardImpl(), null, false,
+						GameOverStatus.INVALID_MOVE);
 		assertEquals(
 				resultString,
 				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 11 ");
@@ -172,7 +181,7 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting board configuration with exception for game over status.
 	 */
 	public void testGetBoardConfigurationException() {
-		String resultString = ProtocolParser
+		String resultString = ProtocolManager.getParser()
 				.getBoardConfiguration(new BackgammonBoardImpl(), null, true,
 						GameOverStatus.EXCEPTION);
 		assertEquals(
@@ -181,11 +190,13 @@ public class ProtocolParserTestCase extends TestCase {
 	}
 
 	/**
-	 * Tests getting board configuration with timed out move for game over status.
+	 * Tests getting board configuration with timed out move for game over
+	 * status.
 	 */
 	public void testGetBoardConfigurationTimedOut() {
-		String resultString = ProtocolParser.getBoardConfiguration(
-				new BackgammonBoardImpl(), null, true, GameOverStatus.TIMEDOUT);
+		String resultString = ProtocolManager.getParser()
+				.getBoardConfiguration(new BackgammonBoardImpl(), null, true,
+						GameOverStatus.TIMEDOUT);
 		assertEquals(
 				resultString,
 				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 6 ");
@@ -195,8 +206,9 @@ public class ProtocolParserTestCase extends TestCase {
 	 * Tests getting board configuration with double win for game over status.
 	 */
 	public void testGetBoardConfigurationDoubleWin() {
-		String resultString = ProtocolParser.getBoardConfiguration(
-				new BackgammonBoardImpl(), null, true, GameOverStatus.DOUBLE);
+		String resultString = ProtocolManager.getParser()
+				.getBoardConfiguration(new BackgammonBoardImpl(), null, true,
+						GameOverStatus.DOUBLE);
 		assertEquals(
 				resultString,
 				"2 1 0 1 0 1 0 1 0 1 5 0 0 1 3 0 0 1 0 1 0 1 5 1 5 0 0 1 0 1 0 1 3 1 0 1 5 1 0 1 0 1 0 1 0 1 2 0 0 0 0 0 1 1 2 ");
