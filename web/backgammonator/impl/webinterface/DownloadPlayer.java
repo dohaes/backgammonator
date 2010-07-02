@@ -28,14 +28,23 @@ public final class DownloadPlayer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
-		ServletOutputStream output = res.getOutputStream();
-		PrintWriter out = new PrintWriter(output);
-		Util.printHeader(req, out, "Download Player", Util.USER);
-
 		Account user = Util.getCurrentUser(req);
-		if (!Util.checkCredentials(out, user, Util.USER)) {
+
+		if (user == null || user.isAdmin()) {
+			PrintWriter out = res.getWriter();
+			Util.printHeader(req, out, "Download Source", Util.USER);
+			String message = "You have tried to access an invalid page.";
+			if (user == null) {
+				Util.redirect(out, Util.LOGIN_HOME, message);
+			} else if (!user.isAdmin()) {
+				Util.redirect(out, Util.USER_HOME, message);
+			} else {
+				Util.redirect(out, Util.ADMIN_HOME, message);
+			}
+			Util.redirect(out, Util.USER_HOME, "No source available!");
 			return;
 		}
+
 		File userDir = new File(StartTournamentServlet.UPLOAD_DIR, user
 				.getUsername());
 		if (userDir.exists() && userDir.isDirectory()) {
@@ -48,12 +57,15 @@ public final class DownloadPlayer extends HttpServlet {
 			if (java != null && java.length > 0) {
 				File file = new File(userDir, java[0]);
 				if (file.exists()) {
+					ServletOutputStream output = res.getOutputStream();
 					downloadFile(res, output, file);
 					return;
 				}
 			}
 		}
 
+		PrintWriter out = res.getWriter();
+		Util.printHeader(req, out, "Download Source", Util.USER);
 		Util.redirect(out, Util.USER_HOME, "No source available!");
 		Util.printFooter(out);
 	}

@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import backgammonator.impl.common.Backgammonator;
+import backgammonator.impl.protocol.ProcessingException;
 import backgammonator.impl.protocol.SourceProcessor;
 import backgammonator.lib.db.Account;
 import backgammonator.util.BackgammonatorConfig;
@@ -48,7 +49,7 @@ public final class SourceUploadServlet extends HttpServlet {
 			throws IOException {
 		PrintWriter out = res.getWriter();
 		Util.printHeader(req, out, "Source Upload", Util.USER);
-		
+
 		Account user = Util.getCurrentUser(req);
 		if (!Util.checkCredentials(out, user, Util.USER)) {
 			return;
@@ -109,6 +110,9 @@ public final class SourceUploadServlet extends HttpServlet {
 			InputStream is = null;
 			String filename = file.getName();
 			String validationMessage = null;
+			boolean hasError = false;
+
+			File userDir = new File(UPLOADS_DIR, user.getUsername());
 
 			try {
 				if (!verify(filename, java)) {
@@ -119,8 +123,6 @@ public final class SourceUploadServlet extends HttpServlet {
 				if (!UPLOADS_DIR.exists()) {
 					UPLOADS_DIR.mkdirs();
 				}
-
-				File userDir = new File(UPLOADS_DIR, user.getUsername());
 				if (!userDir.exists()) {
 					userDir.mkdirs();
 				} else {
@@ -142,7 +144,14 @@ public final class SourceUploadServlet extends HttpServlet {
 				}
 				fos.flush();
 
-				if (validate) {
+				try {
+					SourceProcessor.processSource(uploaded.getAbsolutePath());
+				} catch (ProcessingException pe) {
+					hasError = true;
+					validationMessage = pe.getMessage();
+				}
+
+				if (!hasError && validate) {
 					validationMessage = SourceProcessor.validateSource(uploaded
 							.getAbsolutePath());
 				}
@@ -154,9 +163,15 @@ public final class SourceUploadServlet extends HttpServlet {
 					is.close();
 				}
 			}
+			
+			if (hasError) {
+				ReportsServlet.deleteDirectory(userDir);
+			}
 
-			Util.redirect(out, Util.USER_HOME, "Upload successful."
-					+ (validate ? "<br />" + validationMessage : ""));
+			Util.redirect(out, Util.USER_HOME,
+					(hasError ? "Upload unsuccessful." : "Upload successful.")
+							+ (validationMessage != null ? "<br />"
+									+ validationMessage : ""));
 		} catch (Exception e) {
 			Util.redirect(out, Util.USER_HOME, e.getMessage());
 
