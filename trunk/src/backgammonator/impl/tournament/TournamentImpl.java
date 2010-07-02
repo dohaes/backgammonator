@@ -76,7 +76,7 @@ public class TournamentImpl implements Tournament {
 			TournamentConfiguration config, TournamentLogger logger)
 			throws TournamentException {
 		if (players == null || players.size() < 2) {
-			throw new TournamentException("Players must be more than 2.");
+			throw new TournamentException("Players count must be more than 2.");
 		}
 		return runGroup(players, config, logger);
 	}
@@ -84,9 +84,11 @@ public class TournamentImpl implements Tournament {
 	private TournamentResult executeElimintaions(List<Player> players,
 			TournamentConfiguration config, TournamentLogger logger)
 			throws TournamentException {
-		if (players == null || players.size() < 2
-				|| (players.size() & (players.size() - 1)) != 0) {
-			throw new TournamentException("Players must be more than 2.");
+		if (players == null || players.size() < 2) {
+			throw new TournamentException("Players count must be more than 2.");
+		}
+		if ((players.size() & (players.size() - 1)) != 0) {
+			throw new TournamentException("Players count must be power of 2.");
 		}
 		return runEliminations(players, config, logger);
 	}
