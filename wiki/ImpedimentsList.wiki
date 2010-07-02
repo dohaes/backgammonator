@@ -1,13 +1,7 @@
-#summary One-sentence summary of this page.
+#summary List of impediments during the sprints
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+|| *Sprint* || *Impediments* || *Decisions for next sprint* ||
+||Sprint1|| Underestimation of the time needed to complete the planned tasks which led to overloading of the team members||Maybe take less points next sprint||
+|| Sprint 2|| Unexpected and unplanned absence of one of the team members(Andrei Penchev) during the whole sprint||Increase the time planned for working on the project in order cope with delays||
+||Sprint 3 || None || - ||
+||Sprint 4 || None || - ||
