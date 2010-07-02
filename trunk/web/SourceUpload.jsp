@@ -16,4 +16,10 @@ Programming language: <input type="radio" name="language" value="java" checked>J
     document.submitform.submitbutton.disabled=true;
     document.submitform.submit();" />
 </form>
+<div class="props">
+<b>Environment Information<br/><br/></b>
+OS: <%=Util.getOS()%><br/><br/>
+<%=Util.getJVMVersion()%><br/>
+<%=Util.getGCCVersion()%>
+</div>
 <% Util.printFooter(out); %>

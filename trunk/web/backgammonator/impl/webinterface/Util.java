@@ -97,11 +97,11 @@ public class Util {
 				+ "<td width='200px' style='vertical" + "-align:" + " top;'>");
 
 		if (user != null && user.isAdmin()) {
-			out.print("<a href='StartTournament.jsp'>Start Tournament</a>"
-					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>"
-					+ "<br /><a href='ManageRegistrations.jsp'>Manage Registrations</a>"
-					+ "<br /><a href='DownloadSources.jsp'>Download Sources</a>"
-					);
+			out
+					.print("<a href='StartTournament.jsp'>Start Tournament</a>"
+							+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>"
+							+ "<br /><a href='ManageRegistrations.jsp'>Manage Registrations</a>"
+							+ "<br /><a href='DownloadSources.jsp'>Download Sources</a>");
 		}
 		if (user != null && !user.isAdmin()) {
 			out.print("<a href='SourceUpload.jsp'>Source Upload</a><br />"
@@ -277,20 +277,21 @@ public class Util {
 	 * Retrieves the version of the used g++ compiler.
 	 */
 	public static String getGCCVersion() {
-		return gccVersion;
+		return gccVersion == null || gccVersion.length() == 0 ? "g++ (GCC) 3.4.5 (mingw-vista special r3)<br/>Copyright (C) 2004 Free Software Foundation, Inc."
+				: gccVersion.replaceAll("\n", "<br/>");
 	}
 
 	/**
 	 * Retrieves the version of the used JVM.
 	 */
 	public static String getJVMVersion() {
-		return jvmVersion;
+		return jvmVersion == null ? "" : jvmVersion.replaceAll("\n", "<br/>");
 	}
 
 	/**
 	 * Retrieves the OS.
 	 */
 	public static String getOS() {
-		return os;
+		return os == null ? "" : os;
 	}
 }
