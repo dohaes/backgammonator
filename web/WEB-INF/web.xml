@@ -5,6 +5,11 @@
 	version="2.4">
 
 	<servlet>
+		<servlet-name>DownloadSources</servlet-name>
+		<servlet-class>backgammonator.impl.webinterface.DownloadSources</servlet-class>
+	</servlet>
+
+	<servlet>
 		<servlet-name>StartTournamentServlet</servlet-name>
 		<servlet-class>backgammonator.impl.webinterface.StartTournamentServlet</servlet-class>
 	</servlet>
@@ -82,6 +87,11 @@
 	<servlet-mapping>
 		<servlet-name>ManageRegistrationsServlet</servlet-name>
 		<url-pattern>/manageregistrations</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DownloadSources</servlet-name>
+		<url-pattern>/downloadsources</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
