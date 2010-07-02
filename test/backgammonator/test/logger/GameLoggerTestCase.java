@@ -29,7 +29,7 @@ public class GameLoggerTestCase extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		this.gameLogger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
+		this.gameLogger = GameLoggerFactory.getLogger();
 		SamplePlayer whitePlayer = new SamplePlayer(1);
 		SamplePlayer blackPlayer = new SamplePlayer(2);
 		this.gameLogger.startGame(whitePlayer, blackPlayer);

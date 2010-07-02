@@ -57,7 +57,7 @@ final class GameImpl implements Game {
 		this.logMoves = logMoves;
 		board = new BackgammonBoardImpl();
 		if (logMoves) {
-			logger = GameLoggerFactory.getLogger(GameLoggerFactory.HTML);
+			logger = GameLoggerFactory.getLogger();
 		}
 	}
 
