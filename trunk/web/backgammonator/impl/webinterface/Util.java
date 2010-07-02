@@ -100,6 +100,7 @@ public class Util {
 			out.print("<a href='StartTournament.jsp'>Start Tournament</a>"
 					+ "<br /><a href='ManageReports.jsp'>Manage Reports</a>"
 					+ "<br /><a href='ManageRegistrations.jsp'>Manage Registrations</a>"
+					+ "<br /><a href='DownloadSources.jsp'>Download Sources</a>"
 					);
 		}
 		if (user != null && !user.isAdmin()) {
