@@ -24,9 +24,8 @@ public final class ReportsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7345160614448725636L;
 
-	private final static File REPORT_DIR = new File(
-			BackgammonatorConfig.getProperty("backgammonator.logger.outputDir",
-					"reports"));
+	private final static File REPORT_DIR = new File(BackgammonatorConfig
+			.getProperty("backgammonator.logger.outputDir", "reports"));
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
@@ -107,7 +106,13 @@ public final class ReportsServlet extends HttpServlet {
 		out.println("</table>");
 	}
 
-	private boolean deleteDirectory(File path) {
+	/**
+	 * Deletes the directory and all subdirectories.
+	 * 
+	 * @param path the directory to delete.
+	 * @return true if the directory is deleted successfully.
+	 */
+	public static boolean deleteDirectory(File path) {
 		File[] files = path.listFiles();
 		for (int i = 0; i < files.length; i++) {
 			if (files[i].isDirectory()) {
