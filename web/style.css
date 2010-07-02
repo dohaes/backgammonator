@@ -21,6 +21,14 @@ table.internal
 	font-weight: bold;
 }
 
+.props
+{
+	font-family: "Calibri";
+	font-size: 16px;
+	font-weight: normal;
+	color: #003399;
+}
+
 h1.header
 {
 	color: #003399;
