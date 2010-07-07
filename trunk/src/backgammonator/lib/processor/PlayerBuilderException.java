@@ -1,9 +1,9 @@
-package backgammonator.impl.protocol;
+package backgammonator.lib.processor;
 
 /**
  * Custom exception which can be thrown during source processing.
  */
-public class ProcessingException extends Exception {
+public class PlayerBuilderException extends Exception {
 
 	private static final long serialVersionUID = 6926729429088689254L;
 	private int code;
@@ -38,12 +38,12 @@ public class ProcessingException extends Exception {
 	public static final int UNEXPECTED_ERROR = 5;
 
 	/**
-	 * Constructs a new {@link ProcessingException} object.
+	 * Constructs a new {@link PlayerBuilderException} object.
 	 * 
 	 * @param code the error code.
 	 * @param message the message for the error
 	 */
-	public ProcessingException(int code, String message) {
+	public PlayerBuilderException(int code, String message) {
 		super(message);
 		this.code = code;
 	}

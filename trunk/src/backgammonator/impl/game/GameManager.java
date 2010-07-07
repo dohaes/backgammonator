@@ -1,9 +1,9 @@
 package backgammonator.impl.game;
 
-import backgammonator.impl.protocol.ProcessingException;
-import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.impl.processor.SourceProcessor;
 import backgammonator.lib.game.Game;
 import backgammonator.lib.game.Player;
+import backgammonator.lib.processor.PlayerBuilderException;
 import backgammonator.util.Debug;
 
 /**
@@ -40,7 +40,7 @@ public class GameManager {
 		try {
 			return new GameImpl(SourceProcessor.processSource(white), SourceProcessor
 					.processSource(black), logMoves);
-		} catch (ProcessingException e) {
+		} catch (PlayerBuilderException e) {
 			Debug.getInstance().error("Error during source compilation", Debug.GAME_LOGIC, e);
 			return null;
 		}

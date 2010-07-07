@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 
 import backgammonator.impl.common.Backgammonator;
-import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.impl.processor.SourceProcessor;
 import backgammonator.impl.tournament.TournamentManager;
 import backgammonator.lib.game.Player;
 import backgammonator.lib.tournament.Tournament;

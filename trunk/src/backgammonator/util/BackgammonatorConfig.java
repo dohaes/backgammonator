@@ -15,7 +15,15 @@ public final class BackgammonatorConfig {
 	private static Properties properties = new Properties();
 	private static File propertiesFile = new File("backgammonator.properties");
 
+	/**
+	 * Identifies if the backgammonator system is running on Windows.
+	 */
+	public static boolean windows = false;
+
 	static {
+		// determine OS
+		String osname = System.getProperty("os.name");
+		windows = osname != null && osname.toLowerCase().startsWith("win");
 		// load the properties
 		if (propertiesFile.exists()) {
 			// try to load the properties from the

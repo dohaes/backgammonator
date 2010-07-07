@@ -17,9 +17,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import backgammonator.impl.common.Backgammonator;
-import backgammonator.impl.protocol.ProcessingException;
-import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.impl.processor.SourceProcessor;
 import backgammonator.lib.db.Account;
+import backgammonator.lib.processor.PlayerBuilderException;
 import backgammonator.util.BackgammonatorConfig;
 
 /**
@@ -146,7 +146,7 @@ public final class SourceUploadServlet extends HttpServlet {
 
 				try {
 					SourceProcessor.processSource(uploaded.getAbsolutePath());
-				} catch (ProcessingException pe) {
+				} catch (PlayerBuilderException pe) {
 					hasError = true;
 					validationMessage = pe.getMessage();
 				}
