@@ -7,10 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import backgammonator.impl.protocol.ProcessingException;
-import backgammonator.impl.protocol.SourceProcessor;
+import backgammonator.impl.processor.SourceProcessor;
 import backgammonator.lib.game.GameOverStatus;
 import backgammonator.lib.game.Player;
+import backgammonator.lib.processor.PlayerBuilderException;
 import junit.framework.TestCase;
 
 /**
@@ -60,7 +60,7 @@ public class SourceProcessorTestCase extends TestCase {
 		try {
 			SourceProcessor.processSource(fileName1);
 			fail("Excpected ProcessingException to be thrown");
-		} catch (ProcessingException e) {
+		} catch (PlayerBuilderException e) {
 			// OK
 		} catch (Throwable t) {
 			fail("Unexpected exception was thrown : " + t.getMessage());
