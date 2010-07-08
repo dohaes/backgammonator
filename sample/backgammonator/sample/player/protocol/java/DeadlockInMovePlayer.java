@@ -15,6 +15,7 @@ public class DeadlockInMovePlayer {
 	 * @param args ignored
 	 */
 	public static void main(String[] args) {
+		new Thread(new DeadlockRunnable()).start();
 		try {
 			synchronized (monitor1) {
 				Thread.sleep(500);
@@ -29,7 +30,7 @@ public class DeadlockInMovePlayer {
 	/**
 	 * Runnable that causes a deadlock with the game thread.
 	 */
-	class DeadlockRunnable implements Runnable {
+	static class DeadlockRunnable implements Runnable {
 
 		@SuppressWarnings("synthetic-access")
 		@Override
