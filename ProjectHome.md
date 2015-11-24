@@ -1,0 +1,1 @@
+Backgammonator is a programming contest, where the goal is to develop an AI player to play backgammon against other AI players. The contestants implement their programs in Java, C/C++ or Python using a provided protocol for communication.
